@@ -1,0 +1,5 @@
+@if $direction {
+	@import '~bootstrap/dist/css/bootstrap-grid.rtl.min.css';
+} @else {
+	@import '~bootstrap/dist/css/bootstrap-grid.min.css';
+}

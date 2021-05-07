@@ -1,0 +1,6 @@
+
+@if $direction {
+	@import '~bootstrap/dist/css/bootstrap-reboot.rtl.min.css';
+} @else {
+	@import '~bootstrap/dist/css/bootstrap-reboot.min.css';
+}

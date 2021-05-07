@@ -1,0 +1,10 @@
+// Base Settins
+$page-settings: (
+	'rtl': true
+);
+
+// Global Variables
+$direction: map-get(
+	$map: $page-settings,
+	$key: 'rtl'
+);
