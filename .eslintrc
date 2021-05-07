@@ -1,0 +1,27 @@
+{
+	"extends": [
+		"react-app",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:jest/recommended",
+		"plugin:prettier/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript"
+	],
+	"plugins": ["react", "@typescript-eslint", "jest"],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"moduleDirectory": ["node_modules", "src/"],
+				"extensions": [".ts", ".tsx"]
+			}
+		}
+	},
+	"rules": {
+		"import/no-unresolved": [2, { "commonjs": true, "amd": true }],
+		"import/named": 2,
+		"import/namespace": 2,
+		"import/default": 2,
+		"import/export": 2
+	}
+}

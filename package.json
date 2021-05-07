@@ -1,7 +1,7 @@
 {
 	"name": "cra-template-rtb",
 	"version": "0.1.0",
-	"private": true,
+	"private": false,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.12.0",
 		"@testing-library/react": "^11.2.6",
@@ -22,17 +22,6 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "pretty-quick --pattern \"**/*.*(ts|tsx)\""
-		}
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
 	"browserslist": {
 		"production": [
 			">0.2%",
@@ -46,7 +35,11 @@
 		]
 	},
 	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.22.1",
+		"@typescript-eslint/parser": "^4.22.1",
 		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jest": "^24.3.6",
 		"eslint-plugin-prettier": "^3.4.0",
 		"husky": "^4.3.6",
 		"prettier": "2.2.1",
