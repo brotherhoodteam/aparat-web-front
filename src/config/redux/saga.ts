@@ -1,6 +1,6 @@
 import { call, all } from 'redux-saga/effects'
 
-function* rootSaga() {
+function* appSaga() {
 	yield all([])
 }
-export default rootSaga
+export default appSaga

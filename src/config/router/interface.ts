@@ -1,4 +1,4 @@
-import { Access } from './router.config'
+import { Access } from './config'
 
 export type ComponnetType = { routes?: Array<RouteType> }
 export interface RouteType {

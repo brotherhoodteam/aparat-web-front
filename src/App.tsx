@@ -1,11 +1,11 @@
 import React from 'react'
 import { Redirect, Switch } from 'react-router'
 import RouteWithSubRoutes from './config/router/route-with-sub-routes'
-import appRouter from './routes/app.router'
+import appRouter from './routes'
 import { RouteType } from './config/router/interface'
-import { Access } from './config/router/router.config'
-import withGuestRoute from './config/router/with-guest-route.hoc'
-import withProtectedRoute from './config/router/with-protected-route.hoc'
+import { Access } from './config/router/config'
+import withGuestRoute from './config/router/with-guest-route'
+import withProtectedRoute from './config/router/with-protected-route'
 
 const App: React.FC = () => {
 	const isLoggedIn = false

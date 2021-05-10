@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorBoundary from '../config/exceptions/exseptions.error-boundary'
+import ErrorBoundary from '../config/exceptions/error-boundary'
 
 function withErrorHandler(
 	WrappedComponent: React.FC,

@@ -1,3 +1,3 @@
-import axiosInstance from './axios.config'
+import axiosInstance from './config'
 
 export default axiosInstance

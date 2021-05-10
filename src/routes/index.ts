@@ -1,6 +1,6 @@
 import { lazy } from 'react'
 import { RouterType } from '../config/router/interface'
-import { Access } from '../config/router/router.config'
+import { Access } from '../config/router/config'
 
 const HomeContainer = lazy(() => import('../resources/containers/home'))
 const PanelContainer = lazy(() => import('../resources/containers/panel'))
