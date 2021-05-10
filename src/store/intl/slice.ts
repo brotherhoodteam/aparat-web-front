@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import Locales from '../../config/react-intl/constants'
-import { IntlState, SetLocaleAction } from './interface'
+import Locales from '../../core/react-intl/types'
+import { IntlState, SetLocaleAction } from './types'
 
 // Define the initial state
 const initialState: IntlState = {

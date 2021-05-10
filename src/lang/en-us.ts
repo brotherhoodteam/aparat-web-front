@@ -1,4 +1,4 @@
-import Locales from '../config/react-intl/constants'
+import Locales from '../core/react-intl/types'
 
 const ENGLISH_US = {
 	[Locales.ENGLISH_US]: {

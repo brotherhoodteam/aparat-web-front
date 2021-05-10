@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { selectIntlLocale } from '../store/intl/selector'
+import { selectIntlLocale } from '../store/intl/selectors'
 import { setLocale } from '../store/intl/slice'
-import useTypedDispatch from './useTypeDispatch'
-import { LocaleType } from '../store/intl/interface'
+import useTypedDispatch from './use-typed-dispatch'
+import { LocaleType } from '../store/intl/types'
 
 const useIntl = () => {
 	const locale = useSelector(selectIntlLocale)

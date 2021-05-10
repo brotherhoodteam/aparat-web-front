@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom'
-import { RouteType } from './interface'
+import { RouteType } from '../types'
 
 interface PropType extends RouteType {}
 

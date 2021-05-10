@@ -1,4 +1,4 @@
-import axiosInstance from './config'
+import axiosInstance from './index'
 // import { tokenService } from 'services'
 
 // axiosaxiosInstance Global Config  ::Interceptor
