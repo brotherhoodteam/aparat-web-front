@@ -5,11 +5,16 @@ import appReducer from './reducer'
 import appSaga from './saga'
 
 const saga = createSagaMiddleware()
-const middleware = [logger, saga]
+
+const middleware: any = [saga]
+
+if (process.env.NODE_ENV === 'development') {
+	middleware.push(logger)
+}
 
 const store = configureStore({
 	reducer: appReducer,
-	middleware: [...getDefaultMiddleware({ thunk: false }), ...middleware],
+	middleware: [...getDefaultMiddleware({ thunk: false, logger: false }), ...middleware],
 	devTools: process.env.NODE_ENV === 'development'
 })
 
