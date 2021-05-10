@@ -9,6 +9,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 const RouterComponent = () => {
 	const isLoggedIn = false
+	const guestRedirectPath = process.env.REACT_APP_GUEST_REDIRECT_PATH || '/'
+	const protectedRedirectPath = process.env.REACT_APP_PROTECTED_REDIRECT_PATH || '/'
 
 	return (
 		<BrowserRouter>
@@ -22,7 +24,7 @@ const RouterComponent = () => {
 							const Component = withGuestRoute({
 								component: route.component,
 								auth: isLoggedIn,
-								redirectPath: '/'
+								redirectPath: guestRedirectPath
 							})
 							return (
 								<RouteWithSubRoutes key={route.name} {...route} component={Component} />
@@ -32,7 +34,7 @@ const RouterComponent = () => {
 							const Component = withProtectedRoute({
 								component: route.component,
 								auth: isLoggedIn,
-								redirectPath: '/'
+								redirectPath: protectedRedirectPath
 							})
 							return (
 								<RouteWithSubRoutes key={route.name} {...route} component={Component} />
