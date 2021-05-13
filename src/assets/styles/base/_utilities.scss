@@ -1,0 +1,192 @@
+// @if $direction {
+// 	@import '~bootstrap/dist/css/bootstrap-utilities.rtl.min.css';
+// } @else {
+// 	@import '~bootstrap/dist/css/bootstrap-utilities.min.css';
+// }
+
+/*------------------------------------
+  Position Spaces
+------------------------------------*/
+.position-absolute {
+	position: absolute;
+}
+.position-fixed {
+	position: fixed;
+}
+
+.position-relative {
+	position: relative;
+}
+.top-0 {
+	top: 0;
+}
+
+.right-0 {
+	right: 0;
+}
+
+.bottom-0 {
+	bottom: 0;
+}
+
+.left-0 {
+	left: 0;
+}
+
+// Small Devices
+@include media-breakpoint-up(sm) {
+	.position-sm-absolute {
+		position: absolute;
+	}
+	.position-sm-fixed {
+		position: fixed;
+	}
+
+	.position-sm-relative {
+		position: relative;
+	}
+
+	.top-sm-0 {
+		top: 0;
+	}
+
+	.right-sm-0 {
+		right: 0;
+	}
+
+	.bottom-sm-0 {
+		bottom: 0;
+	}
+
+	.left-sm-0 {
+		left: 0;
+	}
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+	.position-md-absolute {
+		position: absolute;
+	}
+	.position-md-fixed {
+		position: fixed;
+	}
+
+	.position-md-relative {
+		position: relative;
+	}
+	.top-md-0 {
+		top: 0;
+	}
+
+	.right-md-0 {
+		right: 0;
+	}
+
+	.bottom-md-0 {
+		bottom: 0;
+	}
+
+	.left-md-0 {
+		left: 0;
+	}
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+	.position-lg-absolute {
+		position: absolute;
+	}
+	.position-lg-fixed {
+		position: fixed;
+	}
+
+	.position-lg-relative {
+		position: relative;
+	}
+	.top-lg-0 {
+		top: 0;
+	}
+
+	.right-lg-0 {
+		right: 0;
+	}
+
+	.bottom-lg-0 {
+		bottom: 0;
+	}
+
+	.left-lg-0 {
+		left: 0;
+	}
+}
+
+@for $i from 1 to 10 {
+	.z-index-#{$i} {
+		z-index: $i;
+	}
+}
+
+// typeography
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #1e2022;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	line-height: 1.4;
+	color: #1e2022;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+}
+.display-4 {
+	font-size: 1.75rem;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.text-capitalize {
+	text-transform: capitalize;
+}
+
+// align
+.text-center {
+	text-align: center !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.text-left {
+	text-align: left !important;
+}

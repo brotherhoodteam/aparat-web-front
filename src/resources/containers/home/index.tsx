@@ -1,4 +1,4 @@
-const HomeContainer: React.FC = props => {
-	return <div>Home Container</div>
+const HomeContainer: React.FC = () => {
+	return <div>HomeConyapiner</div>
 }
 export default HomeContainer

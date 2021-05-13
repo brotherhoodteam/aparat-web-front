@@ -1,13 +1,15 @@
 import { lazy } from 'react'
 import { RouterType } from '../core/router/types'
 import { Access } from '../core/router/config'
+// import HomeContainer from '../resources/containers/home'
+// import SignInContainer from '../resources/containers/sign-in'
+// import NotFoundContainer from '../resources/containers/notfound'
 
 const HomeContainer = lazy(() => import('../resources/containers/home'))
-const PanelContainer = lazy(() => import('../resources/containers/panel'))
+const SignInContainer = lazy(() => import('../resources/containers/sign-in'))
 const NotFoundContainer = lazy(() => import('../resources/containers/notfound'))
-const PanelEditPage = lazy(() => import('../resources/pages/panel/edit'))
 
-const appRouter: RouterType = [
+const router: RouterType = [
 	{
 		name: 'home',
 		path: '/',
@@ -16,20 +18,11 @@ const appRouter: RouterType = [
 		component: HomeContainer
 	},
 	{
-		name: 'panel',
-		path: '/panel',
-		exact: false,
-		access: Access.PROTECTED,
-		component: PanelContainer,
-		routes: [
-			{
-				name: 'edit',
-				path: '/panel/edit',
-				exact: false,
-				access: Access.PROTECTED,
-				component: PanelEditPage
-			}
-		]
+		name: 'signin',
+		path: '/signin',
+		exact: true,
+		access: Access.GUEST,
+		component: SignInContainer
 	},
 	{
 		name: 'notfound',
@@ -40,4 +33,4 @@ const appRouter: RouterType = [
 	}
 ]
 
-export default appRouter
+export default router

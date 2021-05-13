@@ -1,0 +1,20 @@
+.divider {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	&::after,
+	&::before {
+		-ms-flex: 1 1 0%;
+		flex: 1 1 0%;
+		border-top: 0.0625rem solid #e7eaf3;
+		content: '';
+		margin-top: 0.0625rem;
+	}
+	&::before {
+		margin-left: 1.5rem;
+	}
+    &::after {
+		margin-right: 1.5rem;
+	}
+}

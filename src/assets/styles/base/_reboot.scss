@@ -1,6 +1,55 @@
-
 @if $direction {
 	@import '~bootstrap/dist/css/bootstrap-reboot.rtl.min.css';
 } @else {
 	@import '~bootstrap/dist/css/bootstrap-reboot.min.css';
+}
+
+body {
+	margin: 0;
+	font-family: iranyekan, 'Open Sans', sans-serif;
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.6;
+	color: #677788;
+	text-align: left;
+	background-color: #fff;
+}
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+	display: block;
+}
+
+main {
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+
+figure {
+	margin-bottom: 0;
+}
+svg {
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+a {
+	color: #377dff;
+	text-decoration: none;
+	background-color: transparent;
+	&:hover {
+		color: #0052ea;
+		text-decoration: none;
+	}
 }

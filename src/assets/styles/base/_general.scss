@@ -1,0 +1,78 @@
+// background
+.bg-img-hero {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+}
+
+[type='button'],
+[type='reset'],
+[type='submit'],
+button {
+	-webkit-appearance: button;
+}
+button,
+select {
+	text-transform: none;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+button,
+input {
+	overflow: visible;
+}
+
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled),
+button:not(:disabled) {
+	cursor: pointer;
+}
+
+label {
+	display: inline-block;
+	margin-bottom: 0.5rem;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+:focus,
+a:focus,
+button:focus {
+	outline: 0;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+button,
+input {
+	overflow: visible;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}

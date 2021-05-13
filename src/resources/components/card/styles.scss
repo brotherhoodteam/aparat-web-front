@@ -1,0 +1,26 @@
+.card {
+	$self: &;
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 0.0625rem solid rgba(231, 234, 243, 0.7);
+	border-radius: 0.75rem;
+	box-shadow: 0 6px 12px rgb(140 152 164 / 8%);
+
+	&-body {
+		-ms-flex: 1 1 auto;
+		flex: 1 1 auto;
+		min-height: 1px;
+		padding: 1.3125rem;
+
+		#{$self}-lg & {
+			padding: 2rem 2rem;
+		}
+	}
+}

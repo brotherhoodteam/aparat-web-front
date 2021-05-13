@@ -1,5 +1,5 @@
 enum Locales {
-	DEFAULT = 'en',
+	DEFAULT = 'fa',
 	ENGLISH_US = 'en',
 	FARSI = 'fa'
 }

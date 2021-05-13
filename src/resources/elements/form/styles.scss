@@ -1,0 +1,93 @@
+.form-group {
+	margin-bottom: 1.5rem;
+}
+
+.input-label {
+	display: block;
+	color: #1e2022;
+	font-size: 0.875rem;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	height: calc(1.6em + 1.21875rem);
+	padding: 0.54688rem 0.875rem;
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.6;
+	color: #1e2022;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 0.0625rem solid #e7eaf3;
+	border-radius: 0.3125rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control-lg {
+	height: calc(1.5em + 1.875rem);
+	padding: 0.875rem 1.09375rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.3125rem;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+	border-color: #ed4c78;
+}
+.form-control.is-invalid {
+	background-size: 1rem 1rem;
+}
+
+.form-control.is-invalid,
+.form-control.is-invalid:focus {
+	box-shadow: 0 0 10px rgb(237 76 120 / 10%);
+}
+
+.form-control:focus {
+	color: #1e2022;
+	background-color: #fff;
+	border-color: rgba(55, 125, 255, 0.4);
+	outline: 0;
+	box-shadow: 0 0 10px rgba(55, 125, 255, 0.1);
+}
+.form-control::placeholder {
+	font-size: .9rem;
+}
+.form-control::-webkit-input-placeholder {
+	color: #97a4af;
+	opacity: 1;
+}
+.form-control::-moz-placeholder {
+	color: #97a4af;
+	opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+	color: #97a4af;
+	opacity: 1;
+}
+.form-control::-ms-input-placeholder {
+	color: #97a4af;
+	opacity: 1;
+}
+.form-control::placeholder {
+	color: #97a4af;
+	opacity: 1;
+}
+
+.custom-select:focus,
+.form-control:focus {
+	box-shadow: 0 0 10px rgb(55 125 255 / 10%);
+}
+
+.form-control:focus {
+	box-shadow: 0 0 0 0 transparent;
+}
+.form-control:focus {
+	color: #1e2022;
+	background-color: #fff;
+	border-color: rgba(55, 125, 255, 0.4);
+	outline: 0;
+	box-shadow: 0 0 10px rgb(55 125 255 / 10%);
+}

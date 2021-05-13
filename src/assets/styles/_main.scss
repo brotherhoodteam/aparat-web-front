@@ -1,5 +1,6 @@
 // Sass
 @import './base/abstract';
+@import './mixins/media.scss';
 @import './base/settings';
 @import './base/reboot';
 @import './base/variables';
@@ -7,3 +8,4 @@
 @import './layout/gird';
 @import './base/utilities';
 @import './typography/typograpy';
+@import './components/avatar' 

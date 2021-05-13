@@ -8,3 +8,5 @@ const useTypedDispatch = (): Dispatch<ActionType> => {
 }
 
 export default useTypedDispatch
+
+// dispatch(setLocale())
