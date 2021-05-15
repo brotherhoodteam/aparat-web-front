@@ -1,5 +1,7 @@
+import { Fragment } from 'react'
 import useClass from '../../../hooks/use-class'
 import { UiColors, UiVariants } from '../../../interface/ui'
+import Spinner from '../spinner'
 
 import './styles.scss'
 
@@ -12,6 +14,9 @@ interface Props {
 	classNames?: string
 	size?: 'xs ' | 'sm' | 'md' | 'lg'
 	block?: boolean
+	loader?: boolean
+	loaderText?: string
+	disanled?: boolean
 }
 
 const Button: React.FC<Props> = ({
@@ -24,6 +29,9 @@ const Button: React.FC<Props> = ({
 	size,
 	block,
 	children,
+	loader,
+	loaderText,
+	disanled,
 	...props
 }) => {
 	const baseClass = 'btn'
@@ -44,16 +52,31 @@ const Button: React.FC<Props> = ({
 		},
 		otherClass: classNames
 	})
+	const defaultLoaderText = 'لطفا صبر کنید'
 
 	if (as === 'a')
 		return (
 			<a href={href} className={styles} {...props}>
-				{children}
+				{loader ? (
+					<Fragment>
+						<Spinner variants="border" size="sm" />
+						{loaderText ? loaderText : defaultLoaderText}
+					</Fragment>
+				) : (
+					<Fragment>{children}</Fragment>
+				)}
 			</a>
 		)
 	return (
-		<button type={btnType} className={styles} {...props}>
-			{children}
+		<button type={btnType} className={styles} {...props} disabled={loader || disanled}>
+			{loader ? (
+				<Fragment>
+					<Spinner variants="border" size="sm" />
+					{loaderText ? loaderText : defaultLoaderText}
+				</Fragment>
+			) : (
+				<Fragment>{children}</Fragment>
+			)}
 		</button>
 	)
 }

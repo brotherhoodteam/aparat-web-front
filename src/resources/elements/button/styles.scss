@@ -150,3 +150,13 @@ button:not(:disabled) {
 .show > .btn.dropdown-toggle:focus {
 	box-shadow: 0 0 0 0 transparent;
 }
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+	color: #fff;
+	background-color: #377dff;
+	border-color: #377dff;
+}
+.btn.disabled, .btn:disabled {
+    opacity: .65;
+}

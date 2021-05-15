@@ -10,8 +10,13 @@ import Button from '../../elements/button'
 import Divider from '../../elements/divider'
 import SignInForm from '../../components/sign-in-form'
 import Alert from '../../elements/alert'
+import { useSelector } from 'react-redux'
+import { selectUserSignInError } from '../../../store/user/selectors'
+import Avatar from '../../elements/Avatar'
 
 const SignInContainer: React.FC = () => {
+	// TODO باید متن اررور الرت فرم داینامیک شود
+	const formError = useSelector(selectUserSignInError)
 	return (
 		<>
 			{/* HEADER */}
@@ -69,10 +74,12 @@ const SignInContainer: React.FC = () => {
 									<div className="mb-4">
 										<Button as="a" color="white" size="lg" block classNames="mb-4">
 											<span className="d-flex justify-content-center align-items-center">
-												<img
-													src={GoolgleLogo}
-													className="avatar avatar-xss me-2"
+												<Avatar
+													image={GoolgleLogo}
+													size="xs"
+													circle={true}
 													alt="google icon"
+													className="me-2"
 												/>
 												<FormattedMessage id="sign-in-google" />
 											</span>
@@ -84,11 +91,15 @@ const SignInContainer: React.FC = () => {
 										</Divider>
 									</div>
 								</div>
-								<Alert
-									message="ایمیل یا پسورد وارد شده صحیح میباشد"
-									color="danger"
-									className="mb-4"
-								/>
+								{/* Form Error Handler */}
+								<div className="mb-4">
+									<Alert
+										message="ایمیل یا پسورد وارد شده صحیح میباشد"
+										color="danger"
+										animated
+										show={!!formError}
+									/>
+								</div>
 								{/* FORM */}
 								<SignInForm />
 							</CardBody>

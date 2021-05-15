@@ -20,7 +20,7 @@ const SignInForm: React.FC = () => {
 			<Form>
 				<Input name="username" label="نام کاربری" placeholder="" />
 				<Input name="password" label="پسورد" placeholder="حداقل 8 کارکتر وارد نمایید" />
-				<Button type="submit" color="primary" size="lg" block>
+				<Button type="submit" color="primary" size="lg" loader block>
 					ورود
 				</Button>
 			</Form>

@@ -47,3 +47,41 @@
 	background-color: #132144;
 	border-color: #132144;
 }
+
+.alert {
+	&-init {
+		display: block;
+		opacity: 0;
+		height: 0;
+		overflow-y: hidden;
+	}
+	&-show {
+		opacity: 1;
+		height: 48px;
+		overflow-y: hidden;
+		transition: opacity 300ms, height 300ms;
+	}
+	&-active {
+		opacity: 1;
+		height: 48px;
+		overflow-y: hidden;
+		transition: opacity 300ms, height 300ms;
+	}
+	&-exit {
+		height: 0;
+		opacity: 0;
+		height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		overflow: hidden;
+		transition: opacity 300ms, height 300ms, padding-bottom 300ms, padding-top 300ms;
+	}
+	&-hidden {
+		opacity: 0;
+		height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		overflow: hidden;
+		visibility: hidden;
+	}
+}
