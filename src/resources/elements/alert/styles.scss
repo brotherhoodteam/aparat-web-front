@@ -1,0 +1,49 @@
+.alert {
+	position: relative;
+	padding: 0.75rem 1.25rem;
+	margin-bottom: 1rem;
+	border: 0.0625rem solid transparent;
+	border-radius: 0.3125rem;
+}
+.alert-primary {
+	color: #fff;
+	background-color: #377dff;
+	border-color: #377dff;
+}
+.alert-secondary {
+	color: #fff;
+	background-color: #71869d;
+	border-color: #71869d;
+}
+.alert-success {
+	color: #fff;
+	background-color: #00c9a7;
+	border-color: #00c9a7;
+}
+.alert-danger {
+	color: #fff;
+	background-color: #ed4c78;
+	border-color: #ed4c78;
+}
+.alert-warning {
+	color: #1e2022;
+	background-color: #f5ca99;
+	border-color: #f5ca99;
+}
+
+.alert-info {
+	color: #fff;
+	background-color: #00c9db;
+	border-color: #00c9db;
+}
+
+.alert-light {
+	color: #1e2022;
+	background-color: #f9fafc;
+	border-color: #f9fafc;
+}
+.alert-dark {
+	color: #fff;
+	background-color: #132144;
+	border-color: #132144;
+}

@@ -3,12 +3,13 @@ import { Helmet } from 'react-helmet'
 import LogoImage from '../../../assets/images/logo.svg'
 import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
 import GoolgleLogo from '../../../assets/images/google.svg'
-import { Card, CardBody } from '../../components/card'
+import { Card, CardBody } from '../../elements/card'
 import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
 import Button from '../../elements/button'
 import Divider from '../../elements/divider'
 import SignInForm from '../../components/sign-in-form'
+import Alert from '../../elements/alert'
 
 const SignInContainer: React.FC = () => {
 	return (
@@ -83,6 +84,11 @@ const SignInContainer: React.FC = () => {
 										</Divider>
 									</div>
 								</div>
+								<Alert
+									message="ایمیل یا پسورد وارد شده صحیح میباشد"
+									color="danger"
+									className="mb-4"
+								/>
 								{/* FORM */}
 								<SignInForm />
 							</CardBody>
