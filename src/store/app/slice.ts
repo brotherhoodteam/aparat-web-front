@@ -11,9 +11,12 @@ const appSlice = createSlice({
 	reducers: {
 		setAppErrorAcion: (state, action: AppErrorActionPayloadType) => {
 			state.error = action.payload.error
+		},
+		cleanAppErrorAction: state => {
+			state.error = null
 		}
 	}
 })
 
-export const { setAppErrorAcion } = appSlice.actions
+export const { setAppErrorAcion, cleanAppErrorAction } = appSlice.actions
 export default appSlice.reducer

@@ -1,7 +1,7 @@
-import { call, put } from '@redux-saga/core/effects'
+import { call, delay, put } from '@redux-saga/core/effects'
 
 import { ResponseUserType, SignInActionPayloadType } from '../interface'
-import { signInFailedAction, signInSuccessAction } from '../slice'
+import { signInFailedAction, signInReinitAction, signInSuccessAction } from '../slice'
 import api from '../../../core/api'
 import { setAuth } from '../../../utils'
 import { setAppErrorAcion } from '../../app/slice'
@@ -46,6 +46,8 @@ export function* signInActionHandler({
 					}
 				})
 			)
+			yield delay(5000)
+			yield put(signInReinitAction())
 		}
 	}
 }

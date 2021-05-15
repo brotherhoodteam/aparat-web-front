@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from '../core/router/components/router'
+import Notification from '../resources/components/notification'
 
 const MainContainer: React.FC = ({ children }) => {
 	return (
@@ -10,7 +11,12 @@ const MainContainer: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-	return <Router />
+	return (
+		<>
+			<Router />
+			<Notification />
+		</>
+	)
 }
 
 export default App

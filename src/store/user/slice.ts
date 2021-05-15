@@ -18,6 +18,13 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
+		signInReinitAction: state => {
+			state.username = null
+			state.password = null
+			state.user = null
+			state.error = null
+			state.loading = false
+		},
 		signInAction: (state, action: SignInActionPayloadType) => {
 			state.username = action.payload.username
 			state.password = action.payload.password
@@ -30,7 +37,6 @@ const userSlice = createSlice({
 			state.password = null
 			state.user = action.payload.user
 			state.error = null
-
 			state.loading = false
 		},
 		signInFailedAction: (state, action: SignInFailedActionPayloadType) => {
@@ -43,5 +49,10 @@ const userSlice = createSlice({
 	}
 })
 
-export const { signInAction, signInSuccessAction, signInFailedAction } = userSlice.actions
+export const {
+	signInReinitAction,
+	signInAction,
+	signInSuccessAction,
+	signInFailedAction
+} = userSlice.actions
 export default userSlice.reducer

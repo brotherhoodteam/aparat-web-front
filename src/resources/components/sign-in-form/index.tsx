@@ -12,7 +12,7 @@ interface SignInFormType {
 }
 const SignInForm: React.FC = () => {
 	const dispatch = useTypedDispatch()
-	const formLoading = useSelector(selectUserSignInLoading)
+	const signInLoading = useSelector(selectUserSignInLoading)
 
 	const initialValues: SignInFormType = {
 		username: '',
@@ -28,7 +28,7 @@ const SignInForm: React.FC = () => {
 			<Form>
 				<Input name="username" label="نام کاربری" placeholder="" />
 				<Input name="password" label="پسورد" placeholder="حداقل 8 کارکتر وارد نمایید" />
-				<Button type="submit" color="primary" size="lg" loader={formLoading} block>
+				<Button type="submit" color="primary" size="lg" loader={signInLoading} block>
 					ورود
 				</Button>
 			</Form>
