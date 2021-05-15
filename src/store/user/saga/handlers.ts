@@ -1,29 +1,51 @@
 import { call, put } from '@redux-saga/core/effects'
-import { PayloadAction } from '@reduxjs/toolkit'
+
 import { ResponseUserType, SignInActionPayloadType } from '../interface'
-import { signInAction, signInFailedAction, signInSuccessAction } from '../slice'
+import { signInFailedAction, signInSuccessAction } from '../slice'
 import api from '../../../core/api'
 import { setAuth } from '../../../utils'
+import { setAppErrorAcion } from '../../app/slice'
 
 export function* signInActionHandler({
 	payload: { username, password }
-}: PayloadAction<SignInActionPayloadType>) {
+}: SignInActionPayloadType) {
+	// create data
 	const data = {
 		username,
 		password
 	}
-	put(signInAction(data))
+
 	try {
+		// authorization
 		const { data: user }: ResponseUserType = yield call(api.auth.login, data)
+
 		// set user token in localstorage
 		yield call(setAuth, user)
+
 		// set user token in Redux Store
 		yield put(signInSuccessAction({ user }))
 	} catch (error) {
-		if (error.response && error.status === 401) {
-			put(signInFailedAction(error))
+		const { message, response } = error
+		if (response && response.status) {
+			// set user signin Error in Redux Store
+			yield put(
+				signInFailedAction({
+					error: {
+						message,
+						status: response.status
+					}
+				})
+			)
 		} else {
-			console.log('هر خطایی')
+			// set app Error in Redux Store
+			yield put(
+				setAppErrorAcion({
+					error: {
+						message,
+						status: error.status
+					}
+				})
+			)
 		}
 	}
 }

@@ -94,7 +94,7 @@ const SignInContainer: React.FC = () => {
 								{/* Form Error Handler */}
 								<div className="mb-4">
 									<Alert
-										message="ایمیل یا پسورد وارد شده صحیح میباشد"
+										message={formError?.message}
 										color="danger"
 										animated
 										show={!!formError}
