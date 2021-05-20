@@ -1,6 +1,6 @@
 import { call, delay, put } from '@redux-saga/core/effects'
 
-import { ResponseUserType, SignInActionPayloadType } from '../interface'
+import { ResponseAuthType, SignInActionPayloadType } from '../interface'
 import { signInFailedAction, signInReinitAction, signInSuccessAction } from '../slice'
 import api from '../../../core/api'
 import { setAuth } from '../../../utils'
@@ -17,7 +17,7 @@ export function* signInActionHandler({
 
 	try {
 		// authorization
-		const { data: user }: ResponseUserType = yield call(api.auth.login, data)
+		const { data: user }: ResponseAuthType = yield call(api.auth.login, data)
 
 		// set user token in localstorage
 		yield call(setAuth, user)

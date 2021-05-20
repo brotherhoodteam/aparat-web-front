@@ -17,5 +17,7 @@ export type AppActionType = AppErrorActionPayloadType
 // USER STATE TYPE
 export interface AppStateType {
 	error: AppErrorType | null
+	drawer: boolean
+	overlay: boolean
 	loading: boolean
 }

@@ -1,6 +1,6 @@
 export type UiColors =
 	| 'primary'
-	| 'socendary'
+	| 'secondary'
 	| 'success'
 	| 'danger'
 	| 'warning'

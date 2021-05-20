@@ -168,6 +168,28 @@ h6 {
 	margin-top: 0;
 	margin-bottom: 0.5rem;
 }
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	line-height: 1.4;
+	color: #1e2022;
+}
+.h5,
+h5 {
+	font-size: 0.875rem;
+}
 .display-4 {
 	font-size: 1.75rem;
 	font-weight: 600;
@@ -189,4 +211,10 @@ h6 {
 
 .text-left {
 	text-align: left !important;
+}
+
+.text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

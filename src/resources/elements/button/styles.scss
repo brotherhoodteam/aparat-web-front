@@ -20,7 +20,9 @@
 .btn {
 	position: relative;
 }
-
+.btn-circle {
+	border-radius: 50%;
+}
 .btn:not(:disabled):not(.disabled) {
 	cursor: pointer;
 }
@@ -157,6 +159,92 @@ button:not(:disabled) {
 	background-color: #377dff;
 	border-color: #377dff;
 }
-.btn.disabled, .btn:disabled {
-    opacity: .65;
+.btn.disabled,
+.btn:disabled {
+	opacity: 0.65;
+}
+
+.btn-ghost-secondary.focus,
+.btn-ghost-secondary:active,
+.btn-ghost-secondary:focus,
+.btn-ghost-secondary:hover {
+	color: #377dff;
+}
+.btn-ghost-secondary.active,
+.btn-ghost-secondary.focus,
+.btn-ghost-secondary:active,
+.btn-ghost-secondary:focus,
+.btn-ghost-secondary:hover {
+	color: #71869d;
+	background-color: rgba(55, 125, 255, 0.1);
+}
+
+.btn-ghost-secondary.active,
+.btn-ghost-secondary.focus,
+.btn-ghost-secondary:active,
+.btn-ghost-secondary:focus,
+.btn-ghost-secondary:hover {
+	color: #71869d;
+	background-color: rgba(55, 125, 255, 0.1);
+}
+.rounded-circle {
+	border-radius: 50% !important;
+}
+.btn-icon {
+	position: relative;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	font-size: 0.92969rem;
+	font-weight: 400;
+	width: 2.625rem;
+	height: 2.625rem;
+	padding: 0;
+}
+
+
+
+
+
+.btn-status {
+    position: absolute;
+    top: -.4375rem;
+    right: -.4375rem;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: .71094rem;
+    font-weight: 600;
+    width: 21px;
+    height: 21px;
+    background-color: #bdc5d1;
+    border: .125rem solid #fff;
+    padding: 0;
+    border-radius: 50%;
+}
+.btn-status-danger {
+	color: #fff;
+	background-color: #ed4c78;
+}
+
+.btn-status-sm {
+	top: -.3125rem;
+	right: -.3125rem;
+	font-size: .65625rem;
+	width: 12px;
+	height: 12px;
+}
+.btn.btn-circle .btn-status-sm {
+    top: -.15625rem;
+    right: -.15625rem;
 }

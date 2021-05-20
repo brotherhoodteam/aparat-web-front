@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet'
 
-import LogoImage from '../../../assets/images/logo.svg'
+import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
 import GoolgleLogo from '../../../assets/images/google.svg'
 import { Card, CardBody } from '../../elements/card'

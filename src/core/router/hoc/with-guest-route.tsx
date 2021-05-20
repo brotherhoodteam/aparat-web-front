@@ -9,7 +9,7 @@ interface GuestRouterHOC {
 const withGuestRoute = ({ component: Component, auth, redirectPath }: GuestRouterHOC) => {
 	return function WithGuestRoute(props: any) {
 		return auth ? (
-			<Redirect to={{ pathname: `/${redirectPath}` }} />
+			<Redirect to={{ pathname: `${redirectPath}` }} />
 		) : (
 			<Component {...props} />
 		)

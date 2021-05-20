@@ -6,9 +6,11 @@ import RouteWithSubRoutes from './route-with-sub-routes'
 import withGuestRoute from '../hoc/with-guest-route'
 import withProtectedRoute from '../hoc/with-protected-route'
 import { BrowserRouter } from 'react-router-dom'
+import useAuth from '../../../hooks/use-auth'
 
 const RouterComponent = () => {
-	const isLoggedIn = false
+	const isLoggedIn = useAuth(true)
+	console.log(' isLoggedIn', isLoggedIn)
 	const guestRedirectPath = process.env.REACT_APP_GUEST_REDIRECT_PATH || '/'
 	const protectedRedirectPath = process.env.REACT_APP_PROTECTED_REDIRECT_PATH || '/'
 

@@ -42,4 +42,49 @@
 			border-radius: 50%;
 		}
 	}
+
+	&-status {
+		position: absolute;
+		bottom: -8.4px;
+		right: -8.4px;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		-ms-flex-negative: 0;
+		flex-shrink: 0;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-ms-flex-align: center;
+		align-items: center;
+		white-space: nowrap;
+		text-align: center;
+		vertical-align: baseline;
+		font-weight: 600;
+		border: 0.125rem solid #fff;
+		width: 21px;
+		height: 21px;
+		line-height: 1;
+		font-size: 0.71094rem;
+		border-radius: 50%;
+	}
+	&-status-success {
+		color: #fff;
+		background-color: #00c9a7;
+	}
+
+	&-status-danger {
+		color: #fff;
+		background-color: #ed4c78;
+	}
+
+	&-status-warning {
+		color: #fff;
+		background-color: #fd7e14;
+	}
+	&-sm-status {
+		bottom: -1.2px;
+		right: -1.2px;
+		width: 12px;
+		height: 12px;
+		font-size: 0.4375rem;
+	}
 }

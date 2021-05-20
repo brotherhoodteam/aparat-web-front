@@ -6,11 +6,24 @@ interface Props {
 	circle?: boolean
 	className?: string
 	alt: string
+	status?: boolean
+	statusVariants?: 'success' | 'danger' | 'warning'
 }
-const Avatar: React.FC<Props> = ({ image, size, className, circle, alt }) => {
+const Avatar: React.FC<Props> = ({
+	image,
+	size,
+	className,
+	status,
+	statusVariants,
+	circle,
+	alt
+}) => {
 	const baseClass = 'avatar'
+	const baseStatusClass = 'avatar-status'
 	const classSize = `${baseClass}-${size}`
+	const classStatusSize = `avatar-${size}-status`
 	const classCircle = `${baseClass}-circle`
+	const classStatusVariant = `${baseStatusClass}-${statusVariants}`
 	const styles = useClass({
 		defaultClass: baseClass,
 		optionalClass: {
@@ -19,9 +32,19 @@ const Avatar: React.FC<Props> = ({ image, size, className, circle, alt }) => {
 		},
 		otherClass: className
 	})
+
+	const statusStyles = useClass({
+		defaultClass: baseStatusClass,
+		optionalClass: {
+			[classStatusSize]: status,
+			[classStatusVariant]: status && statusVariants
+		}
+	})
+
 	return (
 		<span className={styles}>
 			<img src={image} className="avatar-img" alt={alt} />
+			{status && <span className={statusStyles}></span>}
 		</span>
 	)
 }

@@ -1,0 +1,11 @@
+.header {
+	background-color: #fff;
+	border-bottom: 0.0625rem solid #e7eaf3;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	height: 3.75rem;
+	@media (min-width: 575.98px) {
+		padding-right: 2rem;
+		padding-left: 2rem;
+	}
+}

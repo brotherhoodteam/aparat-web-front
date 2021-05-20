@@ -1,11 +1,11 @@
-import { UserType } from '../store/user/interface'
+import { AuthType } from '../store/user/interface'
 
-export const setAuth = (data: UserType): void => {
+export const setAuth = (data: AuthType): void => {
 	const key = 'auth'
 	localStorage.setItem(key, JSON.stringify(data))
 }
 
-export const getAuth = (): UserType | null => {
+export const getAuth = (): AuthType | null => {
 	const key = 'auth'
 	let auth = null
 	try {

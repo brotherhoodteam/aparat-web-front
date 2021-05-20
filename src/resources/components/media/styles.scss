@@ -1,0 +1,19 @@
+.media {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	&-body {
+		flex: 1;
+	}
+	&-title {
+		display: block;
+		color: #1e2022;
+		margin-bottom: 0;
+	}
+	&-text {
+		display: block;
+		color: #677788;
+		margin: 0;
+	}
+}

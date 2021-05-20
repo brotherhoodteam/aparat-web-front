@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AppErrorActionPayloadType, AppStateType } from './interface'
 const initialState: AppStateType = {
 	error: null,
+	drawer: false,
+	overlay: false,
 	loading: false
 }
 
@@ -14,9 +16,20 @@ const appSlice = createSlice({
 		},
 		cleanAppErrorAction: state => {
 			state.error = null
+		},
+		openAppDrawer: state => {
+			state.drawer = true
+		},
+		openAppOverlay: state => {
+			state.overlay = true
 		}
 	}
 })
 
-export const { setAppErrorAcion, cleanAppErrorAction } = appSlice.actions
+export const {
+	setAppErrorAcion,
+	cleanAppErrorAction,
+	openAppDrawer,
+	openAppOverlay
+} = appSlice.actions
 export default appSlice.reducer

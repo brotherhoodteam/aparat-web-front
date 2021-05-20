@@ -3,7 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 // STATE TYPES
 export type UserNameType = string
 export type PasswordType = string
-export type UserType = {
+export type AuthType = {
 	access_token: string
 	expire_in: number
 	refresh_token: number
@@ -20,7 +20,7 @@ export type SignInDataType = {
 	password: PasswordType
 }
 export interface UserDataType {
-	user: UserType
+	user: AuthType
 }
 export interface ErrorDataType {
 	error: UserErrorType
@@ -32,8 +32,8 @@ export interface SignInSuccessActionPayloadType extends PayloadAction<UserDataTy
 export interface SignInFailedActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // USER RESPONSE TYPES
-export interface ResponseUserType {
-	data: UserType
+export interface ResponseAuthType {
+	data: AuthType
 }
 
 // USER ACTIONS TYPE
@@ -46,7 +46,7 @@ export type UserActionType =
 export interface UserStateType {
 	username: UserNameType | null
 	password: PasswordType | null
-	user: UserType | null
+	auth: AuthType | null
 	error: UserErrorType | null
 	loading: boolean
 }

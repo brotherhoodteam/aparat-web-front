@@ -1,7 +1,8 @@
 import { call, all } from 'redux-saga/effects'
-import { userSaga } from '../../store/user/saga'
+import appSaga from '../../store/app/saga'
+import userSaga from '../../store/user/saga'
 
-function* appSaga() {
-	yield all([call(userSaga)])
+function* rooSaga() {
+	yield all([call(appSaga), call(userSaga)])
 }
-export default appSaga
+export default rooSaga

@@ -12,18 +12,7 @@ const withProtectedRoute = ({
 	redirectPath
 }: GuestRouterHOC) => {
 	return function WithPortectedRoute(props: any) {
-		return auth ? (
-			<Component />
-		) : (
-			<Redirect
-				to={{
-					pathname: `${redirectPath}`,
-					state: {
-						from: props.location
-					}
-				}}
-			/>
-		)
+		return auth ? <Component /> : <Redirect to={{ pathname: `${redirectPath}` }} />
 	}
 }
 
