@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.scss'
 
@@ -5,6 +6,11 @@ interface NavbarLinkProps {
 	title: string
 	icon: string
 	to: string
+}
+interface NavbarButtonProps {
+	title: string
+	icon: string
+	onClick?: MouseEventHandler
 }
 interface NavbarSubtitleProps {
 	title: string
@@ -27,6 +33,16 @@ const NavbarLink: React.FC<NavbarLinkProps> = ({ title, icon, to }) => {
 		</li>
 	)
 }
+const NavbarButton: React.FC<NavbarButtonProps> = ({ title, icon, onClick }) => {
+	return (
+		<li className="navbar-item">
+			<a href="#" className="navbar-link" onClick={onClick}>
+				<i className={`${icon} navbar-icon`}></i>
+				<span className="navbar-text text-truncate">{title}</span>
+			</a>
+		</li>
+	)
+}
 
 const NavbarSubtitle: React.FC<NavbarSubtitleProps> = ({ title }) => {
 	return (
@@ -43,4 +59,4 @@ const NavbarDivider = () => {
 	)
 }
 
-export { NavbarVertical, NavbarDivider, NavbarLink, NavbarSubtitle }
+export { NavbarVertical, NavbarDivider, NavbarLink, NavbarButton, NavbarSubtitle }
