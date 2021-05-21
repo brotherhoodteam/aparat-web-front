@@ -1,4 +1,4 @@
-export function Fallback() {
+const Fallback: React.FC = () => {
 	return <div>loader fallback</div>
 }
 

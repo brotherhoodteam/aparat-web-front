@@ -8,7 +8,7 @@ import {
 	DropdownItem,
 	DropdownMenu
 } from '../dropdown'
-import Avatar from '../../elements/Avatar'
+import Avatar from '../../elements/avatar'
 import Media from '../media'
 import Button from '../../elements/button'
 import Search from '../search'

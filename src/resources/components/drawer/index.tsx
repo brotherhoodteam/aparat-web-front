@@ -1,11 +1,32 @@
-import { useSelector } from 'react-redux'
+import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+
+import useClickOutside from '../../../hooks/use-click-outside'
+
 import { selectAppDrawer } from '../../../store/app/selectors'
+import { closeAppDrawer } from '../../../store/app/slice'
+import { Card, CardBody, CardHeader } from '../../elements/card'
+import Button from '../../elements/button'
+import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 
 import './styles.scss'
+import {
+	NavbarDivider,
+	NavbarLink,
+	NavbarSubtitle,
+	NavbarVertical
+} from '../navbar-vertical'
 
 const Drawer = () => {
 	const isOpenDrawer = useSelector(selectAppDrawer)
+	const disaptch = useDispatch()
+	const drewerRef = useRef<HTMLDivElement>(null)
+
+	const handleClose = () => {
+		disaptch(closeAppDrawer())
+	}
+	useClickOutside(drewerRef, handleClose)
 	return (
 		<CSSTransition
 			in={isOpenDrawer}
@@ -20,41 +41,46 @@ const Drawer = () => {
 			}}
 			unmountOnExit
 		>
-			<div className="drawer">
-				<div className="drawer-header">
-					<div style={{ width: '400px', height: '1300px', background: 'red' }}>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt corrupti
-						illo at animi quasi laudantium, quia optio odio praesentium quae natus? Quis
-						fuga eveniet numquam. Ipsum voluptatibus beatae maiores voluptatum. Rerum sint
-						quam illo iure voluptatum officiis doloremque eaque velit. Saepe doloribus
-						quisquam sapiente consequatur velit? Vel animi dolorum tempore dolore
-						praesentium? Ex earum explicabo optio, magnam perspiciatis veniam molestias?
-						Consequuntur corrupti eaque illo eius cumque veritatis error id ab amet,
-						eveniet, quaerat laudantium, voluptas ipsam cum atque qui sunt repellendus ex
-						aliquid alias suscipit ratione pariatur! Voluptatem, dolorem maiores. Fuga
-						distinctio in pariatur enim sequi natus adipisci maiores voluptas! Dolores
-						asperiores repellendus ab quos eligendi esse obcaecati optio minima animi?
-						Magni laboriosam perferendis maiores numquam vel optio accusamus non. Beatae,
-						sit. Deleniti ratione error repellat consequuntur, quam libero maxime sequi ut
-						ducimus quasi explicabo delectus, fugiat illum at? Quaerat quod sint quis quia
-						maxime natus quos dolorum fugiat sunt! Inventore suscipit quibusdam fuga, nam
-						quis rerum iusto molestiae cumque at aut perferendis cum nulla magni similique
-						consequuntur autem recusandae, enim minus. Eum atque sed optio ipsa, minus
-						maiores ratione? Earum nam repellat esse sunt ducimus quam cum illum illo
-						mollitia temporibus suscipit assumenda dolore ullam itaque necessitatibus
-						facere voluptas sit repudiandae exercitationem quo, molestias quae. Ipsam
-						nulla voluptatibus laborum. Culpa voluptatibus quis temporibus assumenda,
-						omnis error dicta rem modi quam. Asperiores officia aperiam nobis repellendus
-						cupiditate, debitis rem accusantium laudantium fugit! Aut, assumenda. Dolore
-						sapiente vel vero eius exercitationem. Veritatis laborum tempore cupiditate
-						nihil ex sapiente, itaque quidem ab, odio consequatur iste dolor, maxime rerum
-						at! Vitae quae temporibus sit qui odio, libero amet quis, id blanditiis,
-						explicabo perspiciatis? Placeat dicta a praesentium explicabo ipsam
-						laudantium? Debitis ipsum sequi doloremque autem, laboriosam ipsa. Dolor sed
-						corporis nulla provident. Laudantium molestiae beatae recusandae magni odit
-						quia dolorum itaque obcaecati earum.
-					</div>
-				</div>
+			<div className="drawer" ref={drewerRef}>
+				<Card size="lg" className="drawer-card">
+					<CardHeader>
+						<Button
+							as="a"
+							size="xs"
+							variant="ghost"
+							color="dark"
+							href="#"
+							icon
+							onClick={handleClose}
+						>
+							<i className="tio-clear tio-lg"></i>
+						</Button>
+						<div className="drawer-logo">
+							<img src={LogoImage} alt="" />
+						</div>
+					</CardHeader>
+					<CardBody className="drawer-body">
+						<NavbarVertical>
+							<NavbarLink title="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
+							<NavbarDivider />
+							<NavbarSubtitle title="دسته‌بندی" />
+							<NavbarLink title="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
+							<NavbarLink
+								title="سریال و فیلم‌های سینمایی"
+								icon="tio-movie"
+								to="/dashboard"
+							/>
+							<NavbarLink title="گیم" icon="tio-joystick" to="/dashboard" />
+							<NavbarLink title="ورزشی" icon="tio-sport" to="/dashboard" />
+							<NavbarLink title="کارتون" icon="tio-face-male" to="/dashboard" />
+							<NavbarLink title="نمایش بیشتر" icon="tio-chevron-down" to="/dashboard" />
+							<NavbarDivider />
+							<NavbarLink title="تماس‌باما" icon="tio-support" to="/dashboard" />
+							<NavbarLink title="تبلیغات" icon="tio-comment-play" to="/dashboard" />
+							<NavbarLink title="قوانین" icon="tio-new-release" to="/dashboard" />
+						</NavbarVertical>
+					</CardBody>
+				</Card>
 			</div>
 		</CSSTransition>
 	)

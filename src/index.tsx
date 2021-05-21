@@ -6,12 +6,15 @@ import { Suspense } from 'react'
 import { Provider } from 'react-redux'
 import Fallback from './core/router/components/loader-fallback'
 import store from './core/redux'
+import { BrowserRouter } from 'react-router-dom'
 
 const Root: React.FC = () => (
 	<Suspense fallback={<Fallback />}>
 		<Provider store={store}>
 			<IntlContainer>
-				<App />
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
 			</IntlContainer>
 		</Provider>
 	</Suspense>

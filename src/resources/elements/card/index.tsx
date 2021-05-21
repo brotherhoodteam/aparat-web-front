@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React from 'react'
 import useClass from '../../../hooks/use-class'
 import './styles.scss'
@@ -12,13 +11,29 @@ interface CardBodyProps {
 }
 
 const Card: React.FC<CardPorps> = ({ children, className, size, ...props }) => {
+	const baseClass = `card`
+	const cardSize = `${baseClass}-${size}`
+
 	const styles = useClass({
 		defaultClass: 'card',
 		otherClass: className,
 		optionalClass: {
-			'card-lg': size && 'lg'
+			[cardSize]: size
 		}
 	})
+
+	return (
+		<div className={styles} {...props}>
+			{children}
+		</div>
+	)
+}
+const CardHeader: React.FC<CardBodyProps> = ({ children, className, ...props }) => {
+	const styles = useClass({
+		defaultClass: 'card-header',
+		otherClass: className
+	})
+
 	return (
 		<div className={styles} {...props}>
 			{children}
@@ -37,4 +52,4 @@ const CardBody: React.FC<CardBodyProps> = ({ children, className, ...props }) =>
 		</div>
 	)
 }
-export { Card, CardBody }
+export { Card, CardHeader, CardBody }

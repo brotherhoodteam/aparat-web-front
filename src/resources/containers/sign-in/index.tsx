@@ -12,7 +12,7 @@ import SignInForm from '../../components/sign-in-form'
 import Alert from '../../elements/alert'
 import { useSelector } from 'react-redux'
 import { selectUserSignInError } from '../../../store/user/selectors'
-import Avatar from '../../elements/Avatar'
+import Avatar from '../../elements/avatar'
 
 const SignInContainer: React.FC = () => {
 	// TODO باید متن اررور الرت فرم داینامیک شود

@@ -1,8 +1,8 @@
 import { all, call } from '@redux-saga/core/effects'
-import { openAppDrawerWatcher } from './watchers'
+import { closeAppDrawerWatcher, openAppDrawerWatcher } from './watchers'
 
 function* appSaga() {
-	yield all([call(openAppDrawerWatcher)])
+	yield all([call(openAppDrawerWatcher), call(closeAppDrawerWatcher)])
 }
 
 export default appSaga

@@ -1,0 +1,68 @@
+.navbar {
+	$self: &;
+	&-vertical {
+		#{$self}-nav {
+			flex-direction: column;
+		}
+
+		#{$self}-item {
+			width: 100%;
+			&:not(:first-child) {
+				margin-right: 0;
+			}
+		}
+		#{$self}-link {
+			position: relative;
+			display: flex;
+			align-items: center;
+			width: 100%;
+			padding: 0.375rem 1.5rem;
+			margin: 0.375rem 0;
+			clear: both;
+			font-size: 0.8125rem;
+			font-weight: 400;
+			color: #132144;
+			text-align: inherit;
+			white-space: nowrap;
+			background-color: transparent;
+			border: 0;
+			transition: 200ms ease;
+			&:focus,
+			&:hover {
+				color: #0052ea;
+				text-decoration: none;
+				background-color: rgba(189, 197, 209, 0.3);
+			}
+			&:active,
+			&.active {
+				text-decoration: none;
+				color: #0052ea;
+				background-color: rgba(189, 197, 209, 0.3);
+			}
+		}
+		#{$self}-subtitle {
+			display: block;
+			font-size: 90%;
+			font-weight: 600;
+			text-transform: uppercase;
+			color: #8c98a4;
+			padding: 0.75rem 1.75rem;
+		}
+		#{$self}-text {
+			flex: 1;
+		}
+		#{$self}-icon {
+			font-size: 1.125rem;
+			line-height: 1.4;
+			opacity: 0.7;
+			-ms-flex: 0 0 1.75rem;
+			flex: 0 0 1.75rem;
+		}
+		#{$self}-divider {
+			height: 0;
+			margin: 0.5rem 0;
+			overflow: hidden;
+			border-top: 0.0625rem solid #e7eaf3;
+		}
+	}
+}

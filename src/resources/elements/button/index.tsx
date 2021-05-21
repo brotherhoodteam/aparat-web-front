@@ -12,7 +12,7 @@ interface Props {
 	variant?: UiVariants
 	color?: UiColors
 	classNames?: string
-	size?: 'xs ' | 'sm' | 'md' | 'lg'
+	size?: 'xs' | 'sm' | 'md' | 'lg'
 	block?: boolean
 	loader?: boolean
 	loaderText?: string

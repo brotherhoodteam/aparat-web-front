@@ -12,11 +12,10 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
-
-		.navbar-item {
-			&:not(:first-child) {
-				margin-right: 0.5rem;
-			}
+	}
+	&-item {
+		&:not(:first-child) {
+			margin-right: 0.5rem;
 		}
 	}
 	&-brand {

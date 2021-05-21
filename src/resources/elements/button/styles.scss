@@ -207,30 +207,26 @@ button:not(:disabled) {
 	padding: 0;
 }
 
-
-
-
-
 .btn-status {
-    position: absolute;
-    top: -.4375rem;
-    right: -.4375rem;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-align: center;
-    align-items: center;
-    font-size: .71094rem;
-    font-weight: 600;
-    width: 21px;
-    height: 21px;
-    background-color: #bdc5d1;
-    border: .125rem solid #fff;
-    padding: 0;
-    border-radius: 50%;
+	position: absolute;
+	top: -0.4375rem;
+	right: -0.4375rem;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	font-size: 0.71094rem;
+	font-weight: 600;
+	width: 21px;
+	height: 21px;
+	background-color: #bdc5d1;
+	border: 0.125rem solid #fff;
+	padding: 0;
+	border-radius: 50%;
 }
 .btn-status-danger {
 	color: #fff;
@@ -238,13 +234,33 @@ button:not(:disabled) {
 }
 
 .btn-status-sm {
-	top: -.3125rem;
-	right: -.3125rem;
-	font-size: .65625rem;
+	top: -0.3125rem;
+	right: -0.3125rem;
+	font-size: 0.65625rem;
 	width: 12px;
 	height: 12px;
 }
 .btn.btn-circle .btn-status-sm {
-    top: -.15625rem;
-    right: -.15625rem;
+	top: -0.15625rem;
+	right: -0.15625rem;
+}
+
+.btn-ghost-dark.active,
+.btn-ghost-dark.focus,
+.btn-ghost-dark:active,
+.btn-ghost-dark:focus,
+.btn-ghost-dark:hover {
+	color: #132144;
+	background-color: rgba(19, 33, 68, 0.1);
+}
+.btn-xs {
+	font-size: 0.75rem;
+	font-weight: 400;
+	padding: 0.24063rem 0.65625rem;
+	border-radius: 0.25rem;
+}
+.btn-icon.btn-xs {
+	font-size: 0.75rem;
+	width: 1.53125rem;
+	height: 1.53125rem;
 }
