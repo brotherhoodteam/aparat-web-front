@@ -10,3 +10,6 @@ export type UiColors =
 	| 'white'
 
 export type UiVariants = 'solid' | 'outline' | 'soft' | 'ghost' | 'link'
+export interface ClassName {
+	className?: string
+}

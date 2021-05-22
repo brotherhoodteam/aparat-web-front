@@ -15,16 +15,7 @@ button,
 select {
 	text-transform: none;
 }
-button,
-input,
-optgroup,
-select,
-textarea {
-	margin: 0;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
-}
+
 button,
 input {
 	overflow: visible;
@@ -40,17 +31,6 @@ button:not(:disabled) {
 label {
 	display: inline-block;
 	margin-bottom: 0.5rem;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-	margin: 0;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
 }
 :focus,
 a:focus,

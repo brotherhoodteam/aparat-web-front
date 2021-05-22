@@ -9,8 +9,7 @@
 	background-clip: border-box;
 	border: 0.0625rem solid rgba(231, 234, 243, 0.7);
 	border-radius: 0.75rem;
-	box-shadow: 0 6px 12px rgb(140 152 164 / 8%);
-
+	box-shadow: 0 12px 15px rgb(140 152 164 / 10%);
 	&-header {
 		display: flex;
 		flex-direction: row;
@@ -31,6 +30,13 @@
 		}
 		&-title {
 			margin-bottom: 0;
+		}
+		&-text {
+			display: block;
+			color: #677788;
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 

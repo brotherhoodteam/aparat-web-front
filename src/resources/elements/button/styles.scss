@@ -264,3 +264,39 @@ button:not(:disabled) {
 	width: 1.53125rem;
 	height: 1.53125rem;
 }
+
+.btn-group-sm > .btn,
+.btn-sm {
+	padding: 0.4375rem 0.65625rem;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+}
+
+.btn-soft-primary {
+	color: #377dff;
+	background-color: rgba(55, 125, 255, 0.1);
+	border-color: transparent;
+}
+.btn-soft-primary.active,
+.btn-soft-primary:active,
+.btn-soft-primary:focus,
+.btn-soft-primary:hover {
+	color: #fff;
+	background-color: #377dff;
+	box-shadow: 0 4px 11px rgb(55 125 255 / 10%);
+}
+
+.btn-soft-light {
+	color: #f7faff;
+	background-color: rgba(247, 250, 255, 0.1);
+	border-color: transparent;
+}
+.btn-soft-light.active,
+.btn-soft-light:active,
+.btn-soft-light:focus,
+.btn-soft-light:hover {
+	color: #1e2022;
+	background-color: #f7faff;
+	box-shadow: 0 4px 11px rgb(247 250 255 / 10%);
+}

@@ -27,17 +27,35 @@
 			background-color: transparent;
 			border: 0;
 			transition: 200ms ease;
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;
+				width: 3px;
+				background-color: transparent;
+				z-index: 1;
+				transition: background-color 200ms ease;
+			}
 			&:focus,
 			&:hover {
 				color: #0052ea;
 				text-decoration: none;
 				background-color: rgba(189, 197, 209, 0.3);
+				&::after {
+					background-color: #377dff;
+				}
 			}
 			&:active,
 			&.active {
 				text-decoration: none;
-				color: #0052ea;
+				color: #377dff;
 				background-color: rgba(189, 197, 209, 0.3);
+				&::after {
+					background-color: #0052ea;
+				}
 			}
 		}
 		#{$self}-subtitle {

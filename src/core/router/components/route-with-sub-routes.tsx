@@ -4,6 +4,8 @@ import { RouteType } from '../types'
 interface PropType extends RouteType {}
 
 const RouteWithSubRoutes: React.FC<PropType> = route => {
+	console.log('RouteWithSubRoutes renderd')
+
 	const { component: Component, ...otherPorps } = route
 	return (
 		<Route

@@ -8,6 +8,7 @@ import withProtectedRoute from '../hoc/with-protected-route'
 import useAuth from '../../../hooks/use-auth'
 
 const RouterComponent = () => {
+	console.log('router rendered')
 	const isLoggedIn = useAuth(true)
 	console.log(' isLoggedIn', isLoggedIn)
 	const guestRedirectPath = process.env.REACT_APP_GUEST_REDIRECT_PATH || '/'

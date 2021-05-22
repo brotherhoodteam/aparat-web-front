@@ -13,8 +13,10 @@ import Alert from '../../elements/alert'
 import { useSelector } from 'react-redux'
 import { selectUserSignInError } from '../../../store/user/selectors'
 import Avatar from '../../elements/avatar'
+import React from 'react'
 
 const SignInContainer: React.FC = () => {
+	console.log('Singin Container')
 	// TODO باید متن اررور الرت فرم داینامیک شود
 	const formError = useSelector(selectUserSignInError)
 	return (
@@ -110,5 +112,4 @@ const SignInContainer: React.FC = () => {
 		</>
 	)
 }
-
 export default SignInContainer

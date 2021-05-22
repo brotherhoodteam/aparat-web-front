@@ -1,3 +1,4 @@
+import React from 'react'
 import useClass from '../../../hooks/use-class'
 
 import './styles.scss'
@@ -8,7 +9,7 @@ interface Props {
 	className?: string
 }
 
-const Spinner: React.FC<Props> = ({ variants, size, className }) => {
+const Spinner: React.FC<Props> = React.memo(({ variants, size, className }) => {
 	const baseClass = 'spinner'
 	const variantsClass = `${baseClass}-${variants}`
 	const sizeClass = `${baseClass}-${variants}-${size}`
@@ -22,6 +23,6 @@ const Spinner: React.FC<Props> = ({ variants, size, className }) => {
 		otherClass: className
 	})
 	return <span className={styles} role="status" aria-hidden="true"></span>
-}
+})
 
 export default Spinner

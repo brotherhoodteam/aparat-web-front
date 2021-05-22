@@ -9,14 +9,14 @@ import store from './core/redux'
 import { BrowserRouter } from 'react-router-dom'
 
 const Root: React.FC = () => (
-	<Suspense fallback={<Fallback />}>
-		<Provider store={store}>
-			<IntlContainer>
-				<BrowserRouter>
+	<BrowserRouter>
+		<Suspense fallback={<Fallback />}>
+			<Provider store={store}>
+				<IntlContainer>
 					<App />
-				</BrowserRouter>
-			</IntlContainer>
-		</Provider>
-	</Suspense>
+				</IntlContainer>
+			</Provider>
+		</Suspense>
+	</BrowserRouter>
 )
 ReactDOM.render(<Root />, document.getElementById('root'))

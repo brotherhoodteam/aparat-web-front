@@ -4,6 +4,9 @@
 // 	@import '~bootstrap/dist/css/bootstrap-utilities.min.css';
 // }
 
+.overflow-y-hidden {
+	overflow-y: hidden;
+}
 /*------------------------------------
   Position Spaces
 ------------------------------------*/
@@ -217,4 +220,65 @@ h5 {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+.bg-dark {
+	background-color: #21325b !important;
+}
+
+.space-1,
+.space-top-1 {
+	padding-top: 2rem !important;
+}
+.space-1,
+.space-bottom-1 {
+	padding-bottom: 2rem !important;
+}
+@media (min-width: 992px) {
+	.space-lg-2,
+	.space-top-lg-2 {
+		padding-top: 4rem !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.space-bottom-lg-3,
+	.space-lg-3 {
+		padding-bottom: 8rem !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.space-lg-0,
+	.space-top-lg-0 {
+		padding-top: 0 !important;
+	}
+}
+@media (min-width: 992px) {
+	.space-bottom-lg-2,
+	.space-lg-2 {
+		padding-bottom: 4rem !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.mt-lg-n10,
+	.my-lg-n10 {
+		margin-top: -4.5rem !important;
+	}
+}
+.text-white {
+	color: #fff !important;
+}
+
+.h2,
+h2 {
+	font-size: 1.875rem;
+}
+
+.font-size-1 {
+	font-size: 0.875rem;
+}
+h4,
+.h4 {
+	font-size: 1.125rem;
 }
