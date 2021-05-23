@@ -1,22 +1,23 @@
+import React from 'react'
 import { Helmet } from 'react-helmet'
-
-import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
-import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
-import GoolgleLogo from '../../../assets/images/google.svg'
-import { Card, CardBody } from '../../elements/card'
 import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
+
+import { Card, CardBody } from '../../elements/card'
+import Avatar from '../../elements/avatar'
 import Button from '../../elements/button'
 import Divider from '../../elements/divider'
 import SignInForm from '../../components/sign-in-form'
 import Alert from '../../elements/alert'
+
 import { useSelector } from 'react-redux'
 import { selectUserSignInError } from '../../../store/user/selectors'
-import Avatar from '../../elements/avatar'
-import React from 'react'
+
+import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
+import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
+import GoolgleLogo from '../../../assets/images/google.svg'
 
 const SignInContainer: React.FC = () => {
-	console.log('Singin Container')
 	// TODO باید متن اررور الرت فرم داینامیک شود
 	const formError = useSelector(selectUserSignInError)
 	return (

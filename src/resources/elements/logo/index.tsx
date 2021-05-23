@@ -1,9 +1,10 @@
 import React from 'react'
 import useClass from '../../../hooks/use-class'
+import { Size } from '../../../interface/component'
 import './index'
 
 interface LogoProp {
-	size: 'sm' | 'md' | 'lg'
+	size: Size
 }
 
 const Logo: React.FC<LogoProp> = React.memo(() => {

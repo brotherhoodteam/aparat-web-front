@@ -1,8 +1,10 @@
 import { Form, Formik } from 'formik'
 import { useSelector } from 'react-redux'
 import useTypedDispatch from '../../../hooks/use-typed-dispatch'
+
 import { selectUserSignInLoading } from '../../../store/user/selectors'
 import { signInAction } from '../../../store/user/slice'
+
 import Button from '../../elements/button'
 import { Input } from '../../elements/form'
 
@@ -10,6 +12,7 @@ interface SignInFormType {
 	username: string
 	password: string
 }
+
 const SignInForm: React.FC = () => {
 	const dispatch = useTypedDispatch()
 	const signInLoading = useSelector(selectUserSignInLoading)

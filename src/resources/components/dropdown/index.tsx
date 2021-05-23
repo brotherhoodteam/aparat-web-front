@@ -1,16 +1,20 @@
 import { createContext, useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
+
 import useClass from '../../../hooks/use-class'
 import useClickOutside from '../../../hooks/use-click-outside'
 
+import { LinkTarget } from '../../../interface/component'
+
 import './styles.scss'
+
 interface DropdownProps {
 	direction?: 'right' | 'left'
 }
 interface DropdownButtonPorps {}
 interface DropdownItemPorps {
-	to: string
+	to: LinkTarget
 }
 interface DropdownMenuPorps {}
 

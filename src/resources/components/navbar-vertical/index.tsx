@@ -1,11 +1,13 @@
 import { MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
+import { LinkTarget } from '../../../interface/component'
+
 import './styles.scss'
 
 interface NavbarLinkProps {
 	title: string
 	icon: string
-	to: string
+	to: LinkTarget
 }
 interface NavbarButtonProps {
 	title: string
@@ -15,6 +17,7 @@ interface NavbarButtonProps {
 interface NavbarSubtitleProps {
 	title: string
 }
+
 const NavbarVertical: React.FC = ({ children }) => {
 	return (
 		<div className="navbar navbar-vertical">

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import {
 	Dropdown,
@@ -99,8 +99,7 @@ const SubscriberNav = () => {
 								alt="profile"
 								size="sm"
 								circle
-								status
-								statusVariants="success"
+								status="success"
 							/>
 						</div>
 					</DropdownButton>

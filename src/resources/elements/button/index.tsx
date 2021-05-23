@@ -1,32 +1,33 @@
 import React, { Fragment, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
-import useClass from '../../../hooks/use-class'
-import { UiColors, UiVariants } from '../../../interface/ui'
+
 import Spinner from '../spinner'
+import useClass from '../../../hooks/use-class'
+import { ClassName, Colors, Size, Variants } from '../../../interface/component'
 
 import './styles.scss'
 
-interface Props {
+interface ButtonProps {
 	as?: 'a' | 'link'
 	type?: 'button' | 'submit' | 'reset'
 	href?: string | '#'
 	to?: string | '#'
-	variant?: UiVariants
-	color?: UiColors
-	classNames?: string
-	size?: 'xs' | 'sm' | 'md' | 'lg'
+	variant?: Variants
+	color?: Colors
+	classNames?: ClassName
+	size?: Size
 	block?: boolean
 	loader?: boolean
 	loaderText?: string
 	disanled?: boolean
 	circle?: boolean
 	icon?: boolean
-	status?: 'danger' | 'success' | 'warning'
-	statusSize?: 'xs ' | 'sm' | 'md' | 'lg'
+	status?: Colors
+	statusSize?: Size
 	onClick?: MouseEventHandler
 }
 
-const Button: React.FC<Props> = React.memo(
+const Button: React.FC<ButtonProps> = React.memo(
 	React.memo(
 		({
 			as,

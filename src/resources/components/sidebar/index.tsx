@@ -1,7 +1,9 @@
 import Avatar from '../../elements/avatar'
 import { Card, CardBody, CardText, CardTitle } from '../../elements/card'
-import avatarImage from '../../../assets/images/img6.jpg'
 import { NavbarLink, NavbarSubtitle, NavbarVertical } from '../navbar-vertical'
+
+import avatarImage from '../../../assets/images/img6.jpg'
+
 const Sidebar: React.FC = () => {
 	return (
 		<>

@@ -7,12 +7,9 @@ import useClickOutside from '../../../hooks/use-click-outside'
 
 import { selectAppDrawer } from '../../../store/app/selectors'
 import { closeAppDrawer } from '../../../store/app/slice'
+
 import { Card, CardBody, CardHeader } from '../../elements/card'
 import Button from '../../elements/button'
-import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
-
-import 'react-perfect-scrollbar/dist/css/styles.css'
-import './styles.scss'
 import {
 	NavbarButton,
 	NavbarDivider,
@@ -20,6 +17,10 @@ import {
 	NavbarSubtitle,
 	NavbarVertical
 } from '../navbar-vertical'
+
+import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
+import 'react-perfect-scrollbar/dist/css/styles.css'
+import './styles.scss'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)

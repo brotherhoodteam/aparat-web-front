@@ -1,15 +1,22 @@
 import React from 'react'
 import useClass from '../../../hooks/use-class'
-import './styles.scss'
-import { ClassName } from '../../../interface/ui'
-interface CardPorps {
-	className?: string
-	size?: 'lg'
-}
+import { ClassName, Size } from '../../../interface/component'
 
-interface CardBodyProps extends ClassName {}
-interface CardTextProps extends ClassName {}
-interface CardTitleProps extends ClassName {}
+import './styles.scss'
+
+interface CardPorps {
+	className?: ClassName
+	size?: Size
+}
+interface CardBodyProps {
+	className?: ClassName
+}
+interface CardTextProps {
+	className?: ClassName
+}
+interface CardTitleProps {
+	className?: ClassName
+}
 const Card: React.FC<CardPorps> = React.memo(
 	({ children, className, size, ...props }) => {
 		const baseClass = `card`

@@ -1,15 +1,16 @@
 import React from 'react'
 import useClass from '../../../hooks/use-class'
+import { ClassName, Size } from '../../../interface/component'
 
 import './styles.scss'
 
-interface Props {
+interface SpinnerProps {
 	variants: 'grow' | 'border'
-	size?: 'sm'
-	className?: string
+	size?: Size
+	className?: ClassName
 }
 
-const Spinner: React.FC<Props> = React.memo(({ variants, size, className }) => {
+const Spinner: React.FC<SpinnerProps> = React.memo(({ variants, size, className }) => {
 	const baseClass = 'spinner'
 	const variantsClass = `${baseClass}-${variants}`
 	const sizeClass = `${baseClass}-${variants}-${size}`

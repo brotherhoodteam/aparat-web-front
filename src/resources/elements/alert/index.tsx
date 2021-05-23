@@ -1,18 +1,18 @@
 import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 import useClass from '../../../hooks/use-class'
-import { UiColors } from '../../../interface/ui'
+import { ClassName, Colors } from '../../../interface/component'
 
 import './styles.scss'
 
-interface Props {
+interface AlertProps {
 	message?: string
-	color?: UiColors
-	className?: string
+	color?: Colors
+	className?: ClassName
 	animated?: boolean
 	show: boolean
 }
-const Alert: React.FC<Props> = React.memo(
+const Alert: React.FC<AlertProps> = React.memo(
 	({ message, color, className, show, animated }) => {
 		const colorAlert = `alert-${color}`
 		const styles = useClass({

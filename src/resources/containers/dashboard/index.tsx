@@ -9,10 +9,10 @@ import { RouteType } from '../../../core/router/types'
 import accountBg from '../../../assets/images/abstract-shapes-20.svg'
 import './styles.scss'
 
-interface Props {
+interface DashboardProps {
 	routes: Array<RouteType>
 }
-const DashboardContainer: React.FC<Props> = ({ routes }) => {
+const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 	const { routerAccess } = useAccess()
 	const handleLogout = () => {
 		console.log('logout')

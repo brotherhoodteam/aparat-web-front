@@ -1,23 +1,23 @@
 import React from 'react'
 import useClass from '../../../hooks/use-class'
+import { ClassName, Colors, Size } from '../../../interface/component'
 import './styles.scss'
-interface Props {
+interface AvatarProps {
 	image: string
-	size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+	size?: Size
 	circle?: boolean
-	className?: string
+	className?: ClassName
 	alt: string
-	status?: boolean
-	statusVariants?: 'success' | 'danger' | 'warning'
+	status?: Colors
 }
-const Avatar: React.FC<Props> = React.memo(
-	({ image, size, className, status, statusVariants, circle, alt }) => {
+const Avatar: React.FC<AvatarProps> = React.memo(
+	({ image, size, className, status, circle, alt }) => {
 		const baseClass = 'avatar'
 		const baseStatusClass = 'avatar-status'
 		const classSize = `${baseClass}-${size}`
 		const classStatusSize = `avatar-${size}-status`
 		const classCircle = `${baseClass}-circle`
-		const classStatusVariant = `${baseStatusClass}-${statusVariants}`
+		const classStatusColor = `${baseStatusClass}-${status}`
 		const styles = useClass({
 			defaultClass: baseClass,
 			optionalClass: {
@@ -31,7 +31,7 @@ const Avatar: React.FC<Props> = React.memo(
 			defaultClass: baseStatusClass,
 			optionalClass: {
 				[classStatusSize]: status,
-				[classStatusVariant]: status && statusVariants
+				[classStatusColor]: status
 			}
 		})
 
