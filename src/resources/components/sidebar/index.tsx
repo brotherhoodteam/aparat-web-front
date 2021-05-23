@@ -22,7 +22,11 @@ const Sidebar: React.FC = () => {
 						<NavbarVertical>
 							<NavbarSubtitle title="حساب کاربری" />
 							<NavbarLink title="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
-							<NavbarLink title="شروع پخش زنده" icon="tio-share-screen" to="/live" />
+							<NavbarLink
+								title="ویدئوی جدید"
+								icon="tio-share-screen"
+								to="/dashboard/upload"
+							/>
 							<NavbarLink
 								title="ویدئوهای من"
 								icon="tio-video-gallery"

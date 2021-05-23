@@ -14,16 +14,16 @@ import Button from '../../elements/button'
 import Search from '../search'
 
 import { openAppDrawer } from '../../../store/app/slice'
+import useAuth from '../../../hooks/use-auth'
 
 import Logo from '../../../assets/images/logo--color-black--without_text.svg'
 import LogoMini from '../../../assets/images/icon--color-black.svg'
 import ProfileImg from '../../../assets/images/img6.jpg'
-import { selectUserAuth } from '../../../store/user/selectors'
 
 import './styles.scss'
 
 const Navbar = () => {
-	const isLoggedIn = useSelector(selectUserAuth)
+	const isLoggedIn = useAuth()
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
 		dispatch(openAppDrawer())
@@ -59,8 +59,8 @@ const Navbar = () => {
 				</div>
 				<div className="navbar-content-left">
 					<ul className="navbar-nav">
-						{!isLoggedIn && <SubscriberNav />}
-						{/* {!isLoggedIn && <GuestNav />} */}
+						{isLoggedIn && <SubscriberNav />}
+						{!isLoggedIn && <GuestNav />}
 					</ul>
 				</div>
 			</div>

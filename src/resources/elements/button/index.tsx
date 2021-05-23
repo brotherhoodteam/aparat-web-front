@@ -49,7 +49,6 @@ const Button: React.FC<Props> = React.memo(
 			to,
 			...props
 		}) => {
-			console.log('btn renderd')
 			const btnLink = to ? to : '#'
 			const baseClass = 'btn'
 			const baseStatusClass = 'btn-status'

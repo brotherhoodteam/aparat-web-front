@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import ApiRoutes from './routes'
+import ApiRoutes from './constants'
 import request from '../http/request'
 import { SignInDataType } from '../../store/user/interface'
 

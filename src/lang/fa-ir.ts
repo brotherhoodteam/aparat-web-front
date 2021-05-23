@@ -1,4 +1,4 @@
-import Locales from '../core/react-intl/types'
+import Locales from '../core/react-intl/interface'
 
 const FARSI = {
 	[Locales.FARSI]: {
