@@ -145,6 +145,7 @@ const Drawer = () => {
 						<PerfectScrollbar style={{ width: '100%', height: '100%' }}>
 							<NavbarVertical>
 								<NavbarLink title="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
+								<NavbarLink title="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
 								<NavbarDivider />
 								<NavbarSubtitle title="دسته‌بندی" />
 								{renderCategoies()}

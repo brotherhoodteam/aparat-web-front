@@ -39,6 +39,9 @@
 		border-bottom-width: 0.2rem;
 		margin-bottom: -0.2rem;
 		border-color: transparent;
+		&:active {
+			background-color: rgba(189, 197, 209, 0.3	);
+		}
 		&.active {
 			color: #377dff;
 			background-color: transparent;

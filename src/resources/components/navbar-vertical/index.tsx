@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { LinkTarget } from '../../../interface/component'
 
 import './styles.scss'
@@ -29,10 +29,10 @@ const NavbarVertical: React.FC = ({ children }) => {
 const NavbarLink: React.FC<NavbarLinkProps> = ({ title, icon, to }) => {
 	return (
 		<li className="navbar-item">
-			<Link to={to} className="navbar-link">
+			<NavLink to={to} exact activeClassName="active" className="navbar-link">
 				<i className={`${icon} navbar-icon`}></i>
 				<span className="navbar-text text-truncate">{title}</span>
-			</Link>
+			</NavLink>
 		</li>
 	)
 }
