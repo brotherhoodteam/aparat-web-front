@@ -14,7 +14,10 @@ if (process.env.NODE_ENV === 'development') {
 
 const store = configureStore({
 	reducer: rootReducer,
-	middleware: [...getDefaultMiddleware({ thunk: false, logger: false }), ...middleware],
+	middleware: [
+		...getDefaultMiddleware({ thunk: false, logger: false, serializableCheck: false }),
+		...middleware
+	],
 	devTools: process.env.NODE_ENV === 'development'
 })
 

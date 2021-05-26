@@ -10,4 +10,4 @@ export type SetLocaleAction = LocaleType
 export interface IntlState {
 	locale: SetLocaleAction
 }
-export type IntlActionType = PayloadAction<SetLocaleAction>
+export type IntlActionTypes = PayloadAction<SetLocaleAction>

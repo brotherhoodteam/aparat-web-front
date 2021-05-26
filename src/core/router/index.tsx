@@ -16,7 +16,6 @@ const RouterComponent = () => {
 							path={path}
 							render={props => {
 								const { status, redirect } = routerAccess(access)
-								console.log(status, redirect)
 								if (status) {
 									return <Component routes={routes} {...props} />
 								}

@@ -20,7 +20,7 @@
 		padding-bottom: 1rem;
 		margin-bottom: 0;
 		background-color: #fff;
-		// border-bottom: 0.0625rem solid rgba(231, 234, 243, 0.7);
+		border-bottom: 0.0625rem solid rgba(231, 234, 243, 0.7);
 		&:first-child {
 			border-radius: 0.6875rem 0.6875rem 0 0;
 		}
@@ -28,15 +28,15 @@
 			padding-right: 2rem;
 			padding-left: 2rem;
 		}
-		&-title {
+	}
+	&-title {
+		margin-bottom: 0 !important;
+	}
+	&-text {
+		display: block;
+		color: #677788;
+		&:last-child {
 			margin-bottom: 0;
-		}
-		&-text {
-			display: block;
-			color: #677788;
-			&:last-child {
-				margin-bottom: 0;
-			}
 		}
 	}
 

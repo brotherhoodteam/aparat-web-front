@@ -13,7 +13,7 @@ export type ErrorDataType = {
 export interface AppErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 // USER RESPONSE TYPES
 // USER ACTIONS TYPE
-export type AppActionType = AppErrorActionPayloadType
+export type AppActionTypes = AppErrorActionPayloadType
 // USER STATE TYPE
 export interface AppStateType {
 	error: AppErrorType | null

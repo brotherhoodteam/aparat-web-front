@@ -41,7 +41,7 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 						<div className="col-lg-3">
 							<Sidebar />
 						</div>
-						<div className="col-8">
+						<div className="col-9">
 							<Switch>
 								{routes?.map(
 									({
@@ -59,7 +59,6 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 												path={path}
 												render={props => {
 													const { status, redirect } = routerAccess(access)
-													console.log('path', path)
 													if (status) {
 														return <Component routes={routes} {...props} />
 													}

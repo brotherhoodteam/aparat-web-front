@@ -1,7 +1,12 @@
-import { AppActionType } from '../../store/app/interface'
-import { IntlActionType } from '../../store/intl/interface'
-import { UserActionType } from '../../store/user/interface'
+import { AppActionTypes } from '../../store/app/interface'
+import { IntlActionTypes } from '../../store/intl/interface'
+import { UserActionTypes } from '../../store/user/interface'
+import { VideoActionTypes } from '../../store/video/interface'
 import appReducer from './reducer'
 
 export type StateType = ReturnType<typeof appReducer>
-export type ActionType = IntlActionType | UserActionType | AppActionType
+export type ActionType =
+	| IntlActionTypes
+	| UserActionTypes
+	| AppActionTypes
+	| VideoActionTypes

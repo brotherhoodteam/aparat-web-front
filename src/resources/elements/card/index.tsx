@@ -8,6 +8,9 @@ interface CardPorps {
 	className?: ClassName
 	size?: Size
 }
+interface CardHeaderProps {
+	className?: ClassName
+}
 interface CardBodyProps {
 	className?: ClassName
 }
@@ -37,7 +40,7 @@ const Card: React.FC<CardPorps> = React.memo(
 		)
 	}
 )
-const CardHeader: React.FC<CardBodyProps> = ({ children, className, ...props }) => {
+const CardHeader: React.FC<CardHeaderProps> = ({ children, className, ...props }) => {
 	const styles = useClass({
 		defaultClass: 'card-header',
 		otherClass: className

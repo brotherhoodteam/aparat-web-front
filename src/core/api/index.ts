@@ -19,6 +19,21 @@ const api = {
 			}
 			return request(config)
 		}
+	},
+	video: {
+		upload: (file: File) => {
+			const data = new FormData()
+			data.append('video', file)
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.VIDEO_UPLOAD,
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+				data
+			}
+			return request(config)
+		}
 	}
 }
 

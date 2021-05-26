@@ -37,7 +37,7 @@ export interface ResponseAuthType {
 }
 
 // USER ACTIONS TYPE
-export type UserActionType =
+export type UserActionTypes =
 	| SignInActionPayloadType
 	| SignInSuccessActionPayloadType
 	| SignInFailedActionPayloadType

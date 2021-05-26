@@ -1,0 +1,12 @@
+.drag-wrapper {
+    text-align: center;
+    justify-content: center;
+	width: 100%;
+	background-color: #f8fafd;
+	border: 0.125rem dashed #e7eaf3;
+	border-radius: 0.3125rem;
+	padding: 3rem 3rem;
+	display: flex;
+	flex-wrap: wrap;
+    cursor: pointer;
+}
