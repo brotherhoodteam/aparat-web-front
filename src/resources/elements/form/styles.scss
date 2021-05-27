@@ -108,11 +108,13 @@
 		display: none;
 	}
 	&__value-container {
-		padding: 0.55rem 0.875rem !important;
+		padding: 0.56rem 0.875rem !important;
 	}
-	&__single-value,
-	&__placeholder {
+	&__single-value {
 		color: #1e2022 !important;
+	}
+	&__placeholder {
+		color: #97a4af !important;
 	}
 	&__dropdown-indicator svg {
 		fill: rgba(113, 134, 157, 0.849);
@@ -155,4 +157,7 @@
 			z-index: 100 !important;
 		}
 	}
+}
+textarea.form-control {
+	height: auto!important;
 }

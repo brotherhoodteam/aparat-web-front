@@ -1,27 +1,40 @@
+import { useSelector } from 'react-redux'
 import { useCallback } from 'react'
 import { Helmet } from 'react-helmet'
 import { useDropzone } from 'react-dropzone'
+import { useFormik } from 'formik'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
+import { SelectBox, Input, TextArea } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
-import { SelectBox } from '../../../elements/form'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { fileUploadStartAction } from '../../../../store/video/slice'
+import { selectCategoryList } from '../../../../store/category/selectors'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
-
 import './styles.scss'
-import { useSelector } from 'react-redux'
-import { selectCategoryList } from '../../../../store/category/selectors'
 
 const DashboardUpload: React.FC = () => {
 	const dispatch = useTypedDispatch()
 	const category = useSelector(selectCategoryList)
+
+	// form settings
+	const form = useFormik({
+		initialValues: {
+			title: '',
+			category: '',
+			description: ''
+		},
+		onSubmit: (value: any) => {
+			console.log('submit', value)
+		}
+	})
+
+	// Drop setting
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		if (acceptedFiles[0]) {
-			console.log('acceptedFiles[0]', acceptedFiles[0])
 			dispatch(fileUploadStartAction({ file: acceptedFiles[0] }))
 		}
 	}, [])
@@ -57,24 +70,54 @@ const DashboardUpload: React.FC = () => {
 								<small className="text-muted">حداکثر حجم فایل باید 200مگابایت باشد</small>
 							</div>
 						</div>
-						<Tabs active="2">
+						<Tabs active="1">
 							<TabsList className="mb-5">
-								<TabsItem id="1" title="پروفایل" />
+								<TabsItem id="1" title="مشخصات" />
 								<TabsItem id="2" title="تیم" />
-								<TabsItem id="3" title="پروژه‌ها" />
-								<TabsItem id="4" title="ارتباطات" />
 							</TabsList>
 							<TabsBody>
 								<TabsContent id="1">
 									<Card>
 										<CardHeader>
-											<CardTitle>تب پروفایل</CardTitle>
+											<CardTitle className="h5">مشخصات ویدئو</CardTitle>
 										</CardHeader>
 										<CardBody>
-											از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر
-											متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد
-											آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی
-											می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
+											<form onSubmit={form.handleSubmit}>
+												<div className="row">
+													<div className="col-12 col-md-6">
+														<Input
+															name="title"
+															id="title"
+															label="عنوان ویدئو"
+															placeholder="عنوان ویدئو راوارد نمایید"
+															value={form.values.title}
+															onChange={form.handleChange}
+														/>
+													</div>
+													<div className="col-12 col-md-6">
+														<SelectBox
+															name="category"
+															id="select-category"
+															label="دسته‌بندی"
+															options={category}
+															placeholder="یک دسته انتخاب کنید"
+															value={form.values.category}
+															onChange={form.setFieldValue}
+														/>
+													</div>
+													<div className="col-12">
+														<TextArea
+															name="description"
+															id="desc"
+															label="توضیحات"
+															placeholder="توضیحات ویدئو راوارد نمایید"
+															value={form.values.description}
+															onChange={form.handleChange}
+														/>
+													</div>
+													<div className="col-12 col-lg-6"></div>
+												</div>
+											</form>
 										</CardBody>
 									</Card>
 								</TabsContent>
@@ -91,46 +134,8 @@ const DashboardUpload: React.FC = () => {
 										</CardBody>
 									</Card>
 								</TabsContent>
-								<TabsContent id="3">
-									<Card>
-										<CardHeader>
-											<CardTitle>تب پروژه‌ها</CardTitle>
-										</CardHeader>
-										<CardBody>
-											از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر
-											متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد
-											آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی
-											می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-										</CardBody>
-									</Card>
-								</TabsContent>
-								<TabsContent id="4">
-									<Card>
-										<CardHeader>
-											<CardTitle>تب ارتباطات</CardTitle>
-										</CardHeader>
-										<CardBody>
-											از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر
-											متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد
-											آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی
-											می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-										</CardBody>
-									</Card>
-								</TabsContent>
 							</TabsBody>
 						</Tabs>
-						<div className="row">
-							<div className="col-6">
-								<SelectBox
-									id="selectOp"
-									name="list"
-									label="دسته‌بندی"
-									options={category}
-									placeholder="یک دسته انتخاب کنید"
-								/>
-							</div>
-							<div className="col-6"></div>
-						</div>
 					</CardBody>
 				</Card>
 			</PanelLayout>

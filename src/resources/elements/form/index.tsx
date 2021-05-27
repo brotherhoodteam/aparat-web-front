@@ -1,70 +1,49 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Field } from 'formik'
 import { nanoid } from 'nanoid'
+import Select, { ActionMeta, GroupTypeBase, OptionTypeBase } from 'react-select'
 
-import Select, { GroupTypeBase, OptionTypeBase } from 'react-select'
 import useClass from '../../../hooks/use-class'
-import { ClassName } from '../../../interface/component'
+
+import { ClassName, Size } from '../../../interface/component'
 
 import './styles.scss'
+
 interface FieldProps {
+	id?: string
 	name: string
 	type?: 'text' | 'email'
+	value: string
 	label: string
-	id?: string
+	size?: Size
+	className?: ClassName
+	onChange: (e: React.ChangeEvent<any>) => void
 }
 interface InputPorps extends FieldProps {
 	placeholder?: string
 }
-
-const Input: React.FC<InputPorps> = React.memo(
-	({ name, id, label, type, placeholder, ...props }) => {
-		const htmlId = id ? id : `name-${nanoid()}`
-		const inputType = type ? type : 'text'
-		return (
-			<Field name={name} {...props}>
-				{({ field, form, meta }: any) => {
-					return (
-						<div className="form-group text-right">
-							{label && (
-								<label htmlFor={htmlId} className="input-label">
-									{label}
-								</label>
-							)}
-							<input
-								type={inputType}
-								id={htmlId}
-								className="form-control form-control-lg"
-								placeholder={placeholder}
-								{...field}
-							/>
-						</div>
-					)
-				}}
-			</Field>
-		)
-	}
-)
 interface SelectBoxType {
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	id: string
 	name: string
+	value: string
 	label?: string
 	placeholder?: string
 	isSearchable?: boolean
 	className?: ClassName
+	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
-// const Option = props => {
-// 	return <components.Option {...props} />
-// }
-const SelectBox: React.FC<SelectBoxType> = React.memo(
-	({ id, name, label, placeholder, isSearchable, className, options }) => {
-		const htmlId = id ? id : `SelectBox-${nanoid()}`
-
-		const baseClass = 'select-box'
+const Input: React.FC<InputPorps> = React.memo(
+	({ name, id, label, type, placeholder, className, size, onChange }) => {
+		const htmlId = id ? id : `name-${nanoid()}`
+		const inputType = type ? type : 'text'
+		const inputSize = `form-control-${size}`
 		const styles = useClass({
-			defaultClass: baseClass,
+			defaultClass: 'form-control',
+			optionalClass: {
+				[inputSize]: size
+			},
 			otherClass: className
 		})
 
@@ -75,17 +54,94 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 						{label}
 					</label>
 				)}
-				<Select
-					id={htmlId}
+				<input
+					type={inputType}
 					name={name}
-					options={options}
+					id={htmlId}
 					className={styles}
-					classNamePrefix={'select-box'}
-					isSearchable={isSearchable || false}
-					placeholder={placeholder || ''}
+					placeholder={placeholder}
+					autoComplete="off"
+					onChange={onChange}
 				/>
 			</div>
 		)
 	}
 )
-export { Input, SelectBox }
+
+const TextArea: React.FC<InputPorps> = React.memo(
+	({ name, id, label, type, placeholder, className, size, onChange }) => {
+		const htmlId = id ? id : `name-${nanoid()}`
+		const styles = useClass({
+			defaultClass: 'form-control',
+			otherClass: className
+		})
+
+		return (
+			<div className="form-group text-right">
+				{label && (
+					<label htmlFor={htmlId} className="input-label">
+						{label}
+					</label>
+				)}
+				<textarea
+					rows={4}
+					name={name}
+					id={htmlId}
+					placeholder={placeholder}
+					className={styles}
+					onChange={onChange}
+				></textarea>
+			</div>
+		)
+	}
+)
+const SelectBox: React.FC<SelectBoxType> = React.memo(
+	({
+		id,
+		name,
+		label,
+		placeholder,
+		isSearchable,
+		className,
+		options,
+		value,
+		onChange
+	}) => {
+		const htmlId = id ? id : `SelectBox-${nanoid()}`
+		const baseClass = 'select-box'
+		const styles = useClass({
+			defaultClass: baseClass,
+			otherClass: className
+		})
+
+		const handleChange = useCallback(
+			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
+				onChange(name, select?.value)
+			},
+			[]
+		)
+
+		const defaultValue = options?.find(op => op.value === value)
+		return (
+			<div className="form-group text-right">
+				{label && (
+					<label htmlFor={htmlId} className="input-label">
+						{label}
+					</label>
+				)}
+				<Select
+					id={htmlId}
+					name={name}
+					className={styles}
+					classNamePrefix={'select-box'}
+					placeholder={placeholder || ''}
+					options={options}
+					value={defaultValue}
+					isSearchable={isSearchable || false}
+					onChange={handleChange}
+				/>
+			</div>
+		)
+	}
+)
+export { Input, TextArea, SelectBox }

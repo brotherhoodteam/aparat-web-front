@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router'
-import routes from './interface'
-import { RouteType } from './types'
+import routes from './routes'
+import { RouteType } from './interface'
 import useAccess from '../../hooks/use-access'
 
 const RouterComponent = () => {

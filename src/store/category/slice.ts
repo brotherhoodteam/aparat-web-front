@@ -5,70 +5,70 @@ const initialState = {
 		{
 			id: 1,
 			label: 'سریال و فیلم‌های سینمایی',
-			value: 'سریال و فیلم‌های سینمایی',
+			value: 'movie',
 			icon: 'tio-movie',
 			to: '/dashboard'
 		},
 		{
 			id: 2,
 			label: 'گیم',
-			value: 'گیم',
+			value: 'game',
 			icon: 'tio-joystick ',
 			to: '/dashboard'
 		},
 		{
 			id: 3,
 			label: 'ورزشی',
-			value: 'ورزشی',
+			value: 'sport',
 			icon: 'tio-sport ',
 			to: '/dashboard'
 		},
 		{
 			id: 4,
 			label: 'کارتون',
-			value: 'کارتون',
+			value: 'cartons',
 			icon: 'tio-face-male ',
 			to: '/dashboard'
 		},
 		{
 			id: 5,
 			label: 'آشپزی',
-			value: 'آشپزی',
+			value: 'ummy',
 			icon: 'tio-meal ',
 			to: '/dashboard'
 		},
 		{
 			id: 6,
 			label: 'آموزشی',
-			value: 'آموزشی',
+			value: 'tutorial',
 			icon: 'tio-education ',
 			to: '/dashboard'
 		},
 		{
 			id: 7,
 			label: 'موسیقی',
-			value: 'موسیقی',
+			value: 'music',
 			icon: 'tio-music ',
 			to: '/dashboard'
 		},
 		{
 			id: 8,
 			label: 'حیوانات',
-			value: 'حیوانات',
+			value: 'animal',
 			icon: 'tio-pet ',
 			to: '/dashboard'
 		},
 		{
 			id: 9,
 			label: 'علم و تکنولوژی',
-			value: 'علم و تکنولوژی',
+			value: 'tech',
 			icon: 'tio-augmented-reality ',
 			to: '/dashboard'
 		},
 		{
 			id: 10,
 			label: 'خبری',
-			value: 'خبری',
+			value: 'news',
 			icon: 'tio-feed ',
 			to: '/dashboard'
 		}

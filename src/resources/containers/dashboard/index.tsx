@@ -4,7 +4,7 @@ import Sidebar from '../../components/sidebar'
 import Button from '../../elements/button'
 
 import useAccess from '../../../hooks/use-access'
-import { RouteType } from '../../../core/router/types'
+import { RouteType } from '../../../core/router/interface'
 
 import accountBg from '../../../assets/images/abstract-shapes-20.svg'
 import './styles.scss'
@@ -41,7 +41,7 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 						<div className="col-lg-3">
 							<Sidebar />
 						</div>
-						<div className="col-12">
+						<div className="col-9">
 							<Switch>
 								{routes?.map(
 									({

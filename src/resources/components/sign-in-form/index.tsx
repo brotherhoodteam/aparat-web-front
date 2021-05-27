@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik'
+import { Form, Formik, useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import useTypedDispatch from '../../../hooks/use-typed-dispatch'
 
@@ -17,25 +17,34 @@ const SignInForm: React.FC = () => {
 	const dispatch = useTypedDispatch()
 	const signInLoading = useSelector(selectUserSignInLoading)
 
-	const initialValues: SignInFormType = {
-		username: '',
-		password: ''
-	}
-	const onSubmit = ({ username, password }: SignInFormType) => {
-		dispatch(signInAction({ password, username }))
-	}
-	const signInForm = { initialValues, onSubmit }
-
+	const form = useFormik({
+		initialValues: {
+			username: '',
+			password: ''
+		},
+		onSubmit: ({ username, password }: SignInFormType) => {
+			dispatch(signInAction({ password, username }))
+		}
+	})
 	return (
-		<Formik {...signInForm}>
-			<Form>
-				<Input name="username" label="نام کاربری" placeholder="" />
-				<Input name="password" label="پسورد" placeholder="حداقل 8 کارکتر وارد نمایید" />
-				<Button type="submit" color="primary" size="lg" loader={signInLoading} block>
-					ورود
-				</Button>
-			</Form>
-		</Formik>
+		<form onSubmit={form.handleSubmit}>
+			<Input
+				name="username"
+				label="نام کاربری"
+				onChange={form.handleChange}
+				value={form.values.username}
+			/>
+			<Input
+				name="password"
+				label="پسورد"
+				placeholder="حداقل 8 کارکتر وارد نمایید"
+				value={form.values.password}
+				onChange={form.handleChange}
+			/>
+			<Button type="submit" color="primary" size="lg" loader={signInLoading} block>
+				ورود
+			</Button>
+		</form>
 	)
 }
 

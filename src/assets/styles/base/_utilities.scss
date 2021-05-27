@@ -206,6 +206,10 @@ h5 {
 .text-muted {
     color: #8c98a4!important;
 }
+textarea {
+    overflow: auto;
+    resize: vertical;
+}
 // align
 .text-center {
 	text-align: center !important;
