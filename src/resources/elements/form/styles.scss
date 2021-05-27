@@ -53,7 +53,7 @@
 	box-shadow: 0 0 10px rgba(55, 125, 255, 0.1);
 }
 .form-control::placeholder {
-	font-size: .9rem;
+	font-size: 0.9rem;
 }
 .form-control::-webkit-input-placeholder {
 	color: #97a4af;
@@ -90,4 +90,69 @@
 	border-color: rgba(55, 125, 255, 0.4);
 	outline: 0;
 	box-shadow: 0 0 10px rgb(55 125 255 / 10%);
+}
+
+.select-box {
+	$self: &;
+	background-color: #fff !important;
+	&__control {
+		border-color: #e7eaf3 !important;
+		color: #1e2022;
+		cursor: pointer !important;
+		&#{$self}__control--menu-is-open,
+		&#{$self}__control--is-focused {
+			box-shadow: 0 0 0 1px rgba(55, 125, 255, 0.4) !important;
+		}
+	}
+	&__indicator-separator {
+		display: none;
+	}
+	&__value-container {
+		padding: 0.55rem 0.875rem !important;
+	}
+	&__single-value,
+	&__placeholder {
+		color: #1e2022 !important;
+	}
+	&__dropdown-indicator svg {
+		fill: rgba(113, 134, 157, 0.849);
+		width: 14px;
+		height: 14px;
+	}
+
+	&__menu-list {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
+	&__option {
+		position: relative !important;
+		color: #1e2022 !important;
+		background-color: #fff;
+		cursor: pointer !important;
+		padding: 0.5rem !important;
+		&#{$self}__option--is-focused {
+			background-color: #fff !important;
+		}
+		&#{$self}__option--is-selected,
+		&:hover {
+			color: #1e2022;
+			background-color: rgba(189, 197, 209, 0.3) !important;
+		}
+
+		&#{$self}__option--is-selected:before {
+			content: '' !important;
+			display: block !important;
+			position: absolute !important;
+			top: 50% !important;
+			left: 0.5rem !important;
+			width: 1rem !important;
+			height: 1rem !important;
+			background: lightcoral;
+			background: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 110 110' fill='%23377dff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M98.1,16.2c-2.5-2.3-6.4-2.2-8.7,0.2L36.7,70.1l-13-15.5c-2.9-3.5-7.9-4.1-11.1-1.4c-2.9,2.4-3.5,6.6-1.4,10.1l16.5,28c3.2,5.4,10.8,5.8,14.5,0.8l56.5-67.3C100.7,22.1,100.4,18.5,98.1,16.2z'/%3E%3C/svg%3E%0A")
+				no-repeat left center/1rem 1rem !important;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%) !important;
+			z-index: 100 !important;
+		}
+	}
 }

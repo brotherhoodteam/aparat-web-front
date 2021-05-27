@@ -1,8 +1,10 @@
 import { useCallback } from 'react'
 import { Helmet } from 'react-helmet'
 import { useDropzone } from 'react-dropzone'
+import Select from 'react-select'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
+import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
 import PanelLayout from '../../../layouts/panel'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
@@ -10,7 +12,13 @@ import { fileUploadStartAction } from '../../../../store/video/slice'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
 import './styles.scss'
-import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
+import { SelectBox } from '../../../elements/form'
+
+const options = [
+	{ value: 'chocolate', label: 'Chocolate' },
+	{ value: 'strawberry', label: 'Strawberry' },
+	{ value: 'vanilla', label: 'Vanilla' }
+]
 
 const DashboardUpload: React.FC = () => {
 	const dispatch = useTypedDispatch()
@@ -114,6 +122,18 @@ const DashboardUpload: React.FC = () => {
 								</TabsContent>
 							</TabsBody>
 						</Tabs>
+						<div className="row">
+							<div className="col-6">
+								<SelectBox
+									id="selectOp"
+									name="list"
+									label="دسته‌بندی"
+									options={options}
+									placeholder="یک دسته انتخاب کنید"
+								/>
+							</div>
+							<div className="col-6"></div>
+						</div>
 					</CardBody>
 				</Card>
 			</PanelLayout>

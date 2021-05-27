@@ -1,6 +1,10 @@
+import React from 'react'
 import { Field } from 'formik'
 import { nanoid } from 'nanoid'
-import React from 'react'
+
+import Select, { components, GroupTypeBase, OptionTypeBase } from 'react-select'
+import useClass from '../../../hooks/use-class'
+import { ClassName } from '../../../interface/component'
 
 import './styles.scss'
 interface FieldProps {
@@ -41,4 +45,47 @@ const Input: React.FC<InputPorps> = React.memo(
 		)
 	}
 )
-export { Input }
+interface SelectBoxType {
+	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
+	id: string
+	name: string
+	label?: string
+	placeholder?: string
+	isSearchable?: boolean
+	className?: ClassName
+}
+
+// const Option = props => {
+// 	return <components.Option {...props} />
+// }
+const SelectBox: React.FC<SelectBoxType> = React.memo(
+	({ id, name, label, placeholder, isSearchable, className, options }) => {
+		const htmlId = id ? id : `SelectBox-${nanoid()}`
+
+		const baseClass = 'select-box'
+		const styles = useClass({
+			defaultClass: baseClass,
+			otherClass: className
+		})
+
+		return (
+			<div className="form-group text-right">
+				{label && (
+					<label htmlFor={htmlId} className="input-label">
+						{label}
+					</label>
+				)}
+				<Select
+					id={htmlId}
+					name={name}
+					options={options}
+					className={styles}
+					classNamePrefix={'select-box'}
+					isSearchable={isSearchable || false}
+					placeholder={placeholder || ''}
+				/>
+			</div>
+		)
+	}
+)
+export { Input, SelectBox }

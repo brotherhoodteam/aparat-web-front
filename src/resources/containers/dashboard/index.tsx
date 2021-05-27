@@ -41,7 +41,7 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 						<div className="col-lg-3">
 							<Sidebar />
 						</div>
-						<div className="col-9">
+						<div className="col-12">
 							<Switch>
 								{routes?.map(
 									({
