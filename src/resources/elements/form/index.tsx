@@ -9,7 +9,7 @@ import { ClassName, Size } from '../../../interface/component'
 
 import './styles.scss'
 
-interface FieldProps {
+interface InputProps {
 	id?: string
 	name: string
 	type?: 'text' | 'email'
@@ -17,10 +17,17 @@ interface FieldProps {
 	label: string
 	size?: Size
 	className?: ClassName
+	placeholder?: string
 	onChange: (e: React.ChangeEvent<any>) => void
 }
-interface InputPorps extends FieldProps {
+interface TextAreaProps {
+	id?: string
+	name: string
+	value: string
+	label: string
+	className?: ClassName
 	placeholder?: string
+	onChange: (e: React.ChangeEvent<any>) => void
 }
 interface SelectBoxType {
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
@@ -34,9 +41,9 @@ interface SelectBoxType {
 	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
-const Input: React.FC<InputPorps> = React.memo(
+const Input: React.FC<InputProps> = React.memo(
 	({ name, id, label, type, placeholder, className, size, onChange }) => {
-		const htmlId = id ? id : `name-${nanoid()}`
+		const htmlId = id ? id : `${name}-${nanoid()}`
 		const inputType = type ? type : 'text'
 		const inputSize = `form-control-${size}`
 		const styles = useClass({
@@ -68,9 +75,9 @@ const Input: React.FC<InputPorps> = React.memo(
 	}
 )
 
-const TextArea: React.FC<InputPorps> = React.memo(
-	({ name, id, label, type, placeholder, className, size, onChange }) => {
-		const htmlId = id ? id : `name-${nanoid()}`
+const TextArea: React.FC<TextAreaProps> = React.memo(
+	({ name, id, label, placeholder, className, onChange }) => {
+		const htmlId = id ? id : `${name}-${nanoid()}`
 		const styles = useClass({
 			defaultClass: 'form-control',
 			otherClass: className

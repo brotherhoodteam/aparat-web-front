@@ -77,49 +77,44 @@ const DashboardUpload: React.FC = () => {
 							</TabsList>
 							<TabsBody>
 								<TabsContent id="1">
-									<Card>
-										<CardHeader>
-											<CardTitle className="h5">مشخصات ویدئو</CardTitle>
-										</CardHeader>
-										<CardBody>
-											<form onSubmit={form.handleSubmit}>
-												<div className="row">
-													<div className="col-12 col-md-6">
-														<Input
-															name="title"
-															id="title"
-															label="عنوان ویدئو"
-															placeholder="عنوان ویدئو راوارد نمایید"
-															value={form.values.title}
-															onChange={form.handleChange}
-														/>
-													</div>
-													<div className="col-12 col-md-6">
-														<SelectBox
-															name="category"
-															id="select-category"
-															label="دسته‌بندی"
-															options={category}
-															placeholder="یک دسته انتخاب کنید"
-															value={form.values.category}
-															onChange={form.setFieldValue}
-														/>
-													</div>
-													<div className="col-12">
-														<TextArea
-															name="description"
-															id="desc"
-															label="توضیحات"
-															placeholder="توضیحات ویدئو راوارد نمایید"
-															value={form.values.description}
-															onChange={form.handleChange}
-														/>
-													</div>
-													<div className="col-12 col-lg-6"></div>
+									<div>
+										<form onSubmit={form.handleSubmit}>
+											<div className="row">
+												<div className="col-12 col-md-6">
+													<Input
+														name="title"
+														id="title"
+														label="عنوان ویدئو"
+														placeholder="عنوان ویدئو راوارد نمایید"
+														value={form.values.title}
+														onChange={form.handleChange}
+													/>
 												</div>
-											</form>
-										</CardBody>
-									</Card>
+												<div className="col-12 col-md-6">
+													<SelectBox
+														name="category"
+														id="select-category"
+														label="دسته‌بندی"
+														options={category}
+														placeholder="یک دسته انتخاب کنید"
+														value={form.values.category}
+														onChange={form.setFieldValue}
+													/>
+												</div>
+												<div className="col-12">
+													<TextArea
+														name="description"
+														id="desc"
+														label="توضیحات"
+														placeholder="توضیحات ویدئو راوارد نمایید"
+														value={form.values.description}
+														onChange={form.handleChange}
+													/>
+												</div>
+												<div className="col-12 col-lg-6"></div>
+											</div>
+										</form>
+									</div>
 								</TabsContent>
 								<TabsContent id="2">
 									<Card>
