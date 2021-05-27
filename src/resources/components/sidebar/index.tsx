@@ -22,25 +22,25 @@ const Sidebar: React.FC = () => {
 							<CardText className="font-size-1">arash@example.com</CardText>
 						</div>
 						<NavbarVertical>
-							<NavbarSubtitle title="حساب کاربری" />
-							<NavbarLink title="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
+							<NavbarSubtitle label="حساب کاربری" />
+							<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
 							<NavbarLink
-								title="ویدئوی جدید"
+								label="ویدئوی جدید"
 								icon="tio-share-screen"
 								to="/dashboard/upload"
 							/>
 							<NavbarLink
-								title="ویدئوهای من"
+								label="ویدئوهای من"
 								icon="tio-video-gallery"
 								to="/video-gallery"
 							/>
-							<NavbarLink title="دیدگاه" icon="tio-comment-text" to="/comment" />
+							<NavbarLink label="دیدگاه" icon="tio-comment-text" to="/comment" />
 							<NavbarLink
-								title="کانال‌های دنبال شده"
+								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
 								to="/dashboard"
 							/>
-							<NavbarLink title="آمار" icon="tio-chart-bar-2" to="/statistics" />
+							<NavbarLink label="آمار" icon="tio-chart-bar-2" to="/statistics" />
 						</NavbarVertical>
 					</CardBody>
 				</Card>

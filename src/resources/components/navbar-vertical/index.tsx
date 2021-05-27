@@ -1,21 +1,21 @@
 import { MouseEventHandler } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { LinkTarget } from '../../../interface/component'
 
 import './styles.scss'
 
 interface NavbarLinkProps {
-	title: string
+	label: string
 	icon: string
 	to: LinkTarget
 }
 interface NavbarButtonProps {
-	title: string
+	label: string
 	icon: string
 	onClick?: MouseEventHandler
 }
 interface NavbarSubtitleProps {
-	title: string
+	label: string
 }
 
 const NavbarVertical: React.FC = ({ children }) => {
@@ -26,31 +26,31 @@ const NavbarVertical: React.FC = ({ children }) => {
 	)
 }
 
-const NavbarLink: React.FC<NavbarLinkProps> = ({ title, icon, to }) => {
+const NavbarLink: React.FC<NavbarLinkProps> = ({ label, icon, to }) => {
 	return (
 		<li className="navbar-item">
 			<NavLink to={to} exact activeClassName="active" className="navbar-link">
 				<i className={`${icon} navbar-icon`}></i>
-				<span className="navbar-text text-truncate">{title}</span>
+				<span className="navbar-text text-truncate">{label}</span>
 			</NavLink>
 		</li>
 	)
 }
-const NavbarButton: React.FC<NavbarButtonProps> = ({ title, icon, onClick }) => {
+const NavbarButton: React.FC<NavbarButtonProps> = ({ label, icon, onClick }) => {
 	return (
 		<li className="navbar-item">
 			<a href="#" className="navbar-link" onClick={onClick}>
 				<i className={`${icon} navbar-icon`}></i>
-				<span className="navbar-text text-truncate">{title}</span>
+				<span className="navbar-text text-truncate">{label}</span>
 			</a>
 		</li>
 	)
 }
 
-const NavbarSubtitle: React.FC<NavbarSubtitleProps> = ({ title }) => {
+const NavbarSubtitle: React.FC<NavbarSubtitleProps> = ({ label }) => {
 	return (
 		<li className="navbar-item">
-			<span className="navbar-subtitle">{title}</span>
+			<span className="navbar-subtitle">{label}</span>
 		</li>
 	)
 }

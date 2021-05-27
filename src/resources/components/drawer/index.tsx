@@ -21,72 +21,12 @@ import {
 import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
+import { selectCategoryList } from '../../../store/category/selectors'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
 	const [limit, setLimit] = useState({ status: true, length: 4 })
-	const [categories] = useState([
-		{
-			id: 1,
-			title: 'سریال و فیلم‌های سینمایی',
-			icon: 'tio-movie',
-			to: '/dashboard'
-		},
-		{
-			id: 2,
-			title: 'گیم',
-			icon: 'tio-joystick ',
-			to: '/dashboard'
-		},
-		{
-			id: 3,
-			title: 'ورزشی',
-			icon: 'tio-sport ',
-			to: '/dashboard'
-		},
-		{
-			id: 4,
-			title: 'کارتون',
-			icon: 'tio-face-male ',
-			to: '/dashboard'
-		},
-		{
-			id: 5,
-			title: 'آشپزی',
-			icon: 'tio-meal ',
-			to: '/dashboard'
-		},
-		{
-			id: 6,
-			title: 'آموزشی',
-			icon: 'tio-education ',
-			to: '/dashboard'
-		},
-		{
-			id: 7,
-			title: 'موسیقی',
-			icon: 'tio-music ',
-			to: '/dashboard'
-		},
-		{
-			id: 8,
-			title: 'حیوانات',
-			icon: 'tio-pet ',
-			to: '/dashboard'
-		},
-		{
-			id: 9,
-			title: 'علم و تکنولوژی',
-			icon: 'tio-augmented-reality ',
-			to: '/dashboard'
-		},
-		{
-			id: 10,
-			title: 'خبری',
-			icon: 'tio-feed ',
-			to: '/dashboard'
-		}
-	])
+	const category = useSelector(selectCategoryList)
 	const isOpenDrawer = useSelector(selectAppDrawer)
 	const disaptch = useDispatch()
 
@@ -104,7 +44,7 @@ const Drawer = () => {
 		}))
 	}
 	const renderCategoies = () => {
-		const itmes = limit.status ? categories.slice(0, limit.length) : categories
+		const itmes = limit.status ? category.slice(0, limit.length) : category
 
 		return itmes.map(item => <NavbarLink key={item.id} {...item} />)
 	}
@@ -144,20 +84,20 @@ const Drawer = () => {
 					<CardBody className="drawer-body">
 						<PerfectScrollbar style={{ width: '100%', height: '100%' }}>
 							<NavbarVertical>
-								<NavbarLink title="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
-								<NavbarLink title="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
+								<NavbarLink label="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
+								<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
 								<NavbarDivider />
-								<NavbarSubtitle title="دسته‌بندی" />
+								<NavbarSubtitle label="دسته‌بندی" />
 								{renderCategoies()}
 								<NavbarButton
-									title={`${limit.status ? 'نمایش بیشتر' : 'نمایش کمتر'}`}
+									label={`${limit.status ? 'نمایش بیشتر' : 'نمایش کمتر'}`}
 									icon={`${limit.status ? 'tio-chevron-down' : 'tio-chevron-up'}`}
 									onClick={toggleList}
 								/>
 								<NavbarDivider />
-								<NavbarLink title="تماس‌باما" icon="tio-support" to="/dashboard" />
-								<NavbarLink title="تبلیغات" icon="tio-comment-play" to="/dashboard" />
-								<NavbarLink title="قوانین" icon="tio-new-release" to="/dashboard" />
+								<NavbarLink label="تماس‌باما" icon="tio-support" to="/dashboard" />
+								<NavbarLink label="تبلیغات" icon="tio-comment-play" to="/dashboard" />
+								<NavbarLink label="قوانین" icon="tio-new-release" to="/dashboard" />
 							</NavbarVertical>
 						</PerfectScrollbar>
 					</CardBody>

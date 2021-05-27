@@ -2,7 +2,7 @@ import React from 'react'
 import { Field } from 'formik'
 import { nanoid } from 'nanoid'
 
-import Select, { components, GroupTypeBase, OptionTypeBase } from 'react-select'
+import Select, { GroupTypeBase, OptionTypeBase } from 'react-select'
 import useClass from '../../../hooks/use-class'
 import { ClassName } from '../../../interface/component'
 

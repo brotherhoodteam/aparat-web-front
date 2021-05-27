@@ -1,27 +1,24 @@
 import { useCallback } from 'react'
 import { Helmet } from 'react-helmet'
 import { useDropzone } from 'react-dropzone'
-import Select from 'react-select'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
 import PanelLayout from '../../../layouts/panel'
+import { SelectBox } from '../../../elements/form'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { fileUploadStartAction } from '../../../../store/video/slice'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
-import './styles.scss'
-import { SelectBox } from '../../../elements/form'
 
-const options = [
-	{ value: 'chocolate', label: 'Chocolate' },
-	{ value: 'strawberry', label: 'Strawberry' },
-	{ value: 'vanilla', label: 'Vanilla' }
-]
+import './styles.scss'
+import { useSelector } from 'react-redux'
+import { selectCategoryList } from '../../../../store/category/selectors'
 
 const DashboardUpload: React.FC = () => {
 	const dispatch = useTypedDispatch()
+	const category = useSelector(selectCategoryList)
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		if (acceptedFiles[0]) {
 			console.log('acceptedFiles[0]', acceptedFiles[0])
@@ -128,7 +125,7 @@ const DashboardUpload: React.FC = () => {
 									id="selectOp"
 									name="list"
 									label="دسته‌بندی"
-									options={options}
+									options={category}
 									placeholder="یک دسته انتخاب کنید"
 								/>
 							</div>
