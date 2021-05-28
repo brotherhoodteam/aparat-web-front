@@ -24,8 +24,9 @@ const DashboardUpload: React.FC = () => {
 	const form = useFormik({
 		initialValues: {
 			title: '',
-			category: '',
-			description: ''
+			description: '',
+			category: 'sport',
+			tags: ['game', 'sport']
 		},
 		onSubmit: (value: any) => {
 			console.log('submit', value)
@@ -72,8 +73,8 @@ const DashboardUpload: React.FC = () => {
 						</div>
 						<Tabs active="1">
 							<TabsList className="mb-5">
-								<TabsItem id="1" title="مشخصات" />
-								<TabsItem id="2" title="تیم" />
+								<TabsItem id="1" title="مشخصات ویدئو" />
+								<TabsItem id="2" title="تنظیمات پیشرفته" />
 							</TabsList>
 							<TabsBody>
 								<TabsContent id="1">
@@ -95,9 +96,9 @@ const DashboardUpload: React.FC = () => {
 														name="category"
 														id="select-category"
 														label="دسته‌بندی"
-														options={category}
 														placeholder="یک دسته انتخاب کنید"
-														value={form.values.category}
+														options={category}
+														selectDefaultValue={form.values.category}
 														onChange={form.setFieldValue}
 													/>
 												</div>
@@ -111,7 +112,23 @@ const DashboardUpload: React.FC = () => {
 														onChange={form.handleChange}
 													/>
 												</div>
-												<div className="col-12 col-lg-6"></div>
+												<div className="col-12 col-lg-6">
+													<SelectBox
+														name="tags"
+														id="select-tags"
+														label="برچسب"
+														placeholder="برچسب انتخاب کنید"
+														options={category}
+														multiSelectDefaultValue={form.values.tags}
+														onChange={form.setFieldValue}
+														isMulti
+														closeMenuOnSelect={false}
+														isClearable
+													/>
+												</div>
+												<div className="col-12 col-lg-6">
+													<input type="submit" value="submit" />
+												</div>
 											</div>
 										</form>
 									</div>

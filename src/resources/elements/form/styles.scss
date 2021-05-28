@@ -108,7 +108,10 @@
 		display: none;
 	}
 	&__value-container {
-		padding: 0.56rem 0.875rem !important;
+		padding: 0.555rem 0.875rem !important;
+		&#{$self}__value-container--is-multi {
+			padding: 0.4rem 0.875rem !important;
+		}
 	}
 	&__single-value {
 		color: #1e2022 !important;
@@ -116,10 +119,21 @@
 	&__placeholder {
 		color: #97a4af !important;
 	}
-	&__dropdown-indicator svg {
+	&__dropdown-indicator svg,
+	&__clear-indicator svg,
+	&__multi-value__remove svg {
 		fill: rgba(113, 134, 157, 0.849);
 		width: 14px;
 		height: 14px;
+	}
+	&__clear-indicator {
+		& ~ #{$self}__indicator-separator {
+			display: block;
+		}
+	}
+	&__multi-value__remove svg {
+		width: 12px;
+		height: 12px;
 	}
 
 	&__menu-list {
@@ -159,5 +173,5 @@
 	}
 }
 textarea.form-control {
-	height: auto!important;
+	height: auto !important;
 }

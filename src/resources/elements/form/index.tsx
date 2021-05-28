@@ -1,7 +1,11 @@
-import React, { useCallback } from 'react'
-import { Field } from 'formik'
+import React, { useCallback, useMemo } from 'react'
 import { nanoid } from 'nanoid'
-import Select, { ActionMeta, GroupTypeBase, OptionTypeBase } from 'react-select'
+import Select, {
+	ActionMeta,
+	components,
+	GroupTypeBase,
+	OptionTypeBase
+} from 'react-select'
 
 import useClass from '../../../hooks/use-class'
 
@@ -18,6 +22,7 @@ interface InputProps {
 	size?: Size
 	className?: ClassName
 	placeholder?: string
+
 	onChange: (e: React.ChangeEvent<any>) => void
 }
 interface TextAreaProps {
@@ -33,11 +38,15 @@ interface SelectBoxType {
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	id: string
 	name: string
-	value: string
+	selectDefaultValue?: string
+	multiSelectDefaultValue?: string[]
 	label?: string
+	className?: ClassName
 	placeholder?: string
 	isSearchable?: boolean
-	className?: ClassName
+	closeMenuOnSelect?: boolean
+	isMulti?: boolean
+	isClearable?: boolean
 	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
@@ -102,6 +111,14 @@ const TextArea: React.FC<TextAreaProps> = React.memo(
 		)
 	}
 )
+
+const NoOptionsMessage = (props: any) => {
+	return (
+		<components.NoOptionsMessage {...props}>
+			<span className="custom-css-class">موردی یافت نشد</span>
+		</components.NoOptionsMessage>
+	)
+}
 const SelectBox: React.FC<SelectBoxType> = React.memo(
 	({
 		id,
@@ -111,7 +128,11 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		isSearchable,
 		className,
 		options,
-		value,
+		selectDefaultValue,
+		multiSelectDefaultValue,
+		closeMenuOnSelect,
+		isMulti,
+		isClearable,
 		onChange
 	}) => {
 		const htmlId = id ? id : `SelectBox-${nanoid()}`
@@ -123,12 +144,24 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
+				if (isMulti) {
+					const items = select?.map((tag: any) => tag.value)
+					onChange(name, items)
+					return
+				}
 				onChange(name, select?.value)
 			},
+
 			[]
 		)
 
-		const defaultValue = options?.find(op => op.value === value)
+		const defaultValue = useMemo(
+			() =>
+				isMulti
+					? options?.filter(op => multiSelectDefaultValue?.some(val => val === op.value))
+					: options?.find(op => op.value === selectDefaultValue),
+			[]
+		)
 		return (
 			<div className="form-group text-right">
 				{label && (
@@ -143,9 +176,13 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 					classNamePrefix={'select-box'}
 					placeholder={placeholder || ''}
 					options={options}
-					value={defaultValue}
+					defaultValue={defaultValue}
 					isSearchable={isSearchable || false}
 					onChange={handleChange}
+					isMulti={isMulti}
+					closeMenuOnSelect={closeMenuOnSelect}
+					isClearable={isClearable || false}
+					components={{ NoOptionsMessage }}
 				/>
 			</div>
 		)
