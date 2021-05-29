@@ -100,6 +100,7 @@ const DashboardUpload: React.FC = () => {
 														options={category}
 														selectDefaultValue={form.values.category}
 														onChange={form.setFieldValue}
+														isSearchable
 													/>
 												</div>
 												<div className="col-12">
@@ -124,6 +125,7 @@ const DashboardUpload: React.FC = () => {
 														isMulti
 														closeMenuOnSelect={false}
 														isClearable
+														isSearchable
 													/>
 												</div>
 												<div className="col-12 col-lg-6">

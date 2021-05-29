@@ -112,7 +112,8 @@ const TextArea: React.FC<TextAreaProps> = React.memo(
 	}
 )
 
-const NoOptionsMessage = (props: any) => {
+const NoOptionsMessage = (props: any, other: any) => {
+	console.log('props: any , other :any', props, other)
 	return (
 		<components.NoOptionsMessage {...props}>
 			<span className="custom-css-class">موردی یافت نشد</span>
