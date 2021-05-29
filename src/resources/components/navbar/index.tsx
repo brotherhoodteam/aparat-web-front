@@ -13,7 +13,7 @@ import Media from '../media'
 import Button from '../../elements/button'
 import Search from '../search'
 
-import { openAppDrawer } from '../../../store/app/slice'
+import { openAppDrawerAction } from '../../../store/app/slice'
 import useAuth from '../../../hooks/use-auth'
 
 import Logo from '../../../assets/images/logo--color-black--without_text.svg'
@@ -26,7 +26,7 @@ const Navbar = () => {
 	const isLoggedIn = useAuth()
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
-		dispatch(openAppDrawer())
+		dispatch(openAppDrawerAction())
 	}
 	return (
 		<div className="navbar">

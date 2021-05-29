@@ -6,7 +6,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import useClickOutside from '../../../hooks/use-click-outside'
 
 import { selectAppDrawer } from '../../../store/app/selectors'
-import { closeAppDrawer } from '../../../store/app/slice'
+import { closeAppDrawerAction } from '../../../store/app/slice'
 
 import { Card, CardBody, CardHeader } from '../../elements/card'
 import Button from '../../elements/button'
@@ -21,7 +21,7 @@ import {
 import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
-import { selectCategoryList } from '../../../store/category/selectors'
+import { selectCategoryList } from '../../../store/categories/selectors'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
@@ -31,7 +31,7 @@ const Drawer = () => {
 	const disaptch = useDispatch()
 
 	const handleClose = () => {
-		disaptch(closeAppDrawer())
+		disaptch(closeAppDrawerAction())
 		setTimeout(() => {
 			setLimit(prevState => ({ ...prevState, status: true }))
 		}, 300)

@@ -1,40 +1,39 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
 // Types
-type VideoFileType = File
-type DataIdType = string
-type UploadError = any
-
-// Data Types
-interface FileUploadStartDataType {
-	file: VideoFileType
+type VideoType = File
+type VideoIdType = string
+type ErrorType = {
+	message: string
+	status: number | string
 }
 
-interface FileUploadSucessDataType {
-	data: DataIdType
+// Data
+interface FileDataType {
+	file: VideoType
+}
+interface UploadFileDataType {
+	data: VideoIdType
+}
+interface ErrorDataType {
+	error: ErrorType
 }
 
-interface FileUploadErrorDataType {
-	error: UploadError
-}
+// Payloads
+export interface UploadFileStartActionPayloadType extends PayloadAction<FileDataType> {}
+export interface UploadFileSuccessActionPayloadType
+	extends PayloadAction<UploadFileDataType> {}
+export interface UploadFileErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
-// Payload Tyes
-export interface FileUploadStartPayloadType
-	extends PayloadAction<FileUploadStartDataType> {}
-
-export interface FileUploadSuccessPayloadType
-	extends PayloadAction<FileUploadSucessDataType> {}
-
-export interface FileUploadErrorPayloadType
-	extends PayloadAction<FileUploadErrorDataType> {}
-
+// actions
 export type VideoActionTypes =
-	| FileUploadStartPayloadType
-	| FileUploadSuccessPayloadType
-	| FileUploadErrorPayloadType
+	| UploadFileStartActionPayloadType
+	| UploadFileSuccessActionPayloadType
+	| UploadFileErrorActionPayloadType
 
+// state
 export interface VideoStateType {
-	file: VideoFileType | null
-	data: DataIdType | null
-	error: UploadError | null
+	data: VideoIdType | null
+	error: ErrorType | null
+	loading: boolean
 }

@@ -4,7 +4,7 @@ import { ResponseAuthType, SignInActionPayloadType } from '../interface'
 import { signInFailedAction, signInReinitAction, signInSuccessAction } from '../slice'
 import api from '../../../core/api'
 import { setAuth } from '../../../utils'
-import { setAppErrorAcion } from '../../app/slice'
+import { setAppErrorAction } from '../../app/slice'
 
 export function* signInActionHandler({
 	payload: { username, password }
@@ -39,7 +39,7 @@ export function* signInActionHandler({
 		} else {
 			// set app Error in Redux Store
 			yield put(
-				setAppErrorAcion({
+				setAppErrorAction({
 					error: {
 						message,
 						status: error.status

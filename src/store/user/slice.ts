@@ -9,7 +9,7 @@ import {
 const initialState: UserStateType = {
 	username: null,
 	password: null,
-	auth: null,
+	credentials: null,
 	error: null,
 	loading: false
 }
@@ -21,30 +21,30 @@ const userSlice = createSlice({
 		signInReinitAction: state => {
 			state.username = null
 			state.password = null
-			state.auth = null
-			state.error = null
+			state.credentials = null
 			state.loading = false
+			state.error = null
 		},
 		signInAction: (state, action: SignInActionPayloadType) => {
 			state.username = action.payload.username
 			state.password = action.payload.password
-			state.auth = null
-			state.error = null
+			state.credentials = null
 			state.loading = true
+			state.error = null
 		},
 		signInSuccessAction: (state, action: SignInSuccessActionPayloadType) => {
 			state.username = null
 			state.password = null
-			state.auth = action.payload.user
-			state.error = null
+			state.credentials = action.payload.user
 			state.loading = false
+			state.error = null
 		},
 		signInFailedAction: (state, action: SignInFailedActionPayloadType) => {
 			state.username = null
 			state.password = null
-			state.auth = null
-			state.error = action.payload.error
+			state.credentials = null
 			state.loading = false
+			state.error = action.payload.error
 		}
 	}
 })

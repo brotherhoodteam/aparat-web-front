@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import Locales from '../../core/react-intl/interface'
-import { IntlState, SetLocaleAction } from './interface'
+import { IntlState, SetLocaleActionPayload } from './interface'
 
 // Define the initial state
 const initialState: IntlState = {
@@ -11,8 +11,8 @@ const intlSlice = createSlice({
 	name: 'intl',
 	initialState,
 	reducers: {
-		setLocale: (state, action: PayloadAction<SetLocaleAction>) => {
-			state.locale = action.payload
+		setLocale: (state, action: SetLocaleActionPayload) => {
+			state.locale = action.payload.locale
 		}
 	}
 })

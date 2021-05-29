@@ -1,10 +1,10 @@
 import { put } from '@redux-saga/core/effects'
-import { closeAppOverlay, openAppOverlay } from '../slice'
+import { closeAppOverlayAction, openAppOverlayAction } from '../slice'
 
 export function* openAppDrawerhandler() {
-	yield put(openAppOverlay())
+	yield put(openAppOverlayAction())
 }
 
 export function* closeAppDrawerhandler() {
-	yield put(closeAppOverlay())
+	yield put(closeAppOverlayAction())
 }

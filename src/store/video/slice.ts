@@ -1,39 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	FileUploadErrorPayloadType,
-	FileUploadStartPayloadType,
-	FileUploadSuccessPayloadType,
+	UploadFileStartActionPayloadType,
+	UploadFileSuccessActionPayloadType,
+	UploadFileErrorActionPayloadType,
 	VideoStateType
 } from './interface'
 
 const initialState: VideoStateType = {
-	file: null,
 	data: null,
-	error: null
+	error: null,
+	loading: false
 }
 
 const videoSlice = createSlice({
 	name: 'video',
 	initialState,
 	reducers: {
-		fileUploadStartAction: (state, action: FileUploadStartPayloadType) => {
-			state.file = action.payload.file
+		uploadFileStartAction: (state, action: UploadFileStartActionPayloadType) => {
 			state.data = null
+			state.loading = true
 			state.error = null
 		},
-		fileUploadSuccessAction: (state, action: FileUploadSuccessPayloadType) => {
+		uploadFileSuccessAction: (state, action: UploadFileSuccessActionPayloadType) => {
 			state.data = action.payload.data
-			state.file = null
+			state.loading = false
 			state.error = null
 		},
-		fileUploadFailedAction: (state, action: FileUploadErrorPayloadType) => {
+		uploadFileFailedAction: (state, action: UploadFileErrorActionPayloadType) => {
 			state.error = action.payload.error
+			state.loading = false
 			state.data = null
-			state.file = null
 		}
 	}
 })
 
-export const { fileUploadStartAction, fileUploadSuccessAction, fileUploadFailedAction } =
+export const { uploadFileStartAction, uploadFileSuccessAction, uploadFileFailedAction } =
 	videoSlice.actions
 export default videoSlice.reducer

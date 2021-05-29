@@ -1,13 +1,18 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
-// Define general type
+// Models
 export type LocaleType = 'en' | 'fa'
 
-// Define types for the slice actions
-export type SetLocaleAction = LocaleType
-
-// Define a type for the slice state
-export interface IntlState {
-	locale: SetLocaleAction
+// Data
+export type LocaleDataType = {
+	locale: LocaleType
 }
-export type IntlActionTypes = PayloadAction<SetLocaleAction>
+
+// Payload
+export interface SetLocaleActionPayload extends PayloadAction<LocaleDataType> {}
+
+// State
+export interface IntlState {
+	locale: LocaleType
+}
+export type IntlActionTypes = SetLocaleActionPayload

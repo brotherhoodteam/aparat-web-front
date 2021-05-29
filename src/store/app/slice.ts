@@ -11,33 +11,33 @@ const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setAppErrorAcion: (state, action: AppErrorActionPayloadType) => {
+		setAppErrorAction: (state, action: AppErrorActionPayloadType) => {
 			state.error = action.payload.error
 		},
 		cleanAppErrorAction: state => {
 			state.error = null
 		},
-		openAppDrawer: state => {
+		openAppDrawerAction: state => {
 			state.drawer = true
 		},
-		closeAppDrawer: state => {
+		closeAppDrawerAction: state => {
 			state.drawer = false
 		},
-		openAppOverlay: state => {
+		openAppOverlayAction: state => {
 			state.overlay = true
 		},
-		closeAppOverlay: state => {
+		closeAppOverlayAction: state => {
 			state.overlay = false
 		}
 	}
 })
 
 export const {
-	setAppErrorAcion,
+	setAppErrorAction,
 	cleanAppErrorAction,
-	openAppDrawer,
-	openAppOverlay,
-	closeAppOverlay,
-	closeAppDrawer
+	openAppDrawerAction,
+	openAppOverlayAction,
+	closeAppOverlayAction,
+	closeAppDrawerAction
 } = appSlice.actions
 export default appSlice.reducer

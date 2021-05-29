@@ -9,7 +9,7 @@ const useIntl = () => {
 	const dispatch = useTypedDispatch()
 
 	const changeLocale = (locale: LocaleType): void => {
-		dispatch(setLocale(locale))
+		dispatch(setLocale({ locale }))
 	}
 	return { locale, changeLocale }
 }

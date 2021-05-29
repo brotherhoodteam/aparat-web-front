@@ -10,8 +10,8 @@ import { SelectBox, Input, TextArea } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
-import { fileUploadStartAction } from '../../../../store/video/slice'
-import { selectCategoryList } from '../../../../store/category/selectors'
+import { uploadFileStartAction } from '../../../../store/video/slice'
+import { selectCategoryList } from '../../../../store/categories/selectors'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
 import './styles.scss'
@@ -36,7 +36,7 @@ const DashboardUpload: React.FC = () => {
 	// Drop setting
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		if (acceptedFiles[0]) {
-			dispatch(fileUploadStartAction({ file: acceptedFiles[0] }))
+			dispatch(uploadFileStartAction({ file: acceptedFiles[0] }))
 		}
 	}, [])
 	const { getRootProps, getInputProps } = useDropzone({ onDrop })

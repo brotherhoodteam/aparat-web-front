@@ -1,23 +1,25 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
-// STATE TYPES
+// Models
 type AppErrorType = {
 	message: string
 	status: number
 }
-// DATA TYPES
+// Data
 export type ErrorDataType = {
 	error: AppErrorType
 }
-// USER PAYLOADS TYPE
+
+// Payloads
 export interface AppErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
-// USER RESPONSE TYPES
-// USER ACTIONS TYPE
+
+// Actions
 export type AppActionTypes = AppErrorActionPayloadType
-// USER STATE TYPE
+
+// State
 export interface AppStateType {
-	error: AppErrorType | null
 	drawer: boolean
 	overlay: boolean
 	loading: boolean
+	error: AppErrorType | null
 }

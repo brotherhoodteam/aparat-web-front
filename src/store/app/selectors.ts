@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { StateType } from '../../core/redux/interface'
 
-export const selectApp = (state: StateType) => state.app
-export const selectAppError = createSelector([selectApp], app => app.error)
-export const selectAppDrawer = createSelector([selectApp], app => app.drawer)
-export const selectAppOverlay = createSelector([selectApp], app => app.overlay)
+export const selectAppState = (state: StateType) => state.app
+export const selectAppError = createSelector([selectAppState], app => app.error)
+export const selectAppDrawer = createSelector([selectAppState], app => app.drawer)
+export const selectAppOverlay = createSelector([selectAppState], app => app.overlay)
