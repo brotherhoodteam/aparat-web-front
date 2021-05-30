@@ -36,7 +36,7 @@ export type TagsActionType =
 
 // State
 export interface TagsStateType {
-	tagsData: Array<TagType> | null
+	tagsData: Array<TagType> | []
 	tagsLoading: boolean
 	tagsError: ErrorType | null
 	tagData: TagType | null

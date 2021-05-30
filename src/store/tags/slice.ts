@@ -7,7 +7,7 @@ import {
 } from './interface'
 
 const initialState: TagsStateType = {
-	tagsData: null,
+	tagsData: [],
 	tagsLoading: false,
 	tagsError: null,
 	tagData: null,
@@ -20,7 +20,7 @@ const tagsSlice = createSlice({
 	initialState,
 	reducers: {
 		getTagsStartAction: (state, action) => {
-			state.tagsData = null
+			state.tagsData = []
 			state.tagsLoading = true
 			state.tagsError = null
 		},
@@ -30,7 +30,7 @@ const tagsSlice = createSlice({
 			state.tagsError = null
 		},
 		getTagsFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.tagsData = null
+			state.tagsData = []
 			state.tagsLoading = false
 			state.tagsError = action.payload.error
 		},

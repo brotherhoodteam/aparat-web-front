@@ -1,84 +1,68 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {
+	ErrorActionPayloadType,
+	SetCategoryStartActionPayloadType,
+	TagsStateType,
+	GetCategoriesSuccessActionPayloadType
+} from './interface'
 
-const initialState = {
-	list: [
-		{
-			id: 1,
-			label: 'سریال و فیلم‌های سینمایی',
-			value: 'movie',
-			icon: 'tio-movie',
-			to: '/dashboard'
-		},
-		{
-			id: 2,
-			label: 'گیم',
-			value: 'game',
-			icon: 'tio-joystick ',
-			to: '/dashboard'
-		},
-		{
-			id: 3,
-			label: 'ورزشی',
-			value: 'sport',
-			icon: 'tio-sport ',
-			to: '/dashboard'
-		},
-		{
-			id: 4,
-			label: 'کارتون',
-			value: 'cartons',
-			icon: 'tio-face-male ',
-			to: '/dashboard'
-		},
-		{
-			id: 5,
-			label: 'آشپزی',
-			value: 'ummy',
-			icon: 'tio-meal ',
-			to: '/dashboard'
-		},
-		{
-			id: 6,
-			label: 'آموزشی',
-			value: 'tutorial',
-			icon: 'tio-education ',
-			to: '/dashboard'
-		},
-		{
-			id: 7,
-			label: 'موسیقی',
-			value: 'music',
-			icon: 'tio-music ',
-			to: '/dashboard'
-		},
-		{
-			id: 8,
-			label: 'حیوانات',
-			value: 'animal',
-			icon: 'tio-pet ',
-			to: '/dashboard'
-		},
-		{
-			id: 9,
-			label: 'علم و تکنولوژی',
-			value: 'tech',
-			icon: 'tio-augmented-reality ',
-			to: '/dashboard'
-		},
-		{
-			id: 10,
-			label: 'خبری',
-			value: 'news',
-			icon: 'tio-feed ',
-			to: '/dashboard'
-		}
-	]
+import { data } from './seed'
+
+const initialState: TagsStateType = {
+	categoriesData: data,
+	categoriesLoading: false,
+	categoriesError: null,
+	categoryData: null,
+	categoryLoading: false,
+	categoryError: null
 }
 
-const categorySlice = createSlice({
-	name: 'category',
+const tagsSlice = createSlice({
+	name: 'categories',
 	initialState,
-	reducers: {}
+	reducers: {
+		getCategoriesStartAction: (state, action) => {
+			state.categoriesData = []
+			state.categoriesLoading = true
+			state.categoriesError = null
+		},
+		getCategoriesSuccessAction: (
+			state,
+			action: GetCategoriesSuccessActionPayloadType
+		) => {
+			state.categoriesData = action.payload.categoriesData
+			state.categoriesLoading = false
+			state.categoriesError = null
+		},
+		getCategoriesFailedAction: (state, action: ErrorActionPayloadType) => {
+			state.categoriesData = []
+			state.categoriesLoading = false
+			state.categoriesError = action.payload.error
+		},
+		setCategoryStartAction: (state, action: SetCategoryStartActionPayloadType) => {
+			state.categoryData = action.payload.categoryData
+			state.categoryLoading = true
+			state.categoryError = null
+		},
+		setCategorySuccessAction: (state, action) => {
+			state.categoryData = null
+			state.categoryLoading = false
+			state.categoryError = action.payload.error
+		},
+		setCategoryFailedAction: (state, action: ErrorActionPayloadType) => {
+			state.categoryData = null
+			state.categoryLoading = true
+			state.categoryError = action.payload.error
+		}
+	}
 })
 
-export default categorySlice.reducer
+export const {
+	getCategoriesStartAction,
+	getCategoriesSuccessAction,
+	getCategoriesFailedAction,
+	setCategoryStartAction,
+	setCategorySuccessAction,
+	setCategoryFailedAction
+} = tagsSlice.actions
+export default tagsSlice.reducer

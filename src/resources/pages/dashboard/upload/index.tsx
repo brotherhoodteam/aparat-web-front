@@ -11,14 +11,14 @@ import PanelLayout from '../../../layouts/panel'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { uploadFileStartAction } from '../../../../store/video/slice'
-import { selectCategoryList } from '../../../../store/categories/selectors'
+import { selectCategoriesData } from '../../../../store/categories/selectors'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
 	const dispatch = useTypedDispatch()
-	const category = useSelector(selectCategoryList)
+	const category = useSelector(selectCategoriesData)
 
 	// form settings
 	const form = useFormik({

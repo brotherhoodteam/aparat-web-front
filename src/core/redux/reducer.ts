@@ -11,7 +11,7 @@ const reducer = combineReducers({
 	user: userReducer,
 	app: appReducer,
 	video: videoReducer,
-	category: categoriesReducer,
+	categories: categoriesReducer,
 	tags: tagsReducer
 })
 

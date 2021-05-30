@@ -21,12 +21,12 @@ import {
 import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
-import { selectCategoryList } from '../../../store/categories/selectors'
+import { selectCategoriesData } from '../../../store/categories/selectors'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
 	const [limit, setLimit] = useState({ status: true, length: 4 })
-	const category = useSelector(selectCategoryList)
+	const categoroies = useSelector(selectCategoriesData)
 	const isOpenDrawer = useSelector(selectAppDrawer)
 	const disaptch = useDispatch()
 
@@ -44,9 +44,9 @@ const Drawer = () => {
 		}))
 	}
 	const renderCategoies = () => {
-		const itmes = limit.status ? category.slice(0, limit.length) : category
+		const itmes = limit.status ? categoroies?.slice(0, limit.length) : categoroies
 
-		return itmes.map(item => <NavbarLink key={item.id} {...item} />)
+		return itmes?.map(item => <NavbarLink key={item.id} {...item} />)
 	}
 	return (
 		<CSSTransition
