@@ -18,6 +18,7 @@ import { useCategories } from '../../../../hooks/use-categories'
 import './styles.scss'
 import { useTags } from '../../../../hooks/use-tags'
 import { getTagsStartAction } from '../../../../store/tags/slice'
+import { useChannelCategories } from '../../../../hooks/use-channel-categories'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
@@ -25,6 +26,8 @@ const DashboardUpload: React.FC = () => {
 
 	// stream data
 	const { data: categories, loading: categoriesLoading } = useCategories()
+	const { data: channelCategories, loading: channelCategoriesLoading } =
+		useChannelCategories()
 	const { data: tags, loading: tagsLoading } = useTags()
 
 	useEffect(() => {
@@ -37,8 +40,9 @@ const DashboardUpload: React.FC = () => {
 		initialValues: {
 			title: '',
 			description: '',
-			category: 'sport',
-			tags: ['game', 'sport']
+			category: [],
+			channel: [],
+			tags: []
 		},
 		onSubmit: (value: any) => {
 			console.log('submit', value)
@@ -110,7 +114,6 @@ const DashboardUpload: React.FC = () => {
 														label="دسته‌بندی"
 														placeholder="یک دسته انتخاب کنید"
 														options={categories}
-														selectDefaultValue={form.values.category}
 														onChange={form.setFieldValue}
 														isLoading={categoriesLoading}
 														isSearchable
@@ -133,7 +136,6 @@ const DashboardUpload: React.FC = () => {
 														label="برچسب"
 														placeholder="برچسب انتخاب کنید"
 														options={tags}
-														multiSelectDefaultValue={form.values.tags}
 														onChange={form.setFieldValue}
 														closeMenuOnSelect={false}
 														isLoading={tagsLoading}
@@ -143,7 +145,17 @@ const DashboardUpload: React.FC = () => {
 													/>
 												</div>
 												<div className="col-12 col-lg-6">
-													<input type="submit" value="submit" />
+													<SelectBox
+														name="channel"
+														id="channel"
+														label="دسته‌بندی کانال"
+														placeholder="یک دسته انتخاب کنید"
+														options={channelCategories}
+														onChange={form.setFieldValue}
+														isLoading={channelCategoriesLoading}
+														isClearable
+														isSearchable
+													/>
 												</div>
 											</div>
 										</form>

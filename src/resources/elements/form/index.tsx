@@ -22,7 +22,6 @@ interface InputProps {
 	size?: Size
 	className?: ClassName
 	placeholder?: string
-
 	onChange: (e: React.ChangeEvent<any>) => void
 }
 interface TextAreaProps {
@@ -38,8 +37,7 @@ interface SelectBoxType {
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	id: string
 	name: string
-	selectDefaultValue?: string
-	multiSelectDefaultValue?: string[]
+	defaultValue?: Array<{ label: string; value: number }>
 	label?: string
 	className?: ClassName
 	placeholder?: string
@@ -131,8 +129,7 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		isSearchable,
 		className,
 		options,
-		selectDefaultValue,
-		multiSelectDefaultValue,
+		defaultValue,
 		closeMenuOnSelect,
 		isMulti,
 		isClearable,
@@ -149,24 +146,36 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
-				if (isMulti) {
-					const items = select?.map((tag: any) => tag.value)
-					onChange(name, items)
-					return
-				}
-				onChange(name, select?.value)
+				// if (isMulti) {
+				// 	const items = select?.map((tag: any) => tag.value)
+				// 	onChange(name, items)
+				// 	return
+				// }
+				onChange(name, select)
 			},
-
 			[]
 		)
 
-		const defaultValue = useMemo(
+		const defaultValues = useMemo(
 			() =>
 				isMulti
-					? options?.filter(op => multiSelectDefaultValue?.some(val => val === op.value))
-					: options?.find(op => op.value === selectDefaultValue),
+					? options?.filter(op =>
+							defaultValue?.some((item: OptionTypeBase) => {
+								console.log('item.value === op.value', item.value, op.value)
+								return item.value === op.value
+							})
+					  )
+					: options?.find(op => {
+							console.log(
+								'op.value === selectDefaultValue?.value',
+								op.value,
+								defaultValue?.[0].value
+							)
+							return op.value === defaultValue?.[0].value
+					  }),
 			[]
 		)
+
 		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 		return (
 			<div className="form-group text-right">
@@ -182,7 +191,7 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 					classNamePrefix={'select-box'}
 					placeholder={placeholder || ''}
 					options={options}
-					defaultValue={defaultValue}
+					defaultValue={defaultValues}
 					isSearchable={isSearchable || false}
 					onChange={handleChange}
 					isMulti={isMulti}
