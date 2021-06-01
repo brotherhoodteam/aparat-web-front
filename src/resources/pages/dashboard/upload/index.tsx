@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
+import { useDispatch } from 'react-redux'
 import { useDropzone } from 'react-dropzone'
 import { useFormik } from 'formik'
 
@@ -9,17 +9,25 @@ import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../compon
 import { SelectBox, Input, TextArea } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
+import { getCategoriesStartAction } from '../../../../store/categories/slice'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { uploadFileStartAction } from '../../../../store/video/slice'
-import { selectCategoriesData } from '../../../../store/categories/selectors'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
+import { useCategories } from '../../../../hooks/use-categories'
 import './styles.scss'
+import { useTags } from '../../../../hooks/use-tags'
 
 const DashboardUpload: React.FC = () => {
-	const dispatch = useTypedDispatch()
-	const category = useSelector(selectCategoriesData)
+	const dispatchTyped = useTypedDispatch()
+	const dispatch = useDispatch()
 
+	const { data: categories, loading: categoriesLoading } = useCategories()
+	const { data: tags, loading: tagsLoading } = useTags()
+	useEffect(() => {
+		// Fetch categories onLoad
+		dispatch(getCategoriesStartAction({}))
+	}, [])
 	// form settings
 	const form = useFormik({
 		initialValues: {
@@ -36,7 +44,7 @@ const DashboardUpload: React.FC = () => {
 	// Drop setting
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		if (acceptedFiles[0]) {
-			dispatch(uploadFileStartAction({ file: acceptedFiles[0] }))
+			dispatchTyped(uploadFileStartAction({ file: acceptedFiles[0] }))
 		}
 	}, [])
 	const { getRootProps, getInputProps } = useDropzone({ onDrop })
@@ -97,9 +105,10 @@ const DashboardUpload: React.FC = () => {
 														id="select-category"
 														label="دسته‌بندی"
 														placeholder="یک دسته انتخاب کنید"
-														options={category}
+														options={categories}
 														selectDefaultValue={form.values.category}
 														onChange={form.setFieldValue}
+														isLoading={categoriesLoading}
 														isSearchable
 													/>
 												</div>
@@ -119,11 +128,12 @@ const DashboardUpload: React.FC = () => {
 														id="select-tags"
 														label="برچسب"
 														placeholder="برچسب انتخاب کنید"
-														options={category}
+														options={tags}
 														multiSelectDefaultValue={form.values.tags}
 														onChange={form.setFieldValue}
-														isMulti
 														closeMenuOnSelect={false}
+														isLoading={tagsLoading}
+														isMulti
 														isClearable
 														isSearchable
 													/>

@@ -47,6 +47,8 @@ interface SelectBoxType {
 	closeMenuOnSelect?: boolean
 	isMulti?: boolean
 	isClearable?: boolean
+	isLoading?: boolean
+	loadingMessage?: string
 	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
@@ -113,13 +115,13 @@ const TextArea: React.FC<TextAreaProps> = React.memo(
 )
 
 const NoOptionsMessage = (props: any, other: any) => {
-	console.log('props: any , other :any', props, other)
 	return (
 		<components.NoOptionsMessage {...props}>
 			<span className="custom-css-class">موردی یافت نشد</span>
 		</components.NoOptionsMessage>
 	)
 }
+
 const SelectBox: React.FC<SelectBoxType> = React.memo(
 	({
 		id,
@@ -134,6 +136,8 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		closeMenuOnSelect,
 		isMulti,
 		isClearable,
+		isLoading,
+		loadingMessage,
 		onChange
 	}) => {
 		const htmlId = id ? id : `SelectBox-${nanoid()}`
@@ -163,6 +167,7 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 					: options?.find(op => op.value === selectDefaultValue),
 			[]
 		)
+		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 		return (
 			<div className="form-group text-right">
 				{label && (
@@ -184,6 +189,8 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 					closeMenuOnSelect={closeMenuOnSelect}
 					isClearable={isClearable || false}
 					components={{ NoOptionsMessage }}
+					isLoading={isLoading}
+					loadingMessage={handleLoading}
 				/>
 			</div>
 		)

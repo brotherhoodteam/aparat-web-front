@@ -1,14 +1,31 @@
 import { createSelector } from 'reselect'
+import { idText } from 'typescript'
 import { StateType } from '../../core/redux/interface'
+import { CategoryType } from './interface'
 
 // State
 export const selectCategoriesState = (state: StateType) => state.categories
 
 // Tags
-export const selectCategoriesData = createSelector(
-	[selectCategoriesState],
-	state => state.categoriesData
+export const selectCategoriesData = createSelector([selectCategoriesState], state => {
+	return state.categoriesData.map((item: CategoryType) => ({
+		id: item.id,
+		userId: item.user_id,
+		label: item.title,
+		value: item.title,
+		icon: item.icon,
+		banner: item.banner,
+		slug: item.title
+	}))
+})
+
+export const selectChannelCategoriesData = createSelector(
+	[selectCategoriesData],
+	categories => {
+		return categories.filter(item => item.userId)
+	}
 )
+
 export const selectCategoriesLoading = createSelector(
 	[selectCategoriesState],
 	state => state.categoriesLoading

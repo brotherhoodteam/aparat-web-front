@@ -1,12 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { BaseEntity } from '../../interface/base-entity'
 
 // Models
-export type CategoryType = {
-	id: string | number
-	label: string
-	icon: string
-	to: string
+export interface CategoryType extends BaseEntity {
+	title: string
+	icon?: string
+	banner?: string
+	slug?: string
 }
+
 export type ErrorType = {
 	message: string
 	status: number | string
@@ -31,7 +33,9 @@ export interface GetCategoriesSuccessActionPayloadType
 export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
-
+export type CategoriesListResponseType = {
+	data: Array<CategoryType>
+}
 // Actions
 export type TagsActionType =
 	| SetCategoryStartActionPayloadType

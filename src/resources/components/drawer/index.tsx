@@ -84,8 +84,8 @@ const Drawer = () => {
 					<CardBody className="drawer-body">
 						<PerfectScrollbar style={{ width: '100%', height: '100%' }}>
 							<NavbarVertical>
-								<NavbarLink label="صفحه اصلی" icon="tio-home-vs" to="/dashboard" />
-								<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
+								<NavbarLink label="صفحه اصلی" icon="tio-home-vs" slug="/dashboard" />
+								<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" slug="/dashboard" />
 								<NavbarDivider />
 								<NavbarSubtitle label="دسته‌بندی" />
 								{renderCategoies()}
@@ -95,9 +95,9 @@ const Drawer = () => {
 									onClick={toggleList}
 								/>
 								<NavbarDivider />
-								<NavbarLink label="تماس‌باما" icon="tio-support" to="/dashboard" />
-								<NavbarLink label="تبلیغات" icon="tio-comment-play" to="/dashboard" />
-								<NavbarLink label="قوانین" icon="tio-new-release" to="/dashboard" />
+								<NavbarLink label="تماس‌باما" icon="tio-support" slug="/dashboard" />
+								<NavbarLink label="تبلیغات" icon="tio-comment-play" slug="/dashboard" />
+								<NavbarLink label="قوانین" icon="tio-new-release" slug="/dashboard" />
 							</NavbarVertical>
 						</PerfectScrollbar>
 					</CardBody>

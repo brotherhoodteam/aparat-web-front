@@ -6,12 +6,12 @@ import './styles.scss'
 
 interface NavbarLinkProps {
 	label: string
-	icon: string
-	to: LinkTarget
+	icon?: string
+	slug: LinkTarget
 }
 interface NavbarButtonProps {
 	label: string
-	icon: string
+	icon?: string
 	onClick?: MouseEventHandler
 }
 interface NavbarSubtitleProps {
@@ -26,10 +26,10 @@ const NavbarVertical: React.FC = ({ children }) => {
 	)
 }
 
-const NavbarLink: React.FC<NavbarLinkProps> = ({ label, icon, to }) => {
+const NavbarLink: React.FC<NavbarLinkProps> = ({ label, icon, slug }) => {
 	return (
 		<li className="navbar-item">
-			<NavLink to={to} exact activeClassName="active" className="navbar-link">
+			<NavLink to={slug} exact activeClassName="active" className="navbar-link">
 				<i className={`${icon} navbar-icon`}></i>
 				<span className="navbar-text text-truncate">{label}</span>
 			</NavLink>

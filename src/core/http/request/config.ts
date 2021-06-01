@@ -2,7 +2,7 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { getAuth } from '../../../utils'
 
 export const successRequest = (request: AxiosRequestConfig) => {
-	console.log('successRequest', request)
+	// console.log('successRequest', request)
 
 	const auth = getAuth()
 
@@ -14,17 +14,17 @@ export const successRequest = (request: AxiosRequestConfig) => {
 
 // Axios Interseptors
 export const failedRequest = (error: AxiosError) => {
-	console.log('failedRequest', error)
+	// console.log('failedRequest', error)
 	return Promise.reject(error)
 }
 
 export const successResponse = (response: AxiosResponse) => {
-	console.log('successResponse', response)
+	// console.log('successResponse', response)
 
 	return response
 }
 export const failedResponse = (error: AxiosResponse) => {
-	console.log('failedResponse', error)
+	// console.log('failedResponse', error)
 
 	return Promise.reject(error)
 }

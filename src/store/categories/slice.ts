@@ -9,7 +9,7 @@ import {
 import { data } from './seed'
 
 const initialState: TagsStateType = {
-	categoriesData: data,
+	categoriesData: [],
 	categoriesLoading: false,
 	categoriesError: null,
 	categoryData: null,

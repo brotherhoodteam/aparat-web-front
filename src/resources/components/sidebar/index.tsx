@@ -23,24 +23,24 @@ const Sidebar: React.FC = () => {
 						</div>
 						<NavbarVertical>
 							<NavbarSubtitle label="حساب کاربری" />
-							<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" to="/dashboard" />
+							<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" slug="/dashboard" />
 							<NavbarLink
 								label="ویدئوی جدید"
 								icon="tio-share-screen"
-								to="/dashboard/upload"
+								slug="/dashboard/upload"
 							/>
 							<NavbarLink
 								label="ویدئوهای من"
 								icon="tio-video-gallery"
-								to="/video-gallery"
+								slug="/video-gallery"
 							/>
-							<NavbarLink label="دیدگاه" icon="tio-comment-text" to="/comment" />
+							<NavbarLink label="دیدگاه" icon="tio-comment-text" slug="/comment" />
 							<NavbarLink
 								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
-								to="/dashboard"
+								slug="/dashboard"
 							/>
-							<NavbarLink label="آمار" icon="tio-chart-bar-2" to="/statistics" />
+							<NavbarLink label="آمار" icon="tio-chart-bar-2" slug="/statistics" />
 						</NavbarVertical>
 					</CardBody>
 				</Card>

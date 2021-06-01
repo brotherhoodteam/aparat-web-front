@@ -34,6 +34,15 @@ const api = {
 			}
 			return request(config)
 		}
+	},
+	categories: {
+		list: () => {
+			const config: AxiosRequestConfig = {
+				method: 'get',
+				url: ApiRoutes.CATEGORIES
+			}
+			return request(config)
+		}
 	}
 }
 
