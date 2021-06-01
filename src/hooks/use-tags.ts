@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { selectTagsData, selectTagsLoading } from '../store/tags/selectors'
+import { selectTagsData, selectTagsFetchDataLoading } from '../store/tags/selectors'
 
 export const useTags = () => {
 	const data = useSelector(selectTagsData)
-	const loading = useSelector(selectTagsLoading)
+	const loading = useSelector(selectTagsFetchDataLoading)
 	return { data, loading }
 }

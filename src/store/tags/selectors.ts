@@ -7,25 +7,27 @@ export const selectTagsState = (state: StateType) => state.tags
 
 // Tags
 export const selectTagsData = createSelector([selectTagsState], state =>
-	state.tagsData.map((item: TagType) => ({
+	state.data.map((item: TagType) => ({
 		id: item.id,
 		label: item.title,
 		value: item.id
 	}))
 )
-export const selectTagsLoading = createSelector(
+export const selectTagsFetchDataLoading = createSelector(
 	[selectTagsState],
-	state => state.tagsLoading
+	state => state.fetchDataLoading
 )
-export const selectTagsStateError = createSelector(
+export const selectTagsFetchDataError = createSelector(
 	[selectTagsState],
-	state => state.tagsError
+	state => state.fetchDataError
 )
 
 // Tag
-export const selectTagData = createSelector([selectTagsState], state => state.tagData)
-export const selectTagLoading = createSelector(
+export const selectTagsAddItemLoading = createSelector(
 	[selectTagsState],
-	state => state.tagLoading
+	state => state.addItemLoading
 )
-export const selectTagError = createSelector([selectTagsState], state => state.tagError)
+export const selectTagsAddItemError = createSelector(
+	[selectTagsState],
+	state => state.addItemError
+)

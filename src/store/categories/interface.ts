@@ -44,10 +44,9 @@ export type TagsActionType =
 
 // State
 export interface TagsStateType {
-	categoriesData: Array<CategoryType> | []
-	categoriesLoading: boolean
-	categoriesError: ErrorType | null
-	categoryData: CategoryType | null
-	categoryLoading: boolean
-	categoryError: ErrorType | null
+	data: Array<CategoryType> | []
+	fetchDataLoading: boolean
+	fetchDataError: ErrorType | null
+	addItemLoading: boolean
+	addItemError: ErrorType | null
 }

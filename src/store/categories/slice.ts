@@ -6,15 +6,12 @@ import {
 	GetCategoriesSuccessActionPayloadType
 } from './interface'
 
-import { data } from './seed'
-
 const initialState: TagsStateType = {
-	categoriesData: [],
-	categoriesLoading: false,
-	categoriesError: null,
-	categoryData: null,
-	categoryLoading: false,
-	categoryError: null
+	data: [],
+	fetchDataLoading: false,
+	fetchDataError: null,
+	addItemLoading: false,
+	addItemError: null
 }
 
 const tagsSlice = createSlice({
@@ -22,37 +19,34 @@ const tagsSlice = createSlice({
 	initialState,
 	reducers: {
 		getCategoriesStartAction: (state, action) => {
-			state.categoriesData = []
-			state.categoriesLoading = true
-			state.categoriesError = null
+			state.data = []
+			state.fetchDataLoading = true
+			state.fetchDataError = null
 		},
 		getCategoriesSuccessAction: (
 			state,
 			action: GetCategoriesSuccessActionPayloadType
 		) => {
-			state.categoriesData = action.payload.categoriesData
-			state.categoriesLoading = false
-			state.categoriesError = null
+			state.data = action.payload.categoriesData
+			state.fetchDataLoading = false
+			state.fetchDataError = null
 		},
 		getCategoriesFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.categoriesData = []
-			state.categoriesLoading = false
-			state.categoriesError = action.payload.error
+			state.data = []
+			state.fetchDataLoading = false
+			state.fetchDataError = action.payload.error
 		},
 		setCategoryStartAction: (state, action: SetCategoryStartActionPayloadType) => {
-			state.categoryData = action.payload.categoryData
-			state.categoryLoading = true
-			state.categoryError = null
+			state.addItemLoading = true
+			state.addItemError = null
 		},
 		setCategorySuccessAction: (state, action) => {
-			state.categoryData = null
-			state.categoryLoading = false
-			state.categoryError = action.payload.error
+			state.addItemLoading = false
+			state.addItemError = action.payload.error
 		},
 		setCategoryFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.categoryData = null
-			state.categoryLoading = true
-			state.categoryError = action.payload.error
+			state.addItemLoading = true
+			state.addItemError = action.payload.error
 		}
 	}
 })

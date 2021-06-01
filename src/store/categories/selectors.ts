@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import { idText } from 'typescript'
 import { StateType } from '../../core/redux/interface'
 import { CategoryType } from './interface'
 
@@ -8,7 +7,7 @@ export const selectCategoriesState = (state: StateType) => state.categories
 
 // Tags
 export const selectCategoriesData = createSelector([selectCategoriesState], state => {
-	return state.categoriesData.map((item: CategoryType) => ({
+	return state.data.map((item: CategoryType) => ({
 		id: item.id,
 		userId: item.user_id,
 		label: item.title,
@@ -26,25 +25,21 @@ export const selectChannelCategoriesData = createSelector(
 	}
 )
 
-export const selectCategoriesLoading = createSelector(
+export const selectCategoriesFetchDataLoading = createSelector(
 	[selectCategoriesState],
-	state => state.categoriesLoading
+	state => state.fetchDataLoading
 )
-export const selectCategoriesError = createSelector(
+export const selectCategoriesFetchDataError = createSelector(
 	[selectCategoriesState],
-	state => state.categoriesError
+	state => state.fetchDataError
 )
 
-// Tag
-export const selectCategoryData = createSelector(
+// Set
+export const selectCategoryAddItemLoading = createSelector(
 	[selectCategoriesState],
-	state => state.categoryData
+	state => state.addItemLoading
 )
-export const selectCategoryLoading = createSelector(
+export const selectCategoryAddItemError = createSelector(
 	[selectCategoriesState],
-	state => state.categoryLoading
-)
-export const selectCategoryError = createSelector(
-	[selectCategoriesState],
-	state => state.categoryError
+	state => state.addItemError
 )

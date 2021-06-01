@@ -39,7 +39,7 @@ const api = {
 		get: () => {
 			const config: AxiosRequestConfig = {
 				method: 'get',
-				url: ApiRoutes.CATEGORIES
+				url: ApiRoutes.CATEGORIES_GET
 			}
 			return request(config)
 		}
@@ -48,7 +48,17 @@ const api = {
 		get: () => {
 			const config: AxiosRequestConfig = {
 				method: 'get',
-				url: ApiRoutes.TAGS
+				url: ApiRoutes.TAGS_GET
+			}
+			return request(config)
+		},
+		set: (title: string) => {
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.TAG_SET,
+				data: {
+					title
+				}
 			}
 			return request(config)
 		}

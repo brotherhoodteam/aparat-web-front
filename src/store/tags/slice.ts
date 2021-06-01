@@ -7,47 +7,43 @@ import {
 } from './interface'
 
 const initialState: TagsStateType = {
-	tagsData: [],
-	tagsLoading: false,
-	tagsError: null,
-	tagData: null,
-	tagLoading: false,
-	tagError: null
+	data: [],
+	fetchDataLoading: false,
+	fetchDataError: null,
+	addItemLoading: false,
+	addItemError: null
 }
 
 const tagsSlice = createSlice({
 	name: 'tags',
 	initialState,
 	reducers: {
-		getTagsStartAction: (state, action) => {
-			state.tagsData = []
-			state.tagsLoading = true
-			state.tagsError = null
+		getTagsStartAction: state => {
+			state.data = []
+			state.fetchDataLoading = true
+			state.fetchDataError = null
 		},
 		getTagsSuccessAction: (state, action: GetTagsSuccessActionPayloadType) => {
-			state.tagsData = action.payload.tagsData
-			state.tagsLoading = false
-			state.tagsError = null
+			state.data = action.payload.tagsData
+			state.fetchDataLoading = false
+			state.fetchDataError = null
 		},
 		getTagsFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.tagsData = []
-			state.tagsLoading = false
-			state.tagsError = action.payload.error
+			state.data = []
+			state.fetchDataLoading = false
+			state.fetchDataError = action.payload.error
 		},
 		setTagStartAction: (state, action: SetTagStartActionPayloadType) => {
-			state.tagData = action.payload.tagData
-			state.tagLoading = true
-			state.tagError = null
+			state.addItemLoading = true
+			state.addItemError = null
 		},
 		setTagSuccessAction: (state, action) => {
-			state.tagData = null
-			state.tagLoading = false
-			state.tagError = action.payload.error
+			state.addItemLoading = false
+			state.addItemError = action.payload.error
 		},
 		setTagFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.tagData = null
-			state.tagLoading = true
-			state.tagError = action.payload.error
+			state.addItemLoading = true
+			state.addItemError = action.payload.error
 		}
 	}
 })

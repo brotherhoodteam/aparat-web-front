@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux'
 import {
 	selectCategoriesData,
-	selectCategoriesLoading
+	selectCategoriesFetchDataLoading
 } from '../store/categories/selectors'
 
 export const useCategories = () => {
 	const data = useSelector(selectCategoriesData)
-	const loading = useSelector(selectCategoriesLoading)
+	const loading = useSelector(selectCategoriesFetchDataLoading)
 	return { data, loading }
 }
