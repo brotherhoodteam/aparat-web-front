@@ -1,11 +1,18 @@
 import { createSelector } from 'reselect'
 import { StateType } from '../../core/redux/interface'
+import { TagType } from './interface'
 
 // State
 export const selectTagsState = (state: StateType) => state.tags
 
 // Tags
-export const selectTagsData = createSelector([selectTagsState], state => state.tagsData)
+export const selectTagsData = createSelector([selectTagsState], state =>
+	state.tagsData.map((item: TagType) => ({
+		id: item.id,
+		label: item.title,
+		value: item.id
+	}))
+)
 export const selectTagsLoading = createSelector(
 	[selectTagsState],
 	state => state.tagsLoading

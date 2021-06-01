@@ -27,7 +27,9 @@ export interface GetTagsSuccessActionPayloadType extends PayloadAction<TagsDataT
 export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
-
+export interface TagsDataResponseType {
+	data: Array<TagType>
+}
 // Actions
 export type TagsActionType =
 	| SetTagStartActionPayloadType

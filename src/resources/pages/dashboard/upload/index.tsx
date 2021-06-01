@@ -17,16 +17,20 @@ import AddFileImage from '../../../../assets/images/add-file.svg'
 import { useCategories } from '../../../../hooks/use-categories'
 import './styles.scss'
 import { useTags } from '../../../../hooks/use-tags'
+import { getTagsStartAction } from '../../../../store/tags/slice'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
 	const dispatch = useDispatch()
 
+	// stream data
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: tags, loading: tagsLoading } = useTags()
+
 	useEffect(() => {
-		// Fetch categories onLoad
+		// Fetch data onLoad
 		dispatch(getCategoriesStartAction({}))
+		dispatch(getTagsStartAction({}))
 	}, [])
 	// form settings
 	const form = useFormik({

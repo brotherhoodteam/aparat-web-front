@@ -1,12 +1,12 @@
 import { call, put } from '@redux-saga/core/effects'
 
 import api from '../../../core/api'
-import { CategoriesListResponseType } from '../interface'
+import { CategoriesDataResponseType } from '../interface'
 import { getCategoriesSuccessAction, getCategoriesFailedAction } from '../slice'
 
 export function* getCategoriesHandler() {
 	try {
-		const { data }: CategoriesListResponseType = yield call(api.categories.list)
+		const { data }: CategoriesDataResponseType = yield call(api.categories.get)
 		yield put(getCategoriesSuccessAction({ categoriesData: data }))
 	} catch (error) {
 		yield put(

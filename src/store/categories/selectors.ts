@@ -12,7 +12,7 @@ export const selectCategoriesData = createSelector([selectCategoriesState], stat
 		id: item.id,
 		userId: item.user_id,
 		label: item.title,
-		value: item.title,
+		value: item.id,
 		icon: item.icon,
 		banner: item.banner,
 		slug: item.title

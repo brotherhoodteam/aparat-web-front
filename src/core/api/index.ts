@@ -36,10 +36,19 @@ const api = {
 		}
 	},
 	categories: {
-		list: () => {
+		get: () => {
 			const config: AxiosRequestConfig = {
 				method: 'get',
 				url: ApiRoutes.CATEGORIES
+			}
+			return request(config)
+		}
+	},
+	tags: {
+		get: () => {
+			const config: AxiosRequestConfig = {
+				method: 'get',
+				url: ApiRoutes.TAGS
 			}
 			return request(config)
 		}

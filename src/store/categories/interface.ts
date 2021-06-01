@@ -33,7 +33,7 @@ export interface GetCategoriesSuccessActionPayloadType
 export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
-export type CategoriesListResponseType = {
+export type CategoriesDataResponseType = {
 	data: Array<CategoryType>
 }
 // Actions
