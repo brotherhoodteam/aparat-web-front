@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
 	return (
 		<>
 			<aside className="sidebar">
-				<Card className=" mb-3">
+				<Card className="mb-3">
 					<CardBody className="px-0">
 						<div className="d-none d-lg-block text-center mb-3">
 							<Avatar
@@ -38,9 +38,13 @@ const Sidebar: React.FC = () => {
 							<NavbarLink
 								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
-								slug="/dashboard"
+								slug="/dashboard/ddd"
 							/>
-							<NavbarLink label="آمار" icon="tio-chart-bar-2" slug="/statistics" />
+							<NavbarLink
+								label="تنظیمات کانال"
+								icon="tio-settings-outlined"
+								slug="/dashboard/settings"
+							/>
 						</NavbarVertical>
 					</CardBody>
 				</Card>

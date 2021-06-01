@@ -7,6 +7,8 @@ const SignInContainer = lazy(() => import('../../resources/containers/sign-in'))
 const NotFoundContainer = lazy(() => import('../../resources/containers/notfound'))
 const DashboardContainer = lazy(() => import('../../resources/containers/dashboard'))
 const DashboardUpload = lazy(() => import('../../resources/pages/dashboard/upload'))
+const DashboardOverview = lazy(() => import('../../resources/pages/dashboard/overview'))
+const DashboardSettings = lazy(() => import('../../resources/pages/dashboard/settings'))
 
 const router: RouterType = [
 	{
@@ -31,11 +33,25 @@ const router: RouterType = [
 		component: DashboardContainer,
 		routes: [
 			{
+				name: 'overview',
+				path: '/dashboard',
+				exact: true,
+				access: Access.PROTECTED,
+				component: DashboardOverview
+			},
+			{
 				name: 'upload',
 				path: '/dashboard/upload',
 				exact: true,
 				access: Access.PROTECTED,
 				component: DashboardUpload
+			},
+			{
+				name: 'setting',
+				path: '/dashboard/settings',
+				exact: true,
+				access: Access.PROTECTED,
+				component: DashboardSettings
 			}
 		]
 	},

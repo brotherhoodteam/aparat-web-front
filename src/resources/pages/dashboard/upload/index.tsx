@@ -35,6 +35,7 @@ const DashboardUpload: React.FC = () => {
 		dispatch(getCategoriesStartAction({}))
 		dispatch(getTagsStartAction({}))
 	}, [])
+
 	// form settings
 	const form = useFormik({
 		initialValues: {
@@ -58,128 +59,101 @@ const DashboardUpload: React.FC = () => {
 	const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
 	return (
-		<>
-			{/* HEADER */}
-			<Helmet>
-				<meta charSet="utf-8" />
-				<title>Upload New Video</title>
-			</Helmet>
-			<PanelLayout>
-				<Card>
-					<CardHeader>
-						<CardTitle className="h5">آپلود ویدئو</CardTitle>
-					</CardHeader>
-					<CardBody>
-						<div className="mb-4">
-							<p>
-								به جهت حفظ حقوق مؤلفین و رونق تجاری سینمای کشور، لطفاً از بارگذاری
-								ویدیوهایی که دارای حق نشر می باشند و در شبکه نمایش خانگی به فروش می رسند،
-								خودداری فرمایید.
-							</p>
-						</div>
-						<div className="mb-4">
-							<div {...getRootProps({ className: 'drag-wrapper' })}>
-								<input {...getInputProps()} />
-								<div className="drag-img">
-									<img src={AddFileImage} alt="add file" />
-								</div>
-								<p>فایل ویدئو را اینجا رها کرده یا کلیک کنید و فایل را انتخاب کنید</p>
-								<small className="text-muted">حداکثر حجم فایل باید 200مگابایت باشد</small>
-							</div>
-						</div>
-						<Tabs active="1">
-							<TabsList className="mb-5">
-								<TabsItem id="1" title="مشخصات ویدئو" />
-								<TabsItem id="2" title="تنظیمات پیشرفته" />
-							</TabsList>
-							<TabsBody>
-								<TabsContent id="1">
-									<div>
-										<form onSubmit={form.handleSubmit}>
-											<div className="row">
-												<div className="col-12 col-md-6">
-													<Input
-														name="title"
-														id="title"
-														label="عنوان ویدئو"
-														placeholder="عنوان ویدئو راوارد نمایید"
-														value={form.values.title}
-														onChange={form.handleChange}
-													/>
-												</div>
-												<div className="col-12 col-md-6">
-													<SelectBox
-														name="category"
-														id="select-category"
-														label="دسته‌بندی"
-														placeholder="یک دسته انتخاب کنید"
-														options={categories}
-														onChange={form.setFieldValue}
-														isLoading={categoriesLoading}
-														isSearchable
-													/>
-												</div>
-												<div className="col-12">
-													<TextArea
-														name="description"
-														id="desc"
-														label="توضیحات"
-														placeholder="توضیحات ویدئو راوارد نمایید"
-														value={form.values.description}
-														onChange={form.handleChange}
-													/>
-												</div>
-												<div className="col-12 col-lg-6">
-													<SelectBox
-														name="tags"
-														id="select-tags"
-														label="برچسب"
-														placeholder="برچسب انتخاب کنید"
-														options={tags}
-														onChange={form.setFieldValue}
-														closeMenuOnSelect={false}
-														isLoading={tagsLoading}
-														isMulti
-														isClearable
-														isSearchable
-													/>
-												</div>
-												<div className="col-12 col-lg-6">
-													<SelectBox
-														name="channel"
-														id="channel"
-														label="دسته‌بندی کانال"
-														placeholder="یک دسته انتخاب کنید"
-														options={channelCategories}
-														onChange={form.setFieldValue}
-														isLoading={channelCategoriesLoading}
-														isClearable
-														isSearchable
-													/>
-												</div>
-											</div>
-										</form>
+		<PanelLayout title="آپلود ویدئو" pageTitle="آپلود ویدئو">
+			<div className="mb-4">
+				<p>
+					به جهت حفظ حقوق مؤلفین و رونق تجاری سینمای کشور، لطفاً از بارگذاری ویدیوهایی که
+					دارای حق نشر می باشند و در شبکه نمایش خانگی به فروش می رسند، خودداری فرمایید.
+				</p>
+			</div>
+			<div className="mb-4">
+				<div {...getRootProps({ className: 'drag-wrapper' })}>
+					<input {...getInputProps()} />
+					<div className="drag-img">
+						<img src={AddFileImage} alt="add file" />
+					</div>
+					<p>فایل ویدئو را اینجا رها کرده یا کلیک کنید و فایل را انتخاب کنید</p>
+					<small className="text-muted">حداکثر حجم فایل باید 200مگابایت باشد</small>
+				</div>
+			</div>
+			<Tabs active="1">
+				<TabsList className="mb-5">
+					<TabsItem id="1" title="مشخصات ویدئو" />
+					<TabsItem id="2" title="تنظیمات پیشرفته" />
+				</TabsList>
+				<TabsBody>
+					<TabsContent id="1">
+						<div>
+							<form onSubmit={form.handleSubmit}>
+								<div className="row">
+									<div className="col-12 col-md-6">
+										<Input
+											name="title"
+											id="title"
+											label="عنوان ویدئو"
+											placeholder="عنوان ویدئو راوارد نمایید"
+											value={form.values.title}
+											onChange={form.handleChange}
+										/>
 									</div>
-								</TabsContent>
-								<TabsContent id="2">
-									<Card>
-										<CardHeader>
-											<CardTitle>تب تیم</CardTitle>
-										</CardHeader>
-										<CardBody>
-											از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر
-											متون را ندارند و در همان حال کار آنها به نوعی وابسته به متن می‌باشد
-											آنها با استفاده از محتویات ساختگی، صفحه گرافیکی خود را صفحه‌آرایی
-											می‌کنند تا مرحله طراحی و صفحه‌بندی را به پایان برند.
-										</CardBody>
-									</Card>
-								</TabsContent>
-							</TabsBody>
-						</Tabs>
-					</CardBody>
-				</Card>
-			</PanelLayout>
-		</>
+									<div className="col-12 col-md-6">
+										<SelectBox
+											name="category"
+											id="select-category"
+											label="دسته‌بندی"
+											placeholder="یک دسته انتخاب کنید"
+											options={categories}
+											onChange={form.setFieldValue}
+											isLoading={categoriesLoading}
+											isSearchable
+										/>
+									</div>
+									<div className="col-12">
+										<TextArea
+											name="description"
+											id="desc"
+											label="توضیحات"
+											placeholder="توضیحات ویدئو راوارد نمایید"
+											value={form.values.description}
+											onChange={form.handleChange}
+										/>
+									</div>
+									<div className="col-12 col-lg-6">
+										<SelectBox
+											name="tags"
+											id="select-tags"
+											label="برچسب"
+											placeholder="برچسب انتخاب کنید"
+											options={tags}
+											onChange={form.setFieldValue}
+											closeMenuOnSelect={false}
+											isLoading={tagsLoading}
+											isMulti
+											isClearable
+											isSearchable
+										/>
+									</div>
+									<div className="col-12 col-lg-6">
+										<SelectBox
+											name="channel"
+											id="channel"
+											label="دسته‌بندی کانال"
+											placeholder="یک دسته انتخاب کنید"
+											options={channelCategories}
+											onChange={form.setFieldValue}
+											isLoading={channelCategoriesLoading}
+											isClearable
+											isSearchable
+										/>
+									</div>
+								</div>
+							</form>
+						</div>
+					</TabsContent>
+					<TabsContent id="2"></TabsContent>
+				</TabsBody>
+			</Tabs>
+		</PanelLayout>
 	)
 }
 
