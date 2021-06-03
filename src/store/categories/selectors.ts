@@ -1,27 +1,37 @@
 import { createSelector } from 'reselect'
 import { StateType } from '../../core/redux/interface'
-import { CategoryType } from './interface'
+import { CategoryNormalizedType, CategoryType } from './interface'
 
 // State
 export const selectCategoriesState = (state: StateType) => state.categories
 
 // Tags
-export const selectCategoriesData = createSelector([selectCategoriesState], state => {
-	return state.data.map((item: CategoryType) => ({
-		id: item.id,
-		userId: item.user_id,
-		label: item.title,
-		value: item.id,
-		icon: item.icon,
-		banner: item.banner,
-		slug: item.title
-	}))
-})
+export const selectNormalizedCategoriesData = createSelector(
+	[selectCategoriesState],
+	state => {
+		return state.data.map((item: CategoryType) => ({
+			id: item.id,
+			userId: item.user_id,
+			label: item.title,
+			value: item.slug,
+			icon: item.icon,
+			banner: item.banner,
+			slug: item.slug
+		}))
+	}
+)
+
+export const selectCategoriesData = createSelector(
+	[selectNormalizedCategoriesData],
+	categories => {
+		return categories.filter((item: CategoryNormalizedType) => !item.userId)
+	}
+)
 
 export const selectChannelCategoriesData = createSelector(
-	[selectCategoriesData],
+	[selectNormalizedCategoriesData],
 	categories => {
-		return categories.filter(item => item.userId)
+		return categories.filter((item: CategoryNormalizedType) => item.userId)
 	}
 )
 

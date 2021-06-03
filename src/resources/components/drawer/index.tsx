@@ -22,6 +22,7 @@ import LogoImage from '../../../assets/images/logo--color-black--without_text.sv
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
 import { selectCategoriesData } from '../../../store/categories/selectors'
+import { CategoryNormalizedType } from '../../../store/categories/interface'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
@@ -46,7 +47,9 @@ const Drawer = () => {
 	const renderCategoies = () => {
 		const itmes = limit.status ? categoroies?.slice(0, limit.length) : categoroies
 
-		return itmes?.map(item => <NavbarLink key={item.id} {...item} />)
+		return itmes?.map((item: CategoryNormalizedType) => (
+			<NavbarLink key={item.id} {...item} />
+		))
 	}
 	return (
 		<CSSTransition

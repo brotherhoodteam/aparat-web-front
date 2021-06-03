@@ -6,9 +6,18 @@ export interface CategoryType extends BaseEntity {
 	title: string
 	icon?: string
 	banner?: string
-	slug?: string
+	slug: string
 }
-
+export interface CategoryNormalizedType {
+	id: number
+	userId?: string
+	label: string
+	value: string
+	icon?: string
+	banner?: string
+	slug: string
+}
+export interface CategoriesNormalizedType extends Array<CategoriesDataType> {}
 export type ErrorType = {
 	message: string
 	status: number | string
@@ -37,14 +46,14 @@ export type CategoriesDataResponseType = {
 	data: Array<CategoryType>
 }
 // Actions
-export type TagsActionType =
+export type CategoriesActionType =
 	| SetCategoryStartActionPayloadType
 	| GetCategoriesSuccessActionPayloadType
 	| ErrorActionPayloadType
 
 // State
-export interface TagsStateType {
-	data: Array<CategoryType> | []
+export interface CategoriesStateType {
+	data: Array<CategoryType>
 	fetchDataLoading: boolean
 	fetchDataError: ErrorType | null
 	addItemLoading: boolean

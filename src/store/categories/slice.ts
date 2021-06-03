@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
 	ErrorActionPayloadType,
 	SetCategoryStartActionPayloadType,
-	TagsStateType,
+	CategoriesStateType,
 	GetCategoriesSuccessActionPayloadType
 } from './interface'
 
-const initialState: TagsStateType = {
+const initialState: CategoriesStateType = {
 	data: [],
 	fetchDataLoading: false,
 	fetchDataError: null,
