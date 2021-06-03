@@ -40,14 +40,11 @@ const tagsSlice = createSlice({
 		},
 		setTagSuccessAction: (state, action: SetTagSuccessActionPayloadType) => {
 			state.addItemLoading = false
-			// const tag = action.payload.data
-			// action.payload.data
 			state.data.push(action.payload.data)
-			console.log('action.payload.data', action.payload.data)
 			state.addItemError = null
 		},
 		setTagFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.addItemLoading = true
+			state.addItemLoading = false
 			state.addItemError = action.payload.error
 		}
 	}

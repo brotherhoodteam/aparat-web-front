@@ -5,6 +5,7 @@ import appReducer from '../../store/app/slice'
 import videoReducer from '../../store/video/slice'
 import categoriesReducer from '../../store/categories/slice'
 import tagsReducer from '../../store/tags/slice'
+import tagsStatus from '../../store/status/slice'
 
 const reducer = combineReducers({
 	intl: intlReducer,
@@ -12,7 +13,8 @@ const reducer = combineReducers({
 	app: appReducer,
 	video: videoReducer,
 	categories: categoriesReducer,
-	tags: tagsReducer
+	tags: tagsReducer,
+	status: tagsStatus
 })
 
 export default reducer

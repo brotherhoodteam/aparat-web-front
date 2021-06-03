@@ -1,23 +1,25 @@
 import { useFormik } from 'formik'
+import { useSelector } from 'react-redux'
+
+import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
+import { setTagStartAction } from '../../../../store/tags/slice'
+import { selectTagsAddItemLoading } from '../../../../store/tags/selectors'
+
 import { Input } from '../../../elements/form'
 import Button from '../../../elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 import PanelLayout from '../../../layouts/panel'
+
 import './styles.scss'
-import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
-import { setTagStartAction } from '../../../../store/tags/slice'
-import { useSelector } from 'react-redux'
-import { selectTagsAddItemLoading } from '../../../../store/tags/selectors'
 
 const DashboardSettings: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
 	const addItemLoading = useSelector(selectTagsAddItemLoading)
 	const tagForm = useFormik({
 		initialValues: {
-			tagLabel: 'taglabel'
+			tagLabel: ''
 		},
 		onSubmit: (value: any, { resetForm }) => {
-			// console.log('form tag value', value)
 			dispatchTyped(
 				setTagStartAction({
 					data: { title: value.tagLabel, id: 0 }
@@ -41,7 +43,7 @@ const DashboardSettings: React.FC = () => {
 					</div>
 					<div className="d-flex justify-content-end">
 						<Button color="primary" loader={false}>
-							افزودن
+							افزودن دسته
 						</Button>
 					</div>
 				</CardBody>

@@ -1,6 +1,7 @@
 import { call, put } from '@redux-saga/core/effects'
 
 import api from '../../../core/api'
+import { setStatusAction } from '../../status/slice'
 import {
 	SetTagStartActionPayloadType,
 	TagsDataResponseType,
@@ -32,8 +33,11 @@ export function* setTagHandler({ payload }: SetTagStartActionPayloadType) {
 			title: payload.data.title
 		})
 		yield put(setTagSuccessAction({ data: response.data }))
-		console.log('response', response)
+		yield put(
+			setStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
+		)
 	} catch (err) {
 		yield put(setTagFailedAction({ error: { message: err.message, status: err.status } }))
+		yield put(setStatusAction({ status: 'error', message: err.message }))
 	}
 }
