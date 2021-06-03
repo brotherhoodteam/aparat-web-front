@@ -3,7 +3,8 @@ import {
 	ErrorActionPayloadType,
 	SetTagStartActionPayloadType,
 	TagsStateType,
-	GetTagsSuccessActionPayloadType
+	GetTagsSuccessActionPayloadType,
+	SetTagSuccessActionPayloadType
 } from './interface'
 
 const initialState: TagsStateType = {
@@ -37,9 +38,13 @@ const tagsSlice = createSlice({
 			state.addItemLoading = true
 			state.addItemError = null
 		},
-		setTagSuccessAction: (state, action) => {
+		setTagSuccessAction: (state, action: SetTagSuccessActionPayloadType) => {
 			state.addItemLoading = false
-			state.addItemError = action.payload.error
+			// const tag = action.payload.data
+			// action.payload.data
+			state.data.push(action.payload.data)
+			console.log('action.payload.data', action.payload.data)
+			state.addItemError = null
 		},
 		setTagFailedAction: (state, action: ErrorActionPayloadType) => {
 			state.addItemLoading = true

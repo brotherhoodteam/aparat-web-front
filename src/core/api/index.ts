@@ -52,13 +52,11 @@ const api = {
 			}
 			return request(config)
 		},
-		set: (title: string) => {
+		set: (data: { title: string }) => {
 			const config: AxiosRequestConfig = {
 				method: 'post',
 				url: ApiRoutes.TAG_SET,
-				data: {
-					title
-				}
+				data
 			}
 			return request(config)
 		}

@@ -50,39 +50,48 @@ interface SelectBoxType {
 	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
-const Input: React.FC<InputProps> = React.memo(
-	({ name, id, label, type, placeholder, className, size, onChange }) => {
-		const htmlId = id ? id : `${name}-${nanoid()}`
-		const inputType = type ? type : 'text'
-		const inputSize = `form-control-${size}`
-		const styles = useClass({
-			defaultClass: 'form-control',
-			optionalClass: {
-				[inputSize]: size
-			},
-			otherClass: className
-		})
+const Input: React.FC<InputProps> = ({
+	name,
+	id,
+	label,
+	type,
+	placeholder,
+	className,
+	size,
+	value,
+	onChange
+}) => {
+	const htmlId = id ? id : `${name}-${nanoid()}`
+	const inputType = type ? type : 'text'
+	const inputSize = `form-control-${size}`
+	const styles = useClass({
+		defaultClass: 'form-control',
+		optionalClass: {
+			[inputSize]: size
+		},
+		otherClass: className
+	})
 
-		return (
-			<div className="form-group text-right">
-				{label && (
-					<label htmlFor={htmlId} className="input-label">
-						{label}
-					</label>
-				)}
-				<input
-					type={inputType}
-					name={name}
-					id={htmlId}
-					className={styles}
-					placeholder={placeholder}
-					autoComplete="off"
-					onChange={onChange}
-				/>
-			</div>
-		)
-	}
-)
+	return (
+		<div className="form-group text-right">
+			{label && (
+				<label htmlFor={htmlId} className="input-label">
+					{label}
+				</label>
+			)}
+			<input
+				type={inputType}
+				name={name}
+				id={htmlId}
+				className={styles}
+				placeholder={placeholder}
+				value={value}
+				autoComplete="off"
+				onChange={onChange}
+			/>
+		</div>
+	)
+}
 
 const TextArea: React.FC<TextAreaProps> = React.memo(
 	({ name, id, label, placeholder, className, onChange }) => {

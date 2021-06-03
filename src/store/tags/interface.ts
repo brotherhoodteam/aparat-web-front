@@ -12,7 +12,7 @@ export type ErrorType = {
 
 // Data Interface
 export interface TagDataType {
-	tagData: TagType
+	data: TagType
 }
 export interface TagsDataType {
 	tagsData: Array<TagType>
@@ -23,12 +23,16 @@ export interface ErrorDataType {
 
 // Payload
 export interface SetTagStartActionPayloadType extends PayloadAction<TagDataType> {}
+export interface SetTagSuccessActionPayloadType extends PayloadAction<TagDataType> {}
 export interface GetTagsSuccessActionPayloadType extends PayloadAction<TagsDataType> {}
 export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
 export interface TagsDataResponseType {
 	data: Array<TagType>
+}
+export interface TagDataResponseType {
+	data: TagType
 }
 // Actions
 export type TagsActionType =
@@ -38,7 +42,7 @@ export type TagsActionType =
 
 // State
 export interface TagsStateType {
-	data: Array<TagType> | []
+	data: Array<TagType>
 	fetchDataLoading: boolean
 	fetchDataError: ErrorType | null
 	addItemLoading: boolean
