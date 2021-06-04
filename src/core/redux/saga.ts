@@ -4,6 +4,7 @@ import categoriesSaga from '../../store/categories/saga'
 import statusSaga from '../../store/status/saga'
 import tagsSaga from '../../store/tags/saga'
 import userSaga from '../../store/user/saga'
+import playlistSaga from '../../store/playlists/saga'
 import videoSaga from '../../store/video/saga'
 
 function* rooSaga() {
@@ -13,6 +14,7 @@ function* rooSaga() {
 		call(videoSaga),
 		call(categoriesSaga),
 		call(tagsSaga),
+		call(playlistSaga),
 		call(statusSaga)
 	])
 }

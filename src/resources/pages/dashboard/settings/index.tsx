@@ -13,6 +13,8 @@ import Button from '../../../elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 
 import './styles.scss'
+import { selectPlaylistAddItemLoading } from '../../../../store/playlists/selectors'
+import { setPlaylistStartAction } from '../../../../store/playlists/slice'
 
 interface CategoryState {
 	categoryLabel: string
@@ -22,11 +24,15 @@ interface CategoryState {
 interface TagState {
 	tagLabel: string
 }
+interface PalylistState {
+	playlistLabel: string
+}
 
 const DashboardSettings: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
 	const addItemTagLoading = useSelector(selectTagsAddItemLoading)
 	const addItemCategoryLoading = useSelector(selectCategoryAddItemLoading)
+	const addItemPlaylistLoading = useSelector(selectPlaylistAddItemLoading)
 
 	const tagForm = useFormik<TagState>({
 		initialValues: {
@@ -36,6 +42,20 @@ const DashboardSettings: React.FC = () => {
 			dispatchTyped(
 				setTagStartAction({
 					data: { title: value.tagLabel, id: 0 }
+				})
+			)
+			resetForm({})
+		}
+	})
+
+	const playlistForm = useFormik<PalylistState>({
+		initialValues: {
+			playlistLabel: ''
+		},
+		onSubmit: (value, { resetForm }) => {
+			dispatchTyped(
+				setPlaylistStartAction({
+					data: { title: value.playlistLabel }
 				})
 			)
 			resetForm({})
@@ -140,6 +160,35 @@ const DashboardSettings: React.FC = () => {
 						<div className="d-flex justify-content-end">
 							<Button type="submit" color="primary" loader={addItemTagLoading}>
 								افزودن برچسب
+							</Button>
+						</div>
+					</form>
+				</CardBody>
+			</Card>
+			<Card>
+				<CardHeader>
+					<CardTitle className="h5">افزودن لیست پخش</CardTitle>
+				</CardHeader>
+
+				<CardBody>
+					<form onSubmit={playlistForm.handleSubmit}>
+						<div className="mb-4">
+							<p>لیست پخش ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.</p>
+						</div>
+						<div className="row">
+							<div className="col col-md-6">
+								<Input
+									name="playlistLabel"
+									label="عنوان لیست پخش"
+									placeholder="به عنوان مثال ورزشی"
+									onChange={playlistForm.handleChange}
+									value={playlistForm.values.playlistLabel}
+								/>
+							</div>
+						</div>
+						<div className="d-flex justify-content-end">
+							<Button type="submit" color="primary" loader={addItemPlaylistLoading}>
+								افزودن لیست پخش
 							</Button>
 						</div>
 					</form>

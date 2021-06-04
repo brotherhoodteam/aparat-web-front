@@ -25,7 +25,7 @@ export function* getTagsHandler() {
 		if (error.response) {
 			// Request Error
 			yield put(
-				setTagFailedAction({ error: { message: errorMessage, status: statusCode } })
+				getTagsFailedAction({ error: { message: errorMessage, status: statusCode } })
 			)
 			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {

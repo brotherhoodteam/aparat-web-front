@@ -9,7 +9,7 @@ export interface CategoryType extends BaseEntity {
 	banner?: string
 	slug: string
 }
-export interface CreateCatrgoryType {
+export interface CreateCategoryType {
 	title: string
 	slug: string
 	icon: string
@@ -26,13 +26,13 @@ export interface CategoryNormalizedType {
 }
 
 // Data Interface
-export interface CatrgoryDataType {
+export interface CategoryDataType {
 	data: CategoryType
 }
 export interface CategoriesDataType {
 	data: Array<CategoryType>
 }
-export interface CreateCatrgoryDataType {
+export interface CreateCategoryDataType {
 	data: { title: string; slug: string; icon: string; banner_id?: string }
 }
 export interface ErrorDataType {
@@ -41,10 +41,10 @@ export interface ErrorDataType {
 
 // Payloads
 export interface SetCategoryStartActionPayloadType
-	extends PayloadAction<CreateCatrgoryDataType> {}
+	extends PayloadAction<CreateCategoryDataType> {}
 
 export interface SetCategorySuccessActionPayloadType
-	extends PayloadAction<CatrgoryDataType> {}
+	extends PayloadAction<CategoryDataType> {}
 
 export interface GetCategoriesSuccessActionPayloadType
 	extends PayloadAction<CategoriesDataType> {}

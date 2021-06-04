@@ -16,6 +16,7 @@ import { useChannelCategories } from '../../../../hooks/use-channel-categories'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
 import './styles.scss'
+import { usePlaylists } from '../../../../hooks/use-playlist'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
@@ -23,6 +24,9 @@ const DashboardUpload: React.FC = () => {
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: channelCategories, loading: channelCategoriesLoading } =
 		useChannelCategories()
+
+	const { data: playlists, loading: playlistsLoading } = usePlaylists()
+
 	const { data: tags, loading: tagsLoading } = useTags()
 
 	// form settings
@@ -149,9 +153,9 @@ const DashboardUpload: React.FC = () => {
 													id="playlist"
 													label="لیست پخش"
 													placeholder="یک لیست پخش انتخاب کنید"
-													options={channelCategories}
+													options={playlists}
 													onChange={form.setFieldValue}
-													isLoading={channelCategoriesLoading}
+													isLoading={playlistsLoading}
 													isClearable
 													isSearchable
 												/>

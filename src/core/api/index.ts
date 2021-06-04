@@ -2,7 +2,8 @@ import { AxiosRequestConfig } from 'axios'
 import ApiRoutes from './constants'
 import request from '../http/request'
 import { SignInDataType } from '../../store/user/interface'
-import { CreateCatrgoryType } from '../../store/categories/interface'
+import { CreateCategoryType } from '../../store/categories/interface'
+import { CreatePlaylistType } from '../../store/playlists/interface'
 
 const api = {
 	auth: {
@@ -44,10 +45,27 @@ const api = {
 			}
 			return request(config)
 		},
-		set: (data: CreateCatrgoryType) => {
+		set: (data: CreateCategoryType) => {
 			const config: AxiosRequestConfig = {
 				method: 'post',
 				url: ApiRoutes.CATEGORY_SET,
+				data
+			}
+			return request(config)
+		}
+	},
+	playlists: {
+		get: () => {
+			const config: AxiosRequestConfig = {
+				method: 'get',
+				url: ApiRoutes.PLAYLISTS_GET
+			}
+			return request(config)
+		},
+		set: (data: CreatePlaylistType) => {
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.PLAYLIST_SET,
 				data
 			}
 			return request(config)

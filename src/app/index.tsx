@@ -10,6 +10,7 @@ import Overlay from '../resources/components/overlay'
 
 import { selectAppDrawer } from '../store/app/selectors'
 import { getCategoriesStartAction } from '../store/categories/slice'
+import { getPlaylistsStartAction } from '../store/playlists/slice'
 import { getTagsStartAction } from '../store/tags/slice'
 
 import './styles.scss'
@@ -30,13 +31,14 @@ const MainContainer: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-	const isLoggedIn = useAuth()
+	const isLoggedIn = useAuth(true)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		// Fetch Global data onLoad
 		if (isLoggedIn) {
 			dispatch(getCategoriesStartAction({}))
+			dispatch(getPlaylistsStartAction({}))
 			dispatch(getTagsStartAction())
 		}
 	}, [isLoggedIn])

@@ -174,11 +174,6 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 							})
 					  )
 					: options?.find(op => {
-							console.log(
-								'op.value === selectDefaultValue?.value',
-								op.value,
-								defaultValue?.[0].value
-							)
 							return op.value === defaultValue?.[0].value
 					  }),
 			[]

@@ -4,6 +4,7 @@ import { TagsActionType } from '../../store/tags/interface'
 import { CategoriesActionType } from '../../store/categories/interface'
 import { UserActionTypes } from '../../store/user/interface'
 import { VideoActionTypes } from '../../store/video/interface'
+import { PlaylistsActionType } from '../../store/playlists/interface'
 import appReducer from './reducer'
 
 export type StateType = ReturnType<typeof appReducer>
@@ -14,3 +15,4 @@ export type ActionType =
 	| VideoActionTypes
 	| TagsActionType
 	| CategoriesActionType
+	| PlaylistsActionType
