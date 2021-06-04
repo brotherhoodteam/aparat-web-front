@@ -170,7 +170,6 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 				isMulti
 					? options?.filter(op =>
 							defaultValue?.some((item: OptionTypeBase) => {
-								console.log('item.value === op.value', item.value, op.value)
 								return item.value === op.value
 							})
 					  )

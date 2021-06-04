@@ -1,6 +1,6 @@
 import { all, call } from '@redux-saga/core/effects'
-import { getCategoriesWatcher } from './watchers'
+import { categoriesWatcher } from './watchers'
 
 export default function* catgoriesSaga() {
-	yield all([call(getCategoriesWatcher)])
+	yield all([call(categoriesWatcher)])
 }

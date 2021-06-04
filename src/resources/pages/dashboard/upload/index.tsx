@@ -45,7 +45,7 @@ const DashboardUpload: React.FC = () => {
 			tags: []
 		},
 		onSubmit: (value: any) => {
-			console.log('submit', value)
+			// console.log('submit', value)
 		}
 	})
 

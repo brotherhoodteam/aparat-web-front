@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity } from '../../interface/base-entity'
+import { BaseEntity, ErrorType } from '../../interface/base'
 
 // Models
 export interface CategoryType extends BaseEntity {
@@ -7,6 +7,12 @@ export interface CategoryType extends BaseEntity {
 	icon?: string
 	banner?: string
 	slug: string
+}
+export interface CreateCatrgoryType {
+	title: string
+	slug: string
+	icon: string
+	banner_id?: string
 }
 export interface CategoryNormalizedType {
 	id: number
@@ -17,33 +23,39 @@ export interface CategoryNormalizedType {
 	banner?: string
 	slug: string
 }
-export interface CategoriesNormalizedType extends Array<CategoriesDataType> {}
-export type ErrorType = {
-	message: string
-	status: number | string
-}
 
 // Data Interface
 export interface CatrgoryDataType {
-	categoryData: CategoryType
+	data: CategoryType
 }
 export interface CategoriesDataType {
-	categoriesData: Array<CategoryType>
+	data: Array<CategoryType>
+}
+export interface CreateCatrgoryDataType {
+	data: { title: string; slug: string; icon: string; banner_id?: string }
 }
 export interface ErrorDataType {
 	error: ErrorType
 }
 
-// Payload
+// Payloads
 export interface SetCategoryStartActionPayloadType
+	extends PayloadAction<CreateCatrgoryDataType> {}
+
+export interface SetCategorySuccessActionPayloadType
 	extends PayloadAction<CatrgoryDataType> {}
+
 export interface GetCategoriesSuccessActionPayloadType
 	extends PayloadAction<CategoriesDataType> {}
+
 export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
 export type CategoriesDataResponseType = {
 	data: Array<CategoryType>
+}
+export type CategoryDataResponseType = {
+	data: CategoryType
 }
 // Actions
 export type CategoriesActionType =

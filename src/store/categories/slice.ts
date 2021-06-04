@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	ErrorActionPayloadType,
 	SetCategoryStartActionPayloadType,
+	GetCategoriesSuccessActionPayloadType,
+	ErrorActionPayloadType,
 	CategoriesStateType,
-	GetCategoriesSuccessActionPayloadType
+	SetCategorySuccessActionPayloadType
 } from './interface'
 
 const initialState: CategoriesStateType = {
@@ -27,7 +28,7 @@ const tagsSlice = createSlice({
 			state,
 			action: GetCategoriesSuccessActionPayloadType
 		) => {
-			state.data = action.payload.categoriesData
+			state.data = action.payload.data
 			state.fetchDataLoading = false
 			state.fetchDataError = null
 		},
@@ -40,12 +41,13 @@ const tagsSlice = createSlice({
 			state.addItemLoading = true
 			state.addItemError = null
 		},
-		setCategorySuccessAction: (state, action) => {
+		setCategorySuccessAction: (state, action: SetCategorySuccessActionPayloadType) => {
+			state.data.push(action.payload.data)
 			state.addItemLoading = false
-			state.addItemError = action.payload.error
+			state.addItemError = null
 		},
 		setCategoryFailedAction: (state, action: ErrorActionPayloadType) => {
-			state.addItemLoading = true
+			state.addItemLoading = false
 			state.addItemError = action.payload.error
 		}
 	}

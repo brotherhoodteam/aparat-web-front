@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from 'axios'
 import ApiRoutes from './constants'
 import request from '../http/request'
 import { SignInDataType } from '../../store/user/interface'
+import { CreateCatrgoryType } from '../../store/categories/interface'
 
 const api = {
 	auth: {
@@ -40,6 +41,14 @@ const api = {
 			const config: AxiosRequestConfig = {
 				method: 'get',
 				url: ApiRoutes.CATEGORIES_GET
+			}
+			return request(config)
+		},
+		set: (data: CreateCatrgoryType) => {
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.CATEGORY_SET,
+				data
 			}
 			return request(config)
 		}
