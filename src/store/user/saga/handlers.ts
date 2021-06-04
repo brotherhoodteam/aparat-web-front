@@ -1,9 +1,10 @@
 import { call, delay, put } from '@redux-saga/core/effects'
 
 import { ResponseAuthType, SignInActionPayloadType } from '../interface'
-import { signInFailedAction, signInReinitAction, signInSuccessAction } from '../slice'
+import { clearStatusAction, setStatusAction } from '../../status/slice'
+import { signInFailedAction, signInSuccessAction } from '../slice'
+import { getErrorInfo, setAuth } from '../../../utils'
 import api from '../../../core/api'
-import { setAuth } from '../../../utils'
 import { setAppErrorAction } from '../../app/slice'
 
 export function* signInActionHandler({
@@ -25,29 +26,22 @@ export function* signInActionHandler({
 		// set user token in Redux Store
 		yield put(signInSuccessAction({ user }))
 	} catch (error) {
-		const { message, response } = error
-		if (response && response.status) {
-			// set user signin Error in Redux Store
+		// console.log('auth response', response)
+		// console.log('auth error ', error.message, error.status)
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
 			yield put(
 				signInFailedAction({
-					error: {
-						message,
-						status: response.status
-					}
+					error: { message: errorMessage, status: statusCode }
 				})
 			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {
-			// set app Error in Redux Store
+			// Server Error
 			yield put(
-				setAppErrorAction({
-					error: {
-						message,
-						status: error.status
-					}
-				})
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
 			)
-			yield delay(5000)
-			yield put(signInReinitAction())
 		}
 	}
 }

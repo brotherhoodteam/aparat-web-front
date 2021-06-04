@@ -13,17 +13,29 @@ import {
 	setCategoryFailedAction
 } from '../slice'
 import { setStatusAction } from '../../status/slice'
+import { setAppErrorAction } from '../../app/slice'
+import { getErrorInfo } from '../../../utils'
 
 export function* getCategoriesHandler() {
 	try {
 		const { data }: CategoriesDataResponseType = yield call(api.categories.get)
 		yield put(getCategoriesSuccessAction({ data }))
 	} catch (error) {
-		yield put(
-			getCategoriesFailedAction({
-				error: { message: error.message, status: error.status }
-			})
-		)
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				getCategoriesFailedAction({
+					error: { message: errorMessage, status: statusCode }
+				})
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
 	}
 }
 
@@ -39,10 +51,21 @@ export function* setCategoryHandler({ payload }: SetCategoryStartActionPayloadTy
 		yield put(
 			setStatusAction({ status: 'success', message: 'دسته جدید باموفقیت اضافه شد' })
 		)
-	} catch (err) {
-		yield put(
-			setCategoryFailedAction({ error: { message: err.message, status: err.status } })
-		)
-		yield put(setStatusAction({ status: 'error', message: err.message }))
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				setCategoryFailedAction({
+					error: { message: errorMessage, status: statusCode }
+				})
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
 	}
 }

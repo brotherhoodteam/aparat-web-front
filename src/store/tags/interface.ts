@@ -1,13 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { ErrorType } from '../../interface/exception'
 
 // Models
 export type TagType = {
 	id: number
 	title: string
-}
-export type ErrorType = {
-	message: string
-	status: number | string
 }
 
 // Data Interface

@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity, ErrorType } from '../../interface/base'
+import { BaseEntity } from '../../interface/base'
+import { ErrorType } from '../../interface/exception'
 
 // Models
 export interface CategoryType extends BaseEntity {

@@ -1,12 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { ErrorType } from '../../interface/exception'
 
 // Types
 type VideoType = File
 type VideoIdType = string
-type ErrorType = {
-	message: string
-	status: number | string
-}
 
 // Data
 interface FileDataType {

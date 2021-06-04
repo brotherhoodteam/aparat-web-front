@@ -8,12 +8,10 @@ import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../compon
 import { SelectBox, Input, TextArea } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
-import { getCategoriesStartAction } from '../../../../store/categories/slice'
 import { uploadFileStartAction } from '../../../../store/video/slice'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { useCategories } from '../../../../hooks/use-categories'
 import { useTags } from '../../../../hooks/use-tags'
-import { getTagsStartAction } from '../../../../store/tags/slice'
 import { useChannelCategories } from '../../../../hooks/use-channel-categories'
 
 import AddFileImage from '../../../../assets/images/add-file.svg'
@@ -21,19 +19,11 @@ import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
-	const dispatch = useDispatch()
-
 	// stream data
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: channelCategories, loading: channelCategoriesLoading } =
 		useChannelCategories()
 	const { data: tags, loading: tagsLoading } = useTags()
-
-	useEffect(() => {
-		// Fetch data onLoad
-		dispatch(getCategoriesStartAction({}))
-		dispatch(getTagsStartAction())
-	}, [])
 
 	// form settings
 	const form = useFormik({
@@ -42,7 +32,8 @@ const DashboardUpload: React.FC = () => {
 			description: '',
 			category: [],
 			channel: [],
-			tags: []
+			tags: [],
+			playlist: []
 		},
 		onSubmit: (value: any) => {
 			// console.log('submit', value)
@@ -96,7 +87,7 @@ const DashboardUpload: React.FC = () => {
 												<Input
 													name="title"
 													id="title"
-													label="عنوان ویدئو"
+													label="عنوان"
 													placeholder="عنوان ویدئو راوارد نمایید"
 													value={form.values.title}
 													onChange={form.handleChange}
@@ -145,6 +136,19 @@ const DashboardUpload: React.FC = () => {
 													id="channel"
 													label="دسته‌بندی کانال"
 													placeholder="یک دسته انتخاب کنید"
+													options={channelCategories}
+													onChange={form.setFieldValue}
+													isLoading={channelCategoriesLoading}
+													isClearable
+													isSearchable
+												/>
+											</div>
+											<div className="col-12 col-lg-6">
+												<SelectBox
+													name="playlist"
+													id="playlist"
+													label="لیست پخش"
+													placeholder="یک لیست پخش انتخاب کنید"
 													options={channelCategories}
 													onChange={form.setFieldValue}
 													isLoading={channelCategoriesLoading}

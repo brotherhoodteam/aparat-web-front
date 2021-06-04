@@ -1,13 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { ErrorType } from '../../interface/exception'
 
-// Models
-type AppErrorType = {
-	message: string
-	status: number
-}
 // Data
 export type ErrorDataType = {
-	error: AppErrorType
+	error: ErrorType
 }
 
 // Payloads
@@ -21,5 +17,5 @@ export interface AppStateType {
 	drawer: boolean
 	overlay: boolean
 	loading: boolean
-	error: AppErrorType | null
+	error: ErrorType | null
 }

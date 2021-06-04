@@ -5,8 +5,3 @@ export interface BaseEntity {
 	updated_at: string
 	deleted_at: string | null
 }
-
-export type ErrorType = {
-	message: string
-	status: number | string
-}

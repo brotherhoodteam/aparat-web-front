@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 // type
 type StatusMessageType = string
-type StatusStatusType = 'success' | 'warn' | 'error'
+type StatusStatusType = 'success' | 'warn' | 'error' | 'info'
 
 // data
 interface StatusDataType {

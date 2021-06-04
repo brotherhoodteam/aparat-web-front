@@ -14,7 +14,7 @@ export const successRequest = (request: AxiosRequestConfig) => {
 
 // Axios Interseptors
 export const failedRequest = (error: AxiosError) => {
-	// console.log('failedRequest', error)
+	// console.log('failedRequest', Object.keys(error))
 	return Promise.reject(error)
 }
 
@@ -24,7 +24,6 @@ export const successResponse = (response: AxiosResponse) => {
 	return response
 }
 export const failedResponse = (error: AxiosResponse) => {
-	// console.log('failedResponse', error)
-
+	// console.log('failedResponse', Object.keys(error), error.message)
 	return Promise.reject(error)
 }

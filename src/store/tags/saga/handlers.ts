@@ -1,6 +1,8 @@
 import { call, put } from '@redux-saga/core/effects'
 
 import api from '../../../core/api'
+import { getErrorInfo } from '../../../utils'
+import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
 import {
 	SetTagStartActionPayloadType,
@@ -19,11 +21,19 @@ export function* getTagsHandler() {
 		const { data }: TagsDataResponseType = yield call(api.tags.get)
 		yield put(getTagsSuccessAction({ tagsData: data }))
 	} catch (error) {
-		yield put(
-			getTagsFailedAction({
-				error: { message: error.message, status: error.status }
-			})
-		)
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				setTagFailedAction({ error: { message: errorMessage, status: statusCode } })
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
 	}
 }
 
@@ -36,8 +46,19 @@ export function* setTagHandler({ payload }: SetTagStartActionPayloadType) {
 		yield put(
 			setStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
 		)
-	} catch (err) {
-		yield put(setTagFailedAction({ error: { message: err.message, status: err.status } }))
-		yield put(setStatusAction({ status: 'error', message: err.message }))
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				setTagFailedAction({ error: { message: errorMessage, status: statusCode } })
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
 	}
 }

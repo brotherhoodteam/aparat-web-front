@@ -1,11 +1,11 @@
 import { takeLatest } from '@redux-saga/core/effects'
-import { closeAppDrawerAction, openAppDrawerAction } from '../slice'
-import { closeAppDrawerhandler, openAppDrawerhandler } from './handlers'
+import { closeAppDrawerAction, openAppDrawerAction, setAppErrorAction } from '../slice'
+import { closeAppDrawerHandler, openAppDrawerHandler, appErrorHandler } from './handlers'
 
-export function* openAppDrawerWatcher() {
-	yield takeLatest(openAppDrawerAction, openAppDrawerhandler)
+export function* appDrawerWatcher() {
+	yield takeLatest(openAppDrawerAction, openAppDrawerHandler)
+	yield takeLatest(closeAppDrawerAction, closeAppDrawerHandler)
 }
-
-export function* closeAppDrawerWatcher() {
-	yield takeLatest(closeAppDrawerAction, closeAppDrawerhandler)
+export function* errorAppDrawerWatcher() {
+	yield takeLatest(setAppErrorAction, appErrorHandler)
 }

@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { ErrorType } from '../../interface/exception'
 
 // Models
 export type UserNameType = string
@@ -8,10 +9,6 @@ export type CredentialsType = {
 	expire_in: number
 	refresh_token: number
 	token_type: string
-}
-export type ErrorType = {
-	message: string
-	status: number | string
 }
 
 //  Data Interface
