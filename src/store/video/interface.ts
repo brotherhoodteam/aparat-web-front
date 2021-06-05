@@ -10,23 +10,26 @@ interface FileDataType {
 	file: VideoType
 }
 interface UploadFileDataType {
-	data: VideoIdType
+	video: VideoIdType
 }
 interface ErrorDataType {
 	error: ErrorType
 }
 
 // Payloads
-export interface UploadFileStartActionPayloadType extends PayloadAction<FileDataType> {}
-export interface UploadFileSuccessActionPayloadType
-	extends PayloadAction<UploadFileDataType> {}
-export interface UploadFileErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
+export interface UploadFileStartPayloadType extends PayloadAction<FileDataType> {}
+export interface UploadFileSuccessPayloadType extends PayloadAction<UploadFileDataType> {}
+export interface UploadFileErrorPayloadType extends PayloadAction<ErrorDataType> {}
 
+// Response
+export interface ResponseVideoType {
+	data: VideoIdType
+}
 // actions
 export type VideoActionTypes =
-	| UploadFileStartActionPayloadType
-	| UploadFileSuccessActionPayloadType
-	| UploadFileErrorActionPayloadType
+	| UploadFileStartPayloadType
+	| UploadFileSuccessPayloadType
+	| UploadFileErrorPayloadType
 
 // state
 export interface VideoStateType {

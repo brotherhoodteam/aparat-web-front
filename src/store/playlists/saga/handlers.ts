@@ -4,7 +4,7 @@ import api from '../../../core/api'
 import {
 	PlaylistsDataResponseType,
 	PlaylistDataResponseType,
-	SetPlaylistStartActionPayloadType
+	SetPlaylistStartPayloadType
 } from '../interface'
 import {
 	getPlaylistsSuccessAction,
@@ -19,7 +19,7 @@ import { getErrorInfo } from '../../../utils'
 export function* getPlaylistsHandler() {
 	try {
 		const { data }: PlaylistsDataResponseType = yield call(api.playlists.get)
-		yield put(getPlaylistsSuccessAction({ data }))
+		yield put(getPlaylistsSuccessAction({ playlists: data }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
@@ -39,13 +39,12 @@ export function* getPlaylistsHandler() {
 	}
 }
 
-export function* setPlaylistHandler({ payload }: SetPlaylistStartActionPayloadType) {
+export function* setPlaylistHandler({
+	payload: { playlist }
+}: SetPlaylistStartPayloadType) {
 	try {
-		const { data }: PlaylistDataResponseType = yield call(api.playlists.set, {
-			title: payload.data.title
-		})
-		console.log('response', data)
-		yield put(setPlaylistSuccessAction({ data }))
+		const { data }: PlaylistDataResponseType = yield call(api.playlists.set, playlist)
+		yield put(setPlaylistSuccessAction({ playlist: data }))
 		yield put(
 			setStatusAction({ status: 'success', message: 'لیست پخش جدید باموفقیت اضافه شد' })
 		)

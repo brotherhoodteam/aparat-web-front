@@ -1,19 +1,19 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
 // type
-type StatusMessageType = string
-type StatusStatusType = 'success' | 'warn' | 'error' | 'info'
+type StatusType = 'success' | 'warn' | 'error' | 'info'
 
 // data
 interface StatusDataType {
-	status: StatusStatusType
-	message: StatusMessageType
+	status: StatusType
+	message: string
 }
+
 // payload
-export interface StatusPayload extends PayloadAction<StatusDataType> {}
+export interface StatusPayloadType extends PayloadAction<StatusDataType> {}
 
 // State
 export interface StatusStateType {
-	status: StatusStatusType | null
-	message: StatusMessageType | null
+	status: StatusType | null
+	message: string | null
 }

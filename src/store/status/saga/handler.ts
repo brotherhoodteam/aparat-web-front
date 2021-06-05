@@ -1,7 +1,7 @@
 import { put } from '@redux-saga/core/effects'
-import { StatusPayload } from '../interface'
+import { StatusPayloadType } from '../interface'
 import { setStatusAction } from '../slice'
 
-export function* statusHandler({ payload }: StatusPayload) {
+export function* statusHandler({ payload }: StatusPayloadType) {
 	// yield put(setStatusAction(payload))
 }

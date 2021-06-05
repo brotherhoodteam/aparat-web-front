@@ -1,33 +1,24 @@
-import { call, delay, put } from '@redux-saga/core/effects'
+import { call, put } from '@redux-saga/core/effects'
 
-import { ResponseAuthType, SignInActionPayloadType } from '../interface'
-import { clearStatusAction, setStatusAction } from '../../status/slice'
-import { signInFailedAction, signInSuccessAction } from '../slice'
-import { getErrorInfo, setAuth } from '../../../utils'
 import api from '../../../core/api'
+import { setStatusAction } from '../../status/slice'
+import { signInFailedAction, signInSuccessAction } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
+import { ResponseAuthType, SignInPayloadType } from '../interface'
+import { getErrorInfo, setAuth } from '../../../utils'
 
-export function* signInActionHandler({
-	payload: { username, password }
-}: SignInActionPayloadType) {
+export function* signInActionHandler({ payload: { user } }: SignInPayloadType) {
 	// create data
-	const data = {
-		username,
-		password
-	}
-
 	try {
 		// authorization
-		const { data: user }: ResponseAuthType = yield call(api.auth.login, data)
+		const { data }: ResponseAuthType = yield call(api.auth.login, user)
 
 		// set user token in localstorage
-		yield call(setAuth, user)
+		yield call(setAuth, data)
 
 		// set user token in Redux Store
-		yield put(signInSuccessAction({ user }))
+		yield put(signInSuccessAction({ credentials: data }))
 	} catch (error) {
-		// console.log('auth response', response)
-		// console.log('auth error ', error.message, error.status)
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
 			// Request Error

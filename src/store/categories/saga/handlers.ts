@@ -4,7 +4,7 @@ import api from '../../../core/api'
 import {
 	CategoriesDataResponseType,
 	CategoryDataResponseType,
-	SetCategoryStartActionPayloadType
+	SetCategoryStartPayloadType
 } from '../interface'
 import {
 	getCategoriesSuccessAction,
@@ -19,7 +19,7 @@ import { getErrorInfo } from '../../../utils'
 export function* getCategoriesHandler() {
 	try {
 		const { data }: CategoriesDataResponseType = yield call(api.categories.get)
-		yield put(getCategoriesSuccessAction({ data }))
+		yield put(getCategoriesSuccessAction({ categories: data }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
@@ -39,15 +39,12 @@ export function* getCategoriesHandler() {
 	}
 }
 
-export function* setCategoryHandler({ payload }: SetCategoryStartActionPayloadType) {
+export function* setCategoryHandler({
+	payload: { category }
+}: SetCategoryStartPayloadType) {
 	try {
-		const { data }: CategoryDataResponseType = yield call(api.categories.set, {
-			title: payload.data.title,
-			slug: payload.data.slug,
-			icon: payload.data.icon
-		})
-		console.log('response', data)
-		yield put(setCategorySuccessAction({ data }))
+		const { data }: CategoryDataResponseType = yield call(api.categories.set, category)
+		yield put(setCategorySuccessAction({ category: data }))
 		yield put(
 			setStatusAction({ status: 'success', message: 'دسته جدید باموفقیت اضافه شد' })
 		)

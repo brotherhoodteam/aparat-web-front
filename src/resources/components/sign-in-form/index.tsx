@@ -1,4 +1,4 @@
-import { Form, Formik, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import useTypedDispatch from '../../../hooks/use-typed-dispatch'
 
@@ -22,8 +22,8 @@ const SignInForm: React.FC = () => {
 			username: '',
 			password: ''
 		},
-		onSubmit: ({ username, password }: SignInFormType) => {
-			dispatch(signInAction({ password, username }))
+		onSubmit: (user: SignInFormType) => {
+			dispatch(signInAction({ user }))
 		}
 	})
 	return (

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
-import { selectUserAuth } from '../store/user/selectors'
+import { selectUser } from '../store/user/selectors'
 
 const useAuth = (isLoggedIn?: boolean) => {
-	const auth = useSelector(selectUserAuth)
+	const auth = useSelector(selectUser)
 	return isLoggedIn !== undefined ? isLoggedIn : !!auth
 }
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { AppErrorActionPayloadType, AppStateType } from './interface'
+import { AppErrorPayloadType, AppStateType } from './interface'
 const initialState: AppStateType = {
 	error: null,
 	drawer: false,
@@ -11,7 +11,7 @@ const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setAppErrorAction: (state, action: AppErrorActionPayloadType) => {
+		setAppErrorAction: (state, action: AppErrorPayloadType) => {
 			state.error = action.payload.error
 		},
 		cleanAppErrorAction: state => {

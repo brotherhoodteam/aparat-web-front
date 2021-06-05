@@ -41,7 +41,7 @@ const DashboardSettings: React.FC = () => {
 		onSubmit: (value, { resetForm }) => {
 			dispatchTyped(
 				setTagStartAction({
-					data: { title: value.tagLabel, id: 0 }
+					tag: { title: value.tagLabel, id: 0 }
 				})
 			)
 			resetForm({})
@@ -55,7 +55,7 @@ const DashboardSettings: React.FC = () => {
 		onSubmit: (value, { resetForm }) => {
 			dispatchTyped(
 				setPlaylistStartAction({
-					data: { title: value.playlistLabel }
+					playlist: { title: value.playlistLabel }
 				})
 			)
 			resetForm({})
@@ -71,7 +71,7 @@ const DashboardSettings: React.FC = () => {
 		onSubmit: (value, { resetForm }) => {
 			dispatchTyped(
 				setCategoryStartAction({
-					data: {
+					category: {
 						title: value.categoryLabel,
 						icon: value.categoryIcon,
 						slug: value.categorySlug

@@ -2,8 +2,10 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { ErrorType } from '../../interface/exception'
 
 // Models
-export type UserNameType = string
-export type PasswordType = string
+export interface SignInType {
+	username: string
+	password: string
+}
 export type CredentialsType = {
 	access_token: string
 	expire_in: number
@@ -12,21 +14,20 @@ export type CredentialsType = {
 }
 
 //  Data Interface
-export type SignInDataType = {
-	username: UserNameType
-	password: PasswordType
+export interface SignInDataType {
+	user: SignInType
 }
-export interface UserDataType {
-	user: CredentialsType
+export interface CredentialsDataType {
+	credentials: CredentialsType
 }
 export interface ErrorDataType {
 	error: ErrorType
 }
 
 // Payload
-export interface SignInActionPayloadType extends PayloadAction<SignInDataType> {}
-export interface SignInSuccessActionPayloadType extends PayloadAction<UserDataType> {}
-export interface SignInFailedActionPayloadType extends PayloadAction<ErrorDataType> {}
+export interface SignInPayloadType extends PayloadAction<SignInDataType> {}
+export interface SignInSuccessPayloadType extends PayloadAction<CredentialsDataType> {}
+export interface SignInFailedPayloadType extends PayloadAction<ErrorDataType> {}
 
 // USER RESPONSE TYPES
 export interface ResponseAuthType {
@@ -35,15 +36,14 @@ export interface ResponseAuthType {
 
 // USER ACTIONS TYPE
 export type UserActionTypes =
-	| SignInActionPayloadType
-	| SignInSuccessActionPayloadType
-	| SignInFailedActionPayloadType
+	| SignInPayloadType
+	| SignInSuccessPayloadType
+	| SignInFailedPayloadType
 
 // USER STATE TYPE
 export interface UserStateType {
-	username: UserNameType | null
-	password: PasswordType | null
+	user: SignInType | null
 	credentials: CredentialsType | null
-	error: ErrorType | null
 	loading: boolean
+	error: ErrorType | null
 }

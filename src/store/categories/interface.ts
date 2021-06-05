@@ -2,19 +2,17 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { BaseEntity } from '../../interface/base'
 import { ErrorType } from '../../interface/exception'
 
-// Models
-export interface CategoryType extends BaseEntity {
+// Base
+export interface BaseCategory {
 	title: string
 	icon?: string
 	banner?: string
 	slug: string
 }
-export interface CreateCategoryType {
-	title: string
-	slug: string
-	icon: string
-	banner_id?: string
-}
+export interface CategoryType extends BaseEntity, BaseCategory {}
+export interface CreateCategoryType extends BaseCategory {}
+
+// Transfrom Interface
 export interface CategoryNormalizedType {
 	id: number
 	userId?: string
@@ -27,42 +25,42 @@ export interface CategoryNormalizedType {
 
 // Data Interface
 export interface CategoryDataType {
-	data: CategoryType
+	category: CategoryType
 }
 export interface CategoriesDataType {
-	data: Array<CategoryType>
+	categories: Array<CategoryType>
 }
 export interface CreateCategoryDataType {
-	data: { title: string; slug: string; icon: string; banner_id?: string }
+	category: CreateCategoryType
 }
 export interface ErrorDataType {
 	error: ErrorType
 }
 
 // Payloads
-export interface SetCategoryStartActionPayloadType
+//set
+export interface SetCategoryStartPayloadType
 	extends PayloadAction<CreateCategoryDataType> {}
-
-export interface SetCategorySuccessActionPayloadType
-	extends PayloadAction<CategoryDataType> {}
-
-export interface GetCategoriesSuccessActionPayloadType
+export interface SetCategorySuccessPayloadType extends PayloadAction<CategoryDataType> {}
+// get
+export interface GetCategoriesSuccessPayloadType
 	extends PayloadAction<CategoriesDataType> {}
-
-export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
+// error
+export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
-export type CategoriesDataResponseType = {
-	data: Array<CategoryType>
-}
-export type CategoryDataResponseType = {
+export interface CategoryDataResponseType {
 	data: CategoryType
 }
+export interface CategoriesDataResponseType {
+	data: Array<CategoryType>
+}
+
 // Actions
 export type CategoriesActionType =
-	| SetCategoryStartActionPayloadType
-	| GetCategoriesSuccessActionPayloadType
-	| ErrorActionPayloadType
+	| SetCategoryStartPayloadType
+	| GetCategoriesSuccessPayloadType
+	| ErrorPayloadType
 
 // State
 export interface CategoriesStateType {

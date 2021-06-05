@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	SignInActionPayloadType,
-	SignInFailedActionPayloadType,
-	SignInSuccessActionPayloadType,
+	SignInPayloadType,
+	SignInFailedPayloadType,
+	SignInSuccessPayloadType,
 	UserStateType
 } from './interface'
 
 const initialState: UserStateType = {
-	username: null,
-	password: null,
+	user: null,
 	credentials: null,
 	error: null,
 	loading: false
@@ -19,29 +18,25 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		signInReinitAction: state => {
-			state.username = null
-			state.password = null
+			state.user = null
 			state.credentials = null
 			state.loading = false
 			state.error = null
 		},
-		signInAction: (state, action: SignInActionPayloadType) => {
-			state.username = action.payload.username
-			state.password = action.payload.password
+		signInAction: (state, action: SignInPayloadType) => {
+			state.user = action.payload.user
 			state.credentials = null
 			state.loading = true
 			state.error = null
 		},
-		signInSuccessAction: (state, action: SignInSuccessActionPayloadType) => {
-			state.username = null
-			state.password = null
-			state.credentials = action.payload.user
+		signInSuccessAction: (state, action: SignInSuccessPayloadType) => {
+			state.user = null
+			state.credentials = action.payload.credentials
 			state.loading = false
 			state.error = null
 		},
-		signInFailedAction: (state, action: SignInFailedActionPayloadType) => {
-			state.username = null
-			state.password = null
+		signInFailedAction: (state, action: SignInFailedPayloadType) => {
+			state.user = null
 			state.credentials = null
 			state.loading = false
 			state.error = action.payload.error

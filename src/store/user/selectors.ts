@@ -3,7 +3,7 @@ import { StateType } from '../../core/redux/interface'
 
 export const selectUserState = (state: StateType) => state.user
 
-export const selectUserAuth = createSelector(
+export const selectUser = createSelector(
 	[selectUserState],
 	userState => userState.credentials
 )

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	SetCategoryStartActionPayloadType,
-	GetCategoriesSuccessActionPayloadType,
-	ErrorActionPayloadType,
+	SetCategoryStartPayloadType,
+	GetCategoriesSuccessPayloadType,
+	ErrorPayloadType,
 	CategoriesStateType,
-	SetCategorySuccessActionPayloadType
+	SetCategorySuccessPayloadType
 } from './interface'
 
 const initialState: CategoriesStateType = {
@@ -24,29 +24,26 @@ const tagsSlice = createSlice({
 			state.fetchDataLoading = true
 			state.fetchDataError = null
 		},
-		getCategoriesSuccessAction: (
-			state,
-			action: GetCategoriesSuccessActionPayloadType
-		) => {
-			state.data = action.payload.data
+		getCategoriesSuccessAction: (state, action: GetCategoriesSuccessPayloadType) => {
+			state.data = action.payload.categories
 			state.fetchDataLoading = false
 			state.fetchDataError = null
 		},
-		getCategoriesFailedAction: (state, action: ErrorActionPayloadType) => {
+		getCategoriesFailedAction: (state, action: ErrorPayloadType) => {
 			state.data = []
 			state.fetchDataLoading = false
 			state.fetchDataError = action.payload.error
 		},
-		setCategoryStartAction: (state, action: SetCategoryStartActionPayloadType) => {
+		setCategoryStartAction: (state, action: SetCategoryStartPayloadType) => {
 			state.addItemLoading = true
 			state.addItemError = null
 		},
-		setCategorySuccessAction: (state, action: SetCategorySuccessActionPayloadType) => {
-			state.data.push(action.payload.data)
+		setCategorySuccessAction: (state, action: SetCategorySuccessPayloadType) => {
+			state.data.push(action.payload.category)
 			state.addItemLoading = false
 			state.addItemError = null
 		},
-		setCategoryFailedAction: (state, action: ErrorActionPayloadType) => {
+		setCategoryFailedAction: (state, action: ErrorPayloadType) => {
 			state.addItemLoading = false
 			state.addItemError = action.payload.error
 		}

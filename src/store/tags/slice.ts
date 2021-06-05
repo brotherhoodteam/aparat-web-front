@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	ErrorActionPayloadType,
-	SetTagStartActionPayloadType,
+	ErrorPayloadType,
+	SetTagStartPayloadType,
 	TagsStateType,
-	GetTagsSuccessActionPayloadType,
-	SetTagSuccessActionPayloadType
+	GetTagsSuccessPayloadType,
+	SetTagSuccessPayloadType
 } from './interface'
 
 const initialState: TagsStateType = {
@@ -24,26 +24,26 @@ const tagsSlice = createSlice({
 			state.fetchDataLoading = true
 			state.fetchDataError = null
 		},
-		getTagsSuccessAction: (state, action: GetTagsSuccessActionPayloadType) => {
-			state.data = action.payload.tagsData
+		getTagsSuccessAction: (state, action: GetTagsSuccessPayloadType) => {
+			state.data = action.payload.tags
 			state.fetchDataLoading = false
 			state.fetchDataError = null
 		},
-		getTagsFailedAction: (state, action: ErrorActionPayloadType) => {
+		getTagsFailedAction: (state, action: ErrorPayloadType) => {
 			state.data = []
 			state.fetchDataLoading = false
 			state.fetchDataError = action.payload.error
 		},
-		setTagStartAction: (state, action: SetTagStartActionPayloadType) => {
+		setTagStartAction: (state, action: SetTagStartPayloadType) => {
 			state.addItemLoading = true
 			state.addItemError = null
 		},
-		setTagSuccessAction: (state, action: SetTagSuccessActionPayloadType) => {
+		setTagSuccessAction: (state, action: SetTagSuccessPayloadType) => {
 			state.addItemLoading = false
-			state.data.push(action.payload.data)
+			state.data.push(action.payload.tag)
 			state.addItemError = null
 		},
-		setTagFailedAction: (state, action: ErrorActionPayloadType) => {
+		setTagFailedAction: (state, action: ErrorPayloadType) => {
 			state.addItemLoading = false
 			state.addItemError = action.payload.error
 		}

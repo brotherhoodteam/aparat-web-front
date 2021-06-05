@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { StatusPayload, StatusStateType } from './interface'
+import { StatusPayloadType, StatusStateType } from './interface'
 
 const initialState: StatusStateType = {
 	status: null,
@@ -9,7 +9,7 @@ const statusSlice = createSlice({
 	name: 'status',
 	initialState,
 	reducers: {
-		setStatusAction: (state, action: StatusPayload) => {
+		setStatusAction: (state, action: StatusPayloadType) => {
 			state.status = action.payload.status
 			state.message = action.payload.message
 		},

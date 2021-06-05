@@ -1,6 +1,6 @@
 import { all, call } from '@redux-saga/core/effects'
-import { signInActionWatcher } from './watchers'
+import { userWatcher } from './watchers'
 
 export default function* userSaga() {
-	yield all([call(signInActionWatcher)])
+	yield all([call(userWatcher)])
 }

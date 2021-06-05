@@ -5,7 +5,7 @@ import { getErrorInfo } from '../../../utils'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
 import {
-	SetTagStartActionPayloadType,
+	SetTagStartPayloadType,
 	TagsDataResponseType,
 	TagDataResponseType
 } from '../interface'
@@ -19,7 +19,7 @@ import {
 export function* getTagsHandler() {
 	try {
 		const { data }: TagsDataResponseType = yield call(api.tags.get)
-		yield put(getTagsSuccessAction({ tagsData: data }))
+		yield put(getTagsSuccessAction({ tags: data }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
@@ -37,12 +37,10 @@ export function* getTagsHandler() {
 	}
 }
 
-export function* setTagHandler({ payload }: SetTagStartActionPayloadType) {
+export function* setTagHandler({ payload: { tag } }: SetTagStartPayloadType) {
 	try {
-		const response: TagDataResponseType = yield call(api.tags.set, {
-			title: payload.data.title
-		})
-		yield put(setTagSuccessAction({ data: response.data }))
+		const { data }: TagDataResponseType = yield call(api.tags.set, tag)
+		yield put(setTagSuccessAction({ tag: data }))
 		yield put(
 			setStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
 		)

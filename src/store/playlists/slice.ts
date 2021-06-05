@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	SetPlaylistStartActionPayloadType,
-	GetPlaylistsSuccessActionPayloadType,
-	ErrorActionPayloadType,
+	SetPlaylistStartPayloadType,
+	GetPlaylistsSuccessPayloadType,
+	ErrorPayloadType,
 	PlaylistsStateType,
-	SetPlaylistSuccessActionPayloadType
+	SetPlaylistSuccessPayloadType
 } from './interface'
 
 const initialState: PlaylistsStateType = {
@@ -24,26 +24,26 @@ const tagsSlice = createSlice({
 			state.fetchDataLoading = true
 			state.fetchDataError = null
 		},
-		getPlaylistsSuccessAction: (state, action: GetPlaylistsSuccessActionPayloadType) => {
-			state.data = action.payload.data
+		getPlaylistsSuccessAction: (state, action: GetPlaylistsSuccessPayloadType) => {
+			state.data = action.payload.playlists
 			state.fetchDataLoading = false
 			state.fetchDataError = null
 		},
-		getPlaylistsFailedAction: (state, action: ErrorActionPayloadType) => {
+		getPlaylistsFailedAction: (state, action: ErrorPayloadType) => {
 			state.data = []
 			state.fetchDataLoading = false
 			state.fetchDataError = action.payload.error
 		},
-		setPlaylistStartAction: (state, action: SetPlaylistStartActionPayloadType) => {
+		setPlaylistStartAction: (state, action: SetPlaylistStartPayloadType) => {
 			state.addItemLoading = true
 			state.addItemError = null
 		},
-		setPlaylistSuccessAction: (state, action: SetPlaylistSuccessActionPayloadType) => {
-			state.data.push(action.payload.data)
+		setPlaylistSuccessAction: (state, action: SetPlaylistSuccessPayloadType) => {
+			state.data.push(action.payload.playlist)
 			state.addItemLoading = false
 			state.addItemError = null
 		},
-		setPlaylistFailedAction: (state, action: ErrorActionPayloadType) => {
+		setPlaylistFailedAction: (state, action: ErrorPayloadType) => {
 			state.addItemLoading = false
 			state.addItemError = action.payload.error
 		}

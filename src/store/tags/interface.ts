@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { ErrorType } from '../../interface/exception'
 
-// Models
+// Inrface
 export type TagType = {
 	id: number
 	title: string
@@ -9,33 +9,34 @@ export type TagType = {
 
 // Data Interface
 export interface TagDataType {
-	data: TagType
+	tag: TagType
 }
 export interface TagsDataType {
-	tagsData: Array<TagType>
+	tags: Array<TagType>
 }
 export interface ErrorDataType {
 	error: ErrorType
 }
 
 // Payload
-export interface SetTagStartActionPayloadType extends PayloadAction<TagDataType> {}
-export interface SetTagSuccessActionPayloadType extends PayloadAction<TagDataType> {}
-export interface GetTagsSuccessActionPayloadType extends PayloadAction<TagsDataType> {}
-export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
+export interface SetTagStartPayloadType extends PayloadAction<TagDataType> {}
+export interface SetTagSuccessPayloadType extends PayloadAction<TagDataType> {}
+export interface GetTagsSuccessPayloadType extends PayloadAction<TagsDataType> {}
+export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
-export interface TagsDataResponseType {
-	data: Array<TagType>
-}
 export interface TagDataResponseType {
 	data: TagType
 }
+export interface TagsDataResponseType {
+	data: Array<TagType>
+}
+
 // Actions
 export type TagsActionType =
-	| SetTagStartActionPayloadType
-	| GetTagsSuccessActionPayloadType
-	| ErrorActionPayloadType
+	| SetTagStartPayloadType
+	| GetTagsSuccessPayloadType
+	| ErrorPayloadType
 
 // State
 export interface TagsStateType {

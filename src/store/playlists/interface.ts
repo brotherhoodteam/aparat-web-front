@@ -19,29 +19,28 @@ export interface PlaylistNormalizedType {
 
 // Data Interface
 export interface PlaylistDataType {
-	data: PlaylistType
+	playlist: PlaylistType
 }
 export interface PlaylistsDataType {
-	data: Array<PlaylistType>
+	playlists: Array<PlaylistType>
 }
 export interface CreatePlaylistDataType {
-	data: { title: string }
+	playlist: CreatePlaylistType
 }
 export interface ErrorDataType {
 	error: ErrorType
 }
 
 // Payloads
-export interface SetPlaylistStartActionPayloadType
+// set
+export interface SetPlaylistStartPayloadType
 	extends PayloadAction<CreatePlaylistDataType> {}
-
-export interface SetPlaylistSuccessActionPayloadType
-	extends PayloadAction<PlaylistDataType> {}
-
-export interface GetPlaylistsSuccessActionPayloadType
+export interface SetPlaylistSuccessPayloadType extends PayloadAction<PlaylistDataType> {}
+// get
+export interface GetPlaylistsSuccessPayloadType
 	extends PayloadAction<PlaylistsDataType> {}
-
-export interface ErrorActionPayloadType extends PayloadAction<ErrorDataType> {}
+// error
+export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 
 // Response
 export type PlaylistsDataResponseType = {
@@ -52,9 +51,9 @@ export type PlaylistDataResponseType = {
 }
 // Actions
 export type PlaylistsActionType =
-	| SetPlaylistStartActionPayloadType
-	| GetPlaylistsSuccessActionPayloadType
-	| ErrorActionPayloadType
+	| SetPlaylistStartPayloadType
+	| GetPlaylistsSuccessPayloadType
+	| ErrorPayloadType
 
 // State
 export interface PlaylistsStateType {
