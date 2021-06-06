@@ -22,7 +22,7 @@ const videoSlice = createSlice({
 			state.error = null
 		},
 		uploadFileSuccessAction: (state, action: UploadFileSuccessPayloadType) => {
-			state.data = action.payload.data
+			state.data = action.payload.video
 			state.loading = false
 			state.error = null
 		},
