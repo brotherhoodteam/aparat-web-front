@@ -1,6 +1,3 @@
-import { useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useDropzone } from 'react-dropzone'
 import { useFormik } from 'formik'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
@@ -14,9 +11,9 @@ import { useCategories } from '../../../../hooks/use-categories'
 import { useTags } from '../../../../hooks/use-tags'
 import { useChannelCategories } from '../../../../hooks/use-channel-categories'
 
-import AddFileImage from '../../../../assets/images/add-file.svg'
 import './styles.scss'
 import { usePlaylists } from '../../../../hooks/use-playlist'
+import Uploader from '../../../components/uploader'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
@@ -44,13 +41,11 @@ const DashboardUpload: React.FC = () => {
 		}
 	})
 
-	// Drop setting
-	const onDrop = useCallback((acceptedFiles: File[]) => {
-		if (acceptedFiles[0]) {
-			dispatchTyped(uploadFileStartAction({ file: acceptedFiles[0] }))
-		}
-	}, [])
-	const { getRootProps, getInputProps } = useDropzone({ onDrop })
+	// Drop
+	const onDrop = (files: File[]) => {
+		console.log('onDrop is Start')
+		// dispatchTyped(uploadFileStartAction({ file: files[0] }))
+	}
 
 	return (
 		<PanelLayout title="آپلود ویدئو">
@@ -67,16 +62,7 @@ const DashboardUpload: React.FC = () => {
 							فرمایید.
 						</p>
 					</div>
-					<div className="mb-4">
-						<div {...getRootProps({ className: 'drag-wrapper' })}>
-							<input {...getInputProps()} />
-							<div className="drag-img">
-								<img src={AddFileImage} alt="add file" />
-							</div>
-							<p>فایل ویدئو را اینجا رها کرده یا کلیک کنید و فایل را انتخاب کنید</p>
-							<small className="text-muted">حداکثر حجم فایل باید 200مگابایت باشد</small>
-						</div>
-					</div>
+					<Uploader dropHandler={onDrop} />
 					<Tabs active="1">
 						<TabsList className="mb-5">
 							<TabsItem id="1" title="مشخصات ویدئو" />

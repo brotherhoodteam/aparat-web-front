@@ -1,0 +1,25 @@
+.progress {
+	position: relative;
+	display: flex;
+	// height: 0.75rem;
+	height: 4px;
+	overflow: hidden;
+	line-height: 0;
+	margin-bottom: 1rem;
+	font-size: 0.75rem;
+	background-color: #e7eaf3;
+	border-radius: 0.3125rem;
+	&-bar {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		color: #fff;
+		text-align: center;
+		white-space: nowrap;
+		background-color: #00c9a7 !important;
+		transition: width 0.6s ease;
+	}
+}
