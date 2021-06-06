@@ -1,17 +1,71 @@
-import { call, put } from '@redux-saga/core/effects'
+import { call, fork, put, take } from '@redux-saga/core/effects'
+import { EventChannel, eventChannel } from '@redux-saga/core'
 
 import api from '../../../core/api'
 import { getErrorInfo } from '../../../utils'
-import { uploadFileFailedAction } from '../slice'
+import {
+	uploadFileSuccessAction,
+	uploadFileFailedAction,
+	uploadFileProgressAction
+} from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
-import { ResponseVideoType, UploadFileStartPayloadType } from '../interface'
+import { UploadFileStartPayloadType } from '../interface'
+
+interface Data {
+	state: 'ok' | 'proccess' | 'error'
+	percent: number
+	response: {
+		data: { video: string }
+	}
+	error: any
+}
+const identity = (a: any) => a
+
+const createAsyncUpload = (file: File) => {
+	let emit: any
+	const chan: EventChannel<any> = eventChannel(emitter => {
+		emit = emitter
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		return () => {}
+	})
+
+	const promise = api.video
+		.upload(file, (e: ProgressEvent) => {
+			console.log('e', e)
+			emit({ percent: (e.loaded * 100) / e.total, state: 'proccess' })
+		})
+		.then(response => emit({ state: 'ok', response }))
+		.catch(error => emit({ state: 'error', error }))
+
+	return [promise, chan]
+}
+
+function* watchOnProgress(chan: any) {
+	while (true) {
+		const data: Data = yield take(chan)
+
+		yield console.log('data', data)
+		if (data.state === 'proccess') {
+			yield put(uploadFileProgressAction({ percent: Number(data.percent.toFixed(0)) }))
+		} else if (data.state === 'ok') {
+			yield put(uploadFileSuccessAction({ video: data.response.data.video }))
+		} else {
+			yield put(uploadFileFailedAction({ error: data.error.response }))
+		}
+	}
+}
 
 export function* fileUploadHandler({ payload: { file } }: UploadFileStartPayloadType) {
 	try {
-		const { data }: ResponseVideoType = yield call(api.video.upload, file)
+		// console.log('file', file)
+		const [promise, chan] = createAsyncUpload(file)
+		yield fork(watchOnProgress, chan)
+		yield call(identity, promise)
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
+		// console.log('errorMessage, statusCode ', error, errorMessage, statusCode)
+		console.log('error', error)
 		if (error.response) {
 			// Request Error
 			yield put(

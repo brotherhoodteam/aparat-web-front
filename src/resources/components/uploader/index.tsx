@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 import AddFileImage from '../../../assets/images/add-file.svg'
@@ -9,19 +9,39 @@ import Progress from '../../elements/progress'
 
 interface Props {
 	dropHandler: (files: File[]) => void
+	percent: number
 }
 
-const Uploader: React.FC<Props> = ({ dropHandler }) => {
+// todo باید متن های کامپوننت با پراچس قرار گیرد
+// todo باید اسم فایل درصورت طولانی بودن خلاصه شود
+
+const Uploader: React.FC<Props> = ({ dropHandler, percent }) => {
+	const [file, setFile] = useState({
+		name: '',
+		size: ''
+	})
+
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		dropHandler(acceptedFiles)
 	}, [])
 	const { getRootProps, getInputProps, acceptedFiles, isDragActive } = useDropzone({
 		onDrop
 	})
+	useEffect(() => {
+		const selectedFile = acceptedFiles && acceptedFiles[0]
 
+		if (selectedFile) {
+			setFile({
+				name: selectedFile.name,
+				size: (selectedFile.size / 1000000).toFixed(1)
+			})
+		}
+	}, [acceptedFiles])
+
+	const isCompleted = useMemo(() => percent === 100, [percent])
 	return (
 		<div className="uploader">
-			<div {...getRootProps({ className: 'uploader-body mb-4' })}>
+			<div {...getRootProps({ className: 'uploader-body' })}>
 				{!acceptedFiles.length && !isDragActive && (
 					<>
 						<input {...getInputProps()} />
@@ -43,27 +63,35 @@ const Uploader: React.FC<Props> = ({ dropHandler }) => {
 				) : null}
 				{acceptedFiles.length ? (
 					<div className="uploader-drop">
-						<div className="uploader-file-img">
-							<img src={FileImage} alt="" />
-						</div>
-						<div className="uploader-file-details">
-							<h6 className="mb-1">
-								<span className="uploader-file-title">light-mono.png</span>
-							</h6>
-							<div className="uploader-file-size" dir="ltr">
-								<strong>2.1</strong> <span>KB</span>
+						<div className="uploader-file">
+							<div className="uploader-file-img">
+								<img src={FileImage} alt="" />
 							</div>
-							<div className="uploader-file-status">
-								<small className="text-muted">
-									درحال آپلود
-									<span dir="ltr" className="px-1">
-										60%
-									</span>
-								</small>
+							<div className="uploader-file-details">
+								<h6 className="mb-1">
+									<span className="uploader-file-title">{file.name}</span>
+								</h6>
+								<div className="uploader-file-size" dir="ltr">
+									<strong>{file.size}</strong> <span>MB</span>
+								</div>
+								<div className="uploader-file-status">
+									<small className="text-muted">
+										{!isCompleted ? (
+											<>
+												درحال آپلود
+												<span dir="ltr" className="px-1">
+													{percent}%
+												</span>
+											</>
+										) : (
+											'آپلود با موفقیت انجام شد'
+										)}
+									</small>
+								</div>
 							</div>
 						</div>
 						<div className="uploader-progress">
-							<Progress precent={40} />
+							<Progress precent={percent} isCompleted={isCompleted} />
 						</div>
 					</div>
 				) : null}

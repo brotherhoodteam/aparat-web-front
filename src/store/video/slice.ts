@@ -3,12 +3,14 @@ import {
 	UploadFileStartPayloadType,
 	UploadFileSuccessPayloadType,
 	UploadFileErrorPayloadType,
-	VideoStateType
+	VideoStateType,
+	UploadFileProgressPayloadType
 } from './interface'
 
 const initialState: VideoStateType = {
 	data: null,
 	loading: false,
+	percent: 0,
 	error: null
 }
 
@@ -18,6 +20,12 @@ const videoSlice = createSlice({
 	reducers: {
 		uploadFileStartAction: (state, action: UploadFileStartPayloadType) => {
 			state.data = null
+			state.loading = true
+			state.error = null
+		},
+		uploadFileProgressAction: (state, action: UploadFileProgressPayloadType) => {
+			state.data = null
+			state.percent = action.payload.percent
 			state.loading = true
 			state.error = null
 		},
@@ -34,6 +42,10 @@ const videoSlice = createSlice({
 	}
 })
 
-export const { uploadFileStartAction, uploadFileSuccessAction, uploadFileFailedAction } =
-	videoSlice.actions
+export const {
+	uploadFileStartAction,
+	uploadFileProgressAction,
+	uploadFileSuccessAction,
+	uploadFileFailedAction
+} = videoSlice.actions
 export default videoSlice.reducer

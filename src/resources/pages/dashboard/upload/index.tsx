@@ -14,10 +14,13 @@ import { useChannelCategories } from '../../../../hooks/use-channel-categories'
 import './styles.scss'
 import { usePlaylists } from '../../../../hooks/use-playlist'
 import Uploader from '../../../components/uploader'
+import { useSelector } from 'react-redux'
+import { selectProgressUploadingFile } from '../../../../store/video/selectors'
 
 const DashboardUpload: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
 	// stream data
+	const progress = useSelector(selectProgressUploadingFile)
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: channelCategories, loading: channelCategoriesLoading } =
 		useChannelCategories()
@@ -44,7 +47,7 @@ const DashboardUpload: React.FC = () => {
 	// Drop
 	const onDrop = (files: File[]) => {
 		console.log('onDrop is Start')
-		// dispatchTyped(uploadFileStartAction({ file: files[0] }))
+		dispatchTyped(uploadFileStartAction({ file: files[0] }))
 	}
 
 	return (
@@ -62,7 +65,7 @@ const DashboardUpload: React.FC = () => {
 							فرمایید.
 						</p>
 					</div>
-					<Uploader dropHandler={onDrop} />
+					<Uploader dropHandler={onDrop} percent={progress} />
 					<Tabs active="1">
 						<TabsList className="mb-5">
 							<TabsItem id="1" title="مشخصات ویدئو" />
@@ -83,6 +86,7 @@ const DashboardUpload: React.FC = () => {
 													onChange={form.handleChange}
 												/>
 											</div>
+
 											<div className="col-12 col-md-6">
 												<SelectBox
 													name="category"

@@ -22,7 +22,10 @@ const api = {
 		}
 	},
 	video: {
-		upload: (file: File) => {
+		upload: (
+			file: File,
+			onUploadProgress: ((progressEvent: any) => void) | undefined
+		) => {
 			const data = new FormData()
 			data.append('video', file)
 			const config: AxiosRequestConfig = {
@@ -31,6 +34,7 @@ const api = {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				},
+				onUploadProgress,
 				data
 			}
 			return request(config)

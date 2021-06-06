@@ -26,13 +26,14 @@
 		}
 	}
 	&-drop {
-		display: flex;
-		flex-wrap: wrap;
 		background-color: #fff;
 		border-radius: 0.3125rem;
 		padding: 1rem 1rem;
 		width: 100%;
 		box-shadow: 0 3px 6px 0 rgb(140 152 164 / 25%);
+	}
+	&-file {
+		display: flex;
 	}
 	&-progress {
 		padding-top: 1rem;
@@ -57,6 +58,9 @@
 	&-file-title {
 		font-size: 0.75rem;
 		font-weight: 600;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	&-file-size {
 		font-size: 80%;
