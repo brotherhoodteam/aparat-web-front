@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useCallback, useMemo, useRef } from 'react'
-import { nanoid } from 'nanoid'
+import React, { memo, useCallback, useMemo, useRef } from 'react'
+import { useField } from 'formik'
 import Select, {
 	ActionMeta,
 	components,
@@ -8,7 +8,6 @@ import Select, {
 } from 'react-select'
 
 import useClass from '../../../hooks/use-class'
-
 import { ClassName, Size } from '../../../interface/component'
 
 import './styles.scss'
@@ -17,12 +16,12 @@ interface InputProps {
 	id?: string
 	name: string
 	type?: 'text' | 'email'
-	value: string
-	label: string
+	value?: string
+	label?: string
 	size?: Size
 	className?: ClassName
 	placeholder?: string
-	onChange: (e: React.ChangeEvent<any>) => void
+	onChange?: (e: React.ChangeEvent<any>) => void
 }
 interface TextAreaProps {
 	id?: string
@@ -50,52 +49,46 @@ interface SelectBoxType {
 	onChange: (name: string, value: OptionTypeBase | null) => void
 }
 
-const Input: React.FC<InputProps> = ({
-	name,
-	id,
-	label,
-	type,
-	placeholder,
-	className,
-	size,
-	value,
-	onChange
-}) => {
-	const htmlId = id ? id : `${name}-${nanoid()}`
-	const inputType = type ? type : 'text'
-	const inputSize = `form-control-${size}`
-	const styles = useClass({
-		defaultClass: 'form-control',
-		optionalClass: {
-			[inputSize]: size
-		},
-		otherClass: className
-	})
+const Input: React.FC<InputProps> = React.memo(
+	({ name, id, label, type, placeholder, className, size, value, onChange }) => {
+		const [field, meta] = useField(name)
+		// const htmlId = useMemo(() => (id ? id : `${name}-id`), [])
+		const inputType = type ? type : 'text'
+		const inputSize = `form-control-${size}`
+		const styles = useCallback(() => {
+			return getStyles()
+		}, [])
 
-	return (
-		<div className="form-group text-right">
-			{label && (
-				<label htmlFor={htmlId} className="input-label">
-					{label}
-				</label>
-			)}
-			<input
-				type={inputType}
-				name={name}
-				id={htmlId}
-				className={styles}
-				placeholder={placeholder}
-				value={value}
-				autoComplete="off"
-				onChange={onChange}
-			/>
-		</div>
-	)
-}
+		const getStyles = useClass({
+			defaultClass: 'form-control',
+			optionalClass: {
+				[inputSize]: size
+			},
+			otherClass: className
+		})
+		console.log('render', meta)
+		return (
+			<div className="form-group text-right">
+				{/* {label && (
+					<label htmlFor={htmlId} className="input-label">
+						{label}
+					</label>
+				)} */}
+				<input
+					type={inputType}
+					autoComplete="off"
+					className={styles}
+					placeholder={placeholder}
+					{...field}
+				/>
+			</div>
+		)
+	}
+)
 
 const TextArea: React.FC<TextAreaProps> = React.memo(
 	({ name, id, label, placeholder, className, onChange }) => {
-		const htmlId = id ? id : `${name}-${nanoid()}`
+		const htmlId = id ? id : `${name}-id`
 		const styles = useClass({
 			defaultClass: 'form-control',
 			otherClass: className
@@ -146,7 +139,7 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		loadingMessage,
 		onChange
 	}) => {
-		const htmlId = id ? id : `SelectBox-${nanoid()}`
+		const htmlId = id ? id : `${name}-id`
 		const baseClass = 'select-box'
 		const styles = useClass({
 			defaultClass: baseClass,

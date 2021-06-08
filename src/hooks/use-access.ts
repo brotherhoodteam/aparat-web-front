@@ -5,7 +5,7 @@ const guestRedirectPath = process.env.REACT_APP_GUEST_REDIRECT_PATH || '/'
 const protectedRedirectPath = process.env.REACT_APP_PROTECTED_REDIRECT_PATH || '/'
 
 const useAccess = () => {
-	const auth = useAuth(true)
+	const auth = useAuth()
 	const routerAccess = (access: Access) => {
 		let status = null
 		let redirect = ''
