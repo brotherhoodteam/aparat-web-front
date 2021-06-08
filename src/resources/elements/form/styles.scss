@@ -182,3 +182,59 @@
 textarea.form-control {
 	height: auto !important;
 }
+
+input[type='checkbox'],
+input[type='radio'] {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+.toggle-switch {
+	$self: &;
+	display: table;
+	cursor: pointer;
+	margin-bottom: 0;
+	&-label {
+		position: relative;
+		display: block;
+		width: 3rem;
+		height: 2rem;
+		background-color: #e7eaf3;
+		background-clip: content-box;
+		border: 0.125rem solid transparent;
+		border-radius: 6.1875rem;
+		transition: 0.3s;
+		#{$self}-input:checked + & {
+			background-color: #377dff;
+		}
+	}
+
+	&-indicator {
+		position: absolute;
+		left: 0.125rem;
+		bottom: 50%;
+		width: 1.5rem;
+		height: 1.5rem;
+		background-color: #fff;
+		-webkit-transform: initial;
+		transform: initial;
+		box-shadow: 0 3px 6px 0 rgb(140 152 164 / 25%);
+		border-radius: 50%;
+		-webkit-transform: translate3d(0, 50%, 0);
+		transform: translate3d(0, 50%, 0);
+		transition: 0.3s;
+		#{$self}-input:checked + #{$self}-label & {
+			-webkit-transform: translate3d(1.025rem, 50%, 0);
+			transform: translate3d(1.025rem, 50%, 0);
+		}
+	}
+	&-input {
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+		margin: 0;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+	}
+}

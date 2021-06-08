@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { ChangeEvent, useCallback, useMemo, useRef } from 'react'
 import { nanoid } from 'nanoid'
 import Select, {
 	ActionMeta,
@@ -155,11 +155,6 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
-				// if (isMulti) {
-				// 	const items = select?.map((tag: any) => tag.value)
-				// 	onChange(name, items)
-				// 	return
-				// }
 				onChange(name, select)
 			},
 			[]
@@ -208,4 +203,43 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		)
 	}
 )
-export { Input, TextArea, SelectBox }
+interface SwitchProps {
+	name: string
+	value: boolean
+	id?: string
+	className?: string
+	onChange: (name: string, value: boolean) => void
+}
+const Switch: React.FC<SwitchProps> = ({ name, value, className, onChange }) => {
+	const ref = useRef<HTMLInputElement>(null)
+	const styles = useClass({
+		defaultClass: 'toggle-switch',
+		otherClass: className
+	})
+
+	const handleChange = () => {
+		onChange(name, !value)
+	}
+
+	const onToggle = () => {
+		ref?.current?.click()
+	}
+
+	return (
+		<div className={styles}>
+			<input
+				ref={ref}
+				type="checkbox"
+				id={name}
+				name={name}
+				className="toggle-switch-input"
+				defaultChecked={value}
+				onChange={handleChange}
+			/>
+			<div className="toggle-switch-label" onClick={onToggle}>
+				<div className="toggle-switch-indicator"></div>
+			</div>
+		</div>
+	)
+}
+export { Input, TextArea, SelectBox, Switch }

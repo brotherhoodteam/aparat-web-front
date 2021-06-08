@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
-import { SelectBox, Input, TextArea } from '../../../elements/form'
+import { SelectBox, Input, TextArea, Switch } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
 import { uploadFileStartAction } from '../../../../store/video/slice'
@@ -37,7 +37,8 @@ const DashboardUpload: React.FC = () => {
 			category: [],
 			channel: [],
 			tags: [],
-			playlist: []
+			playlist: [],
+			comment: false
 		},
 		onSubmit: (value: any) => {
 			// console.log('submit', value)
@@ -154,7 +155,19 @@ const DashboardUpload: React.FC = () => {
 									</form>
 								</div>
 							</TabsContent>
-							<TabsContent id="2"></TabsContent>
+							<TabsContent id="2">
+								<div className="row align-items-center">
+									<div className="col-6">آیا مایل هستید بخش نظرات این پست فعال باشد؟</div>
+									<div className="col-6">
+										<Switch
+											name="comment"
+											value={form.values.comment}
+											onChange={form.setFieldValue}
+											className="ms-auto"
+										/>
+									</div>
+								</div>
+							</TabsContent>
 						</TabsBody>
 					</Tabs>
 				</CardBody>
