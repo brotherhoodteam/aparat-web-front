@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react'
-import { useField } from 'formik'
+import React, { useCallback, useMemo, useRef } from 'react'
+import { ErrorMessage, useField } from 'formik'
 import Select, {
 	ActionMeta,
 	components,
@@ -15,7 +15,7 @@ import './styles.scss'
 interface InputProps {
 	id?: string
 	name: string
-	type?: 'text' | 'email'
+	type?: 'text' | 'email' | 'password'
 	value?: string
 	label?: string
 	size?: Size
@@ -52,35 +52,34 @@ interface SelectBoxType {
 const Input: React.FC<InputProps> = React.memo(
 	({ name, id, label, type, placeholder, className, size, value, onChange }) => {
 		const [field, meta] = useField(name)
-		// const htmlId = useMemo(() => (id ? id : `${name}-id`), [])
+		const htmlId = useMemo(() => (id ? id : `${name}-id`), [])
 		const inputType = type ? type : 'text'
 		const inputSize = `form-control-${size}`
-		const styles = useCallback(() => {
-			return getStyles()
-		}, [])
-
-		const getStyles = useClass({
+		const styles = useClass({
 			defaultClass: 'form-control',
 			optionalClass: {
-				[inputSize]: size
+				[inputSize]: size,
+				'is-invalid': meta.error && meta.touched
 			},
 			otherClass: className
 		})
-		console.log('render', meta)
 		return (
 			<div className="form-group text-right">
-				{/* {label && (
+				{label && (
 					<label htmlFor={htmlId} className="input-label">
 						{label}
 					</label>
-				)} */}
+				)}
 				<input
 					type={inputType}
-					autoComplete="off"
 					className={styles}
 					placeholder={placeholder}
 					{...field}
+					autoComplete="off"
 				/>
+				<div className="form-error">
+					<ErrorMessage name={name} className="form-error-message" component="div" />
+				</div>
 			</div>
 		)
 	}
@@ -89,6 +88,7 @@ const Input: React.FC<InputProps> = React.memo(
 const TextArea: React.FC<TextAreaProps> = React.memo(
 	({ name, id, label, placeholder, className, onChange }) => {
 		const htmlId = id ? id : `${name}-id`
+
 		const styles = useClass({
 			defaultClass: 'form-control',
 			otherClass: className

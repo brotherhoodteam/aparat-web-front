@@ -19,11 +19,11 @@ const SignInForm: React.FC = () => {
 	const signInLoading = useSelector(selectUserSignInLoading)
 
 	const validationSchema = yup.object({
-		username: yup.string().required('Required!'),
+		username: yup.string().required('فیلد را وارد نمایید'),
 		password: yup
 			.string()
-			.min(8, 'Password Must be 8 or more letter')
-			.required('Required')
+			.min(6, 'برای گذرواژه حداقل 6 کاراکتر باید وارد کنید')
+			.required('فیلد را وارد نمایید')
 	})
 	const form = {
 		initialValues: {
@@ -40,9 +40,13 @@ const SignInForm: React.FC = () => {
 	return (
 		<Formik {...form}>
 			<Form>
-				<Input name="username" label="نام کاربری" />
-				<ErrorMessage name="username" className="error" />
-				<Input name="password" label="پسورد" placeholder="حداقل 8 کارکتر وارد نمایید" />
+				<Input name="username" label="نام کاربری" placeholder="arash" />
+				<Input
+					type="password"
+					name="password"
+					label="پسورد"
+					placeholder="حداقل 8 کارکتر وارد نمایید"
+				/>
 				<Button type="submit" color="primary" size="lg" loader={signInLoading} block>
 					ورود
 				</Button>

@@ -8,13 +8,11 @@ interface UseClassProps {
 }
 
 const useClass = ({ defaultClass, optionalClass, otherClass }: UseClassProps) => {
-	return () => {
-		const claculateClass = classNames(optionalClass)
+	const claculateClass = classNames(optionalClass)
 
-		return `${defaultClass ? defaultClass : ''} ${optionalClass ? claculateClass : ''} ${
-			otherClass ? otherClass : ''
-		}`
-	}
+	return `${defaultClass ? defaultClass : ''} ${optionalClass ? claculateClass : ''} ${
+		otherClass ? otherClass : ''
+	}`
 }
 
 export default useClass
