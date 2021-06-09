@@ -31,7 +31,7 @@ const MainContainer: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-	const isLoggedIn = useAuth()
+	const isLoggedIn = useAuth(true)
 	const dispatch = useDispatch()
 
 	useEffect(() => {

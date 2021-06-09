@@ -23,7 +23,7 @@ import ProfileImg from '../../../assets/images/img6.jpg'
 import './styles.scss'
 
 const Navbar = () => {
-	const isLoggedIn = useAuth()
+	const isLoggedIn = useAuth(true)
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
 		dispatch(openAppDrawerAction())

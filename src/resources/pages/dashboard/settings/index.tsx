@@ -1,6 +1,6 @@
-import { useFormik } from 'formik'
+import { Form, Formik } from 'formik'
 import { useSelector } from 'react-redux'
-
+import * as yup from 'yup'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { setTagStartAction } from '../../../../store/tags/slice'
 import { selectTagsAddItemLoading } from '../../../../store/tags/selectors'
@@ -34,41 +34,63 @@ const DashboardSettings: React.FC = () => {
 	const addItemCategoryLoading = useSelector(selectCategoryAddItemLoading)
 	const addItemPlaylistLoading = useSelector(selectPlaylistAddItemLoading)
 
-	const tagForm = useFormik<TagState>({
+	const tagValidation = yup.object({
+		tagLabel: yup.string().required('نام برچسب را وارد نمایید')
+	})
+
+	const playlistValidation = yup.object({
+		playlistLabel: yup.string().required('نام لیست پخش را وارد نمایید')
+	})
+
+	const categoroyValidation = yup.object({
+		categoryLabel: yup.string().required('نام دسته را وارد نمایید'),
+		categorySlug: yup
+			.string()
+			.matches(/^[a-z]+$/, 'بصورت انگلیسی وارد نمایید مانند sport')
+			.required('نامک را وارد نمایید'),
+		categoryIcon: yup
+			.string()
+			.matches(/^[a-z]+$/, 'بصورت انگلیسی وارد نمایید مانند tio-home')
+			.required('نام ایکون را وارد نمایید')
+	})
+
+	const tagForm = {
 		initialValues: {
 			tagLabel: ''
 		},
-		onSubmit: (value, { resetForm }) => {
+		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
 				setTagStartAction({
 					tag: { title: value.tagLabel, id: 0 }
 				})
 			)
 			resetForm({})
-		}
-	})
+		},
+		validationSchema: tagValidation
+	}
 
-	const playlistForm = useFormik<PalylistState>({
+	const playlistForm = {
 		initialValues: {
 			playlistLabel: ''
 		},
-		onSubmit: (value, { resetForm }) => {
+		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
 				setPlaylistStartAction({
 					playlist: { title: value.playlistLabel }
 				})
 			)
 			resetForm({})
-		}
-	})
+		},
+		validationSchema: playlistValidation
+	}
 
-	const categoryForm = useFormik<CategoryState>({
+	const categoryForm = {
 		initialValues: {
 			categoryLabel: '',
 			categorySlug: '',
 			categoryIcon: ''
 		},
-		onSubmit: (value, { resetForm }) => {
+		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
 				setCategoryStartAction({
 					category: {
@@ -79,8 +101,9 @@ const DashboardSettings: React.FC = () => {
 				})
 			)
 			resetForm({})
-		}
-	})
+		},
+		validationSchema: categoroyValidation
+	}
 
 	return (
 		<PanelLayout title="تنظیمات کانال">
@@ -89,80 +112,72 @@ const DashboardSettings: React.FC = () => {
 					<CardTitle className="h5">افزودن دسته‌بندی</CardTitle>
 				</CardHeader>
 				<CardBody>
-					<form onSubmit={categoryForm.handleSubmit}>
-						<div className="mb-4">
-							<p>
-								برای اضافه کردن دسته‌ جدید, میتوانید از فروم زیر اسفاده کنید. دسته‌بندی
-								های ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
-							</p>
-							<div className="row">
-								<div className="col col-md-4">
-									<Input
-										name="categoryLabel"
-										label="عنوان دسته"
-										placeholder="به عنوان مثال ویدئو"
-										onChange={categoryForm.handleChange}
-										value={categoryForm.values.categoryLabel}
-									/>
-								</div>
-								<div className="col col-md-4">
-									<Input
-										name="categoryIcon"
-										label="ایکون"
-										placeholder="مانند tio-battery-alert"
-										onChange={categoryForm.handleChange}
-										value={categoryForm.values.categoryIcon}
-									/>
-								</div>
-								<div className="col col-md-4">
-									<Input
-										name="categorySlug"
-										label="نامک"
-										placeholder="video"
-										onChange={categoryForm.handleChange}
-										value={categoryForm.values.categorySlug}
-									/>
+					<Formik {...categoryForm}>
+						<Form>
+							<div className="mb-4">
+								<p>
+									برای اضافه کردن دسته‌ جدید, میتوانید از فروم زیر اسفاده کنید. دسته‌بندی
+									های ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
+								</p>
+								<div className="row">
+									<div className="col col-md-4">
+										<Input
+											name="categoryLabel"
+											label="عنوان دسته"
+											placeholder="به عنوان مثال ویدئو"
+										/>
+									</div>
+									<div className="col col-md-4">
+										<Input
+											name="categoryIcon"
+											label="ایکون"
+											placeholder="مانند tio-battery-alert"
+										/>
+									</div>
+									<div className="col col-md-4">
+										<Input name="categorySlug" label="نامک" placeholder="video" />
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="d-flex justify-content-end">
-							<Button type="submit" color="primary" loader={addItemCategoryLoading}>
-								افزودن دسته
-							</Button>
-						</div>
-					</form>
+							<div className="d-flex justify-content-end">
+								<Button type="submit" color="primary" loader={addItemCategoryLoading}>
+									افزودن دسته
+								</Button>
+							</div>
+						</Form>
+					</Formik>
 				</CardBody>
 			</Card>
-			<Card>
+			<Card className="mb-4">
 				<CardHeader>
 					<CardTitle className="h5">افزودن برچسب</CardTitle>
 				</CardHeader>
 
 				<CardBody>
-					<form onSubmit={tagForm.handleSubmit}>
-						<div className="mb-4">
-							<p>
-								برای اضافه کردن برچسب جدید, میتوانید از فروم زیر اسفاده کنید. برچسب های
-								ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
-							</p>
-						</div>
-						<div className="row">
-							<div className="col col-md-6">
-								<Input
-									name="tagLabel"
-									label="عنوان برچسب"
-									placeholder="به عنوان مثال ورزشی"
-									onChange={tagForm.handleChange}
-									value={tagForm.values.tagLabel}
-								/>
+					<Formik {...tagForm}>
+						<Form>
+							<div className="mb-4">
+								<p>
+									برای اضافه کردن برچسب جدید, میتوانید از فروم زیر اسفاده کنید. برچسب های
+									ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
+								</p>
 							</div>
-						</div>
-						<div className="d-flex justify-content-end">
-							<Button type="submit" color="primary" loader={addItemTagLoading}>
-								افزودن برچسب
-							</Button>
-						</div>
-					</form>
+							<div className="row">
+								<div className="col col-md-6">
+									<Input
+										name="tagLabel"
+										label="عنوان برچسب"
+										placeholder="به عنوان مثال ورزشی"
+									/>
+								</div>
+							</div>
+							<div className="d-flex justify-content-end">
+								<Button type="submit" color="primary" loader={addItemTagLoading}>
+									افزودن برچسب
+								</Button>
+							</div>
+						</Form>
+					</Formik>
 				</CardBody>
 			</Card>
 			<Card>
@@ -171,27 +186,27 @@ const DashboardSettings: React.FC = () => {
 				</CardHeader>
 
 				<CardBody>
-					<form onSubmit={playlistForm.handleSubmit}>
-						<div className="mb-4">
-							<p>لیست پخش ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.</p>
-						</div>
-						<div className="row">
-							<div className="col col-md-6">
-								<Input
-									name="playlistLabel"
-									label="عنوان لیست پخش"
-									placeholder="به عنوان مثال ورزشی"
-									onChange={playlistForm.handleChange}
-									value={playlistForm.values.playlistLabel}
-								/>
+					<Formik {...playlistForm}>
+						<Form>
+							<div className="mb-4">
+								<p>لیست پخش ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.</p>
 							</div>
-						</div>
-						<div className="d-flex justify-content-end">
-							<Button type="submit" color="primary" loader={addItemPlaylistLoading}>
-								افزودن لیست پخش
-							</Button>
-						</div>
-					</form>
+							<div className="row">
+								<div className="col col-md-6">
+									<Input
+										name="playlistLabel"
+										label="عنوان لیست پخش"
+										placeholder="به عنوان مثال ورزشی"
+									/>
+								</div>
+							</div>
+							<div className="d-flex justify-content-end">
+								<Button type="submit" color="primary" loader={addItemPlaylistLoading}>
+									افزودن لیست پخش
+								</Button>
+							</div>
+						</Form>
+					</Formik>
 				</CardBody>
 			</Card>
 		</PanelLayout>
