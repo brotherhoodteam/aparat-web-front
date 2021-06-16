@@ -1,4 +1,4 @@
-import React, { Fragment, MouseEventHandler } from 'react'
+import React, { Fragment, MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 
 import Spinner from '../spinner'
@@ -24,7 +24,7 @@ interface ButtonProps {
 	icon?: boolean
 	status?: Colors
 	statusSize?: Size
-	onClick?: MouseEventHandler
+	onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
 }
 
 const Button: React.FC<ButtonProps> = React.memo(
@@ -86,9 +86,14 @@ const Button: React.FC<ButtonProps> = React.memo(
 			})
 			const defaultLoaderText = 'لطفا صبر کنید'
 
+			const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+				if (disanled || loader) return
+				onClick && onClick(e)
+			}
+
 			if (as === 'a')
 				return (
-					<a href={href} onClick={onClick} className={styles} {...props}>
+					<a href={href} onClick={handleClick} className={styles} {...props}>
 						{loader ? (
 							<Fragment>
 								<Spinner variants="border" size="sm" />
@@ -102,7 +107,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 				)
 			if (as === 'link')
 				return (
-					<Link to={btnLink} onClick={onClick} className={styles} {...props}>
+					<Link to={btnLink} onClick={handleClick} className={styles} {...props}>
 						<Fragment>{children}</Fragment>
 					</Link>
 				)
@@ -110,7 +115,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 			return (
 				<button
 					type={btnType}
-					onClick={onClick}
+					onClick={handleClick}
 					className={styles}
 					{...props}
 					disabled={loader || disanled}

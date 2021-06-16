@@ -148,7 +148,7 @@ const DashboardSettings: React.FC = () => {
 					</Formik>
 				</CardBody>
 			</Card>
-			<Card className="mb-4">
+			<Card className="mb-5">
 				<CardHeader>
 					<CardTitle className="h5">افزودن برچسب</CardTitle>
 				</CardHeader>

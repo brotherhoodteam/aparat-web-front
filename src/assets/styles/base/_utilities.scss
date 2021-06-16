@@ -204,11 +204,11 @@ h5 {
 }
 
 .text-muted {
-    color: #8c98a4!important;
+	color: #8c98a4 !important;
 }
 textarea {
-    overflow: auto;
-    resize: vertical;
+	overflow: auto;
+	resize: vertical;
 }
 // align
 .text-center {
@@ -228,6 +228,14 @@ textarea {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+.text-danger {
+	color: #ed4c78 !important;
+}
+.bg-danger{
+	background-color: #ed4c78 !important;
+}
+
 .bg-dark {
 	background-color: #21325b !important;
 }

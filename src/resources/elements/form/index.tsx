@@ -16,45 +16,46 @@ interface InputProps {
 	id?: string
 	name: string
 	type?: 'text' | 'email' | 'password'
-	value?: string
 	label?: string
 	size?: Size
 	className?: ClassName
 	placeholder?: string
-	onChange?: (e: React.ChangeEvent<any>) => void
 }
-interface TextAreaProps {
-	id?: string
-	name: string
-	value: string
-	label: string
-	className?: ClassName
-	placeholder?: string
-	onChange: (e: React.ChangeEvent<any>) => void
-}
+
 interface SelectBoxType {
-	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	id: string
 	name: string
-	defaultValue?: Array<{ label: string; value: number }>
 	label?: string
-	className?: ClassName
 	placeholder?: string
+	className?: ClassName
+	defaultValue?: Array<{ label: string; value: number }>
+	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	isSearchable?: boolean
 	closeMenuOnSelect?: boolean
 	isMulti?: boolean
 	isClearable?: boolean
 	isLoading?: boolean
 	loadingMessage?: string
-	onChange: (name: string, value: OptionTypeBase | null) => void
+}
+interface TextAreaProps {
+	id?: string
+	name: string
+	label: string
+	placeholder?: string
+	className?: ClassName
 }
 
 const Input: React.FC<InputProps> = React.memo(
-	({ name, id, label, type, placeholder, className, size, value, onChange }) => {
+	({ name, id, label, type, placeholder, className, size }) => {
+		// input settings
 		const [field, meta] = useField(name)
+		// create default id
 		const htmlId = useMemo(() => (id ? id : `${name}-id`), [])
-		const inputType = type ? type : 'text'
-		const inputSize = `form-control-${size}`
+		// create default type
+		const inputType = useMemo(() => (type ? type : 'text'), [])
+		// create default size
+		const inputSize = useMemo(() => `form-control-${size}`, [])
+		// calc classNames
 		const styles = useClass({
 			defaultClass: 'form-control',
 			optionalClass: {
@@ -63,13 +64,18 @@ const Input: React.FC<InputProps> = React.memo(
 			},
 			otherClass: className
 		})
+
 		return (
 			<div className="form-group text-right">
+				{/* START LABEL */}
 				{label && (
 					<label htmlFor={htmlId} className="input-label">
 						{label}
 					</label>
 				)}
+				{/* END LABEL */}
+
+				{/* START INPUT FIELD */}
 				<input
 					type={inputType}
 					className={styles}
@@ -77,38 +83,53 @@ const Input: React.FC<InputProps> = React.memo(
 					{...field}
 					autoComplete="off"
 				/>
+				{/* END INPUT FIELD */}
+
+				{/* START ERROR MESSAGE */}
 				<div className="form-error">
 					<ErrorMessage name={name} className="form-error-message" component="div" />
 				</div>
+				{/* END ERROR MESSAGE */}
 			</div>
 		)
 	}
 )
 
 const TextArea: React.FC<TextAreaProps> = React.memo(
-	({ name, id, label, placeholder, className, onChange }) => {
+	({ name, id, label, placeholder, className }) => {
+		// setting textarea
+		const [field, meta] = useField(name)
+		// create default id
 		const htmlId = id ? id : `${name}-id`
-
+		// calc classnames
 		const styles = useClass({
 			defaultClass: 'form-control',
+			optionalClass: {
+				'is-invalid': meta.error && meta.touched
+			},
 			otherClass: className
 		})
 
 		return (
 			<div className="form-group text-right">
+				{/* START LABEL */}
 				{label && (
 					<label htmlFor={htmlId} className="input-label">
 						{label}
 					</label>
 				)}
+				{/* END LABEL */}
+
 				<textarea
 					rows={4}
-					name={name}
 					id={htmlId}
 					placeholder={placeholder}
 					className={styles}
-					onChange={onChange}
+					{...field}
 				></textarea>
+				<div className="form-error">
+					<ErrorMessage name={name} className="form-error-message" component="div" />
+				</div>
 			</div>
 		)
 	}
@@ -136,19 +157,21 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		isMulti,
 		isClearable,
 		isLoading,
-		loadingMessage,
-		onChange
+		loadingMessage
 	}) => {
+		const [field, meta, helper] = useField(name)
 		const htmlId = id ? id : `${name}-id`
 		const baseClass = 'select-box'
 		const styles = useClass({
 			defaultClass: baseClass,
+			optionalClass: {
+				'is-invalid': meta.touched && meta.error
+			},
 			otherClass: className
 		})
-
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
-				onChange(name, select)
+				helper.setValue(select)
 			},
 			[]
 		)
@@ -170,48 +193,58 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 		return (
 			<div className="form-group text-right">
+				{/* START LABEL */}
 				{label && (
 					<label htmlFor={htmlId} className="input-label">
 						{label}
 					</label>
 				)}
+				{/* END LABEL */}
+
 				<Select
 					id={htmlId}
-					name={name}
 					className={styles}
 					classNamePrefix={'select-box'}
 					placeholder={placeholder || ''}
 					options={options}
 					defaultValue={defaultValues}
 					isSearchable={isSearchable || false}
-					onChange={handleChange}
 					isMulti={isMulti}
 					closeMenuOnSelect={closeMenuOnSelect}
 					isClearable={isClearable || false}
 					components={{ NoOptionsMessage }}
 					isLoading={isLoading}
 					loadingMessage={handleLoading}
+					onBlur={() => {
+						helper.setTouched(true)
+					}}
+					onChange={handleChange}
 				/>
+				<div className="form-error">
+					<ErrorMessage name={name} className="form-error-message" component="div" />
+				</div>
 			</div>
 		)
 	}
 )
 interface SwitchProps {
 	name: string
-	value: boolean
 	id?: string
 	className?: string
-	onChange: (name: string, value: boolean) => void
 }
-const Switch: React.FC<SwitchProps> = ({ name, value, className, onChange }) => {
+const Switch: React.FC<SwitchProps> = ({ name, className }) => {
+	const [field, meta, helper] = useField(name)
 	const ref = useRef<HTMLInputElement>(null)
 	const styles = useClass({
 		defaultClass: 'toggle-switch',
+		optionalClass: {
+			'is-invalid': meta.error && meta.touched
+		},
 		otherClass: className
 	})
 
 	const handleChange = () => {
-		onChange(name, !value)
+		helper.setValue(!field.value)
 	}
 
 	const onToggle = () => {
@@ -219,20 +252,22 @@ const Switch: React.FC<SwitchProps> = ({ name, value, className, onChange }) => 
 	}
 
 	return (
-		<div className={styles}>
-			<input
-				ref={ref}
-				type="checkbox"
-				id={name}
-				name={name}
-				className="toggle-switch-input"
-				defaultChecked={value}
-				onChange={handleChange}
-			/>
-			<div className="toggle-switch-label" onClick={onToggle}>
-				<div className="toggle-switch-indicator"></div>
+		<>
+			<div className={styles}>
+				<input
+					ref={ref}
+					type="checkbox"
+					id={name}
+					name={name}
+					className="toggle-switch-input"
+					defaultChecked={field.value}
+					onChange={handleChange}
+				/>
+				<div className="toggle-switch-label" onClick={onToggle}>
+					<div className="toggle-switch-indicator"></div>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 export { Input, TextArea, SelectBox, Switch }

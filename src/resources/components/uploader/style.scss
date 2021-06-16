@@ -1,12 +1,14 @@
 .uploader {
 	min-height: 200px;
 	width: 100%;
-	padding: 3rem 3rem;
-	width: 100%;
-	background-color: #f8fafd;
-	border: 0.125rem dashed #e7eaf3;
-	border-radius: 0.3125rem;
-	cursor: pointer;
+	&-container {
+		padding: 3rem 3rem;
+		width: 100%;
+		background-color: #f8fafd;
+		border: 0.125rem dashed #e7eaf3;
+		border-radius: 0.3125rem;
+		cursor: pointer;
+	}
 	&-body {
 		display: flex;
 		flex-direction: column;
@@ -65,5 +67,11 @@
 	&-file-size {
 		font-size: 80%;
 		color: #677788;
+	}
+	&-error {
+		height: 30px;
+		line-height: 30px;
+		color: #ed4c78;
+		font-size: 0.7rem;
 	}
 }

@@ -104,12 +104,16 @@
 	$self: &;
 	background-color: #fff !important;
 	&__control {
-		border-color: #e7eaf3 !important;
+		border-color: #e7eaf3!important ;
 		color: #1e2022;
 		cursor: pointer !important;
 		&#{$self}__control--menu-is-open,
 		&#{$self}__control--is-focused {
-			box-shadow: 0 0 0 1px rgba(55, 125, 255, 0.4) !important;
+			border-color: rgba(55, 125, 255, 0.4)!important;
+			box-shadow: 0 0 10px rgb(55 125 255 / 10%);
+		}
+		.is-invalid & {
+			border-color: #ed4c78!important;
 		}
 	}
 	&__indicator-separator {

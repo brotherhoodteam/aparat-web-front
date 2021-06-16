@@ -22,6 +22,7 @@ const videoSlice = createSlice({
 			state.data = null
 			state.loading = true
 			state.error = null
+			state.percent = 0
 		},
 		uploadFileProgressAction: (state, action: UploadFileProgressPayloadType) => {
 			state.data = null
