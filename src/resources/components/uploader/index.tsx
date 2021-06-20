@@ -13,7 +13,7 @@ interface Props {
 	name: string
 	className?: ClassName
 	uploadValue: string | null
-	uploadProgress: number
+	uploadProgress?: number
 	uploadError: ErrorType | null
 	onDropFiles: (file: File) => void
 	accept?: string
@@ -27,7 +27,6 @@ interface SelectedFile {
 interface UploadablePreview {
 	url?: string
 }
-// todo باید متن های کامپوننت با پراپس قرار گیرد
 // todo باید اسم فایل درصورت طولانی بودن خلاصه شود
 
 const Uploader: React.FC<Props> = ({
@@ -165,13 +164,15 @@ const Uploader: React.FC<Props> = ({
 								</div>
 							</div>
 
-							<div className="uploader-progress">
-								<Progress
-									precent={uploadProgress}
-									isCompleted={!!uploadValue}
-									isFailed={!!uploadError}
-								/>
-							</div>
+							{uploadProgress && (
+								<div className="uploader-progress">
+									<Progress
+										precent={uploadProgress}
+										isCompleted={!!uploadValue}
+										isFailed={!!uploadError}
+									/>
+								</div>
+							)}
 						</div>
 					) : null}
 				</div>
