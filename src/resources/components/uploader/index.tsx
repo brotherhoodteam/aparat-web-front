@@ -1,111 +1,100 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useField, ErrorMessage } from 'formik'
-import { useDropzone } from 'react-dropzone'
+import { useCallback, useEffect, useState } from 'react'
+import { useField } from 'formik'
+import { FileRejection, useDropzone } from 'react-dropzone'
 
 import Progress from '../../elements/progress'
 import { ClassName } from '../../../interface/component'
-
-import AddFileImage from '../../../assets/images/add-file.svg'
-import UploadImage from '../../../assets/images/upload.svg'
-import FileImage from '../../../assets/images/img6.jpg'
-import './style.scss'
 import { ErrorType } from '../../../interface/exception'
+
+import UploadImage from '../../../assets/images/upload.svg'
+import './style.scss'
 
 interface Props {
 	name: string
-	dropHandler: (files: File[]) => void
-	percent: number
-	className: ClassName
-	value: string | null
+	className?: ClassName
+	uploadValue: string | null
+	uploadProgress: number
 	uploadError: ErrorType | null
-	maxSize: number
+	onDropFiles: (file: File) => void
+	accept?: string
+	maxSize?: number
 }
-interface State {
+interface SelectedFile {
+	type?: string
 	name: string
 	size: string
 }
-// todo باید متن های کامپوننت با پراچس قرار گیرد
+interface UploadablePreview {
+	url?: string
+}
+// todo باید متن های کامپوننت با پراپس قرار گیرد
 // todo باید اسم فایل درصورت طولانی بودن خلاصه شود
 
 const Uploader: React.FC<Props> = ({
 	name,
-	dropHandler,
-	percent,
 	className,
+	uploadValue,
+	uploadProgress,
+	uploadError,
+	onDropFiles,
 	maxSize,
-	value,
-	uploadError
+	accept,
+	children
 }) => {
-	// input settings
-	const [field, meta, helper] = useField(name)
-
-	const [file, setFile] = useState<State>({
+	const [file, setFile] = useState<SelectedFile>({
+		type: undefined,
 		name: '',
 		size: ''
 	})
-
-	const onDrop = useCallback((acceptedFiles: File[]) => {
-		const selectedFile = acceptedFiles && acceptedFiles[0]
-		const name = selectedFile.name
-		const size = (selectedFile.size / 1000000).toFixed(1)
-
-		if (selectedFile) {
-			// set touched
-			helper.setTouched(true, false)
-
-			if (selectedFile.size <= maxSize) {
-				// set video details
-				setFile({
-					name,
-					size
-				})
-				// remove error
-				helper.setError(false)
-				// start upload
-				dropHandler(acceptedFiles)
-			} else {
-				helper.setError('حجم فایل بزرگ تر از 2 مگابایت است')
-			}
-		}
-	}, [])
-	const { getRootProps, getInputProps, acceptedFiles, isDragActive } = useDropzone({
-		onDrop
+	const [preview, setPreview] = useState<UploadablePreview>({
+		url: undefined
 	})
+	const [_, meta, helper] = useField(name)
 
 	useEffect(() => {
-		if (value) {
-			helper.setValue(value)
+		if (uploadValue) {
+			helper.setValue(uploadValue)
 		}
-	}, [value])
+	}, [uploadValue])
 
-	const renderUploadingStatus = () => (
-		<small className="text-muted">
-			{/* upload success */}
-			{value && 'آپلود با موفقیت انجام شد'}
+	const onDrop = useCallback((accFiles: File[], rejFiles: FileRejection[]) => {
+		const selectedFile = accFiles && accFiles[0]
 
-			{/* upload pending */}
-			{!value && !uploadError && (
-				<>
-					درحال آپلود
-					<span dir="ltr" className="px-1">
-						{percent}%
-					</span>
-				</>
-			)}
+		if (selectedFile) {
+			helper.setTouched(true, false)
+			helper.setError(false)
 
-			{/* upload Failed */}
-			{uploadError && (
-				<>
-					<span className="text-danger">
-						مشکلی پیش آمده
-						<span dir="ltr" className="px-1">
-							{percent}%
-						</span>
-					</span>
-				</>
-			)}
-		</small>
-	)
+			setFile({
+				type: selectedFile.type.split('/')[0],
+				name: selectedFile.name,
+				size: (selectedFile.size / 1000000).toFixed(1)
+			})
+			uploadPreview(selectedFile)
+			onDropFiles(selectedFile)
+		} else {
+			const errors = rejFiles[0].errors.map(err => err.message).join()
+			helper.setTouched(true, false)
+			helper.setError(errors)
+		}
+	}, [])
+
+	const { getRootProps, getInputProps, acceptedFiles, isDragActive } = useDropzone({
+		onDrop,
+		maxFiles: 1,
+		maxSize,
+		accept
+	})
+
+	const uploadPreview = (file: File) => {
+		const reader = new FileReader() // instance of the FileReader
+		reader.readAsDataURL(file) // read the local file
+		reader.onloadend = function (event) {
+			setPreview({
+				url: event.target?.result as string
+			})
+		}
+	}
+
 	return (
 		<div className={`uploader ${className ? className : ''}`}>
 			<div className="uploader-container">
@@ -114,11 +103,7 @@ const Uploader: React.FC<Props> = ({
 					{(meta.error || (!acceptedFiles.length && !isDragActive)) && (
 						<>
 							<input {...getInputProps()} />
-							<div className="uploader-drag-img">
-								<img src={AddFileImage} alt="add file" />
-							</div>
-							<p>فایل ویدئو را اینجا رها کرده یا کلیک کنید و فایل را انتخاب کنید</p>
-							<small className="text-muted">حداکثر حجم فایل باید 2مگابایت باشد</small>
+							{children}
 						</>
 					)}
 
@@ -136,23 +121,54 @@ const Uploader: React.FC<Props> = ({
 					{!meta.error && acceptedFiles.length ? (
 						<div className="uploader-drop">
 							<div className="uploader-file">
-								<div className="uploader-file-img">
-									<img src={FileImage} alt="" />
+								<div className="uploader-file-preview mb-3">
+									<div className="uploader-file-container">
+										{preview && file.type === 'video' && (
+											<video src={preview.url} autoPlay muted />
+										)}
+										{preview && file.type === 'image' && (
+											<img src={preview.url} alt={file.name} />
+										)}
+									</div>
 								</div>
 								<div className="uploader-file-details">
 									<h6 className="mb-1">
-										<span className="uploader-file-title">{file.name}</span>
+										<span className="uploader-file-title">نام : {file.name}</span>
 									</h6>
-									<div className="uploader-file-size" dir="ltr">
-										<strong>{file.size}</strong> <span>MB</span>
+									<div className="uploader-file-size">
+										حجم فایل : <strong>{file.size}</strong> <span>MB</span>
 									</div>
-									<div className="uploader-file-status">{renderUploadingStatus()}</div>
+									<div className="uploader-file-status">
+										<small className="text-muted">
+											وضعیت : {/* upload success */}
+											{uploadValue && 'آپلود با موفقیت انجام شد'}
+											{/* upload pending */}
+											{!uploadValue && !uploadError && (
+												<>
+													درحال آپلود
+													<span dir="ltr" className="px-1">
+														{uploadProgress}%
+													</span>
+												</>
+											)}
+											{/* upload Failed */}
+											{uploadError && (
+												<>
+													<span className="text-danger">
+														{uploadProgress}% مشکلی پیش آمده
+														<span dir="ltr" className="px-1"></span>
+													</span>
+												</>
+											)}
+										</small>
+									</div>
 								</div>
 							</div>
+
 							<div className="uploader-progress">
 								<Progress
-									precent={percent}
-									isCompleted={!!value}
+									precent={uploadProgress}
+									isCompleted={!!uploadValue}
 									isFailed={!!uploadError}
 								/>
 							</div>

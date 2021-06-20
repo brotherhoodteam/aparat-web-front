@@ -1,5 +1,4 @@
-import { ErrorMessage, Form, Formik, useFormik } from 'formik'
-
+import { Form, Formik } from 'formik'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 
@@ -24,6 +23,8 @@ import {
 	selectVideoLoading
 } from '../../../../store/video/selectors'
 
+import UploadVideoIcon from '../../../../assets/images/video-file.svg'
+import UploadBannerIcon from '../../../../assets/images/placeholder-img-format.svg'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
@@ -49,6 +50,7 @@ const DashboardUpload: React.FC = () => {
 	// form validations
 	const validation = yup.object({
 		video: yup.string().required('ویدئو آپلود نشده است'),
+		banner: yup.string().required('تصویر آپلود نشده است'),
 		title: yup
 			.string()
 			.min(4, 'عنوان ویدئو حداقل باید 4 کاراکتر باشد')
@@ -80,6 +82,7 @@ const DashboardUpload: React.FC = () => {
 	const form = {
 		initialValues: {
 			video: '',
+			banner: '',
 			title: '',
 			info: '',
 			category: [],
@@ -96,9 +99,8 @@ const DashboardUpload: React.FC = () => {
 	}
 
 	// Drop
-	const onDrop = (files: File[]) => {
-		console.log('onDrop is Start')
-		dispatchTyped(uploadFileStartAction({ file: files[0] }))
+	const uploadVideo = (file: File) => {
+		dispatchTyped(uploadFileStartAction({ file }))
 	}
 
 	return (
@@ -118,17 +120,51 @@ const DashboardUpload: React.FC = () => {
 					</div>
 					<Formik {...form} validateOnChange={false}>
 						<Form>
-							{/* START UPLOAD VIDEO */}
-							<Uploader
-								name="video"
-								dropHandler={onDrop}
-								percent={progress}
-								value={videoId}
-								uploadError={uploadError}
-								maxSize={2000000}
-								className="mb-5"
-							/>
-							{/* END UPLOAD VIDEO */}
+							<div className="row">
+								{/* START UPLOAD VIDEO */}
+								<div className="col-12 col-xl-6">
+									<Uploader
+										name="video"
+										onDropFiles={uploadVideo}
+										uploadValue={videoId}
+										uploadProgress={progress}
+										uploadError={uploadError}
+										maxSize={2000000}
+										accept="video/*"
+									>
+										<div className="uploader-drag-img">
+											<img src={UploadVideoIcon} alt="add file" />
+										</div>
+										<p className="mb-2">فایل ویدئو را انتخاب یا اینحا رها کنید</p>
+										<small className="text-muted">
+											حداکثر حجم فایل باید 2مگابایت باشد
+										</small>
+									</Uploader>
+								</div>
+								{/* END UPLOAD VIDEO */}
+
+								{/* START UPLOAD VIDEO */}
+								<div className="col-12 col-xl-6">
+									<Uploader
+										name="banner"
+										onDropFiles={uploadVideo}
+										uploadValue={videoId}
+										uploadProgress={progress}
+										uploadError={uploadError}
+										maxSize={2000000}
+										accept="image/*"
+									>
+										<div className="uploader-drag-img">
+											<img src={UploadBannerIcon} alt="add file" />
+										</div>
+										<p className="mb-2">فایل بنر را انتخاب یا اینحا رها کنید</p>
+										<small className="text-muted mb-0">
+											حداکثر حجم فایل باید 2مگابایت باشد
+										</small>
+									</Uploader>
+								</div>
+								{/* END UPLOAD VIDEO */}
+							</div>
 
 							{/* START VIDEO INFORMATION */}
 							<Tabs active="1" className="mb-5">
@@ -212,16 +248,18 @@ const DashboardUpload: React.FC = () => {
 									</TabsContent>
 									<TabsContent id="2">
 										<div className="row align-items-center mb-4">
-											<div className="col-6">
+											<div className="col-12 col-xl-6">
 												آیا مایل هستید بخش نظرات این پست فعال باشد؟
 											</div>
-											<div className="col-6">
+											<div className="col-12 col-xl-6">
 												<Switch name="comment" className="ms-auto" />
 											</div>
 										</div>
 										<div className="row align-items-center mb-4">
-											<div className="col-6">نشان کپی رایت برروی ویدئو فعال باشید؟</div>
-											<div className="col-6">
+											<div className="col-12 col-xl-6">
+												نشان کپی رایت برروی ویدئو فعال باشید؟
+											</div>
+											<div className="col-12 col-xl-6">
 												<Switch name="watermark" className="ms-auto" />
 											</div>
 										</div>

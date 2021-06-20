@@ -2,7 +2,7 @@
 	min-height: 200px;
 	width: 100%;
 	&-container {
-		padding: 3rem 3rem;
+		padding: 1.5rem;
 		width: 100%;
 		background-color: #f8fafd;
 		border: 0.125rem dashed #e7eaf3;
@@ -20,11 +20,10 @@
 	&-drag-img {
 		display: flex;
 		align-items: center;
-		height: 60px;
-		width: 60px;
-		margin-bottom: 1rem;
+		height: 70px;
+		margin-bottom: 1.5rem;
 		img {
-			width: 100%;
+			height: 100%;
 		}
 	}
 	&-drop {
@@ -36,23 +35,47 @@
 	}
 	&-file {
 		display: flex;
+		flex-wrap: wrap;
 	}
 	&-progress {
 		padding-top: 1rem;
 		width: 100%;
 	}
-	&-file-img {
-		width: 80px;
-		height: 80px;
+	&-file-preview {
+		position: relative;
+		width: 160px;
 		flex-shrink: 0;
+		background-color: #f8fafd;
+		border-radius: 3px;
+		margin: 0 auto;
+		overflow: hidden;
+		
+	
 		img {
 			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			width: 100%;
 			object-fit: cover;
+		}
+		video {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
 			width: 100%;
 		}
 	}
-
+	&-file-container {
+		padding-top: 56.25%;
+		
+	}
+	
 	&-file-details {
+		width: 100%;
 		text-align: right;
 		padding: 0.5rem 1rem;
 		flex-grow: 1;
