@@ -7,7 +7,7 @@ import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../compon
 import { SelectBox, Input, TextArea, Switch } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
-import { uploadFileStartAction } from '../../../../store/video/slice'
+import { uploadVideoStartAction } from '../../../../store/video/slice'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { useCategories } from '../../../../hooks/use-categories'
 import { useTags } from '../../../../hooks/use-tags'
@@ -99,8 +99,8 @@ const DashboardUpload: React.FC = () => {
 	}
 
 	// Drop
-	const uploadVideo = (file: File) => {
-		dispatchTyped(uploadFileStartAction({ file }))
+	const uploadVideo = (video: File) => {
+		dispatchTyped(uploadVideoStartAction({ video }))
 	}
 
 	return (
@@ -120,7 +120,7 @@ const DashboardUpload: React.FC = () => {
 					</div>
 					<Formik {...form} validateOnChange={false}>
 						<Form>
-							<div className="row">
+							<div className="row mb-3">
 								{/* START UPLOAD VIDEO */}
 								<div className="col-12 col-xl-6">
 									<Uploader

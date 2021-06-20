@@ -4,13 +4,13 @@ import { EventChannel, eventChannel } from '@redux-saga/core'
 import api from '../../../core/api'
 import { getErrorInfo } from '../../../utils'
 import {
-	uploadFileSuccessAction,
-	uploadFileFailedAction,
-	uploadFileProgressAction
+	uploadVideoSuccessAction,
+	uploadVideoFailedAction,
+	uploadVideoProgressAction
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
-import { UploadFileStartPayloadType } from '../interface'
+import { UploadVideoStartPayloadType } from '../interface'
 
 interface Data {
 	state: 'ok' | 'proccess' | 'error'
@@ -44,13 +44,13 @@ function* watchOnProgress(chan: any) {
 	while (true) {
 		const data: Data = yield take(chan)
 		if (data.state === 'proccess') {
-			yield put(uploadFileProgressAction({ percent: Number(data.percent.toFixed(0)) }))
+			yield put(uploadVideoProgressAction({ percent: Number(data.percent.toFixed(0)) }))
 		} else if (data.state === 'ok') {
-			yield put(uploadFileSuccessAction({ video: data.response.data.video }))
+			yield put(uploadVideoSuccessAction({ video: data.response.data.video }))
 		} else {
 			console.log('error: data.error.response', data)
 			yield put(
-				uploadFileFailedAction({
+				uploadVideoFailedAction({
 					error: { message: data.error.message, status: data.error.response?.status }
 				})
 			)
@@ -58,10 +58,10 @@ function* watchOnProgress(chan: any) {
 	}
 }
 
-export function* fileUploadHandler({ payload: { file } }: UploadFileStartPayloadType) {
+export function* fileUploadHandler({ payload: { video } }: UploadVideoStartPayloadType) {
 	try {
 		// console.log('file', file)
-		const [promise, chan] = createAsyncUpload(file)
+		const [promise, chan] = createAsyncUpload(video)
 		yield fork(watchOnProgress, chan)
 		yield call(identity, promise)
 	} catch (error) {
@@ -69,7 +69,7 @@ export function* fileUploadHandler({ payload: { file } }: UploadFileStartPayload
 		if (error.response) {
 			// Request Error
 			yield put(
-				uploadFileFailedAction({ error: { message: errorMessage, status: statusCode } })
+				uploadVideoFailedAction({ error: { message: errorMessage, status: statusCode } })
 			)
 			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {
