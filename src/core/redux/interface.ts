@@ -12,7 +12,7 @@ export type ActionType =
 	| IntlActionTypes
 	| UserActionTypes
 	| AppActionTypes
-	| VideoActionTypes
 	| TagsActionType
+	| VideoActionTypes
 	| CategoriesActionType
 	| PlaylistsActionType

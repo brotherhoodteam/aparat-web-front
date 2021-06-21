@@ -14,10 +14,10 @@ interface ProgressDataType {
 	percent: Progress
 }
 interface UploadedVideoDataType {
-	video: string
+	videoId: string
 }
 interface UploadedBannerDataType {
-	banner: string
+	bannerId: string
 }
 interface ErrorDataType {
 	error: ErrorType
@@ -49,14 +49,15 @@ export type VideoActionTypes =
 	| UploadBannerStartPayloadType
 	| UploadBannerSuccessPayloadType
 	| UploadErrorPayloadType
+	| UploadProgressPayloadType
 
 // state
 export interface VideoStateType {
-	video: string | null
+	videoId: string | null
 	videoErrors: ErrorType | null
 	videoLoading: boolean
 	videoProgress: number
-	banner: string | null
+	bannerId: string | null
 	bannerErrors: ErrorType | null
 	bannerLoading: boolean
 	bannerProgress: number

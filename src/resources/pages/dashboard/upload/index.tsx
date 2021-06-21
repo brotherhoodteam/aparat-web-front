@@ -7,7 +7,10 @@ import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../compon
 import { SelectBox, Input, TextArea, Switch } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
-import { uploadVideoStartAction } from '../../../../store/video/slice'
+import {
+	uploadBannerStartAction,
+	uploadVideoStartAction
+} from '../../../../store/video/slice'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { useCategories } from '../../../../hooks/use-categories'
 import { useTags } from '../../../../hooks/use-tags'
@@ -17,10 +20,14 @@ import { usePlaylists } from '../../../../hooks/use-playlist'
 import Uploader from '../../../components/uploader'
 import Button from '../../../elements/button'
 import {
-	selectVideoProgressUploading,
+	selectVideoUploadProgress,
 	selectVideoData,
 	selectVideoError,
-	selectVideoLoading
+	selectVideoLoading,
+	selectBannerData,
+	selectBannerLoading,
+	selectBannerUploadProgress,
+	selectBannerError
 } from '../../../../store/video/selectors'
 
 import UploadVideoIcon from '../../../../assets/images/video-file.svg'
@@ -33,8 +40,14 @@ const DashboardUpload: React.FC = () => {
 	// upload video
 	const videoId = useSelector(selectVideoData)
 	const videoUploadLoading = useSelector(selectVideoLoading)
-	const progress = useSelector(selectVideoProgressUploading)
-	const uploadError = useSelector(selectVideoError)
+	const videoUploadProgress = useSelector(selectVideoUploadProgress)
+	const videoUploadError = useSelector(selectVideoError)
+
+	// upload video
+	const bannerId = useSelector(selectBannerData)
+	const bannerUploadLoading = useSelector(selectBannerLoading)
+	const bannerUploadProgress = useSelector(selectBannerUploadProgress)
+	const bannerUploadError = useSelector(selectBannerError)
 
 	// categories
 	const { data: categories, loading: categoriesLoading } = useCategories()
@@ -98,9 +111,12 @@ const DashboardUpload: React.FC = () => {
 		validationSchema: validation
 	}
 
-	// Drop
+	// Upload video and banner
 	const uploadVideo = (video: File) => {
 		dispatchTyped(uploadVideoStartAction({ video }))
+	}
+	const uploadBanner = (banner: File) => {
+		dispatchTyped(uploadBannerStartAction({ banner }))
 	}
 
 	return (
@@ -127,8 +143,8 @@ const DashboardUpload: React.FC = () => {
 										name="video"
 										onDropFiles={uploadVideo}
 										uploadValue={videoId}
-										uploadProgress={progress}
-										uploadError={uploadError}
+										uploadProgress={videoUploadProgress}
+										uploadError={videoUploadError}
 										maxSize={2000000}
 										accept="video/*"
 									>
@@ -147,10 +163,10 @@ const DashboardUpload: React.FC = () => {
 								<div className="col-12 col-xl-6">
 									<Uploader
 										name="banner"
-										onDropFiles={uploadVideo}
-										uploadValue={videoId}
-										uploadProgress={progress}
-										uploadError={uploadError}
+										onDropFiles={uploadBanner}
+										uploadValue={bannerId}
+										uploadProgress={bannerUploadProgress}
+										uploadError={bannerUploadError}
 										maxSize={2000000}
 										accept="image/*"
 									>
@@ -274,7 +290,7 @@ const DashboardUpload: React.FC = () => {
 									<Button
 										type="submit"
 										color="primary"
-										loader={videoUploadLoading}
+										loader={videoUploadLoading || bannerUploadLoading}
 										loaderText="درحال پردازش اطلاعات"
 									>
 										ثبت ویدئو جدید

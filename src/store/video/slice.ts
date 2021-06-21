@@ -10,11 +10,11 @@ import {
 } from './interface'
 
 const initialState: VideoStateType = {
-	video: null,
+	videoId: null,
 	videoLoading: false,
 	videoProgress: 0,
 	videoErrors: null,
-	banner: null,
+	bannerId: null,
 	bannerLoading: false,
 	bannerProgress: 0,
 	bannerErrors: null
@@ -25,49 +25,47 @@ const videoSlice = createSlice({
 	initialState,
 	reducers: {
 		uploadVideoStartAction: (state, action: UploadVideoStartPayloadType) => {
-			state.video = null
+			state.videoId = null
 			state.videoLoading = true
 			state.videoProgress = 0
 			state.videoErrors = null
 		},
 		uploadVideoProgressAction: (state, action: UploadProgressPayloadType) => {
-			state.video = null
+			state.videoId = null
 			state.videoLoading = true
 			state.videoProgress = action.payload.percent
 			state.videoErrors = null
 		},
 		uploadVideoSuccessAction: (state, action: UploadVideoSuccessPayloadType) => {
-			state.video = action.payload.video
+			state.videoId = action.payload.videoId
 			state.videoLoading = false
-			state.videoProgress = 0
 			state.videoErrors = null
 		},
 		uploadVideoFailedAction: (state, action: UploadErrorPayloadType) => {
-			state.video = null
+			state.videoId = null
 			state.videoLoading = false
 			state.videoProgress = 0
 			state.videoErrors = action.payload.error
 		},
 		uploadBannerStartAction: (state, action: UploadBannerStartPayloadType) => {
-			state.banner = null
+			state.bannerId = null
 			state.bannerLoading = true
 			state.bannerProgress = 0
 			state.bannerErrors = null
 		},
 		uploadBannerProgressAction: (state, action: UploadProgressPayloadType) => {
-			state.banner = null
+			state.bannerId = null
 			state.bannerLoading = true
 			state.bannerProgress = action.payload.percent
 			state.bannerErrors = null
 		},
 		uploadBannerSuccessAction: (state, action: UploadBannerSuccessPayloadType) => {
-			state.banner = action.payload.banner
+			state.bannerId = action.payload.bannerId
 			state.bannerLoading = false
-			state.bannerProgress = 0
 			state.bannerErrors = null
 		},
 		uploadBannerFailedAction: (state, action: UploadErrorPayloadType) => {
-			state.banner = null
+			state.bannerId = null
 			state.bannerLoading = false
 			state.bannerProgress = 0
 			state.bannerErrors = action.payload.error
@@ -79,6 +77,10 @@ export const {
 	uploadVideoStartAction,
 	uploadVideoProgressAction,
 	uploadVideoSuccessAction,
-	uploadVideoFailedAction
+	uploadVideoFailedAction,
+	uploadBannerStartAction,
+	uploadBannerProgressAction,
+	uploadBannerSuccessAction,
+	uploadBannerFailedAction
 } = videoSlice.actions
 export default videoSlice.reducer

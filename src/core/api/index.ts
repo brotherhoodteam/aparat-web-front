@@ -38,6 +38,23 @@ const api = {
 				data
 			}
 			return request(config)
+		},
+		banner: (
+			file: File,
+			onUploadProgress: ((progressEvent: any) => void) | undefined
+		) => {
+			const data = new FormData()
+			data.append('banner', file)
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.VIDEO_BANNER,
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+				onUploadProgress,
+				data
+			}
+			return request(config)
 		}
 	},
 	categories: {
