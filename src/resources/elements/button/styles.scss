@@ -300,3 +300,30 @@ button:not(:disabled) {
 	background-color: #f7faff;
 	box-shadow: 0 4px 11px rgb(247 250 255 / 10%);
 }
+
+.btn-ghost-light.active,
+.btn-ghost-light.focus,
+.btn-ghost-light:active,
+.btn-ghost-light:focus,
+.btn-ghost-light:hover {
+	color: #f9fafc;
+	background-color: rgba(249, 250, 252, 0.1);
+}
+
+.btn-ghost-light {
+	color: #f9fafc;
+	background-color: transparent;
+}
+
+.btn-ghost-danger.active,
+.btn-ghost-danger.focus,
+.btn-ghost-danger:active,
+.btn-ghost-danger:focus,
+.btn-ghost-danger:hover {
+	color: #ed4c78;
+	background-color: rgba(237, 76, 120, 0.1);
+}
+.btn-ghost-danger {
+	color: #ed4c78;
+	background-color: transparent;
+}

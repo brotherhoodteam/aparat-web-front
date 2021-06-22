@@ -28,7 +28,9 @@ interface SelectBoxType {
 	label?: string
 	placeholder?: string
 	className?: ClassName
-	defaultValue?: Array<{ label: string; value: number }>
+	// defaultValue?:
+	// 	| { label: string; value: number }
+	// 	| Array<{ label: string; value: number }>
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	isSearchable?: boolean
 	closeMenuOnSelect?: boolean
@@ -152,7 +154,6 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		isSearchable,
 		className,
 		options,
-		defaultValue,
 		closeMenuOnSelect,
 		isMulti,
 		isClearable,
@@ -171,24 +172,34 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		})
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
+				console.log('[select]', select)
 				helper.setValue(select)
 			},
 			[]
 		)
 
-		const defaultValues = useMemo(
-			() =>
-				isMulti
-					? options?.filter(op =>
-							defaultValue?.some((item: OptionTypeBase) => {
-								return item.value === op.value
-							})
-					  )
-					: options?.find(op => {
-							return op.value === defaultValue?.[0].value
-					  }),
-			[]
-		)
+		const defaultValues = useMemo(() => {
+			const fieldVal = field.value
+			let defaultValue: any
+
+			if (!fieldVal) return
+
+			if (!(fieldVal instanceof Array)) {
+				defaultValue = isMulti ? [fieldVal] : fieldVal
+			} else {
+				defaultValue = isMulti ? fieldVal : fieldVal[0]
+			}
+
+			return isMulti
+				? options?.filter(op => {
+						return defaultValue.some((item: OptionTypeBase) => {
+							return item.id === op.value
+						})
+				  })
+				: options?.find(op => {
+						return op.id === defaultValue.value
+				  })
+		}, [options])
 
 		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 		return (

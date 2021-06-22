@@ -1,5 +1,6 @@
 enum ApiRoutes {
 	USER_LOGIN = '/login',
+	VIDEO_PUBLISH = '/video',
 	VIDEO_UPLOAD = '/video/upload',
 	VIDEO_BANNER = '/video/upload-banner',
 	CATEGORIES_GET = '/category',

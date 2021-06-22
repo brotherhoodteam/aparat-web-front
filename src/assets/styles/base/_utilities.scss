@@ -235,11 +235,20 @@ textarea {
 .bg-danger{
 	background-color: #ed4c78 !important;
 }
-
+.border-dark{
+	border-color: #132144!important;
+}
 .bg-dark {
 	background-color: #21325b !important;
 }
-
+.content-centered-x {
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+}
+.w-100{
+	width: 100%;
+}
 .space-1,
 .space-top-1 {
 	padding-top: 2rem !important;

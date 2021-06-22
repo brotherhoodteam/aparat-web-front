@@ -9,11 +9,18 @@ import {
 	uploadVideoProgressAction,
 	uploadBannerSuccessAction,
 	uploadBannerFailedAction,
-	uploadBannerProgressAction
+	uploadBannerProgressAction,
+	publishVideoSuccess,
+	publishVideoFailed
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
-import { UploadBannerStartPayloadType, UploadVideoStartPayloadType } from '../interface'
+import {
+	PublishVideoStartPayloadType,
+	ResponsePublishType,
+	UploadBannerStartPayloadType,
+	UploadVideoStartPayloadType
+} from '../interface'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -137,6 +144,30 @@ export function* uploadBannerHandler({
 			// Request Error
 			yield put(
 				uploadBannerFailedAction({ error: { message: errorMessage, status: statusCode } })
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
+	}
+}
+
+export function* publishVideoHandler({
+	payload: { video }
+}: PublishVideoStartPayloadType) {
+	try {
+		const { data }: ResponsePublishType = yield call(api.video.publish, video)
+		yield put(publishVideoSuccess({ data }))
+		yield put(setStatusAction({ message: 'ویدئو با موفقیت اضافه شد', status: 'success' }))
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				publishVideoFailed({ error: { message: errorMessage, status: statusCode } })
 			)
 			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {

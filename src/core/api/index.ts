@@ -4,6 +4,7 @@ import request from '../http/request'
 import { SignInType } from '../../store/user/interface'
 import { CreateCategoryType } from '../../store/categories/interface'
 import { CreatePlaylistType } from '../../store/playlists/interface'
+import { PublishVideo } from '../../store/video/interface'
 
 const api = {
 	auth: {
@@ -54,6 +55,15 @@ const api = {
 				onUploadProgress,
 				data
 			}
+			return request(config)
+		},
+		publish: (data: PublishVideo) => {
+			const config: AxiosRequestConfig = {
+				method: 'post',
+				url: ApiRoutes.VIDEO_PUBLISH,
+				data
+			}
+
 			return request(config)
 		}
 	},
