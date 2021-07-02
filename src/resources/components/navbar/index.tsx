@@ -21,6 +21,7 @@ import LogoMini from '../../../assets/images/icon--color-black.svg'
 import ProfileImg from '../../../assets/images/img6.jpg'
 
 import './styles.scss'
+import Routes from '../../../core/router/routes'
 
 const Navbar = () => {
 	const isLoggedIn = useAuth(true)
@@ -72,7 +73,14 @@ const SubscriberNav = () => {
 	return (
 		<>
 			<li className="navbar-item">
-				<Button variant="ghost" color="secondary" as="a" href="#" circle icon>
+				<Button
+					variant="ghost"
+					color="secondary"
+					as="link"
+					to={Routes.DASHBOARD_UPLOAD}
+					circle
+					icon
+				>
 					<i className="tio-add"></i>
 				</Button>
 			</li>

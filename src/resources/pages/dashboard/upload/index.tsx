@@ -81,12 +81,12 @@ const DashboardUpload: React.FC = () => {
 		}
 	}, [videoData])
 
-	// useEffect(() => {
-	// 	return () => {
-	// 		// reset page when onload
-	// 		dispatch(resetVideoStore())
-	// 	}
-	// }, [])
+	useEffect(() => {
+		return () => {
+			// reset page when onload
+			dispatch(resetVideoStore())
+		}
+	}, [])
 
 	// form validations
 	const validation = yup.object({

@@ -1,9 +1,5 @@
-enum Routes {
-	HOME = '/home',
-	DASHBOARD = '/dashboard',
-	DASHBOARD_UPLOAD = '/dashboard/upload',
-	SIGNIN = '/signin',
-	SIGNUP = '/signup',
-	NOTFOUND = '/notfound'
+export enum Access {
+	PUBLIC = 0,
+	GUEST = 1,
+	PROTECTED = 2
 }
-export default Routes

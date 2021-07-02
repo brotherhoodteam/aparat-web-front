@@ -3,6 +3,7 @@ import { Card, CardBody, CardText, CardTitle } from '../../elements/card'
 import { NavbarLink, NavbarSubtitle, NavbarVertical } from '../navbar-vertical'
 
 import avatarImage from '../../../assets/images/img6.jpg'
+import Routes from '../../../core/router/routes'
 
 const Sidebar: React.FC = () => {
 	return (
@@ -27,12 +28,12 @@ const Sidebar: React.FC = () => {
 							<NavbarLink
 								label="ویدئوی جدید"
 								icon="tio-share-screen"
-								slug="/dashboard/upload"
+								slug={Routes.DASHBOARD_UPLOAD}
 							/>
 							<NavbarLink
 								label="ویدئوهای من"
 								icon="tio-video-gallery"
-								slug="/video-gallery"
+								slug={Routes.DASHBOARD_MYVIDEOS}
 							/>
 							<NavbarLink label="دیدگاه" icon="tio-comment-text" slug="/comment" />
 							<NavbarLink
@@ -43,7 +44,7 @@ const Sidebar: React.FC = () => {
 							<NavbarLink
 								label="تنظیمات کانال"
 								icon="tio-settings-outlined"
-								slug="/dashboard/settings"
+								slug={Routes.DASHBOARD_SETTINGS}
 							/>
 						</NavbarVertical>
 					</CardBody>
