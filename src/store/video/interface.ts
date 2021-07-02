@@ -10,7 +10,7 @@ export interface PublishVideo {
 	playlist: number | null
 	channel: number | null
 	banner: string
-	publish_at_: string
+	publish_at: string
 	enable_comments: boolean
 	enable_watermark: boolean
 }

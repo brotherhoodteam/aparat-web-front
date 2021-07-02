@@ -125,9 +125,11 @@ const DashboardUpload: React.FC = () => {
 			enable_watermark: false
 		},
 		onSubmit: (value: any) => {
+			const banner = value.banner_id.split('/')
+			const bannerId = banner[banner.length - 1]
 			const video: PublishVideo = {
 				video_id: value.video_id,
-				banner: value.banner,
+				banner: bannerId,
 				title: value.title,
 				info: value.info,
 				category: value.category.id,
@@ -135,9 +137,10 @@ const DashboardUpload: React.FC = () => {
 				tags: value.tags.map((tag: any) => tag.id),
 				playlist: null,
 				enable_comments: value.enable_comments,
-				enable_watermark: value.enable_comments,
-				publish_at_: new Date().getDate().toString()
+				enable_watermark: value.enable_watermark,
+				publish_at: new Date().getDate().toString()
 			}
+			console.log('before publish', video)
 			dispatchTyped(publishVideoStart({ video }))
 		},
 		validationSchema: validation
@@ -334,41 +337,28 @@ const DashboardUpload: React.FC = () => {
 												<div className="row">
 													<div className="col-sm-5 col-lg-3 mb-3 mb-sm-0">
 														<img
-															className="img-fluid rounded-lg"
-															src={
-																'https://aparat-api.nilasoft.com/api/videos/tmp/wyvVXYdPn4-banner'
-															}
-															alt={'ll'}
+															className="img-fluid rounded-lg w-100"
+															src={videoData.banner_link}
+															alt={videoData.title}
 														/>
 													</div>
 													<div className="col-sm-7 col-lg-9">
 														<div className="row">
-															<div className="col-lg-6 mb-2 mb-lg-0">
+															<div className="col-lg-9 mb-2 mb-lg-0">
 																<h5 className="text-dark text-hover-primary">
 																	{videoData.title}
 																</h5>
+																<span className="d-block text-muted text-primary text-lh-sm mb-0">
+																	{videoData.info}
+																</span>
 															</div>
 
-															<div className="col-lg-6">
-																<div className="row">
-																	<div className="col-7">
-																		<div className="small text-muted mb-2">
-																			<i className="fas fa-book-reader mr-1"></i>
-																			10 lessons
-																		</div>
-																		<div className="small text-muted">
-																			<i className="fas fa-clock mr-1"></i>
-																			3h 25m
-																		</div>
-																	</div>
-																	<div className="col-5 text-right">
-																		<small className="d-block text-muted text-lh-sm">
-																			<del>$78.00</del>
-																		</small>
-																		<span className="d-block h5 text-primary text-lh-sm mb-0">
-																			$73.00
-																		</span>
-																	</div>
+															<div className="col-auto mr-auto">
+																<div className="text-right">
+																	<small className="d-block text-muted">طول ویدئو</small>
+																	<span className="d-block h5 text-primary text-lh-sm mb-0">
+																		{videoData.duration}
+																	</span>
 																</div>
 															</div>
 														</div>
