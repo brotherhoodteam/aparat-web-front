@@ -89,6 +89,21 @@ const videoSlice = createSlice({
 			state.publishResponse = null
 			state.publishLoading = false
 			state.publishErrors = action.payload.error
+		},
+		resetVideoStore: state => {
+			state.videoId = null
+			state.videoLoading = false
+			state.videoProgress = 0
+			state.videoErrors = null
+
+			state.bannerId = null
+			state.bannerLoading = false
+			state.bannerProgress = 0
+			state.bannerErrors = null
+
+			state.publishResponse = null
+			state.publishLoading = false
+			state.publishErrors = null
 		}
 	}
 })
@@ -104,6 +119,7 @@ export const {
 	uploadBannerFailedAction,
 	publishVideoStart,
 	publishVideoSuccess,
-	publishVideoFailed
+	publishVideoFailed,
+	resetVideoStore
 } = videoSlice.actions
 export default videoSlice.reducer

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Form, Formik, FormikValues } from 'formik'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
@@ -10,6 +10,7 @@ import PanelLayout from '../../../layouts/panel'
 
 import {
 	publishVideoStart,
+	resetVideoStore,
 	uploadBannerStartAction,
 	uploadVideoStartAction
 } from '../../../../store/video/slice'
@@ -46,6 +47,7 @@ import './styles.scss'
 const DashboardUpload: React.FC = () => {
 	const panelRef = useRef<HTMLDivElement>(null)
 	const dispatchTyped = useTypedDispatch()
+	const dispatch = useDispatch()
 	// upload video
 	const videoId = useSelector(selectVideoData)
 	const videoUploadLoading = useSelector(selectVideoLoading)
@@ -78,6 +80,13 @@ const DashboardUpload: React.FC = () => {
 			scrollTop()
 		}
 	}, [videoData])
+
+	// useEffect(() => {
+	// 	return () => {
+	// 		// reset page when onload
+	// 		dispatch(resetVideoStore())
+	// 	}
+	// }, [])
 
 	// form validations
 	const validation = yup.object({
@@ -138,7 +147,7 @@ const DashboardUpload: React.FC = () => {
 				playlist: null,
 				enable_comments: value.enable_comments,
 				enable_watermark: value.enable_watermark,
-				publish_at: new Date().getDate().toString()
+				publish_at_: new Date().getDate().toString()
 			}
 			console.log('before publish', video)
 			dispatchTyped(publishVideoStart({ video }))
