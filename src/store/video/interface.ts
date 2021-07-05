@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { ErrorType } from '../../interface/exception'
+import { UserType } from '../user/interface'
 
 export interface PublishVideo {
 	video_id: string
@@ -14,7 +15,8 @@ export interface PublishVideo {
 	enable_comments: boolean
 	enable_watermark: boolean
 }
-export interface PublishResponse {
+export interface VideoType {
+	user: UserType
 	title: string
 	user_id: number
 	category_id: number | null
@@ -35,12 +37,29 @@ export interface PublishResponse {
 	banner_link: string
 	views: number
 }
+export interface VideosType {
+	current_page: number
+	data: Array<VideoType>
+	first_page_url: string
+	from: number
+	last_page: number
+	last_page_url: string
+	next_page_url: null
+	path: string
+	per_page: number
+	prev_page_url: number | null
+	to: number
+	total: number
+}
 // Data
 export interface PublishVideoData {
 	video: PublishVideo
 }
 export interface PublishResponseData {
-	data: PublishResponse
+	data: VideoType
+}
+export interface VideosDataType {
+	videos: VideosType
 }
 interface VideoDataType {
 	video: File
@@ -74,6 +93,7 @@ export interface UploadBannerStartPayloadType extends PayloadAction<BannerDataTy
 export interface UploadBannerSuccessPayloadType
 	extends PayloadAction<UploadedBannerDataType> {}
 
+export interface GetMyVideosSuccessPayloadType extends PayloadAction<VideosDataType> {}
 export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 export interface ProgressPayloadType extends PayloadAction<ProgressDataType> {}
 
@@ -85,7 +105,10 @@ export interface ResponseBannerType {
 	data: string
 }
 export interface ResponsePublishType {
-	data: PublishResponse
+	data: VideoType
+}
+export interface ResponseGetMyVideos {
+	data: VideosType
 }
 // actions
 export type VideoActionTypes =
@@ -95,6 +118,7 @@ export type VideoActionTypes =
 	| UploadBannerSuccessPayloadType
 	| PublishVideoStartPayloadType
 	| PublishVideoSuccessPayloadType
+	| GetMyVideosSuccessPayloadType
 	| ErrorPayloadType
 	| ProgressPayloadType
 
@@ -108,7 +132,10 @@ export interface VideoStateType {
 	bannerErrors: ErrorType | null
 	bannerLoading: boolean
 	bannerProgress: number
-	publishResponse: PublishResponse | null
+	publishResponse: VideoType | null
 	publishLoading: boolean
 	publishErrors: ErrorType | null
+	myVideos: VideosType | null
+	myVideosLoading: boolean
+	myVideosErrors: ErrorType | null
 }

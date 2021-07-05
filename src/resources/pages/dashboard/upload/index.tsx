@@ -10,7 +10,7 @@ import PanelLayout from '../../../layouts/panel'
 
 import {
 	publishVideoStart,
-	resetVideoStore,
+	resetPublishVideo,
 	uploadBannerStartAction,
 	uploadVideoStartAction
 } from '../../../../store/video/slice'
@@ -37,11 +37,7 @@ import {
 
 import UploadVideoIcon from '../../../../assets/images/video-file.svg'
 import UploadBannerIcon from '../../../../assets/images/placeholder-img-format.svg'
-import {
-	PublishResponse,
-	PublishResponseData,
-	PublishVideo
-} from '../../../../store/video/interface'
+import { VideoType, PublishVideo } from '../../../../store/video/interface'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
@@ -61,7 +57,7 @@ const DashboardUpload: React.FC = () => {
 	const bannerUploadError = useSelector(selectBannerError)
 
 	// published video
-	const videoData: PublishResponse | null = useSelector(selectPublishData)
+	const videoData: VideoType | null = useSelector(selectPublishData)
 	const publishLoading = useSelector(selectPublishLoading)
 
 	// categories
@@ -84,7 +80,7 @@ const DashboardUpload: React.FC = () => {
 	useEffect(() => {
 		return () => {
 			// reset page when onload
-			dispatch(resetVideoStore())
+			dispatch(resetPublishVideo())
 		}
 	}, [])
 

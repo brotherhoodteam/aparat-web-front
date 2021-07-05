@@ -65,6 +65,13 @@ const api = {
 			}
 
 			return request(config)
+		},
+		getMyVideos: () => {
+			const config: AxiosRequestConfig = {
+				method: 'get',
+				url: ApiRoutes.VIDEO_MYVIDEOS
+			}
+			return request(config)
 		}
 	},
 	categories: {

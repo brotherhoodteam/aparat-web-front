@@ -8,7 +8,8 @@ import {
 	UploadBannerSuccessPayloadType,
 	PublishVideoStartPayloadType,
 	PublishVideoSuccessPayloadType,
-	ProgressPayloadType
+	ProgressPayloadType,
+	GetMyVideosSuccessPayloadType
 } from './interface'
 
 const initialState: VideoStateType = {
@@ -22,7 +23,10 @@ const initialState: VideoStateType = {
 	bannerErrors: null,
 	publishResponse: null,
 	publishLoading: false,
-	publishErrors: null
+	publishErrors: null,
+	myVideos: null,
+	myVideosLoading: false,
+	myVideosErrors: null
 }
 
 const videoSlice = createSlice({
@@ -90,7 +94,7 @@ const videoSlice = createSlice({
 			state.publishLoading = false
 			state.publishErrors = action.payload.error
 		},
-		resetVideoStore: state => {
+		resetPublishVideo: state => {
 			state.videoId = null
 			state.videoLoading = false
 			state.videoProgress = 0
@@ -104,6 +108,21 @@ const videoSlice = createSlice({
 			state.publishResponse = null
 			state.publishLoading = false
 			state.publishErrors = null
+		},
+		getMyVideosStart: state => {
+			state.myVideos = null
+			state.myVideosLoading = false
+			state.myVideosErrors = null
+		},
+		getMyVideosSuccess: (state, action: GetMyVideosSuccessPayloadType) => {
+			state.myVideos = action.payload.videos
+			state.myVideosLoading = false
+			state.myVideosErrors = null
+		},
+		getMyVideosFailed: (state, action) => {
+			state.myVideos = null
+			state.myVideosLoading = false
+			state.myVideosErrors = action.payload.error
 		}
 	}
 })
@@ -120,6 +139,9 @@ export const {
 	publishVideoStart,
 	publishVideoSuccess,
 	publishVideoFailed,
-	resetVideoStore
+	resetPublishVideo,
+	getMyVideosStart,
+	getMyVideosSuccess,
+	getMyVideosFailed
 } = videoSlice.actions
 export default videoSlice.reducer

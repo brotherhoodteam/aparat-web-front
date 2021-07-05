@@ -4,6 +4,7 @@ import { NavbarLink, NavbarSubtitle, NavbarVertical } from '../navbar-vertical'
 
 import avatarImage from '../../../assets/images/img6.jpg'
 import Routes from '../../../core/router/routes'
+import './styles.scss'
 
 const Sidebar: React.FC = () => {
 	return (

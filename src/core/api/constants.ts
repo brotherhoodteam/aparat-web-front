@@ -3,6 +3,7 @@ enum ApiRoutes {
 	VIDEO_PUBLISH = '/video',
 	VIDEO_UPLOAD = '/video/upload',
 	VIDEO_BANNER = '/video/upload-banner',
+	VIDEO_MYVIDEOS = '/video',
 	CATEGORIES_GET = '/category',
 	CATEGORY_SET = '/category',
 	TAGS_GET = '/tag',

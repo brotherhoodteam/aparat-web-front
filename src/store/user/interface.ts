@@ -6,6 +6,19 @@ export interface SignInType {
 	username: string
 	password: string
 }
+export interface UserType {
+	avatar: string
+	created_at: string
+	deleted_at: null
+	email: string
+	id: number
+	mobile: string
+	name: string
+	type: string
+	updated_at: string
+	verified_at: string
+	website: string
+}
 export type CredentialsType = {
 	access_token: string
 	expire_in: number

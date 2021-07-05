@@ -11,16 +11,19 @@ import {
 	uploadBannerFailedAction,
 	uploadBannerProgressAction,
 	publishVideoSuccess,
-	publishVideoFailed
+	publishVideoFailed,
+	getMyVideosSuccess
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
 import {
 	PublishVideoStartPayloadType,
+	ResponseGetMyVideos,
 	ResponsePublishType,
 	UploadBannerStartPayloadType,
 	UploadVideoStartPayloadType
 } from '../interface'
+import { request } from 'http'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -177,4 +180,14 @@ export function* publishVideoHandler({
 			)
 		}
 	}
+}
+
+export function* getMyVideos() {
+	const { data }: ResponseGetMyVideos = yield call(api.video.getMyVideos)
+	console.log('get my videos', data)
+	yield put(
+		getMyVideosSuccess({
+			videos: data
+		})
+	)
 }

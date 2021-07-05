@@ -39,3 +39,13 @@ export const selectPublishError = createSelector(
 	[selectVideo],
 	video => video.publishErrors
 )
+
+export const selectMyVideosData = createSelector([selectVideo], video => video.myVideos)
+export const selectMyVideosLoading = createSelector(
+	[selectVideo],
+	video => video.myVideosLoading
+)
+export const selectMyVideosErrors = createSelector(
+	[selectVideo],
+	video => video.myVideosErrors
+)
