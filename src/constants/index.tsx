@@ -4,3 +4,9 @@ export enum VIDEO_STATE {
 	CONVERTED = 'converted',
 	BLOCKED = 'blocked'
 }
+export enum VIDEO_STATE_TITLE {
+	ACCEPTED = 'منتشر شده',
+	PENDING = 'درحال برسی',
+	CONVERTED = 'تبدیل شده',
+	BLOCKED = 'رد شده'
+}

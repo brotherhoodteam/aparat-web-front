@@ -111,7 +111,7 @@ const videoSlice = createSlice({
 		},
 		getMyVideosStart: state => {
 			state.myVideos = null
-			state.myVideosLoading = false
+			state.myVideosLoading = true
 			state.myVideosErrors = null
 		},
 		getMyVideosSuccess: (state, action: GetMyVideosSuccessPayloadType) => {

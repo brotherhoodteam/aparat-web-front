@@ -11,7 +11,7 @@ const VideoList: React.FC<Props> = ({ videos }) => {
 				<div>متاسفانه ویدئویی وجود ندارد</div>
 			) : (
 				videos.map((video: VideoType) => (
-					<div className="col-12 col-lg-6 mb-4">
+					<div className="col-12 col-lg-6 mb-4" key={video.id}>
 						<VideoItem video={video} />
 					</div>
 				))
