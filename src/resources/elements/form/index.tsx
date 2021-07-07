@@ -172,7 +172,6 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		})
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
-				console.log('[select]', select)
 				helper.setValue(select)
 			},
 			[]

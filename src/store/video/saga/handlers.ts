@@ -12,18 +12,27 @@ import {
 	uploadBannerProgressAction,
 	publishVideoSuccess,
 	publishVideoFailed,
-	getMyVideosSuccess
+	getMyVideosSuccess,
+	removeVideoFailed,
+	removeVideoSuccess,
+	removeVideoReset
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
 import {
 	PublishVideoStartPayloadType,
+	RemoveVideoStartPayloadType,
 	ResponseGetMyVideos,
 	ResponsePublishType,
+	ResponseRemoveVideo,
 	UploadBannerStartPayloadType,
-	UploadVideoStartPayloadType
+	UploadVideoStartPayloadType,
+	VideosType,
+	VideoType
 } from '../interface'
 import { request } from 'http'
+import { select } from 'redux-saga/effects'
+import { selectMyVideosData } from '../selectors'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -183,11 +192,39 @@ export function* publishVideoHandler({
 }
 
 export function* getMyVideos() {
-	const { data }: ResponseGetMyVideos = yield call(api.video.getMyVideos)
-	console.log('get my videos', data)
-	yield put(
-		getMyVideosSuccess({
-			videos: data
-		})
-	)
+	try {
+		const { data }: ResponseGetMyVideos = yield call(api.video.getMyVideos)
+		yield put(
+			getMyVideosSuccess({
+				videos: data
+			})
+		)
+	} catch (errro) {}
+}
+
+export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPayloadType) {
+	try {
+		const { data }: ResponseRemoveVideo = yield call(api.video.removeVideo, slug)
+		yield put(removeVideoSuccess(data))
+		const videos: VideosType = yield select(selectMyVideosData)
+		const newItems = videos.data.filter(item => item.slug !== slug)
+		yield put(getMyVideosSuccess({ videos: { ...videos, data: newItems } }))
+		yield put(setStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				removeVideoFailed({ error: { message: errorMessage, status: statusCode } })
+			)
+			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
+	} finally {
+		yield put(removeVideoReset())
+	}
 }

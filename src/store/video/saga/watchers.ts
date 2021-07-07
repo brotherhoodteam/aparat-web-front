@@ -3,12 +3,14 @@ import {
 	uploadVideoStartAction,
 	uploadBannerStartAction,
 	publishVideoStart,
-	getMyVideosStart
+	getMyVideosStart,
+	removeVideoStart
 } from '../slice'
 import {
 	uploadVideoHandler,
 	uploadBannerHandler,
 	publishVideoHandler,
+	removeVideoHandler,
 	getMyVideos
 } from './handlers'
 
@@ -17,4 +19,5 @@ export function* uploadWatcher() {
 	yield takeLatest(uploadVideoStartAction, uploadVideoHandler)
 	yield takeLatest(publishVideoStart, publishVideoHandler)
 	yield takeLatest(getMyVideosStart, getMyVideos)
+	yield takeLatest(removeVideoStart, removeVideoHandler)
 }

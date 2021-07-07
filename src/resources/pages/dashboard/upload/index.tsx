@@ -145,7 +145,6 @@ const DashboardUpload: React.FC = () => {
 				enable_watermark: value.enable_watermark,
 				publish_at_: new Date().getDate().toString()
 			}
-			console.log('before publish', video)
 			dispatchTyped(publishVideoStart({ video }))
 		},
 		validationSchema: validation
@@ -166,7 +165,6 @@ const DashboardUpload: React.FC = () => {
 			inline: 'nearest'
 		})
 	}
-	console.log('videoData', videoData)
 	return (
 		<PanelLayout title="آپلود ویدئو">
 			<div ref={panelRef}>

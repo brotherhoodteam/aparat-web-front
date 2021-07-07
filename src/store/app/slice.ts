@@ -4,6 +4,7 @@ const initialState: AppStateType = {
 	error: null,
 	drawer: false,
 	overlay: false,
+	modal: false,
 	loading: false
 }
 
@@ -28,6 +29,12 @@ const appSlice = createSlice({
 		},
 		closeAppOverlayAction: state => {
 			state.overlay = false
+		},
+		openAppModalAction: state => {
+			state.modal = true
+		},
+		closeAppModalAction: state => {
+			state.modal = false
 		}
 	}
 })
@@ -38,6 +45,8 @@ export const {
 	openAppDrawerAction,
 	openAppOverlayAction,
 	closeAppOverlayAction,
-	closeAppDrawerAction
+	closeAppDrawerAction,
+	openAppModalAction,
+	closeAppModalAction
 } = appSlice.actions
 export default appSlice.reducer

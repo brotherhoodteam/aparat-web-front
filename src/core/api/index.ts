@@ -72,6 +72,13 @@ const api = {
 				url: ApiRoutes.VIDEO_MYVIDEOS
 			}
 			return request(config)
+		},
+		removeVideo: (id: string) => {
+			const config: AxiosRequestConfig = {
+				method: 'delete',
+				url: `${ApiRoutes.VIDEO_DELETE}/${id}`
+			}
+			return request(config)
 		}
 	},
 	categories: {

@@ -83,7 +83,6 @@ const DashboardMyVideos: React.FC<Props> = ({}) => {
 		}
 	}, [state.value, videos])
 
-	console.log('videosLoading', videosLoading)
 	return (
 		<div>
 			<PanelLayout title="ویدئوهای من">

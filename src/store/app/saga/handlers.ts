@@ -10,6 +10,14 @@ export function* openAppDrawerHandler() {
 export function* closeAppDrawerHandler() {
 	yield put(closeAppOverlayAction())
 }
+
+export function* openAppModalHandler() {
+	yield put(openAppOverlayAction())
+}
+
+export function* closeAppModalHandler() {
+	yield put(closeAppOverlayAction())
+}
 export function* appErrorHandler({ payload: { error } }: AppErrorPayloadType) {
 	yield put(setStatusAction({ message: error.message, status: 'error' }))
 }

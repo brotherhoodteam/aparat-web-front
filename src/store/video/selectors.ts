@@ -49,3 +49,21 @@ export const selectMyVideosErrors = createSelector(
 	[selectVideo],
 	video => video.myVideosErrors
 )
+
+export const selectremoveVideoSlug = createSelector(
+	[selectVideo],
+	video => video.removeVideoSlug
+)
+export const selectRemoveVideoDone = createSelector(
+	[selectVideo],
+	video => video.removeVideoDone
+)
+
+export const selectRemoveVideoLoading = createSelector(
+	[selectVideo],
+	video => video.removeVideoLoading
+)
+export const selectRemoveVideoErrors = createSelector(
+	[selectVideo],
+	video => video.removeVideoErrors
+)

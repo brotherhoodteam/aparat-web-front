@@ -8,7 +8,7 @@ const Overlay = () => {
 	const isOpenOverlay = useSelector(selectAppOverlay)
 	return (
 		<CSSTransition
-			timeout={300}
+			timeout={200}
 			in={isOpenOverlay}
 			classNames={{
 				enter: 'hidden',

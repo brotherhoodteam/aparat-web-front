@@ -55,6 +55,9 @@ export interface VideosType {
 export interface PublishVideoData {
 	video: PublishVideo
 }
+export interface RemoveVideoData {
+	slug: string
+}
 export interface PublishResponseData {
 	data: VideoType
 }
@@ -93,6 +96,9 @@ export interface UploadBannerStartPayloadType extends PayloadAction<BannerDataTy
 export interface UploadBannerSuccessPayloadType
 	extends PayloadAction<UploadedBannerDataType> {}
 
+export interface RemoveVideoStartPayloadType extends PayloadAction<RemoveVideoData> {}
+export interface RemoveVideoSuccessPayloadType extends PayloadAction<any> {}
+
 export interface GetMyVideosSuccessPayloadType extends PayloadAction<VideosDataType> {}
 export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 export interface ProgressPayloadType extends PayloadAction<ProgressDataType> {}
@@ -110,6 +116,9 @@ export interface ResponsePublishType {
 export interface ResponseGetMyVideos {
 	data: VideosType
 }
+export interface ResponseRemoveVideo {
+	data: any
+}
 // actions
 export type VideoActionTypes =
 	| UploadVideoStartPayloadType
@@ -119,6 +128,8 @@ export type VideoActionTypes =
 	| PublishVideoStartPayloadType
 	| PublishVideoSuccessPayloadType
 	| GetMyVideosSuccessPayloadType
+	| RemoveVideoStartPayloadType
+	| RemoveVideoSuccessPayloadType
 	| ErrorPayloadType
 	| ProgressPayloadType
 
@@ -138,4 +149,8 @@ export interface VideoStateType {
 	myVideos: VideosType | null
 	myVideosLoading: boolean
 	myVideosErrors: ErrorType | null
+	removeVideoSlug: string | null
+	removeVideoDone: boolean
+	removeVideoLoading: boolean
+	removeVideoErrors: ErrorType | null
 }
