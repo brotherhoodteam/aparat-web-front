@@ -22,3 +22,10 @@ export const getErrorInfo = (error: any) => {
 
 	return { errorMessage, statusCode }
 }
+
+export const imageResolver = (banner: string) => {
+	const baseUrl = process.env.REACT_APP_BASE_URL
+	const imgUrl = `${baseUrl}/videos/tmp/${banner}`
+
+	return imgUrl
+}

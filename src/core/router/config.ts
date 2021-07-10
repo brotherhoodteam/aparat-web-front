@@ -1,7 +1,7 @@
 import { lazy } from 'react'
 import { RouterType } from './interface'
-import { Access } from './constant'
-import Routes from './routes'
+import { ACCESS } from './constant'
+import ROUTES from './routes'
 
 const HomeContainer = lazy(() => import('../../resources/containers/home'))
 const SignInContainer = lazy(() => import('../../resources/containers/sign-in'))
@@ -11,65 +11,82 @@ const DashboardUpload = lazy(() => import('../../resources/pages/dashboard/uploa
 const DashboardOverview = lazy(() => import('../../resources/pages/dashboard/overview'))
 const DashboardMyVideos = lazy(() => import('../../resources/pages/dashboard/myvideos'))
 const DashboardSettings = lazy(() => import('../../resources/pages/dashboard/settings'))
+const DashboardEditVideo = lazy(
+	() => import('../../resources/pages/dashboard/edit-video')
+)
 
 const router: RouterType = [
 	{
 		name: 'home',
-		path: Routes.HOME,
+		path: ROUTES.MAIN.HOME().path,
 		exact: true,
-		access: Access.GUEST,
+		access: ACCESS.GUEST,
 		component: HomeContainer
 	},
 	{
 		name: 'signin',
-		path: Routes.SIGNIN,
+		path: ROUTES.AUTH.SIGNIN().path,
 		exact: true,
-		access: Access.GUEST,
+		access: ACCESS.GUEST,
 		component: SignInContainer
 	},
 	{
 		name: 'dashboard',
-		path: Routes.DASHBOARD,
+		path: ROUTES.DASHBOARD.OVERVIEW().path,
 		exact: false,
-		access: Access.PROTECTED,
+		access: ACCESS.PROTECTED,
 		component: DashboardContainer,
 		routes: [
 			{
 				name: 'overview',
-				path: Routes.DASHBOARD,
+				path: ROUTES.DASHBOARD.OVERVIEW().path,
 				exact: true,
-				access: Access.PROTECTED,
+				access: ACCESS.PROTECTED,
 				component: DashboardOverview
 			},
 			{
-				name: 'upload',
-				path: Routes.DASHBOARD_UPLOAD,
+				name: 'add',
+				path: ROUTES.DASHBOARD.ADD_VIDEO().path,
 				exact: true,
-				access: Access.PROTECTED,
+				access: ACCESS.PROTECTED,
 				component: DashboardUpload
 			},
 			{
-				name: 'myvideos',
-				path: Routes.DASHBOARD_MYVIDEOS,
+				name: 'edit',
+				path: ROUTES.DASHBOARD.EDIT_VIDEO().path,
 				exact: true,
-				access: Access.PROTECTED,
+				access: ACCESS.PROTECTED,
+				component: DashboardEditVideo
+			},
+			{
+				name: 'myvideos',
+				path: ROUTES.DASHBOARD.VIDEOS().path,
+				exact: true,
+				access: ACCESS.PROTECTED,
 				component: DashboardMyVideos
 			},
 			{
 				name: 'setting',
-				path: Routes.DASHBOARD_SETTINGS,
+				path: ROUTES.DASHBOARD.SETTINGS().path,
 				exact: true,
-				access: Access.PROTECTED,
+				access: ACCESS.PROTECTED,
 				component: DashboardSettings
+			},
+			{
+				name: 'notfound',
+				path: ROUTES.MAIN.NOTFOUND().path,
+				exact: false,
+				access: ACCESS.PUBLIC,
+				component: NotFoundContainer
 			}
 		]
 	},
 
 	{
 		name: 'notfound',
-		path: Routes.NOTFOUND,
+		path: ROUTES.MAIN.NOTFOUND().path,
 		exact: false,
-		access: Access.PUBLIC,
+		access: ACCESS.PUBLIC,
 		component: NotFoundContainer
 	}
 ]

@@ -11,7 +11,11 @@ import {
 	ProgressPayloadType,
 	GetMyVideosSuccessPayloadType,
 	RemoveVideoStartPayloadType,
-	RemoveVideoSuccessPayloadType
+	RemoveVideoSuccessPayloadType,
+	GetVideoSuccessPayloadType,
+	GetVideoStartPayloadType,
+	UpdateVideoStartPayloadType,
+	UpdateVideoSuccessPayloadType
 } from './interface'
 
 const initialState: VideoStateType = {
@@ -32,7 +36,14 @@ const initialState: VideoStateType = {
 	removeVideoSlug: null,
 	removeVideoDone: false,
 	removeVideoLoading: false,
-	removeVideoErrors: null
+	removeVideoErrors: null,
+	getVideoSlug: null,
+	getVideoData: null,
+	getVideoLoading: false,
+	getVideoErrors: null,
+	updateVideoSlug: null,
+	updateVideoLoading: false,
+	updateVideoErrors: null
 }
 
 const videoSlice = createSlice({
@@ -152,6 +163,37 @@ const videoSlice = createSlice({
 			state.removeVideoLoading = false
 			state.removeVideoDone = false
 			state.removeVideoErrors = null
+		},
+		getVideoStart: (state, action: GetVideoStartPayloadType) => {
+			state.getVideoSlug = action.payload.slug
+			state.getVideoData = null
+			state.getVideoLoading = true
+			state.getVideoErrors = null
+		},
+		getVideoSuccess: (state, action: GetVideoSuccessPayloadType) => {
+			state.getVideoData = action.payload.video
+			state.getVideoLoading = false
+			state.getVideoErrors = null
+		},
+		getVideoFailed: (state, action: ErrorPayloadType) => {
+			state.getVideoSlug = null
+			state.getVideoData = null
+			state.getVideoLoading = false
+			state.getVideoErrors = action.payload.error
+		},
+		updateVideoStart: (state, action: UpdateVideoStartPayloadType) => {
+			state.updateVideoSlug = action.payload.slug
+			state.updateVideoLoading = true
+			state.updateVideoErrors = null
+		},
+		updateVideoSuccess: (state, action: UpdateVideoSuccessPayloadType) => {
+			state.updateVideoLoading = false
+			state.updateVideoErrors = null
+		},
+		updateVideoFailed: (state, action: ErrorPayloadType) => {
+			state.updateVideoSlug = null
+			state.updateVideoLoading = false
+			state.updateVideoErrors = action.payload.error
 		}
 	}
 })
@@ -175,6 +217,12 @@ export const {
 	removeVideoStart,
 	removeVideoSuccess,
 	removeVideoFailed,
-	removeVideoReset
+	removeVideoReset,
+	getVideoStart,
+	getVideoSuccess,
+	getVideoFailed,
+	updateVideoStart,
+	updateVideoSuccess,
+	updateVideoFailed
 } = videoSlice.actions
 export default videoSlice.reducer

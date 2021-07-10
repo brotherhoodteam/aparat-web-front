@@ -16,6 +16,7 @@ import { selectUserSignInError } from '../../../store/user/selectors'
 import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
 import GoolgleLogo from '../../../assets/images/google.svg'
+import ROUTES from '../../../core/router/routes'
 
 const SignInContainer: React.FC = () => {
 	// TODO باید متن اررور الرت فرم داینامیک شود
@@ -69,13 +70,13 @@ const SignInContainer: React.FC = () => {
 										<p>
 											<FormattedMessage id="guest-register-message" />
 
-											<Link to={{ pathname: '/signup' }} className="ms-1">
+											<Link to={{ pathname: ROUTES.AUTH.SIGNUP().link }} className="ms-1">
 												<FormattedMessage id="sign-up-here" />
 											</Link>
 										</p>
 									</div>
 									<div className="mb-4">
-										<Button as="a" color="white" size="lg" block classNames="mb-4">
+										<Button color="white" size="lg" block classNames="mb-4">
 											<span className="d-flex justify-content-center align-items-center">
 												<Avatar
 													image={GoolgleLogo}

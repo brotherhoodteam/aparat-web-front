@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { VIDEO_STATE } from '../../../constants'
+import ROUTES from '../../../core/router/routes'
 import { closeAppOverlayAction, openAppOverlayAction } from '../../../store/app/slice'
 import { selectCategoriesData } from '../../../store/categories/selectors'
 import { VideoType } from '../../../store/video/interface'
@@ -8,7 +9,7 @@ import {
 	selectRemoveVideoDone,
 	selectRemoveVideoLoading
 } from '../../../store/video/selectors'
-import { removeVideoReset, removeVideoStart } from '../../../store/video/slice'
+import { removeVideoStart } from '../../../store/video/slice'
 import Avatar from '../../elements/avatar'
 import Badge from '../../elements/badge'
 import Button from '../../elements/button'
@@ -58,14 +59,18 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 			<CardImgTop img={video.banner_link}>
 				{/* Video Status */}
 				<div className="position-absolute top-0 left-0 mt-3 me-3">
-					{video.state === VIDEO_STATE.ACCEPTED && (
-						<Badge color="success">منتشر شده</Badge>
+					{video.state === VIDEO_STATE.ACCEPTED().value && (
+						<Badge color="success">{VIDEO_STATE.ACCEPTED().label}</Badge>
 					)}
-					{video.state === VIDEO_STATE.PENDING && <Badge color="info">در‌حال برسی</Badge>}
-					{video.state === VIDEO_STATE.CONVERTED && (
-						<Badge color="success">تبدیل شده</Badge>
+					{video.state === VIDEO_STATE.PENDING().value && (
+						<Badge color="info">{VIDEO_STATE.PENDING().label}</Badge>
 					)}
-					{video.state === VIDEO_STATE.BLOCKED && <Badge color="danger">رد شده</Badge>}
+					{video.state === VIDEO_STATE.CONVERTED().value && (
+						<Badge color="success">{VIDEO_STATE.CONVERTED().label}</Badge>
+					)}
+					{video.state === VIDEO_STATE.BLOCKED().value && (
+						<Badge color="danger">{VIDEO_STATE.BLOCKED().label}</Badge>
+					)}
 				</div>
 			</CardImgTop>
 			<CardBody>
@@ -107,11 +112,23 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 					/>
 				</div>
 				<div className="d-flex align-items-center">
-					<Button classNames="mx-2 ms-0" color="primary" size="sm" variant="soft">
+					<Button
+						to={{ pathname: `/${ROUTES.VIDEO.SINGLE(video.slug).link}` }}
+						classNames="mx-2 ms-0"
+						color="primary"
+						size="sm"
+						variant="soft"
+					>
 						<i className="tio tio-play-circle me-1"></i>
 						نمایش
 					</Button>
-					<Button classNames="mx-2" color="secondary" size="sm" variant="soft">
+					<Button
+						classNames="mx-2"
+						to={{ pathname: ROUTES.DASHBOARD.EDIT_VIDEO(video.slug).link }}
+						color="secondary"
+						size="sm"
+						variant="soft"
+					>
 						<i className="tio tio-edit me-1"></i>
 						ویرایش
 					</Button>

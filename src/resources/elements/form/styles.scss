@@ -104,16 +104,16 @@
 	$self: &;
 	background-color: #fff !important;
 	&__control {
-		border-color: #e7eaf3!important ;
+		border-color: #e7eaf3 !important ;
 		color: #1e2022;
 		cursor: pointer !important;
 		&#{$self}__control--menu-is-open,
 		&#{$self}__control--is-focused {
-			border-color: rgba(55, 125, 255, 0.4)!important;
+			border-color: rgba(55, 125, 255, 0.4) !important;
 			box-shadow: 0 0 10px rgb(55 125 255 / 10%);
 		}
 		.is-invalid & {
-			border-color: #ed4c78!important;
+			border-color: #ed4c78 !important;
 		}
 	}
 	&__indicator-separator {
@@ -249,4 +249,42 @@ input[type='radio'] {
 		font-size: inherit;
 		line-height: inherit;
 	}
+}
+
+.input-group {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: stretch;
+	align-items: stretch;
+	width: 100%;
+}
+.flatpickr-custom-form-control[readonly],
+.form-control[readonly] {
+	background-color: transparent;
+}
+.input-group > .input-group-prepend > .btn .input-group > .input-group-prepend {
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+}
+.input-group .input-group-append,
+.input-group .input-group-prepend {
+	z-index: 4;
+}
+.input-group-append .btn,
+.input-group-prepend .btn {
+	position: relative;
+	z-index: 2;
+}
+
+.input-group > .input-group-prepend > .btn {
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+}
+.input-group > .form-control:not(:first-child) {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	border-right: none;
+	text-align: left!important;
+	direction: ltr;
 }

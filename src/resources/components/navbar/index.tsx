@@ -12,6 +12,7 @@ import Avatar from '../../elements/avatar'
 import Media from '../media'
 import Button from '../../elements/button'
 import Search from '../search'
+import ROUTES from '../../../core/router/routes'
 
 import { openAppDrawerAction } from '../../../store/app/slice'
 import useAuth from '../../../hooks/use-auth'
@@ -21,7 +22,6 @@ import LogoMini from '../../../assets/images/icon--color-black.svg'
 import ProfileImg from '../../../assets/images/img6.jpg'
 
 import './styles.scss'
-import Routes from '../../../core/router/routes'
 
 const Navbar = () => {
 	const isLoggedIn = useAuth(true)
@@ -38,8 +38,7 @@ const Navbar = () => {
 							<Button
 								variant="ghost"
 								color="secondary"
-								as="a"
-								href="#"
+								to="#"
 								circle
 								icon
 								onClick={handleOpenDrawer}
@@ -76,8 +75,7 @@ const SubscriberNav = () => {
 				<Button
 					variant="ghost"
 					color="secondary"
-					as="link"
-					to={Routes.DASHBOARD_UPLOAD}
+					to={ROUTES.DASHBOARD.ADD_VIDEO().link}
 					circle
 					icon
 				>
@@ -88,8 +86,7 @@ const SubscriberNav = () => {
 				<Button
 					variant="ghost"
 					color="secondary"
-					as="a"
-					href="#"
+					to="#"
 					status="danger"
 					statusSize="sm"
 					circle
@@ -166,7 +163,7 @@ const SubscriberNav = () => {
 const GuestNav = () => {
 	return (
 		<li className="navbar-item">
-			<Button as="link" to="/signin" variant="solid" color="primary" size="sm">
+			<Button to="/signin" variant="solid" color="primary" size="sm">
 				حساب ‌کاربری
 			</Button>
 		</li>

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { ErrorMessage, useField } from 'formik'
 import Select, {
 	ActionMeta,
@@ -11,6 +11,8 @@ import useClass from '../../../hooks/use-class'
 import { ClassName, Size } from '../../../interface/component'
 
 import './styles.scss'
+import Button from '../button'
+import Tooltip from '../../components/Tooltip'
 
 interface InputProps {
 	id?: string
@@ -28,9 +30,6 @@ interface SelectBoxType {
 	label?: string
 	placeholder?: string
 	className?: ClassName
-	// defaultValue?:
-	// 	| { label: string; value: number }
-	// 	| Array<{ label: string; value: number }>
 	options: readonly (OptionTypeBase | GroupTypeBase<OptionTypeBase>)[] | undefined
 	isSearchable?: boolean
 	closeMenuOnSelect?: boolean
@@ -180,24 +179,25 @@ const SelectBox: React.FC<SelectBoxType> = React.memo(
 		const defaultValues = useMemo(() => {
 			const fieldVal = field.value
 			let defaultValue: any
-
 			if (!fieldVal) return
 
-			if (!(fieldVal instanceof Array)) {
-				defaultValue = isMulti ? [fieldVal] : fieldVal
-			} else {
+			if (fieldVal instanceof Array) {
 				defaultValue = isMulti ? fieldVal : fieldVal[0]
+			} else {
+				defaultValue = isMulti ? [fieldVal] : fieldVal
 			}
 
-			return isMulti
+			const value = isMulti
 				? options?.filter(op => {
 						return defaultValue.some((item: OptionTypeBase) => {
-							return item.id === op.value
+							return item.value === op.value
 						})
 				  })
 				: options?.find(op => {
 						return op.id === defaultValue.value
 				  })
+
+			return value
 		}, [options])
 
 		const handleLoading = () => (loadingMessage ? loadingMessage : null)
@@ -262,22 +262,115 @@ const Switch: React.FC<SwitchProps> = ({ name, className }) => {
 	}
 
 	return (
-		<>
-			<div className={styles}>
-				<input
-					ref={ref}
-					type="checkbox"
-					id={name}
-					name={name}
-					className="toggle-switch-input"
-					defaultChecked={field.value}
-					onChange={handleChange}
-				/>
-				<div className="toggle-switch-label" onClick={onToggle}>
-					<div className="toggle-switch-indicator"></div>
-				</div>
+		<div className={styles}>
+			<input
+				ref={ref}
+				type="checkbox"
+				id={name}
+				name={name}
+				className="toggle-switch-input"
+				defaultChecked={field.value}
+				onChange={handleChange}
+			/>
+			<div className="toggle-switch-label" onClick={onToggle}>
+				<div className="toggle-switch-indicator"></div>
 			</div>
-		</>
+		</div>
 	)
 }
-export { Input, TextArea, SelectBox, Switch }
+interface CopyInputProps {
+	name: string
+	label?: string
+	value: string
+	orginalText: string
+	successText: string
+}
+const CopyInput: React.FC<CopyInputProps> = React.memo(
+	({ value, label, name, orginalText, successText }) => {
+		const inputRef = useRef<HTMLInputElement>(null)
+		const [state, setState] = useState({
+			isCopy: false,
+			isTootip: false,
+			defaultClass: 'tio-copy',
+			successClass: 'tio-done'
+		})
+
+		const copyInputValue = (callback?: () => void) => {
+			if (inputRef.current) {
+				inputRef.current.select()
+				document.execCommand('copy')
+
+				if (callback) {
+					callback()
+				}
+			}
+		}
+		const handleCopyText = () => {
+			copyInputValue(() => {
+				setState(cur => ({
+					...cur,
+					isCopy: true
+				}))
+			})
+		}
+		const hideTooltip = () => {
+			setState(cur => ({
+				...cur,
+				isCopy: false,
+				isTootip: false
+			}))
+		}
+		const showTooltip = () => {
+			setState(cur => ({
+				...cur,
+				isTootip: true
+			}))
+		}
+		return (
+			<div className="form-group text-right">
+				{/* START LABEL */}
+				{label && (
+					<label htmlFor={`${name}-id`} className="input-label">
+						{label}
+					</label>
+				)}
+				{/* END LABEL */}
+
+				{/* START INPUT GROUP */}
+				<div className="input-group">
+					<div
+						className="input-group-prepend"
+						onClick={handleCopyText}
+						onMouseEnter={showTooltip}
+						onMouseLeave={hideTooltip}
+					>
+						<Button color="white">
+							<Tooltip
+								show={state.isTootip}
+								text={!state.isCopy ? orginalText : successText}
+							/>
+							<span
+								className={!state.isCopy ? state.defaultClass : state.successClass}
+							></span>
+						</Button>
+					</div>
+					<input
+						ref={inputRef}
+						type="text"
+						className="form-control"
+						value={value}
+						autoComplete="off"
+						readOnly
+					/>
+				</div>
+				{/* END INPUT GROUP */}
+			</div>
+		)
+	}
+)
+CopyInput.defaultProps = {
+	orginalText: 'Copy to clipboard',
+	successText: 'Copied!'
+}
+
+export { Input, TextArea, SelectBox, Switch, CopyInput }

@@ -69,11 +69,10 @@ const Drawer = () => {
 				<Card size="lg" className="drawer-card">
 					<CardHeader>
 						<Button
-							as="a"
-							size="xs"
 							variant="ghost"
 							color="dark"
-							href="#"
+							size="xs"
+							to="#"
 							icon
 							onClick={handleClose}
 						>

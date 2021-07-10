@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { VIDEO_STATE, VIDEO_STATE_TITLE } from '../../../../constants'
+import { useSelector } from 'react-redux'
+import VIDEO_STATE from '../../../../constants'
 import { VideoType } from '../../../../store/video/interface'
 import {
 	selectMyVideosData,
 	selectMyVideosErrors,
 	selectMyVideosLoading
 } from '../../../../store/video/selectors'
-import { getMyVideosStart } from '../../../../store/video/slice'
 import FilterVideos from '../../../components/filter-videos'
 import VideoList from '../../../components/videoList'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
@@ -25,28 +24,22 @@ const options = [
 		value: 'all'
 	},
 	{
-		label: VIDEO_STATE_TITLE.ACCEPTED,
-		value: VIDEO_STATE.ACCEPTED
+		...VIDEO_STATE.ACCEPTED()
 	},
 	{
-		label: VIDEO_STATE_TITLE.PENDING,
-		value: VIDEO_STATE.PENDING
+		...VIDEO_STATE.PENDING()
 	},
 	{
-		label: VIDEO_STATE_TITLE.BLOCKED,
-		value: VIDEO_STATE.BLOCKED
+		...VIDEO_STATE.BLOCKED()
 	},
 	{
-		label: VIDEO_STATE_TITLE.CONVERTED,
-		value: VIDEO_STATE.CONVERTED
+		...VIDEO_STATE.CONVERTED()
 	}
 ]
 
 const DashboardMyVideos: React.FC<Props> = ({}) => {
 	const [state, setState] = useState<FilterType>(options[0])
 	const [filteredItems, setFIlteredItems] = useState<Array<VideoType>>([])
-
-	const dispatch = useDispatch()
 	const videos = useSelector(selectMyVideosData)
 	const videosLoading = useSelector(selectMyVideosLoading)
 	const videosErrors = useSelector(selectMyVideosErrors)
@@ -73,9 +66,6 @@ const DashboardMyVideos: React.FC<Props> = ({}) => {
 			</div>
 		)
 	}
-	useEffect(() => {
-		dispatch(getMyVideosStart())
-	}, [])
 
 	useEffect(() => {
 		if (videos) {

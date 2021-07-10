@@ -15,22 +15,29 @@ import {
 	getMyVideosSuccess,
 	removeVideoFailed,
 	removeVideoSuccess,
-	removeVideoReset
+	removeVideoReset,
+	getVideoFailed,
+	getVideoSuccess,
+	getMyVideosStart,
+	updateVideoFailed,
+	updateVideoSuccess
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
 import {
+	GetVideoStartPayloadType,
 	PublishVideoStartPayloadType,
 	RemoveVideoStartPayloadType,
 	ResponseGetMyVideos,
+	ResponseGetVideo,
 	ResponsePublishType,
 	ResponseRemoveVideo,
+	UpdateVideoStartPayloadType,
 	UploadBannerStartPayloadType,
 	UploadVideoStartPayloadType,
-	VideosType,
-	VideoType
+	VideosType
 } from '../interface'
-import { request } from 'http'
+
 import { select } from 'redux-saga/effects'
 import { selectMyVideosData } from '../selectors'
 
@@ -173,6 +180,7 @@ export function* publishVideoHandler({
 	try {
 		const { data }: ResponsePublishType = yield call(api.video.publish, video)
 		yield put(publishVideoSuccess({ data }))
+		yield put(getMyVideosStart())
 		yield put(setStatusAction({ message: 'ویدئو با موفقیت اضافه شد', status: 'success' }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
@@ -193,7 +201,7 @@ export function* publishVideoHandler({
 
 export function* getMyVideos() {
 	try {
-		const { data }: ResponseGetMyVideos = yield call(api.video.getMyVideos)
+		const { data }: ResponseGetMyVideos = yield call(api.video.getList)
 		yield put(
 			getMyVideosSuccess({
 				videos: data
@@ -204,7 +212,7 @@ export function* getMyVideos() {
 
 export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPayloadType) {
 	try {
-		const { data }: ResponseRemoveVideo = yield call(api.video.removeVideo, slug)
+		const { data }: ResponseRemoveVideo = yield call(api.video.delete, slug)
 		yield put(removeVideoSuccess(data))
 		const videos: VideosType = yield select(selectMyVideosData)
 		const newItems = videos.data.filter(item => item.slug !== slug)
@@ -226,5 +234,48 @@ export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPaylo
 		}
 	} finally {
 		yield put(removeVideoReset())
+	}
+}
+
+export function* getVideoHandler({ payload: { slug } }: GetVideoStartPayloadType) {
+	try {
+		const { data }: ResponseGetVideo = yield call(api.video.get, slug)
+		yield put(getVideoSuccess({ video: data }))
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(getVideoFailed({ error: { message: errorMessage, status: statusCode } }))
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
+	}
+}
+
+export function* updateVideoHandler({
+	payload: { slug, video }
+}: UpdateVideoStartPayloadType) {
+	try {
+		const { data }: ResponseGetVideo = yield call(api.video.update, slug, video)
+		yield put(updateVideoSuccess({ video: data }))
+		yield put(
+			setStatusAction({ message: 'ویدئو با موفقیت بروزرسانی شد', status: 'success' })
+		)
+	} catch (error) {
+		const { errorMessage, statusCode } = getErrorInfo(error)
+		if (error.response) {
+			// Request Error
+			yield put(
+				updateVideoFailed({ error: { message: errorMessage, status: statusCode } })
+			)
+		} else {
+			// Server Error
+			yield put(
+				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
+			)
+		}
 	}
 }

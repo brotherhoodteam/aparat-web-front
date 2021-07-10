@@ -1,5 +1,6 @@
-import React, { Fragment, MouseEvent, MouseEventHandler } from 'react'
+import React, { Fragment, MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { Location, LocationDescriptor } from 'history'
 
 import Spinner from '../spinner'
 import useClass from '../../../hooks/use-class'
@@ -8,10 +9,10 @@ import { ClassName, Colors, Size, Variants } from '../../../interface/component'
 import './styles.scss'
 
 interface ButtonProps {
-	as?: 'a' | 'link'
 	type?: 'button' | 'submit' | 'reset'
-	href?: string | '#'
-	to?: string | '#'
+	to?:
+		| LocationDescriptor<unknown>
+		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
 	variant?: Variants
 	color?: Colors
 	classNames?: ClassName
@@ -30,8 +31,6 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = React.memo(
 	React.memo(
 		({
-			as,
-			href,
 			type,
 			variant,
 			color,
@@ -50,7 +49,6 @@ const Button: React.FC<ButtonProps> = React.memo(
 			to,
 			...props
 		}) => {
-			const btnLink = to ? to : '#'
 			const baseClass = 'btn'
 			const baseStatusClass = 'btn-status'
 			const variantAndColor = `${baseClass}${
@@ -91,9 +89,9 @@ const Button: React.FC<ButtonProps> = React.memo(
 				onClick && onClick(e)
 			}
 
-			if (as === 'a')
+			if (to)
 				return (
-					<a href={href} onClick={handleClick} className={styles} {...props}>
+					<Link to={to} onClick={handleClick} className={styles} {...props}>
 						{loader ? (
 							<Fragment>
 								<Spinner variants="border" size="sm" />
@@ -103,12 +101,6 @@ const Button: React.FC<ButtonProps> = React.memo(
 							<Fragment>{children}</Fragment>
 						)}
 						{status && <span className={statusStyle}></span>}
-					</a>
-				)
-			if (as === 'link')
-				return (
-					<Link to={btnLink} onClick={handleClick} className={styles} {...props}>
-						<Fragment>{children}</Fragment>
 					</Link>
 				)
 

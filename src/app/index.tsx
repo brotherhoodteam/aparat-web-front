@@ -12,6 +12,7 @@ import { selectAppDrawer } from '../store/app/selectors'
 import { getCategoriesStartAction } from '../store/categories/slice'
 import { getPlaylistsStartAction } from '../store/playlists/slice'
 import { getTagsStartAction } from '../store/tags/slice'
+import { getMyVideosStart } from '../store/video/slice'
 
 import './styles.scss'
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
 			dispatch(getCategoriesStartAction({}))
 			dispatch(getPlaylistsStartAction({}))
 			dispatch(getTagsStartAction())
+			dispatch(getMyVideosStart())
 		}
 	}, [isLoggedIn])
 	return (

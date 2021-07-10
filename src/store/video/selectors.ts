@@ -67,3 +67,17 @@ export const selectRemoveVideoErrors = createSelector(
 	[selectVideo],
 	video => video.removeVideoErrors
 )
+
+export const selectGetVideoData = createSelector(
+	[selectVideo],
+	video => video.getVideoData
+)
+
+export const selectGetVideoLoading = createSelector(
+	[selectVideo],
+	video => video.getVideoLoading
+)
+export const selectGetVideoError = createSelector(
+	[selectVideo],
+	video => video.getVideoErrors
+)
