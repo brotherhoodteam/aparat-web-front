@@ -1,13 +1,14 @@
+import { Location, LocationDescriptor } from 'history'
 import { MouseEventHandler } from 'react'
 import { NavLink } from 'react-router-dom'
-import { LinkTarget } from '../../../interface/component'
-
 import './styles.scss'
 
 interface NavbarLinkProps {
 	label: string
 	icon?: string
-	slug: LinkTarget
+	slug:
+		| LocationDescriptor<unknown>
+		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
 }
 interface NavbarButtonProps {
 	label: string

@@ -37,6 +37,14 @@ const ROUTES = {
 		SETTINGS: () => ({
 			path: `/${BASE_URL.DASHBOARD}/settings`,
 			link: `/${BASE_URL.DASHBOARD}/settings`
+		}),
+		COMMENTS: () => ({
+			path: `/${BASE_URL.DASHBOARD}/comments`,
+			link: `/${BASE_URL.DASHBOARD}/comments`
+		}),
+		CHANNELS: () => ({
+			path: `/${BASE_URL.DASHBOARD}/channels`,
+			link: `/${BASE_URL.DASHBOARD}/channels`
 		})
 	},
 	AUTH: {

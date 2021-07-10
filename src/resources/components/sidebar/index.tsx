@@ -36,11 +36,15 @@ const Sidebar: React.FC = () => {
 								icon="tio-video-gallery"
 								slug={ROUTES.DASHBOARD.VIDEOS().link}
 							/>
-							<NavbarLink label="دیدگاه" icon="tio-comment-text" slug="/comment" />
+							<NavbarLink
+								label="دیدگاه"
+								icon="tio-comment-text"
+								slug={ROUTES.DASHBOARD.COMMENTS().link}
+							/>
 							<NavbarLink
 								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
-								slug="/dashboard/ddd"
+								slug={ROUTES.DASHBOARD.COMMENTS().link}
 							/>
 							<NavbarLink
 								label="تنظیمات کانال"
