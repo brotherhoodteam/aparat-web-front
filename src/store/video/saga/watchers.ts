@@ -2,11 +2,11 @@ import { takeLatest } from '@redux-saga/core/effects'
 import {
 	uploadVideoStartAction,
 	uploadBannerStartAction,
-	publishVideoStart,
-	getMyVideosStart,
-	removeVideoStart,
-	getVideoStart,
-	updateVideoStart
+	publishVideoStartAction,
+	getMyVideosStartAction,
+	removeVideoStartAction,
+	getVideoStartAction,
+	updateVideoStartAction
 } from '../slice'
 import {
 	uploadVideoHandler,
@@ -21,9 +21,9 @@ import {
 export function* uploadWatcher() {
 	yield takeLatest(uploadBannerStartAction, uploadBannerHandler)
 	yield takeLatest(uploadVideoStartAction, uploadVideoHandler)
-	yield takeLatest(publishVideoStart, publishVideoHandler)
-	yield takeLatest(getMyVideosStart, getMyVideos)
-	yield takeLatest(removeVideoStart, removeVideoHandler)
-	yield takeLatest(getVideoStart, getVideoHandler)
-	yield takeLatest(updateVideoStart, updateVideoHandler)
+	yield takeLatest(publishVideoStartAction, publishVideoHandler)
+	yield takeLatest(getMyVideosStartAction, getMyVideos)
+	yield takeLatest(removeVideoStartAction, removeVideoHandler)
+	yield takeLatest(getVideoStartAction, getVideoHandler)
+	yield takeLatest(updateVideoStartAction, updateVideoHandler)
 }

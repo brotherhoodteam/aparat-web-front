@@ -17,7 +17,7 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		signInReinitAction: state => {
+		signInResetAction: state => {
 			state.user = null
 			state.credentials = null
 			state.loading = false
@@ -45,7 +45,7 @@ const userSlice = createSlice({
 })
 
 export const {
-	signInReinitAction,
+	signInResetAction,
 	signInAction,
 	signInSuccessAction,
 	signInFailedAction

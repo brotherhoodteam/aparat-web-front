@@ -9,7 +9,7 @@ import {
 	selectRemoveVideoDone,
 	selectRemoveVideoLoading
 } from '../../../store/video/selectors'
-import { removeVideoStart } from '../../../store/video/slice'
+import { removeVideoStartAction } from '../../../store/video/slice'
 import Avatar from '../../elements/avatar'
 import Badge from '../../elements/badge'
 import Button from '../../elements/button'
@@ -46,7 +46,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 		setIsOpenModal(false)
 	}
 	const handleRemoveVideo = () => {
-		dispatch(removeVideoStart({ slug: video.slug }))
+		dispatch(removeVideoStartAction({ slug: video.slug }))
 	}
 
 	useEffect(() => {

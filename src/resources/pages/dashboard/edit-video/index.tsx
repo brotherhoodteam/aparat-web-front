@@ -6,8 +6,8 @@ import * as yup from 'yup'
 
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import {
-	getVideoStart,
-	updateVideoStart,
+	getVideoStartAction,
+	updateVideoStartAction,
 	uploadBannerStartAction
 } from '../../../../store/video/slice'
 import { selectTagsData } from '../../../../store/tags/selectors'
@@ -67,7 +67,7 @@ const EditVideo: React.FC<Props> = () => {
 	}, [getVideo])
 
 	useEffect(() => {
-		dispatch(getVideoStart({ slug: params.slug }))
+		dispatch(getVideoStartAction({ slug: params.slug }))
 	}, [params])
 
 	// form validations
@@ -110,7 +110,7 @@ const EditVideo: React.FC<Props> = () => {
 					tags: value.tags?.map((tag: any) => tag.value)
 				}
 				console.log('video', video)
-				dispatch(updateVideoStart({ slug: getVideo.slug, video }))
+				dispatch(updateVideoStartAction({ slug: getVideo.slug, video }))
 			}
 		},
 

@@ -11,12 +11,12 @@ const intlSlice = createSlice({
 	name: 'intl',
 	initialState,
 	reducers: {
-		setLocale: (state, action: SetLocalePayload) => {
+		setLocaleAction: (state, action: SetLocalePayload) => {
 			state.locale = action.payload.locale
 		}
 	}
 })
 
 // Export IntlReucer and Actions
-export const { setLocale } = intlSlice.actions
+export const { setLocaleAction } = intlSlice.actions
 export default intlSlice.reducer

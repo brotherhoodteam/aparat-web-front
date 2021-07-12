@@ -9,8 +9,8 @@ import { SelectBox, Input, TextArea, Switch } from '../../../elements/form'
 import PanelLayout from '../../../layouts/panel'
 
 import {
-	publishVideoStart,
-	resetPublishVideo,
+	publishVideoStartAction,
+	publishVideoResetAction,
 	uploadBannerStartAction,
 	uploadVideoStartAction
 } from '../../../../store/video/slice'
@@ -80,7 +80,7 @@ const DashboardUpload: React.FC = () => {
 	useEffect(() => {
 		return () => {
 			// reset page when onload
-			dispatch(resetPublishVideo())
+			dispatch(publishVideoResetAction())
 		}
 	}, [])
 
@@ -145,7 +145,7 @@ const DashboardUpload: React.FC = () => {
 				enable_watermark: value.enable_watermark,
 				publish_at_: new Date().getDate().toString()
 			}
-			dispatchTyped(publishVideoStart({ video }))
+			dispatchTyped(publishVideoStartAction({ video }))
 		},
 		validationSchema: validation
 	}

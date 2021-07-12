@@ -10,17 +10,17 @@ import {
 	uploadBannerSuccessAction,
 	uploadBannerFailedAction,
 	uploadBannerProgressAction,
-	publishVideoSuccess,
-	publishVideoFailed,
-	getMyVideosSuccess,
-	removeVideoFailed,
-	removeVideoSuccess,
-	removeVideoReset,
-	getVideoFailed,
-	getVideoSuccess,
-	getMyVideosStart,
-	updateVideoFailed,
-	updateVideoSuccess
+	publishVideoSuccessAction,
+	publishVideoFailedAction,
+	getMyVideosSuccessAction,
+	removeVideoFailedAction,
+	removeVideoSuccessAction,
+	removeVideoResetAction,
+	getVideoFailedAction,
+	getVideoSuccessAction,
+	getMyVideosStartAction,
+	updateVideoFailedAction,
+	updateVideoSuccessAction
 } from '../slice'
 import { setAppErrorAction } from '../../app/slice'
 import { setStatusAction } from '../../status/slice'
@@ -179,15 +179,15 @@ export function* publishVideoHandler({
 }: PublishVideoStartPayloadType) {
 	try {
 		const { data }: ResponsePublishType = yield call(api.video.publish, video)
-		yield put(publishVideoSuccess({ data }))
-		yield put(getMyVideosStart())
+		yield put(publishVideoSuccessAction({ data }))
+		yield put(getMyVideosStartAction())
 		yield put(setStatusAction({ message: 'ویدئو با موفقیت اضافه شد', status: 'success' }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
 			// Request Error
 			yield put(
-				publishVideoFailed({ error: { message: errorMessage, status: statusCode } })
+				publishVideoFailedAction({ error: { message: errorMessage, status: statusCode } })
 			)
 			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {
@@ -203,7 +203,7 @@ export function* getMyVideos() {
 	try {
 		const { data }: ResponseGetMyVideos = yield call(api.video.getList)
 		yield put(
-			getMyVideosSuccess({
+			getMyVideosSuccessAction({
 				videos: data
 			})
 		)
@@ -213,17 +213,17 @@ export function* getMyVideos() {
 export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPayloadType) {
 	try {
 		const { data }: ResponseRemoveVideo = yield call(api.video.delete, slug)
-		yield put(removeVideoSuccess(data))
+		yield put(removeVideoSuccessAction(data))
 		const videos: VideosType = yield select(selectMyVideosData)
 		const newItems = videos.data.filter(item => item.slug !== slug)
-		yield put(getMyVideosSuccess({ videos: { ...videos, data: newItems } }))
+		yield put(getMyVideosSuccessAction({ videos: { ...videos, data: newItems } }))
 		yield put(setStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
 			// Request Error
 			yield put(
-				removeVideoFailed({ error: { message: errorMessage, status: statusCode } })
+				removeVideoFailedAction({ error: { message: errorMessage, status: statusCode } })
 			)
 			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
 		} else {
@@ -233,19 +233,21 @@ export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPaylo
 			)
 		}
 	} finally {
-		yield put(removeVideoReset())
+		yield put(removeVideoResetAction())
 	}
 }
 
 export function* getVideoHandler({ payload: { slug } }: GetVideoStartPayloadType) {
 	try {
 		const { data }: ResponseGetVideo = yield call(api.video.get, slug)
-		yield put(getVideoSuccess({ video: data }))
+		yield put(getVideoSuccessAction({ video: data }))
 	} catch (error) {
 		const { errorMessage, statusCode } = getErrorInfo(error)
 		if (error.response) {
 			// Request Error
-			yield put(getVideoFailed({ error: { message: errorMessage, status: statusCode } }))
+			yield put(
+				getVideoFailedAction({ error: { message: errorMessage, status: statusCode } })
+			)
 		} else {
 			// Server Error
 			yield put(
@@ -260,7 +262,7 @@ export function* updateVideoHandler({
 }: UpdateVideoStartPayloadType) {
 	try {
 		const { data }: ResponseGetVideo = yield call(api.video.update, slug, video)
-		yield put(updateVideoSuccess({ video: data }))
+		yield put(updateVideoSuccessAction({ video: data }))
 		yield put(
 			setStatusAction({ message: 'ویدئو با موفقیت بروزرسانی شد', status: 'success' })
 		)
@@ -269,7 +271,7 @@ export function* updateVideoHandler({
 		if (error.response) {
 			// Request Error
 			yield put(
-				updateVideoFailed({ error: { message: errorMessage, status: statusCode } })
+				updateVideoFailedAction({ error: { message: errorMessage, status: statusCode } })
 			)
 		} else {
 			// Server Error
