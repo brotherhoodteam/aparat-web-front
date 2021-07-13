@@ -57,9 +57,13 @@ export type PlaylistsActionType =
 
 // State
 export interface PlaylistsStateType {
-	data: Array<PlaylistType>
-	fetchDataLoading: boolean
-	fetchDataError: ErrorType | null
-	addItemLoading: boolean
-	addItemError: ErrorType | null
+	list: {
+		data: Array<PlaylistType>
+		loading: boolean
+		errors: ErrorType | null
+	}
+	set: {
+		loading: boolean
+		errors: ErrorType | null
+	}
 }

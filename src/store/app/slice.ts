@@ -18,22 +18,22 @@ const appSlice = createSlice({
 		cleanAppErrorAction: state => {
 			state.error = null
 		},
-		openAppDrawerAction: state => {
+		enableAppDrawerAction: state => {
 			state.drawer = true
 		},
-		closeAppDrawerAction: state => {
+		disableAppDrawerAction: state => {
 			state.drawer = false
 		},
-		openAppOverlayAction: state => {
+		enableAppOverlayAction: state => {
 			state.overlay = true
 		},
-		closeAppOverlayAction: state => {
+		disableAppOverlayAction: state => {
 			state.overlay = false
 		},
-		openAppModalAction: state => {
+		enableAppModalAction: state => {
 			state.modal = true
 		},
-		closeAppModalAction: state => {
+		disableAppModalAction: state => {
 			state.modal = false
 		}
 	}
@@ -42,11 +42,11 @@ const appSlice = createSlice({
 export const {
 	setAppErrorAction,
 	cleanAppErrorAction,
-	openAppDrawerAction,
-	openAppOverlayAction,
-	closeAppOverlayAction,
-	closeAppDrawerAction,
-	openAppModalAction,
-	closeAppModalAction
+	enableAppDrawerAction,
+	enableAppOverlayAction,
+	disableAppOverlayAction,
+	disableAppDrawerAction,
+	enableAppModalAction,
+	disableAppModalAction
 } = appSlice.actions
 export default appSlice.reducer

@@ -10,17 +10,8 @@ import {
 	updateVideoStartAction,
 	uploadBannerStartAction
 } from '../../../../store/video/slice'
-import { selectTagsData } from '../../../../store/tags/selectors'
-import { selectCategoriesData } from '../../../../store/categories/selectors'
-import {
-	selectBannerData,
-	selectBannerError,
-	selectBannerLoading,
-	selectBannerUploadProgress,
-	selectGetVideoData,
-	selectGetVideoError,
-	selectGetVideoLoading
-} from '../../../../store/video/selectors'
+import { useCategories } from '../../../../hooks/use-categories'
+import { selectGetVideo, selectUploadBanner } from '../../../../store/video/selectors'
 
 import { Input, SelectBox, TextArea, Switch, CopyInput } from '../../../elements/form'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
@@ -33,7 +24,7 @@ import ROUTES from '../../../../core/router/routes'
 import { imageResolver } from '../../../../utils'
 
 import './style.scss'
-import { VideoUpdateType } from '../../../../store/video/interface'
+import { useTags } from '../../../../hooks/use-tags'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {
@@ -41,30 +32,36 @@ const EditVideo: React.FC<Props> = () => {
 	const dispatchTyped = useTypedDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
 
-	const getVideo = useSelector(selectGetVideoData)
-	const getVideoLoading = useSelector(selectGetVideoLoading)
-	const getVideoErrors = useSelector(selectGetVideoError)
-	const categories = useSelector(selectCategoriesData)
-	const tagsData = useSelector(selectTagsData)
-	const title = getVideoErrors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
+	// get video
+	const {
+		data: video,
+		loading: videoLoading,
+		errors: videoErrors
+	} = useSelector(selectGetVideo)
 
 	// upload banner
-	const bannerId = useSelector(selectBannerData)
-	const bannerUploadLoading = useSelector(selectBannerLoading)
-	const bannerUploadProgress = useSelector(selectBannerUploadProgress)
-	const bannerUploadError = useSelector(selectBannerError)
+	const {
+		id: uploadBannerId,
+		loading: uploadBannerLoading,
+		progress: uploadBannerProgress,
+		errors: uploadBannerError
+	} = useSelector(selectUploadBanner)
+
+	const { data: categories } = useCategories()
+	const { data: tagsData } = useTags()
+	const title = videoErrors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
 
 	const category = useMemo(() => {
-		if (!getVideo) return {}
-		const item = categories.find(cat => cat.id === getVideo.category_id)
+		if (!video) return {}
+		const item = categories.find(cat => cat.id === video.category_id)
 		return { label: item?.label, value: item?.id }
-	}, [getVideo])
+	}, [video])
 
 	const tags = useMemo(() => {
-		if (!getVideo) return {}
-		const items = tagsData.filter(itm => getVideo.tags.some(tag => tag.id === itm.id))
+		if (!video) return {}
+		const items = tagsData.filter(itm => video.tags.some(tag => tag.id === itm.id))
 		return items.map(itm => ({ label: itm?.label, value: itm?.id }))
-	}, [getVideo])
+	}, [video])
 
 	useEffect(() => {
 		dispatch(getVideoStartAction({ slug: params.slug }))
@@ -95,22 +92,22 @@ const EditVideo: React.FC<Props> = () => {
 	// form setup
 	const form = {
 		initialValues: {
-			banner: getVideo?.banner_link,
-			title: getVideo?.title,
-			info: getVideo?.info,
+			banner: video?.banner_link,
+			title: video?.title,
+			info: video?.info,
 			category: category,
 			tags: tags,
-			enable_comments: getVideo?.enable_comments
+			enable_comments: video?.enable_comments
 		},
 		onSubmit: (value: any) => {
-			if (getVideo) {
+			if (video) {
 				const video = {
 					...value,
 					category: value?.category.value,
 					tags: value.tags?.map((tag: any) => tag.value)
 				}
 				console.log('video', video)
-				dispatch(updateVideoStartAction({ slug: getVideo.slug, video }))
+				dispatch(updateVideoStartAction({ slug: video.slug, video }))
 			}
 		},
 
@@ -140,17 +137,17 @@ const EditVideo: React.FC<Props> = () => {
 				</CardHeader>
 				<CardBody>
 					{/*Start Render Loading */}
-					{getVideoLoading && <div>در حال بارگذاری</div>}
+					{videoLoading && <div>در حال بارگذاری</div>}
 					{/*Finish Content Loading */}
 
 					{/*Start Render Errors */}
-					{getVideoErrors && (
+					{videoErrors && (
 						<p>موردی که می‌خواهید ویرایش کنید پیدا نشد. شاید حذف شده باشد؟</p>
 					)}
 					{/*Finish Render Errors */}
 
 					{/*Start Render Content */}
-					{getVideo && (
+					{video && (
 						<Formik {...form} validateOnChange={false}>
 							{({ resetForm }) => (
 								<Form>
@@ -213,7 +210,7 @@ const EditVideo: React.FC<Props> = () => {
 												</span>
 												<div className="preview-img">
 													<img
-														src={getPreviewImg(bannerId, getVideo.banner_link)}
+														src={getPreviewImg(uploadBannerId, video.banner_link)}
 														alt="تصویر ویدئو"
 														width="100%"
 													/>
@@ -222,9 +219,9 @@ const EditVideo: React.FC<Props> = () => {
 											<Uploader
 												name="banner"
 												onDropFiles={uploadBanner}
-												uploadValue={bannerId}
-												uploadProgress={bannerUploadProgress}
-												uploadError={bannerUploadError}
+												uploadValue={uploadBannerId}
+												uploadProgress={uploadBannerProgress}
+												uploadError={uploadBannerError}
 												maxSize={2000000}
 												accept="image/*"
 											>
@@ -238,7 +235,7 @@ const EditVideo: React.FC<Props> = () => {
 											</Uploader>
 											<div className="mb-3">
 												<CopyInput
-													value={getVideoUrl(getVideo.slug)}
+													value={getVideoUrl(video.slug)}
 													name="address"
 													label="آدرس ویدئو"
 													orginalText="کپی در کلیپ بورد"
@@ -261,7 +258,7 @@ const EditVideo: React.FC<Props> = () => {
 													<Button
 														type="submit"
 														color="primary"
-														loader={bannerUploadLoading}
+														loader={uploadBannerLoading}
 														loaderText="درحال پردازش اطلاعات"
 													>
 														{1 ? (
@@ -272,7 +269,7 @@ const EditVideo: React.FC<Props> = () => {
 													</Button>
 													<Button
 														to={{
-															pathname: `/${ROUTES.VIDEO.SINGLE(getVideo.slug).link}`
+															pathname: `/${ROUTES.VIDEO.SINGLE(video.slug).link}`
 														}}
 														color="danger"
 														classNames="mx-2"

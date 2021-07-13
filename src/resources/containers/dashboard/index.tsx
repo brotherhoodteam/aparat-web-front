@@ -8,14 +8,20 @@ import { RouteType } from '../../../core/router/interface'
 
 import accountBg from '../../../assets/images/abstract-shapes-20.svg'
 import './styles.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectLogout } from '../../../store/auth/selectors'
+import { logoutStartAction } from '../../../store/auth/slice'
 
 interface DashboardProps {
 	routes: Array<RouteType>
 }
 const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
+	const dispatch = useDispatch()
 	const { routerAccess } = useAccess()
+	const { loading } = useSelector(selectLogout)
+
 	const handleLogout = () => {
-		console.log('logout')
+		dispatch(logoutStartAction())
 	}
 	return (
 		<div className="dashboard">
@@ -28,7 +34,12 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 							</div>
 						</div>
 						<div className="col-auto">
-							<Button variant="soft" color="light" onClick={handleLogout}>
+							<Button
+								variant="soft"
+								color="light"
+								loader={loading}
+								onClick={handleLogout}
+							>
 								خروج از حساب ‌کاربری
 							</Button>
 						</div>

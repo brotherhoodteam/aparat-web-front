@@ -1,11 +1,6 @@
 import { useSelector } from 'react-redux'
-import {
-	selectPlaylistsData,
-	selectPlaylistsFetchDataLoading
-} from '../store/playlists/selectors'
+import { selectNormalizedPlaylistList } from '../store/playlists/selectors'
 
 export const usePlaylists = () => {
-	const data = useSelector(selectPlaylistsData)
-	const loading = useSelector(selectPlaylistsFetchDataLoading)
-	return { data, loading }
+	return useSelector(selectNormalizedPlaylistList)
 }

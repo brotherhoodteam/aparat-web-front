@@ -8,44 +8,48 @@ import {
 } from './interface'
 
 const initialState: PlaylistsStateType = {
-	data: [],
-	fetchDataLoading: false,
-	fetchDataError: null,
-	addItemLoading: false,
-	addItemError: null
+	list: {
+		data: [],
+		loading: false,
+		errors: null
+	},
+	set: {
+		loading: false,
+		errors: null
+	}
 }
 
-const tagsSlice = createSlice({
-	name: 'Playlists',
+const playlistSlice = createSlice({
+	name: 'playlists',
 	initialState,
 	reducers: {
-		getPlaylistsStartAction: (state, action) => {
-			state.data = []
-			state.fetchDataLoading = true
-			state.fetchDataError = null
+		getPlaylistsStartAction: state => {
+			state.list.data = []
+			state.list.loading = true
+			state.list.errors = null
 		},
 		getPlaylistsSuccessAction: (state, action: GetPlaylistsSuccessPayloadType) => {
-			state.data = action.payload.playlists
-			state.fetchDataLoading = false
-			state.fetchDataError = null
+			state.list.data = action.payload.playlists
+			state.list.loading = false
+			state.list.errors = null
 		},
 		getPlaylistsFailedAction: (state, action: ErrorPayloadType) => {
-			state.data = []
-			state.fetchDataLoading = false
-			state.fetchDataError = action.payload.error
+			state.list.data = []
+			state.list.loading = false
+			state.list.errors = action.payload.error
 		},
 		setPlaylistStartAction: (state, action: SetPlaylistStartPayloadType) => {
-			state.addItemLoading = true
-			state.addItemError = null
+			state.set.loading = true
+			state.set.errors = null
 		},
 		setPlaylistSuccessAction: (state, action: SetPlaylistSuccessPayloadType) => {
-			state.data.push(action.payload.playlist)
-			state.addItemLoading = false
-			state.addItemError = null
+			state.list.data.push(action.payload.playlist)
+			state.set.loading = false
+			state.set.errors = null
 		},
 		setPlaylistFailedAction: (state, action: ErrorPayloadType) => {
-			state.addItemLoading = false
-			state.addItemError = action.payload.error
+			state.set.loading = false
+			state.set.errors = action.payload.error
 		}
 	}
 })
@@ -57,5 +61,5 @@ export const {
 	setPlaylistStartAction,
 	setPlaylistSuccessAction,
 	setPlaylistFailedAction
-} = tagsSlice.actions
-export default tagsSlice.reducer
+} = playlistSlice.actions
+export default playlistSlice.reducer

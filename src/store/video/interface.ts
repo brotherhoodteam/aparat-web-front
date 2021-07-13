@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { ErrorType } from '../../interface/exception'
+import { UserType } from '../../interface/user'
 import { TagType } from '../tags/interface'
-import { UserType } from '../user/interface'
 
 export interface PublishVideo {
 	video_id: string
@@ -142,7 +142,7 @@ export interface GetVideoSuccessPayloadType extends PayloadAction<GetVideoSucces
 export interface UpdateVideoStartPayloadType extends PayloadAction<UpdateVideoData> {}
 export interface UpdateVideoSuccessPayloadType extends PayloadAction<any> {}
 
-export interface GetMyVideosSuccessPayloadType extends PayloadAction<VideosDataType> {}
+export interface GetVideoListSuccessPayloadType extends PayloadAction<VideosDataType> {}
 export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
 export interface ProgressPayloadType extends PayloadAction<ProgressDataType> {}
 
@@ -156,7 +156,7 @@ export interface ResponseBannerType {
 export interface ResponsePublishType {
 	data: VideoType
 }
-export interface ResponseGetMyVideos {
+export interface ResponseGetVideoList {
 	data: VideosType
 }
 export interface ResponseRemoveVideo {
@@ -173,7 +173,7 @@ export type VideoActionTypes =
 	| UploadBannerSuccessPayloadType
 	| PublishVideoStartPayloadType
 	| PublishVideoSuccessPayloadType
-	| GetMyVideosSuccessPayloadType
+	| GetVideoListSuccessPayloadType
 	| RemoveVideoStartPayloadType
 	| RemoveVideoSuccessPayloadType
 	| ErrorPayloadType
@@ -181,29 +181,43 @@ export type VideoActionTypes =
 
 // state
 export interface VideoStateType {
-	videoId: string | null
-	videoErrors: ErrorType | null
-	videoLoading: boolean
-	videoProgress: number
-	bannerId: string | null
-	bannerErrors: ErrorType | null
-	bannerLoading: boolean
-	bannerProgress: number
-	publishResponse: VideoType | null
-	publishLoading: boolean
-	publishErrors: ErrorType | null
-	myVideos: VideosType | null
-	myVideosLoading: boolean
-	myVideosErrors: ErrorType | null
-	getVideoSlug: string | null
-	getVideoData: VideoType | null
-	getVideoLoading: boolean
-	getVideoErrors: ErrorType | null
-	removeVideoSlug: string | null
-	removeVideoDone: boolean
-	removeVideoLoading: boolean
-	removeVideoErrors: ErrorType | null
-	updateVideoSlug: string | null
-	updateVideoLoading: boolean
-	updateVideoErrors: ErrorType | null
+	upload: {
+		id: string | null
+		loading: boolean
+		progress: number
+		errors: ErrorType | null
+	}
+	uploadBanner: {
+		id: string | null
+		loading: boolean
+		progress: number
+		errors: ErrorType | null
+	}
+	get: {
+		slug: string | null
+		data: VideoType | null
+		loading: boolean
+		errors: ErrorType | null
+	}
+	list: {
+		data: VideosType | null
+		loading: boolean
+		errors: ErrorType | null
+	}
+	delete: {
+		slug: string | null
+		done: boolean
+		loading: boolean
+		errors: ErrorType | null
+	}
+	update: {
+		slug: string | null
+		loading: boolean
+		errors: ErrorType | null
+	}
+	publish: {
+		response: VideoType | null
+		loading: boolean
+		errors: ErrorType | null
+	}
 }

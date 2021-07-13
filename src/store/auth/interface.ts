@@ -1,24 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { ErrorType } from '../../interface/exception'
 
-// Models
 export interface SignInType {
 	username: string
 	password: string
 }
-export interface UserType {
-	avatar: string
-	created_at: string
-	deleted_at: null
-	email: string
-	id: number
-	mobile: string
-	name: string
-	type: string
-	updated_at: string
-	verified_at: string
-	website: string
-}
+
 export type CredentialsType = {
 	access_token: string
 	expire_in: number
@@ -28,7 +15,7 @@ export type CredentialsType = {
 
 //  Data Interface
 export interface SignInDataType {
-	user: SignInType
+	passport: SignInType
 }
 export interface CredentialsDataType {
 	credentials: CredentialsType
@@ -42,21 +29,28 @@ export interface SignInPayloadType extends PayloadAction<SignInDataType> {}
 export interface SignInSuccessPayloadType extends PayloadAction<CredentialsDataType> {}
 export interface SignInFailedPayloadType extends PayloadAction<ErrorDataType> {}
 
-// USER RESPONSE TYPES
+// AUTH RESPONSE TYPES
 export interface ResponseAuthType {
 	data: CredentialsType
 }
 
-// USER ACTIONS TYPE
+// AUTH ACTIONS TYPE
 export type UserActionTypes =
 	| SignInPayloadType
 	| SignInSuccessPayloadType
 	| SignInFailedPayloadType
 
-// USER STATE TYPE
-export interface UserStateType {
-	user: SignInType | null
-	credentials: CredentialsType | null
-	loading: boolean
-	error: ErrorType | null
+// AUTH STATE TYPE
+export interface AuthStateType {
+	auth: {
+		credentials: CredentialsType | null
+	}
+	signIn: {
+		passport: SignInType | null
+		loading: boolean
+		error: ErrorType | null
+	}
+	logout: {
+		loading: boolean
+	}
 }

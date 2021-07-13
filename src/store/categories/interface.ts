@@ -64,9 +64,13 @@ export type CategoriesActionType =
 
 // State
 export interface CategoriesStateType {
-	data: Array<CategoryType>
-	fetchDataLoading: boolean
-	fetchDataError: ErrorType | null
-	addItemLoading: boolean
-	addItemError: ErrorType | null
+	list: {
+		data: Array<CategoryType>
+		loading: boolean
+		errors: ErrorType | null
+	}
+	set: {
+		loading: boolean
+		errors: ErrorType | null
+	}
 }

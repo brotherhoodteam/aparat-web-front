@@ -40,9 +40,13 @@ export type TagsActionType =
 
 // State
 export interface TagsStateType {
-	data: Array<TagType>
-	fetchDataLoading: boolean
-	fetchDataError: ErrorType | null
-	addItemLoading: boolean
-	addItemError: ErrorType | null
+	list: {
+		data: Array<TagType>
+		loading: boolean
+		errors: ErrorType | null
+	}
+	set: {
+		loading: boolean
+		errors: ErrorType | null
+	}
 }

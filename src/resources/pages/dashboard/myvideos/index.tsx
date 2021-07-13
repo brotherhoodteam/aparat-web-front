@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import VIDEO_STATE from '../../../../constants'
 import { VideoType } from '../../../../store/video/interface'
-import {
-	selectMyVideosData,
-	selectMyVideosErrors,
-	selectMyVideosLoading
-} from '../../../../store/video/selectors'
+import { selectListVideo } from '../../../../store/video/selectors'
 import FilterVideos from '../../../components/filter-videos'
 import VideoList from '../../../components/videoList'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
@@ -37,12 +33,12 @@ const options = [
 	}
 ]
 
-const DashboardMyVideos: React.FC<Props> = ({}) => {
+const DashboardVideoList: React.FC<Props> = ({}) => {
 	const [state, setState] = useState<FilterType>(options[0])
 	const [filteredItems, setFIlteredItems] = useState<Array<VideoType>>([])
-	const videos = useSelector(selectMyVideosData)
-	const videosLoading = useSelector(selectMyVideosLoading)
-	const videosErrors = useSelector(selectMyVideosErrors)
+
+	// get video
+	const { data: videos, loading: videosLoading } = useSelector(selectListVideo)
 
 	const onFilterChange = (value: any) => {
 		setState(value)
@@ -104,4 +100,4 @@ const DashboardMyVideos: React.FC<Props> = ({}) => {
 	)
 }
 
-export default DashboardMyVideos
+export default DashboardVideoList

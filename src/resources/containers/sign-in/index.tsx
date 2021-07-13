@@ -11,7 +11,7 @@ import SignInForm from '../../components/sign-in-form'
 import Alert from '../../elements/alert'
 
 import { useSelector } from 'react-redux'
-import { selectUserSignInError } from '../../../store/user/selectors'
+import { selectSignIn } from '../../../store/auth/selectors'
 
 import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
 import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
@@ -20,7 +20,7 @@ import ROUTES from '../../../core/router/routes'
 
 const SignInContainer: React.FC = () => {
 	// TODO باید متن اررور الرت فرم داینامیک شود
-	const formError = useSelector(selectUserSignInError)
+	const { error } = useSelector(selectSignIn)
 	return (
 		<>
 			{/* HEADER */}
@@ -98,10 +98,10 @@ const SignInContainer: React.FC = () => {
 								{/* Form Error Handler */}
 								<div className="mb-4">
 									<Alert
-										message={formError?.message}
+										message={error?.message}
 										color="danger"
 										animated
-										show={!!formError}
+										show={!!error}
 									/>
 								</div>
 								{/* FORM */}

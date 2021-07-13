@@ -14,7 +14,7 @@ import Button from '../../elements/button'
 import Search from '../search'
 import ROUTES from '../../../core/router/routes'
 
-import { openAppDrawerAction } from '../../../store/app/slice'
+import { enableAppDrawerAction } from '../../../store/app/slice'
 import useAuth from '../../../hooks/use-auth'
 
 import Logo from '../../../assets/images/logo--color-black--without_text.svg'
@@ -24,10 +24,10 @@ import ProfileImg from '../../../assets/images/img6.jpg'
 import './styles.scss'
 
 const Navbar = () => {
-	const isLoggedIn = useAuth(true)
+	const isLoggedIn = useAuth()
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
-		dispatch(openAppDrawerAction())
+		dispatch(enableAppDrawerAction())
 	}
 	return (
 		<div className="navbar">

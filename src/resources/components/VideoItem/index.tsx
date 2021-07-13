@@ -2,14 +2,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { VIDEO_STATE } from '../../../constants'
 import ROUTES from '../../../core/router/routes'
-import { closeAppOverlayAction, openAppOverlayAction } from '../../../store/app/slice'
-import { selectCategoriesData } from '../../../store/categories/selectors'
+import { useCategories } from '../../../hooks/use-categories'
+import { disableAppOverlayAction, enableAppOverlayAction } from '../../../store/app/slice'
 import { VideoType } from '../../../store/video/interface'
-import {
-	selectRemoveVideoDone,
-	selectRemoveVideoLoading
-} from '../../../store/video/selectors'
-import { removeVideoStartAction } from '../../../store/video/slice'
+import { selectrDeleteVideo } from '../../../store/video/selectors'
+import { deleteVideoStartAction } from '../../../store/video/slice'
 import Avatar from '../../elements/avatar'
 import Badge from '../../elements/badge'
 import Button from '../../elements/button'
@@ -23,10 +20,11 @@ interface Props {
 
 const VideoItem: React.FC<Props> = ({ video }) => {
 	const dispatch = useDispatch()
+	const { done: deleteVideoDone, loading: deleteVideoLoading } =
+		useSelector(selectrDeleteVideo)
+	const { data: categories } = useCategories()
+
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
-	const removeVideoLoading = useSelector(selectRemoveVideoLoading)
-	const removeVideoDone = useSelector(selectRemoveVideoDone)
-	const categories = useSelector(selectCategoriesData)
 
 	const category = useMemo(
 		() => categories.find(item => item.id === video.category_id),
@@ -38,22 +36,22 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 	}
 
 	const handleOpenModal = () => {
-		dispatch(openAppOverlayAction())
+		dispatch(enableAppOverlayAction())
 		setIsOpenModal(true)
 	}
 	const handleCloseModal = () => {
-		dispatch(closeAppOverlayAction())
+		dispatch(disableAppOverlayAction())
 		setIsOpenModal(false)
 	}
 	const handleRemoveVideo = () => {
-		dispatch(removeVideoStartAction({ slug: video.slug }))
+		dispatch(deleteVideoStartAction({ slug: video.slug }))
 	}
 
 	useEffect(() => {
-		if (removeVideoDone && isOpenModal) {
+		if (deleteVideoDone && isOpenModal) {
 			handleCloseModal()
 		}
-	}, [removeVideoDone])
+	}, [deleteVideoDone])
 	return (
 		<Card className="h-100" bordered>
 			<CardImgTop img={video.banner_link}>
@@ -154,14 +152,14 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 							classNames="mx-1"
 							color="danger"
 							onClick={handleRemoveVideo}
-							loader={removeVideoLoading}
+							loader={deleteVideoLoading}
 						>
 							حذف
 						</Button>
 						<Button
 							classNames="mx-1"
 							color="secondary"
-							disanled={removeVideoLoading}
+							disanled={deleteVideoLoading}
 							onClick={handleCloseModal}
 						>
 							انصراف

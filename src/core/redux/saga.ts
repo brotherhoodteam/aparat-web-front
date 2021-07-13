@@ -3,14 +3,14 @@ import appSaga from '../../store/app/saga'
 import categoriesSaga from '../../store/categories/saga'
 import statusSaga from '../../store/status/saga'
 import tagsSaga from '../../store/tags/saga'
-import userSaga from '../../store/user/saga'
+import authSaga from '../../store/auth/saga'
 import playlistSaga from '../../store/playlists/saga'
 import videoSaga from '../../store/video/saga'
 
 function* rooSaga() {
 	yield all([
 		call(appSaga),
-		call(userSaga),
+		call(authSaga),
 		call(videoSaga),
 		call(categoriesSaga),
 		call(tagsSaga),

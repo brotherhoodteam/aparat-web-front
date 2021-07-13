@@ -1,9 +1,9 @@
-import { ErrorMessage, Formik, Form, useFormik } from 'formik'
+import { Formik, Form } from 'formik'
 import { useSelector } from 'react-redux'
 import useTypedDispatch from '../../../hooks/use-typed-dispatch'
 
-import { selectUserSignInLoading } from '../../../store/user/selectors'
-import { signInAction } from '../../../store/user/slice'
+import { selectSignIn } from '../../../store/auth/selectors'
+import { signInAction } from '../../../store/auth/slice'
 import * as yup from 'yup'
 
 import Button from '../../elements/button'
@@ -16,7 +16,7 @@ interface SignInFormType {
 
 const SignInForm: React.FC = () => {
 	const dispatch = useTypedDispatch()
-	const signInLoading = useSelector(selectUserSignInLoading)
+	const { loading } = useSelector(selectSignIn)
 
 	const validationSchema = yup.object({
 		username: yup.string().required('فیلد را وارد نمایید'),
@@ -27,16 +27,15 @@ const SignInForm: React.FC = () => {
 	})
 	const form = {
 		initialValues: {
-			username: '',
-			password: ''
+			username: 'admin@aparat.me',
+			password: '123456'
 		},
 		onSubmit: (user: SignInFormType) => {
-			dispatch(signInAction({ user }))
+			dispatch(signInAction({ passport: user }))
 		},
 		validationSchema
 	}
 
-	console.log('form')
 	return (
 		<Formik {...form}>
 			<Form>
@@ -47,7 +46,7 @@ const SignInForm: React.FC = () => {
 					label="پسورد"
 					placeholder="حداقل 8 کارکتر وارد نمایید"
 				/>
-				<Button type="submit" color="primary" size="lg" loader={signInLoading} block>
+				<Button type="submit" color="primary" size="lg" loader={loading} block>
 					ورود
 				</Button>
 			</Form>

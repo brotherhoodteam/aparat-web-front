@@ -9,7 +9,7 @@ const NotFoundContainer = lazy(() => import('../../resources/containers/notfound
 const DashboardContainer = lazy(() => import('../../resources/containers/dashboard'))
 const DashboardUpload = lazy(() => import('../../resources/pages/dashboard/upload'))
 const DashboardOverview = lazy(() => import('../../resources/pages/dashboard/overview'))
-const DashboardMyVideos = lazy(() => import('../../resources/pages/dashboard/myvideos'))
+const DashboardVideoList = lazy(() => import('../../resources/pages/dashboard/myvideos'))
 const DashboardSettings = lazy(() => import('../../resources/pages/dashboard/settings'))
 const DashboardEditVideo = lazy(
 	() => import('../../resources/pages/dashboard/edit-video')
@@ -63,7 +63,7 @@ const router: RouterType = [
 				path: ROUTES.DASHBOARD.VIDEOS().path,
 				exact: true,
 				access: ACCESS.PROTECTED,
-				component: DashboardMyVideos
+				component: DashboardVideoList
 			},
 			{
 				name: 'setting',

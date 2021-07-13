@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ErrorPayloadType } from '../tags/interface'
 import {
+	VideoStateType,
 	UploadVideoStartPayloadType,
 	UploadVideoSuccessPayloadType,
-	VideoStateType,
 	UploadBannerStartPayloadType,
 	UploadBannerSuccessPayloadType,
 	PublishVideoStartPayloadType,
 	PublishVideoSuccessPayloadType,
 	ProgressPayloadType,
-	GetMyVideosSuccessPayloadType,
+	GetVideoListSuccessPayloadType,
 	RemoveVideoStartPayloadType,
 	RemoveVideoSuccessPayloadType,
 	GetVideoSuccessPayloadType,
@@ -19,31 +19,45 @@ import {
 } from './interface'
 
 const initialState: VideoStateType = {
-	videoId: null,
-	videoLoading: false,
-	videoProgress: 0,
-	videoErrors: null,
-	bannerId: null,
-	bannerLoading: false,
-	bannerProgress: 0,
-	bannerErrors: null,
-	publishResponse: null,
-	publishLoading: false,
-	publishErrors: null,
-	myVideos: null,
-	myVideosLoading: false,
-	myVideosErrors: null,
-	removeVideoSlug: null,
-	removeVideoDone: false,
-	removeVideoLoading: false,
-	removeVideoErrors: null,
-	getVideoSlug: null,
-	getVideoData: null,
-	getVideoLoading: false,
-	getVideoErrors: null,
-	updateVideoSlug: null,
-	updateVideoLoading: false,
-	updateVideoErrors: null
+	upload: {
+		id: null,
+		loading: false,
+		progress: 0,
+		errors: null
+	},
+	get: {
+		slug: null,
+		data: null,
+		loading: false,
+		errors: null
+	},
+	uploadBanner: {
+		id: null,
+		loading: false,
+		progress: 0,
+		errors: null
+	},
+	list: {
+		data: null,
+		loading: false,
+		errors: null
+	},
+	delete: {
+		slug: null,
+		done: false,
+		loading: false,
+		errors: null
+	},
+	update: {
+		slug: null,
+		loading: false,
+		errors: null
+	},
+	publish: {
+		response: null,
+		loading: false,
+		errors: null
+	}
 }
 
 const videoSlice = createSlice({
@@ -51,149 +65,152 @@ const videoSlice = createSlice({
 	initialState,
 	reducers: {
 		uploadVideoStartAction: (state, action: UploadVideoStartPayloadType) => {
-			state.videoId = null
-			state.videoLoading = true
-			state.videoProgress = 0
-			state.videoErrors = null
+			state.upload.id = null
+			state.upload.loading = true
+			state.upload.progress = 0
+			state.upload.errors = null
 		},
 		uploadVideoProgressAction: (state, action: ProgressPayloadType) => {
-			state.videoId = null
-			state.videoLoading = true
-			state.videoProgress = action.payload.percent
-			state.videoErrors = null
+			state.upload.id = null
+			state.upload.loading = true
+			state.upload.progress = action.payload.percent
+			state.upload.errors = null
 		},
 		uploadVideoSuccessAction: (state, action: UploadVideoSuccessPayloadType) => {
-			state.videoId = action.payload.videoId
-			state.videoLoading = false
-			state.videoErrors = null
+			state.upload.id = action.payload.videoId
+			state.upload.loading = false
+			state.upload.errors = null
 		},
 		uploadVideoFailedAction: (state, action: ErrorPayloadType) => {
-			state.videoId = null
-			state.videoLoading = false
-			state.videoProgress = 0
-			state.videoErrors = action.payload.error
+			state.upload.id = null
+			state.upload.loading = false
+			state.upload.progress = 0
+			state.upload.errors = action.payload.error
 		},
+
 		uploadBannerStartAction: (state, action: UploadBannerStartPayloadType) => {
-			state.bannerId = null
-			state.bannerLoading = true
-			state.bannerProgress = 0
-			state.bannerErrors = null
+			state.uploadBanner.id = null
+			state.uploadBanner.loading = true
+			state.uploadBanner.progress = 0
+			state.uploadBanner.errors = null
 		},
 		uploadBannerProgressAction: (state, action: ProgressPayloadType) => {
-			state.bannerId = null
-			state.bannerLoading = true
-			state.bannerProgress = action.payload.percent
-			state.bannerErrors = null
+			state.uploadBanner.id = null
+			state.uploadBanner.loading = true
+			state.uploadBanner.progress = action.payload.percent
+			state.uploadBanner.errors = null
 		},
 		uploadBannerSuccessAction: (state, action: UploadBannerSuccessPayloadType) => {
-			state.bannerId = action.payload.bannerId
-			state.bannerLoading = false
-			state.bannerErrors = null
+			state.uploadBanner.id = action.payload.bannerId
+			state.uploadBanner.loading = false
+			state.uploadBanner.errors = null
 		},
 		uploadBannerFailedAction: (state, action: ErrorPayloadType) => {
-			state.bannerId = null
-			state.bannerLoading = false
-			state.bannerProgress = 0
-			state.bannerErrors = action.payload.error
+			state.uploadBanner.id = null
+			state.uploadBanner.loading = false
+			state.uploadBanner.progress = 0
+			state.uploadBanner.errors = action.payload.error
 		},
-		publishVideoStartAction: (state, action: PublishVideoStartPayloadType) => {
-			state.publishResponse = null
-			state.publishLoading = true
-			state.publishErrors = null
-		},
-		publishVideoSuccessAction: (state, action: PublishVideoSuccessPayloadType) => {
-			state.publishResponse = action.payload.data
-			state.publishLoading = false
-			state.publishErrors = null
-		},
-		publishVideoFailedAction: (state, action: ErrorPayloadType) => {
-			state.publishResponse = null
-			state.publishLoading = false
-			state.publishErrors = action.payload.error
-		},
-		publishVideoResetAction: state => {
-			state.videoId = null
-			state.videoLoading = false
-			state.videoProgress = 0
-			state.videoErrors = null
 
-			state.bannerId = null
-			state.bannerLoading = false
-			state.bannerProgress = 0
-			state.bannerErrors = null
-
-			state.publishResponse = null
-			state.publishLoading = false
-			state.publishErrors = null
-		},
-		getMyVideosStartAction: state => {
-			state.myVideos = null
-			state.myVideosLoading = true
-			state.myVideosErrors = null
-		},
-		getMyVideosSuccessAction: (state, action: GetMyVideosSuccessPayloadType) => {
-			state.myVideos = action.payload.videos
-			state.myVideosLoading = false
-			state.myVideosErrors = null
-		},
-		getMyVideosFailedAction: (state, action) => {
-			state.myVideos = null
-			state.myVideosLoading = false
-			state.myVideosErrors = action.payload.error
-		},
-		removeVideoStartAction: (state, action: RemoveVideoStartPayloadType) => {
-			state.removeVideoSlug = action.payload.slug
-			state.removeVideoDone = false
-			state.removeVideoLoading = true
-			state.removeVideoErrors = null
-		},
-		removeVideoSuccessAction: (state, action: RemoveVideoSuccessPayloadType) => {
-			state.removeVideoLoading = false
-			state.removeVideoDone = true
-			state.removeVideoErrors = null
-		},
-		removeVideoFailedAction: (state, action: ErrorPayloadType) => {
-			state.removeVideoSlug = null
-			state.removeVideoDone = false
-			state.removeVideoLoading = false
-			state.removeVideoErrors = action.payload.error
-		},
-		removeVideoResetAction: state => {
-			state.removeVideoSlug = null
-			state.removeVideoLoading = false
-			state.removeVideoDone = false
-			state.removeVideoErrors = null
-		},
 		getVideoStartAction: (state, action: GetVideoStartPayloadType) => {
-			state.getVideoSlug = action.payload.slug
-			state.getVideoData = null
-			state.getVideoLoading = true
-			state.getVideoErrors = null
+			state.get.slug = action.payload.slug
+			state.get.data = null
+			state.get.loading = true
+			state.get.errors = null
 		},
 		getVideoSuccessAction: (state, action: GetVideoSuccessPayloadType) => {
-			state.getVideoData = action.payload.video
-			state.getVideoLoading = false
-			state.getVideoErrors = null
+			state.get.data = action.payload.video
+			state.get.loading = false
+			state.get.errors = null
 		},
 		getVideoFailedAction: (state, action: ErrorPayloadType) => {
-			state.getVideoSlug = null
-			state.getVideoData = null
-			state.getVideoLoading = false
-			state.getVideoErrors = action.payload.error
+			state.get.slug = null
+			state.get.data = null
+			state.get.loading = false
+			state.get.errors = action.payload.error
+		},
+
+		getVideoListStartAction: state => {
+			state.list.data = null
+			state.list.loading = true
+			state.list.errors = null
+		},
+		getVideoListSuccessAction: (state, action: GetVideoListSuccessPayloadType) => {
+			state.list.data = action.payload.videos
+			state.list.loading = false
+			state.list.errors = null
+		},
+		getVideoListFailedAction: (state, action) => {
+			state.list.data = null
+			state.list.loading = false
+			state.list.errors = action.payload.error
+		},
+		deleteVideoStartAction: (state, action: RemoveVideoStartPayloadType) => {
+			state.delete.slug = action.payload.slug
+			state.delete.done = false
+			state.delete.loading = true
+			state.delete.errors = null
+		},
+		deleteVideoSuccessAction: (state, action: RemoveVideoSuccessPayloadType) => {
+			state.delete.loading = false
+			state.delete.done = true
+			state.delete.errors = null
+		},
+		deleteVideoFailedAction: (state, action: ErrorPayloadType) => {
+			state.delete.slug = null
+			state.delete.done = false
+			state.delete.loading = false
+			state.delete.errors = action.payload.error
+		},
+		deleteVideoResetAction: state => {
+			state.delete.slug = null
+			state.delete.loading = false
+			state.delete.done = false
+			state.delete.errors = null
 		},
 		updateVideoStartAction: (state, action: UpdateVideoStartPayloadType) => {
-			state.updateVideoSlug = action.payload.slug
-			state.updateVideoLoading = true
-			state.updateVideoErrors = null
+			state.update.slug = action.payload.slug
+			state.update.loading = true
+			state.update.errors = null
 		},
 		updateVideoSuccessAction: (state, action: UpdateVideoSuccessPayloadType) => {
-			state.updateVideoLoading = false
-			state.updateVideoErrors = null
+			state.update.loading = false
+			state.update.errors = null
 		},
 		updateVideoFailedAction: (state, action: ErrorPayloadType) => {
-			state.updateVideoSlug = null
-			state.updateVideoLoading = false
-			state.updateVideoErrors = action.payload.error
+			state.update.slug = null
+			state.update.loading = false
+			state.update.errors = action.payload.error
+		},
+		publishVideoStartAction: (state, action: PublishVideoStartPayloadType) => {
+			state.publish.response = null
+			state.publish.loading = true
+			state.publish.errors = null
+		},
+		publishVideoSuccessAction: (state, action: PublishVideoSuccessPayloadType) => {
+			state.publish.response = action.payload.data
+			state.publish.loading = false
+			state.publish.errors = null
+		},
+		publishVideoFailedAction: (state, action: ErrorPayloadType) => {
+			state.publish.response = null
+			state.publish.loading = false
+			state.publish.errors = action.payload.error
+		},
+		publishVideoResetAction: state => {
+			state.upload.id = null
+			state.upload.loading = false
+			state.upload.progress = 0
+			state.upload.errors = null
+
+			state.uploadBanner.id = null
+			state.uploadBanner.loading = false
+			state.uploadBanner.progress = 0
+			state.uploadBanner.errors = null
+
+			state.publish.response = null
+			state.publish.loading = false
+			state.publish.errors = null
 		}
 	}
 })
@@ -211,13 +228,13 @@ export const {
 	publishVideoSuccessAction,
 	publishVideoFailedAction,
 	publishVideoResetAction,
-	getMyVideosStartAction,
-	getMyVideosSuccessAction,
-	getMyVideosFailedAction,
-	removeVideoStartAction,
-	removeVideoSuccessAction,
-	removeVideoFailedAction,
-	removeVideoResetAction,
+	getVideoListStartAction,
+	getVideoListSuccessAction,
+	getVideoListFailedAction,
+	deleteVideoStartAction,
+	deleteVideoSuccessAction,
+	deleteVideoFailedAction,
+	deleteVideoResetAction,
 	getVideoStartAction,
 	getVideoSuccessAction,
 	getVideoFailedAction,

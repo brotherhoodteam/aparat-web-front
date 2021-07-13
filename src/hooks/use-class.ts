@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import { useCallback } from 'react'
 
 interface UseClassProps {
 	defaultClass?: string

@@ -1,4 +1,4 @@
-import { CredentialsType } from '../store/user/interface'
+import { CredentialsType } from '../store/auth/interface'
 
 export const setAuth = (data: CredentialsType): void => {
 	const key = 'auth'

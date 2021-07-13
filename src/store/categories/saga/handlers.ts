@@ -1,5 +1,4 @@
 import { call, put } from '@redux-saga/core/effects'
-
 import api from '../../../core/api'
 import {
 	CategoriesDataResponseType,
@@ -7,35 +6,21 @@ import {
 	SetCategoryStartPayloadType
 } from '../interface'
 import {
-	getCategoriesSuccessAction,
-	getCategoriesFailedAction,
+	getCategoryListSuccessAction,
+	getCategoryListFailedAction,
 	setCategorySuccessAction,
 	setCategoryFailedAction
 } from '../slice'
 import { setStatusAction } from '../../status/slice'
-import { setAppErrorAction } from '../../app/slice'
-import { getErrorInfo } from '../../../utils'
+
+import { appErrorHandler } from '../../app/saga/handlers'
 
 export function* getCategoriesHandler() {
 	try {
 		const { data }: CategoriesDataResponseType = yield call(api.categories.get)
-		yield put(getCategoriesSuccessAction({ categories: data }))
+		yield put(getCategoryListSuccessAction({ categories: data }))
 	} catch (error) {
-		const { errorMessage, statusCode } = getErrorInfo(error)
-		if (error.response) {
-			// Request Error
-			yield put(
-				getCategoriesFailedAction({
-					error: { message: errorMessage, status: statusCode }
-				})
-			)
-			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
-		} else {
-			// Server Error
-			yield put(
-				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
-			)
-		}
+		yield call(appErrorHandler, error, getCategoryListFailedAction, true)
 	}
 }
 
@@ -49,20 +34,6 @@ export function* setCategoryHandler({
 			setStatusAction({ status: 'success', message: 'دسته جدید باموفقیت اضافه شد' })
 		)
 	} catch (error) {
-		const { errorMessage, statusCode } = getErrorInfo(error)
-		if (error.response) {
-			// Request Error
-			yield put(
-				setCategoryFailedAction({
-					error: { message: errorMessage, status: statusCode }
-				})
-			)
-			yield put(setStatusAction({ message: errorMessage, status: 'warn' }))
-		} else {
-			// Server Error
-			yield put(
-				setAppErrorAction({ error: { message: errorMessage, status: statusCode } })
-			)
-		}
+		yield call(appErrorHandler, error, setCategoryFailedAction, true)
 	}
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Form, Formik, FormikValues } from 'formik'
+import { Form, Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
@@ -23,42 +23,45 @@ import { usePlaylists } from '../../../../hooks/use-playlist'
 import Uploader from '../../../components/uploader'
 import Button from '../../../elements/button'
 import {
-	selectVideoUploadProgress,
-	selectVideoData,
-	selectVideoError,
-	selectVideoLoading,
-	selectBannerData,
-	selectBannerLoading,
-	selectBannerUploadProgress,
-	selectBannerError,
-	selectPublishData,
-	selectPublishLoading
+	selectUploadVideo,
+	selectPublishVideo,
+	selectUploadBanner
 } from '../../../../store/video/selectors'
 
 import UploadVideoIcon from '../../../../assets/images/video-file.svg'
 import UploadBannerIcon from '../../../../assets/images/placeholder-img-format.svg'
-import { VideoType, PublishVideo } from '../../../../store/video/interface'
+import { PublishVideo } from '../../../../store/video/interface'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
 	const panelRef = useRef<HTMLDivElement>(null)
 	const dispatchTyped = useTypedDispatch()
 	const dispatch = useDispatch()
+
 	// upload video
-	const videoId = useSelector(selectVideoData)
-	const videoUploadLoading = useSelector(selectVideoLoading)
-	const videoUploadProgress = useSelector(selectVideoUploadProgress)
-	const videoUploadError = useSelector(selectVideoError)
+	const {
+		id: uploadVideoId,
+		loading: uploadVideoLoading,
+		progress: uploadVideoProgress,
+		errors: uploadVideoError
+	} = useSelector(selectUploadVideo)
 
 	// upload banner
-	const bannerId = useSelector(selectBannerData)
-	const bannerUploadLoading = useSelector(selectBannerLoading)
-	const bannerUploadProgress = useSelector(selectBannerUploadProgress)
-	const bannerUploadError = useSelector(selectBannerError)
+	const {
+		id: uploadBannerId,
+		loading: uploadBannerLoading,
+		progress: uploadBannerProgress,
+		errors: uploadbannerError
+	} = useSelector(selectUploadBanner)
 
 	// published video
-	const videoData: VideoType | null = useSelector(selectPublishData)
-	const publishLoading = useSelector(selectPublishLoading)
+	const {
+		response: publishVideo,
+		loading: publishLoading,
+		errors: publishErrors
+	} = useSelector(selectPublishVideo)
+
+	// const {}: VideoType | null = useSelector(selectPublishVideo)
 
 	// categories
 	const { data: categories, loading: categoriesLoading } = useCategories()
@@ -72,10 +75,10 @@ const DashboardUpload: React.FC = () => {
 	const { data: tags, loading: tagsLoading } = useTags()
 
 	useEffect(() => {
-		if (videoData) {
+		if (publishVideo) {
 			scrollTop()
 		}
-	}, [videoData])
+	}, [publishVideo])
 
 	useEffect(() => {
 		return () => {
@@ -154,7 +157,7 @@ const DashboardUpload: React.FC = () => {
 	const uploadVideo = (video: File) => {
 		dispatchTyped(uploadVideoStartAction({ video }))
 	}
-	const uploadBanner = (banner: File) => {
+	const onUploadBanner = (banner: File) => {
 		dispatchTyped(uploadBannerStartAction({ banner }))
 	}
 	const scrollTop = () => {
@@ -177,7 +180,7 @@ const DashboardUpload: React.FC = () => {
 						<Formik {...form} validateOnChange={false}>
 							{({ resetForm }) => (
 								<Form>
-									{!videoData ? (
+									{!publishVideo ? (
 										<React.Fragment>
 											<div className="mb-4">
 												<p>
@@ -192,9 +195,9 @@ const DashboardUpload: React.FC = () => {
 													<Uploader
 														name="video_id"
 														onDropFiles={uploadVideo}
-														uploadValue={videoId}
-														uploadProgress={videoUploadProgress}
-														uploadError={videoUploadError}
+														uploadValue={uploadVideoId}
+														uploadProgress={uploadVideoProgress}
+														uploadError={uploadVideoError}
 														maxSize={2000000}
 														accept="video/*"
 													>
@@ -213,10 +216,10 @@ const DashboardUpload: React.FC = () => {
 												<div className="col-12 col-xl-6">
 													<Uploader
 														name="banner_id"
-														onDropFiles={uploadBanner}
-														uploadValue={bannerId}
-														uploadProgress={bannerUploadProgress}
-														uploadError={bannerUploadError}
+														onDropFiles={onUploadBanner}
+														uploadValue={uploadBannerId}
+														uploadProgress={uploadBannerProgress}
+														uploadError={uploadbannerError}
 														maxSize={2000000}
 														accept="image/*"
 													>
@@ -341,18 +344,18 @@ const DashboardUpload: React.FC = () => {
 													<div className="col-sm-5 col-lg-3 mb-3 mb-sm-0">
 														<img
 															className="img-fluid rounded-lg w-100"
-															src={videoData.banner_link}
-															alt={videoData.title}
+															src={publishVideo.banner_link}
+															alt={publishVideo.title}
 														/>
 													</div>
 													<div className="col-sm-7 col-lg-9">
 														<div className="row">
 															<div className="col-lg-9 mb-2 mb-lg-0">
 																<h5 className="text-dark text-hover-primary">
-																	{videoData.title}
+																	{publishVideo.title}
 																</h5>
 																<span className="d-block text-muted text-primary text-lh-sm mb-0">
-																	{videoData.info}
+																	{publishVideo.info}
 																</span>
 															</div>
 
@@ -360,7 +363,7 @@ const DashboardUpload: React.FC = () => {
 																<div className="text-right">
 																	<small className="d-block text-muted">طول ویدئو</small>
 																	<span className="d-block h5 text-primary text-lh-sm mb-0">
-																		{videoData.duration}
+																		{publishVideo.duration}
 																	</span>
 																</div>
 															</div>
@@ -384,19 +387,19 @@ const DashboardUpload: React.FC = () => {
 															color="primary"
 															loader={
 																publishLoading ||
-																videoUploadLoading ||
-																bannerUploadLoading
+																uploadVideoLoading ||
+																uploadBannerLoading
 															}
 															loaderText="درحال پردازش اطلاعات"
-															disanled={!!videoData}
+															disanled={!!publishVideo}
 														>
-															{!videoData ? (
+															{!publishVideo ? (
 																<span>انتشار ویدئو</span>
 															) : (
 																<span>ویدئو با موفقیت منتشر شد</span>
 															)}
 														</Button>
-														{!videoData && (
+														{!publishVideo && (
 															<Button
 																type="button"
 																variant="ghost"
@@ -407,7 +410,7 @@ const DashboardUpload: React.FC = () => {
 																انتشار در زمانی دیگر
 															</Button>
 														)}
-														{videoData && (
+														{publishVideo && (
 															<Button
 																type="button"
 																variant="ghost"

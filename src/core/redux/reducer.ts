@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import intlReducer from '../../store/intl/slice'
-import userReducer from '../../store/user/slice'
+import userReducer from '../../store/auth/slice'
 import appReducer from '../../store/app/slice'
 import videoReducer from '../../store/video/slice'
 import categoriesReducer from '../../store/categories/slice'

@@ -9,10 +9,11 @@ import Notification from '../resources/components/notification'
 import Overlay from '../resources/components/overlay'
 
 import { selectAppDrawer } from '../store/app/selectors'
-import { getCategoriesStartAction } from '../store/categories/slice'
+import { getCategoryListStartAction } from '../store/categories/slice'
 import { getPlaylistsStartAction } from '../store/playlists/slice'
 import { getTagsStartAction } from '../store/tags/slice'
-import { getMyVideosStartAction } from '../store/video/slice'
+import { signInFromLocalStorageAction } from '../store/auth/slice'
+import { getVideoListStartAction } from '../store/video/slice'
 
 import './styles.scss'
 
@@ -32,16 +33,22 @@ const MainContainer: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-	const isLoggedIn = useAuth(true)
+	const isLoggedIn = useAuth()
 	const dispatch = useDispatch()
-
+	useEffect(() => {
+		let credentials = localStorage.getItem('auth')
+		if (credentials) {
+			credentials = JSON.parse(credentials)
+			dispatch(signInFromLocalStorageAction({ credentials }))
+		}
+	}, [])
 	useEffect(() => {
 		// Fetch Global data onLoad
 		if (isLoggedIn) {
-			dispatch(getCategoriesStartAction({}))
-			dispatch(getPlaylistsStartAction({}))
+			dispatch(getCategoryListStartAction())
+			dispatch(getPlaylistsStartAction())
 			dispatch(getTagsStartAction())
-			dispatch(getMyVideosStartAction())
+			dispatch(getVideoListStartAction())
 		}
 	}, [isLoggedIn])
 	return (

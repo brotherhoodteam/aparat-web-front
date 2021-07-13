@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
 import { setTagStartAction } from '../../../../store/tags/slice'
-import { selectTagsAddItemLoading } from '../../../../store/tags/selectors'
-import { selectCategoryAddItemLoading } from '../../../../store/categories/selectors'
+import { selectSetTag } from '../../../../store/tags/selectors'
 import { setCategoryStartAction } from '../../../../store/categories/slice'
 
 import PanelLayout from '../../../layouts/panel'
@@ -12,27 +11,16 @@ import { Input } from '../../../elements/form'
 import Button from '../../../elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
 
-import './styles.scss'
-import { selectPlaylistAddItemLoading } from '../../../../store/playlists/selectors'
+import { selectSetPlaylist } from '../../../../store/playlists/selectors'
 import { setPlaylistStartAction } from '../../../../store/playlists/slice'
-
-interface CategoryState {
-	categoryLabel: string
-	categoryIcon: string
-	categorySlug: string
-}
-interface TagState {
-	tagLabel: string
-}
-interface PalylistState {
-	playlistLabel: string
-}
+import { selectSetCategory } from '../../../../store/categories/selectors'
+import './styles.scss'
 
 const DashboardSettings: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
-	const addItemTagLoading = useSelector(selectTagsAddItemLoading)
-	const addItemCategoryLoading = useSelector(selectCategoryAddItemLoading)
-	const addItemPlaylistLoading = useSelector(selectPlaylistAddItemLoading)
+	const { loading: setCategoryLoading } = useSelector(selectSetCategory)
+	const { loading: setTagLoading } = useSelector(selectSetTag)
+	const { loading: setPlaylistLoading } = useSelector(selectSetPlaylist)
 
 	const tagValidation = yup.object({
 		tagLabel: yup.string().required('نام برچسب را وارد نمایید')
@@ -117,7 +105,7 @@ const DashboardSettings: React.FC = () => {
 							<div className="mb-4">
 								<p>
 									برای اضافه کردن دسته‌ جدید, میتوانید از فروم زیر اسفاده کنید. دسته‌بندی
-									های ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
+									شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
 								</p>
 								<div className="row">
 									<div className="col col-md-4">
@@ -140,7 +128,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={addItemCategoryLoading}>
+								<Button type="submit" color="primary" loader={setCategoryLoading}>
 									افزودن دسته
 								</Button>
 							</div>
@@ -159,7 +147,7 @@ const DashboardSettings: React.FC = () => {
 							<div className="mb-4">
 								<p>
 									برای اضافه کردن برچسب جدید, میتوانید از فروم زیر اسفاده کنید. برچسب های
-									ساخته شده را متوانید در صفحه ویدئو جدید مشاهده کنید.
+									را متوانید در صفحه ویدئو جدید مشاهده کنید.
 								</p>
 							</div>
 							<div className="row">
@@ -172,7 +160,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={addItemTagLoading}>
+								<Button type="submit" color="primary" loader={setTagLoading}>
 									افزودن برچسب
 								</Button>
 							</div>
@@ -201,7 +189,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={addItemPlaylistLoading}>
+								<Button type="submit" color="primary" loader={setPlaylistLoading}>
 									افزودن لیست پخش
 								</Button>
 							</div>

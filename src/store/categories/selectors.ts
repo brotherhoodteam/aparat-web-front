@@ -3,53 +3,52 @@ import { StateType } from '../../core/redux/interface'
 import { CategoryNormalizedType, CategoryType } from './interface'
 
 // State
-export const selectCategoriesState = (state: StateType) => state.categories
+export const selectCategories = (state: StateType) => state.categories
 
-// Tags
-export const selectNormalizedCategoriesData = createSelector(
-	[selectCategoriesState],
+// Set Item
+export const selectSetCategory = createSelector([selectCategories], state => state.set)
+
+// lsit
+export const selectCategoryList = createSelector(
+	[selectCategories],
+	categories => categories.list
+)
+
+export const selectNormalizedCategoryList = createSelector(
+	[selectCategoryList],
 	state => {
-		return state.data.map((item: CategoryType) => ({
-			id: item.id,
-			userId: item.user_id,
-			label: item.title,
-			value: item.slug,
-			icon: item.icon,
-			banner: item.banner,
-			slug: item.slug
-		}))
+		return {
+			data: state.data.map((item: CategoryType) => ({
+				id: item.id,
+				userId: item.user_id,
+				label: item.title,
+				value: item.slug,
+				icon: item.icon,
+				banner: item.banner,
+				slug: item.slug
+			})),
+			loading: state.loading,
+			errors: state.errors
+		}
 	}
 )
 
-export const selectCategoriesData = createSelector(
-	[selectNormalizedCategoriesData],
+export const selectGeneralCategoryList = createSelector(
+	[selectNormalizedCategoryList],
 	categories => {
-		return categories.filter((item: CategoryNormalizedType) => !item.userId)
+		return {
+			...categories,
+			data: categories.data.filter((item: CategoryNormalizedType) => !item.userId)
+		}
 	}
 )
 
-export const selectChannelCategoriesData = createSelector(
-	[selectNormalizedCategoriesData],
+export const selectChannelCategoryList = createSelector(
+	[selectNormalizedCategoryList],
 	categories => {
-		return categories.filter((item: CategoryNormalizedType) => item.userId)
+		return {
+			...categories,
+			data: categories.data.filter((item: CategoryNormalizedType) => item.userId)
+		}
 	}
-)
-
-export const selectCategoriesFetchDataLoading = createSelector(
-	[selectCategoriesState],
-	state => state.fetchDataLoading
-)
-export const selectCategoriesFetchDataError = createSelector(
-	[selectCategoriesState],
-	state => state.fetchDataError
-)
-
-// Set
-export const selectCategoryAddItemLoading = createSelector(
-	[selectCategoriesState],
-	state => state.addItemLoading
-)
-export const selectCategoryAddItemError = createSelector(
-	[selectCategoriesState],
-	state => state.addItemError
 )

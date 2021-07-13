@@ -8,52 +8,56 @@ import {
 } from './interface'
 
 const initialState: CategoriesStateType = {
-	data: [],
-	fetchDataLoading: false,
-	fetchDataError: null,
-	addItemLoading: false,
-	addItemError: null
+	list: {
+		data: [],
+		loading: false,
+		errors: null
+	},
+	set: {
+		loading: false,
+		errors: null
+	}
 }
 
 const tagsSlice = createSlice({
 	name: 'categories',
 	initialState,
 	reducers: {
-		getCategoriesStartAction: (state, action) => {
-			state.data = []
-			state.fetchDataLoading = true
-			state.fetchDataError = null
+		getCategoryListStartAction: state => {
+			state.list.data = []
+			state.list.loading = true
+			state.list.errors = null
 		},
-		getCategoriesSuccessAction: (state, action: GetCategoriesSuccessPayloadType) => {
-			state.data = action.payload.categories
-			state.fetchDataLoading = false
-			state.fetchDataError = null
+		getCategoryListSuccessAction: (state, action: GetCategoriesSuccessPayloadType) => {
+			state.list.data = action.payload.categories
+			state.list.loading = true
+			state.list.errors = null
 		},
-		getCategoriesFailedAction: (state, action: ErrorPayloadType) => {
-			state.data = []
-			state.fetchDataLoading = false
-			state.fetchDataError = action.payload.error
+		getCategoryListFailedAction: (state, action: ErrorPayloadType) => {
+			state.list.data = []
+			state.list.loading = true
+			state.list.errors = action.payload.error
 		},
 		setCategoryStartAction: (state, action: SetCategoryStartPayloadType) => {
-			state.addItemLoading = true
-			state.addItemError = null
+			state.set.loading = true
+			state.set.errors = null
 		},
 		setCategorySuccessAction: (state, action: SetCategorySuccessPayloadType) => {
-			state.data.push(action.payload.category)
-			state.addItemLoading = false
-			state.addItemError = null
+			state.list.data.push(action.payload.category)
+			state.set.loading = false
+			state.set.errors = null
 		},
 		setCategoryFailedAction: (state, action: ErrorPayloadType) => {
-			state.addItemLoading = false
-			state.addItemError = action.payload.error
+			state.set.loading = false
+			state.set.errors = action.payload.error
 		}
 	}
 })
 
 export const {
-	getCategoriesStartAction,
-	getCategoriesSuccessAction,
-	getCategoriesFailedAction,
+	getCategoryListStartAction,
+	getCategoryListSuccessAction,
+	getCategoryListFailedAction,
 	setCategoryStartAction,
 	setCategorySuccessAction,
 	setCategoryFailedAction
