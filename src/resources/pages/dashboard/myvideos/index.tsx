@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import VIDEO_STATE from 'constants/index'
+import VIDEO_STATE from 'core/constants'
 import { VideoType } from 'store/video/interface'
 import { selectListVideo } from 'store/video/selectors'
 import FilterVideos from 'resources/components/filter-videos'

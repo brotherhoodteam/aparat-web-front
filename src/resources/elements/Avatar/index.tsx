@@ -1,6 +1,6 @@
 import React from 'react'
-import useClass from 'hooks/use-class'
-import { ClassName, Colors, Size } from 'interface/component'
+import useClass from 'core/hooks/use-class'
+import { ClassName, Colors, Size } from 'core/interface/component'
 import './styles.scss'
 interface AvatarProps {
 	image: string

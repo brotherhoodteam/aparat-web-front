@@ -3,8 +3,8 @@ import { useField } from 'formik'
 import { FileRejection, useDropzone } from 'react-dropzone'
 
 import Progress from 'resources/elements/progress'
-import { ClassName } from 'interface/component'
-import { ErrorType } from 'interface/exception'
+import { ClassName } from 'core/interface/component'
+import { ErrorType } from 'core/interface/exception'
 
 import UploadImage from 'assets/images/upload.svg'
 import './style.scss'

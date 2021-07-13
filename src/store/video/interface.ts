@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'interface/exception'
-import { UserType } from 'interface/user'
+import { ErrorType } from 'core/interface/exception'
+import { UserType } from 'core/interface/user'
 import { TagType } from 'store/tags/interface'
 
 export interface PublishVideo {

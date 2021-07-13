@@ -20,12 +20,11 @@ import {
 	uploadBannerStartAction,
 	uploadVideoStartAction
 } from 'store/video/slice'
-import useTypedDispatch from 'hooks/use-typed-dispatch'
-import { useCategories } from 'hooks/use-categories'
-import { useTags } from 'hooks/use-tags'
-import { useChannelCategories } from 'hooks/use-channel-categories'
+import useTypedDispatch from 'core/hooks/use-typed-dispatch'
+import { useCategories, useChannelCategories } from 'store/categories/hooks'
+import { useTags } from 'store/tags/hooks'
 
-import { usePlaylists } from 'hooks/use-playlist'
+import { usePlaylists } from 'store/playlists/hooks'
 import Uploader from 'resources/components/uploader'
 import Button from 'resources/elements/button'
 import {
@@ -61,11 +60,8 @@ const DashboardUpload: React.FC = () => {
 	} = useSelector(selectUploadBanner)
 
 	// published video
-	const {
-		response: publishVideo,
-		loading: publishLoading,
-		errors: publishErrors
-	} = useSelector(selectPublishVideo)
+	const { response: publishVideo, loading: publishLoading } =
+		useSelector(selectPublishVideo)
 
 	// const {}: VideoType | null = useSelector(selectPublishVideo)
 

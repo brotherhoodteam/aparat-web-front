@@ -1,5 +1,5 @@
 import { ChangeEvent, FocusEvent, useState } from 'react'
-import useClass from 'hooks/use-class'
+import useClass from 'core/hooks/use-class'
 import './styles.scss'
 
 const Search = () => {

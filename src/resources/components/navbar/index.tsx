@@ -15,7 +15,7 @@ import Search from 'resources/components/search'
 import ROUTES from 'core/router/routes'
 
 import { enableAppDrawerAction } from 'store/app/slice'
-import useAuth from 'hooks/use-auth'
+import useAuth from 'store/auth/hooks'
 
 import Logo from 'assets/images/logo--color-black--without_text.svg'
 import LogoMini from 'assets/images/icon--color-black.svg'

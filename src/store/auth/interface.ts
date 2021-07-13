@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'interface/exception'
+import { ErrorType } from 'core/interface/exception'
 
 export interface SignInType {
 	username: string

@@ -2,10 +2,10 @@ import { createContext, useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
-import useClass from 'hooks/use-class'
-import useClickOutside from 'hooks/use-click-outside'
+import useClass from 'core/hooks/use-class'
+import useClickOutside from 'core/hooks/use-click-outside'
 
-import { LinkTarget } from 'interface/component'
+import { LinkTarget } from 'core/interface/component'
 
 import './styles.scss'
 

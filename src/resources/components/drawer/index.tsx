@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-import useClickOutside from 'hooks/use-click-outside'
+import useClickOutside from 'core/hooks/use-click-outside'
 
 import { selectAppDrawer } from 'store/app/selectors'
 import { disableAppDrawerAction } from 'store/app/slice'
@@ -22,7 +22,7 @@ import LogoImage from 'assets/images/logo--color-black--without_text.svg'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
 import { CategoryNormalizedType } from 'store/categories/interface'
-import { useCategories } from 'hooks/use-categories'
+import { useCategories } from 'store/categories/hooks'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)

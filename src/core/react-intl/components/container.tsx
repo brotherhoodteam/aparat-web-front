@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import flatten from 'flat'
 import { IntlProvider } from 'react-intl'
 import messages from 'lang'
-import useIntl from 'hooks/use-intl'
+import useIntl from 'core/hooks/use-intl'
 
 const IntlContainer: React.FC = ({ children }) => {
 	const { locale } = useIntl()

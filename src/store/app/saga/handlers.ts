@@ -1,6 +1,6 @@
 import { put } from '@redux-saga/core/effects'
 import { call } from 'redux-saga/effects'
-import { getErrorInfo } from 'utils'
+import { getErrorInfo } from 'core/utils'
 import { setStatusAction } from 'store/status/slice'
 import { clearExpireCredentialhandler } from 'store/auth/saga/handlers'
 import { AppErrorPayloadType } from '../interface'

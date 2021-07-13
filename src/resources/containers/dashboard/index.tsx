@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router'
 import Sidebar from 'resources/components/sidebar'
 import Button from 'resources/elements/button'
 
-import useAccess from 'hooks/use-access'
+import useAccess from 'core/hooks/use-access'
 import { RouteType } from 'core/router/interface'
 
 import accountBg from 'assets/images/abstract-shapes-20.svg'
