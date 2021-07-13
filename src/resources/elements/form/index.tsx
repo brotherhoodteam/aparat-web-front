@@ -7,12 +7,12 @@ import Select, {
 	OptionTypeBase
 } from 'react-select'
 
-import useClass from '../../../hooks/use-class'
-import { ClassName, Size } from '../../../interface/component'
+import useClass from 'hooks/use-class'
+import { ClassName, Size } from 'interface/component'
 
 import './styles.scss'
-import Button from '../button'
-import Tooltip from '../../components/Tooltip'
+import Button from 'resources/elements/button'
+import Tooltip from 'resources/components/Tooltip'
 
 interface InputProps {
 	id?: string

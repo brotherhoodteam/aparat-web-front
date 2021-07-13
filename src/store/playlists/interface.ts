@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity } from '../../interface/base'
-import { ErrorType } from '../../interface/exception'
+import { BaseEntity } from 'interface/base'
+import { ErrorType } from 'interface/exception'
 
 // Models
 export interface PlaylistType extends BaseEntity {

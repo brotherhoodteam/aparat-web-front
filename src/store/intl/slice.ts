@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Locales from '../../core/react-intl/interface'
+import Locales from 'core/react-intl/interface'
 import { IntlState, SetLocalePayload } from './interface'
 
 // Define the initial state

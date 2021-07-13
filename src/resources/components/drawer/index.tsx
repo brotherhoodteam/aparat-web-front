@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-import useClickOutside from '../../../hooks/use-click-outside'
+import useClickOutside from 'hooks/use-click-outside'
 
-import { selectAppDrawer } from '../../../store/app/selectors'
-import { disableAppDrawerAction } from '../../../store/app/slice'
+import { selectAppDrawer } from 'store/app/selectors'
+import { disableAppDrawerAction } from 'store/app/slice'
 
-import { Card, CardBody, CardHeader } from '../../elements/card'
-import Button from '../../elements/button'
+import { Card, CardBody, CardHeader } from 'resources/elements/card'
+import Button from 'resources/elements/button'
 import {
 	NavbarButton,
 	NavbarDivider,
@@ -18,11 +18,11 @@ import {
 	NavbarVertical
 } from '../navbar-vertical'
 
-import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
+import LogoImage from 'assets/images/logo--color-black--without_text.svg'
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
-import { CategoryNormalizedType } from '../../../store/categories/interface'
-import { useCategories } from '../../../hooks/use-categories'
+import { CategoryNormalizedType } from 'store/categories/interface'
+import { useCategories } from 'hooks/use-categories'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)

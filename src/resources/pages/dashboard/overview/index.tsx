@@ -1,4 +1,4 @@
-import PanelLayout from '../../../layouts/panel'
+import PanelLayout from 'resources/layouts/panel'
 import './styles.scss'
 
 const DashboardOverview: React.FC = () => {

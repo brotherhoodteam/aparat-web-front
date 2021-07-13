@@ -1,13 +1,13 @@
 import { Formik, Form } from 'formik'
 import { useSelector } from 'react-redux'
-import useTypedDispatch from '../../../hooks/use-typed-dispatch'
+import useTypedDispatch from 'hooks/use-typed-dispatch'
 
-import { selectSignIn } from '../../../store/auth/selectors'
-import { signInAction } from '../../../store/auth/slice'
+import { selectSignIn } from 'store/auth/selectors'
+import { signInAction } from 'store/auth/slice'
 import * as yup from 'yup'
 
-import Button from '../../elements/button'
-import { Input } from '../../elements/form'
+import Button from 'resources/elements/button'
+import { Input } from 'resources/elements/form'
 
 interface SignInFormType {
 	username: string

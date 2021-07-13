@@ -1,5 +1,5 @@
-import { VideoType } from '../../../store/video/interface'
-import VideoItem from '../VideoItem'
+import { VideoType } from 'store/video/interface'
+import VideoItem from 'resources/components/VideoItem'
 
 interface Props {
 	videos: Array<VideoType>

@@ -3,7 +3,7 @@ import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
 import { selectListVideo } from '../selectors'
 
-import api from '../../../core/api'
+import api from 'core/api'
 import {
 	uploadVideoSuccessAction,
 	uploadVideoFailedAction,
@@ -24,7 +24,7 @@ import {
 	updateVideoSuccessAction,
 	getVideoListFailedAction
 } from '../slice'
-import { setStatusAction } from '../../status/slice'
+import { setStatusAction } from 'store/status/slice'
 import {
 	GetVideoStartPayloadType,
 	PublishVideoStartPayloadType,
@@ -38,7 +38,7 @@ import {
 	UploadVideoStartPayloadType,
 	VideosType
 } from '../interface'
-import { appErrorHandler } from '../../app/saga/handlers'
+import { appErrorHandler } from 'store/app/saga/handlers'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'

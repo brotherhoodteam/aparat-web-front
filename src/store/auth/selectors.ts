@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { StateType } from '../../core/redux/interface'
+import { StateType } from 'core/redux/interface'
 
 export const selectUserState = (state: StateType) => state.user
 export const selectSignIn = createSelector(

@@ -1,6 +1,6 @@
 import React from 'react'
-import useClass from '../../../hooks/use-class'
-import { ClassName, Size } from '../../../interface/component'
+import useClass from 'hooks/use-class'
+import { ClassName, Size } from 'interface/component'
 
 import './styles.scss'
 

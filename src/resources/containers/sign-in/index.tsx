@@ -3,20 +3,20 @@ import { Helmet } from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
 
-import { Card, CardBody } from '../../elements/card'
-import Avatar from '../../elements/avatar'
-import Button from '../../elements/button'
-import Divider from '../../elements/divider'
-import SignInForm from '../../components/sign-in-form'
-import Alert from '../../elements/alert'
+import { Card, CardBody } from 'resources/elements/card'
+import Avatar from 'resources/elements/avatar'
+import Button from 'resources/elements/button'
+import Divider from 'resources/elements/divider'
+import SignInForm from 'resources/components/sign-in-form'
+import Alert from 'resources/elements/alert'
 
 import { useSelector } from 'react-redux'
-import { selectSignIn } from '../../../store/auth/selectors'
+import { selectSignIn } from 'store/auth/selectors'
 
-import LogoImage from '../../../assets/images/logo--color-black--without_text.svg'
-import AbstractBg from '../../../assets/images/abstract-bg-4.svg'
-import GoolgleLogo from '../../../assets/images/google.svg'
-import ROUTES from '../../../core/router/routes'
+import LogoImage from 'assets/images/logo--color-black--without_text.svg'
+import AbstractBg from 'assets/images/abstract-bg-4.svg'
+import GoolgleLogo from 'assets/images/google.svg'
+import ROUTES from 'core/router/routes'
 
 const SignInContainer: React.FC = () => {
 	// TODO باید متن اررور الرت فرم داینامیک شود

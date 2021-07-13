@@ -4,27 +4,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import * as yup from 'yup'
 
-import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
+import useTypedDispatch from 'hooks/use-typed-dispatch'
 import {
 	getVideoStartAction,
 	updateVideoStartAction,
 	uploadBannerStartAction
-} from '../../../../store/video/slice'
-import { useCategories } from '../../../../hooks/use-categories'
-import { selectGetVideo, selectUploadBanner } from '../../../../store/video/selectors'
+} from 'store/video/slice'
+import { useCategories } from 'hooks/use-categories'
+import { selectGetVideo, selectUploadBanner } from 'store/video/selectors'
 
-import { Input, SelectBox, TextArea, Switch, CopyInput } from '../../../elements/form'
-import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
-import PanelLayout from '../../../layouts/panel'
-import Uploader from '../../../components/uploader'
+import { Input, SelectBox, TextArea, Switch, CopyInput } from 'resources/elements/form'
+import { Card, CardBody, CardHeader, CardTitle } from 'resources/elements/card'
+import PanelLayout from 'resources/layouts/panel'
+import Uploader from 'resources/components/uploader'
 
-import UploadBannerIcon from '../../../../assets/images/placeholder-img-format.svg'
-import Button from '../../../elements/button'
-import ROUTES from '../../../../core/router/routes'
-import { imageResolver } from '../../../../utils'
+import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
+import Button from 'resources/elements/button'
+import ROUTES from 'core/router/routes'
+import { imageResolver } from 'utils'
 
 import './style.scss'
-import { useTags } from '../../../../hooks/use-tags'
+import { useTags } from 'hooks/use-tags'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {

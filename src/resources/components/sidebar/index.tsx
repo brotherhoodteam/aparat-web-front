@@ -1,9 +1,13 @@
-import Avatar from '../../elements/avatar'
-import { Card, CardBody, CardText, CardTitle } from '../../elements/card'
-import { NavbarLink, NavbarSubtitle, NavbarVertical } from '../navbar-vertical'
+import Avatar from 'resources/elements/avatar'
+import { Card, CardBody, CardText, CardTitle } from 'resources/elements/card'
+import {
+	NavbarLink,
+	NavbarSubtitle,
+	NavbarVertical
+} from 'resources/components/navbar-vertical'
 
-import avatarImage from '../../../assets/images/img6.jpg'
-import ROUTES from '../../../core/router/routes'
+import avatarImage from 'assets/images/img6.jpg'
+import ROUTES from 'core/router/routes'
 import './styles.scss'
 
 const Sidebar: React.FC = () => {

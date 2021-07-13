@@ -2,3 +2,6 @@
 - [] fontface observer
 - [] image loader for react
 - [x] helmet
+- [] change scafolding
+- [] add docs
+- [] refactor exporting

@@ -1,10 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
+import request from 'core/http/request'
+import { SignInType } from 'store/auth/interface'
+import { CreateCategoryType } from 'store/categories/interface'
+import { CreatePlaylistType } from 'store/playlists/interface'
+import { PublishVideo, VideoUpdateType } from 'store/video/interface'
 import { API_END_POINT } from './constants'
-import request from '../http/request'
-import { SignInType } from '../../store/auth/interface'
-import { CreateCategoryType } from '../../store/categories/interface'
-import { CreatePlaylistType } from '../../store/playlists/interface'
-import { PublishVideo, VideoUpdateType } from '../../store/video/interface'
 
 const api = {
 	auth: {

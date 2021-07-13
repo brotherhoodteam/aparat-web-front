@@ -1,5 +1,5 @@
 import { call, put } from '@redux-saga/core/effects'
-import api from '../../../core/api'
+import api from 'core/api'
 import {
 	CategoriesDataResponseType,
 	CategoryDataResponseType,
@@ -11,9 +11,9 @@ import {
 	setCategorySuccessAction,
 	setCategoryFailedAction
 } from '../slice'
-import { setStatusAction } from '../../status/slice'
+import { setStatusAction } from 'store/status/slice'
 
-import { appErrorHandler } from '../../app/saga/handlers'
+import { appErrorHandler } from 'store/app/saga/handlers'
 
 export function* getCategoriesHandler() {
 	try {

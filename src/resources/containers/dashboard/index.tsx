@@ -1,16 +1,16 @@
 import { Redirect, Route, Switch } from 'react-router'
 
-import Sidebar from '../../components/sidebar'
-import Button from '../../elements/button'
+import Sidebar from 'resources/components/sidebar'
+import Button from 'resources/elements/button'
 
-import useAccess from '../../../hooks/use-access'
-import { RouteType } from '../../../core/router/interface'
+import useAccess from 'hooks/use-access'
+import { RouteType } from 'core/router/interface'
 
-import accountBg from '../../../assets/images/abstract-shapes-20.svg'
-import './styles.scss'
+import accountBg from 'assets/images/abstract-shapes-20.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectLogout } from '../../../store/auth/selectors'
-import { logoutStartAction } from '../../../store/auth/slice'
+import { selectLogout } from 'store/auth/selectors'
+import { logoutStartAction } from 'store/auth/slice'
+import './styles.scss'
 
 interface DashboardProps {
 	routes: Array<RouteType>

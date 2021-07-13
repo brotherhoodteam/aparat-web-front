@@ -1,5 +1,5 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { getAuth } from '../../../utils'
+import { getAuth } from '../util'
 
 export const successRequest = (request: AxiosRequestConfig) => {
 	// console.log('successRequest', request)

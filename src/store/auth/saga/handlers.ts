@@ -1,5 +1,5 @@
 import { call, put, delay } from '@redux-saga/core/effects'
-import api from '../../../core/api'
+import api from 'core/api'
 import {
 	logoutSuccessAction,
 	signInFailedAction,
@@ -7,9 +7,10 @@ import {
 	signInSuccessAction
 } from '../slice'
 import { ResponseAuthType, SignInPayloadType } from '../interface'
-import { setAuth } from '../../../utils'
-import { appErrorHandler } from '../../app/saga/handlers'
-import { setStatusAction } from '../../status/slice'
+// ! setAuth bayad check shavad
+import { setAuth } from 'core/http/util'
+import { appErrorHandler } from 'store/app/saga/handlers'
+import { setStatusAction } from 'store/status/slice'
 
 export function* signInActionHandler({ payload: { passport } }: SignInPayloadType) {
 	try {

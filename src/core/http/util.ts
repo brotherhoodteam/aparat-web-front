@@ -1,3 +1,5 @@
+import { CredentialsType } from 'store/auth/interface'
+
 export const createToken = (key: string) => {
 	const props = {
 		set: (token: string) => {
@@ -25,4 +27,19 @@ export const createToken = (key: string) => {
 		}
 	}
 	return props
+}
+
+export const setAuth = (data: CredentialsType): void => {
+	const key = 'auth'
+	localStorage.setItem(key, JSON.stringify(data))
+}
+
+export const getAuth = (): CredentialsType | null => {
+	const key = 'auth'
+	let auth = null
+	try {
+		auth = localStorage.getItem(key)
+		if (auth) auth = JSON.parse(auth)
+	} catch (error) {}
+	return auth
 }

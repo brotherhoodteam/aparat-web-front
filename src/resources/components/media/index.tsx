@@ -1,4 +1,4 @@
-import Avatar from '../../elements/avatar'
+import Avatar from 'resources/elements/avatar'
 import './styles.scss'
 
 interface Props {

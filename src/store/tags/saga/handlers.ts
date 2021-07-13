@@ -1,7 +1,7 @@
 import { call, put } from '@redux-saga/core/effects'
-import api from '../../../core/api'
-import { appErrorHandler } from '../../app/saga/handlers'
-import { setStatusAction } from '../../status/slice'
+import api from 'core/api'
+import { appErrorHandler } from 'store/app/saga/handlers'
+import { setStatusAction } from 'store/status/slice'
 import {
 	SetTagStartPayloadType,
 	TagsDataResponseType,

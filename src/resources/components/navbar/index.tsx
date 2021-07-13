@@ -7,19 +7,19 @@ import {
 	DropdownHeader,
 	DropdownItem,
 	DropdownMenu
-} from '../dropdown'
-import Avatar from '../../elements/avatar'
-import Media from '../media'
-import Button from '../../elements/button'
-import Search from '../search'
-import ROUTES from '../../../core/router/routes'
+} from 'resources/components/dropdown'
+import Avatar from 'resources/elements/avatar'
+import Media from 'resources/components/media'
+import Button from 'resources/elements/button'
+import Search from 'resources/components/search'
+import ROUTES from 'core/router/routes'
 
-import { enableAppDrawerAction } from '../../../store/app/slice'
-import useAuth from '../../../hooks/use-auth'
+import { enableAppDrawerAction } from 'store/app/slice'
+import useAuth from 'hooks/use-auth'
 
-import Logo from '../../../assets/images/logo--color-black--without_text.svg'
-import LogoMini from '../../../assets/images/icon--color-black.svg'
-import ProfileImg from '../../../assets/images/img6.jpg'
+import Logo from 'assets/images/logo--color-black--without_text.svg'
+import LogoMini from 'assets/images/icon--color-black.svg'
+import ProfileImg from 'assets/images/img6.jpg'
 
 import './styles.scss'
 

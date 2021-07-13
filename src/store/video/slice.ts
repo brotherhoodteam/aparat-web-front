@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ErrorPayloadType } from '../tags/interface'
 import {
 	VideoStateType,
 	UploadVideoStartPayloadType,
@@ -15,7 +14,8 @@ import {
 	GetVideoSuccessPayloadType,
 	GetVideoStartPayloadType,
 	UpdateVideoStartPayloadType,
-	UpdateVideoSuccessPayloadType
+	UpdateVideoSuccessPayloadType,
+	ErrorPayloadType
 } from './interface'
 
 const initialState: VideoStateType = {

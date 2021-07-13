@@ -2,9 +2,9 @@ import React, { Fragment, MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { Location, LocationDescriptor } from 'history'
 
-import Spinner from '../spinner'
-import useClass from '../../../hooks/use-class'
-import { ClassName, Colors, Size, Variants } from '../../../interface/component'
+import Spinner from 'resources/elements/spinner'
+import useClass from 'hooks/use-class'
+import { ClassName, Colors, Size, Variants } from 'interface/component'
 
 import './styles.scss'
 

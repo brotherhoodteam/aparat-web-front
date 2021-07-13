@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { useField } from 'formik'
 import { FileRejection, useDropzone } from 'react-dropzone'
 
-import Progress from '../../elements/progress'
-import { ClassName } from '../../../interface/component'
-import { ErrorType } from '../../../interface/exception'
+import Progress from 'resources/elements/progress'
+import { ClassName } from 'interface/component'
+import { ErrorType } from 'interface/exception'
 
-import UploadImage from '../../../assets/images/upload.svg'
+import UploadImage from 'assets/images/upload.svg'
 import './style.scss'
 
 interface Props {

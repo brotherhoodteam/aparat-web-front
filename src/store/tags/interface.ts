@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from '../../interface/exception'
+import { ErrorType } from 'interface/exception'
 
 // Inrface
 export type TagType = {

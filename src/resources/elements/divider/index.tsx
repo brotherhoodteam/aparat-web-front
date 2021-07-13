@@ -1,6 +1,6 @@
 import React from 'react'
-import useClass from '../../../hooks/use-class'
-import { ClassName } from '../../../interface/component'
+import useClass from 'hooks/use-class'
+import { ClassName } from 'interface/component'
 import './styles.scss'
 
 interface DividerProps {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import VIDEO_STATE from '../../../../constants'
-import { VideoType } from '../../../../store/video/interface'
-import { selectListVideo } from '../../../../store/video/selectors'
-import FilterVideos from '../../../components/filter-videos'
-import VideoList from '../../../components/videoList'
-import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
-import PanelLayout from '../../../layouts/panel'
+import VIDEO_STATE from 'constants/index'
+import { VideoType } from 'store/video/interface'
+import { selectListVideo } from 'store/video/selectors'
+import FilterVideos from 'resources/components/filter-videos'
+import VideoList from 'resources/components/videoList'
+import { Card, CardBody, CardHeader, CardTitle } from 'resources/elements/card'
+import PanelLayout from 'resources/layouts/panel'
 
 interface Props {}
 interface FilterType {

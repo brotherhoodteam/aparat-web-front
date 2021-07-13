@@ -3,34 +3,40 @@ import { Form, Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
-import { Card, CardBody, CardHeader, CardTitle } from '../../../elements/card'
-import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from '../../../components/tabs'
-import { SelectBox, Input, TextArea, Switch } from '../../../elements/form'
-import PanelLayout from '../../../layouts/panel'
+import { Card, CardBody, CardHeader, CardTitle } from 'resources/elements/card'
+import {
+	Tabs,
+	TabsBody,
+	TabsContent,
+	TabsItem,
+	TabsList
+} from 'resources/components/tabs'
+import { SelectBox, Input, TextArea, Switch } from 'resources/elements/form'
+import PanelLayout from 'resources/layouts/panel'
 
 import {
 	publishVideoStartAction,
 	publishVideoResetAction,
 	uploadBannerStartAction,
 	uploadVideoStartAction
-} from '../../../../store/video/slice'
-import useTypedDispatch from '../../../../hooks/use-typed-dispatch'
-import { useCategories } from '../../../../hooks/use-categories'
-import { useTags } from '../../../../hooks/use-tags'
-import { useChannelCategories } from '../../../../hooks/use-channel-categories'
+} from 'store/video/slice'
+import useTypedDispatch from 'hooks/use-typed-dispatch'
+import { useCategories } from 'hooks/use-categories'
+import { useTags } from 'hooks/use-tags'
+import { useChannelCategories } from 'hooks/use-channel-categories'
 
-import { usePlaylists } from '../../../../hooks/use-playlist'
-import Uploader from '../../../components/uploader'
-import Button from '../../../elements/button'
+import { usePlaylists } from 'hooks/use-playlist'
+import Uploader from 'resources/components/uploader'
+import Button from 'resources/elements/button'
 import {
 	selectUploadVideo,
 	selectPublishVideo,
 	selectUploadBanner
-} from '../../../../store/video/selectors'
+} from 'store/video/selectors'
 
-import UploadVideoIcon from '../../../../assets/images/video-file.svg'
-import UploadBannerIcon from '../../../../assets/images/placeholder-img-format.svg'
-import { PublishVideo } from '../../../../store/video/interface'
+import UploadVideoIcon from 'assets/images/video-file.svg'
+import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
+import { PublishVideo } from 'store/video/interface'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {

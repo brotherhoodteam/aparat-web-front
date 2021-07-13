@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { StatusStateType } from '../../../store/status/interface'
-import { selectStatus } from '../../../store/status/selector'
-import { clearStatusAction } from '../../../store/status/slice'
+import { StatusStateType } from 'store/status/interface'
+import { selectStatus } from 'store/status/selector'
+import { clearStatusAction } from 'store/status/slice'
 
 const Notification: React.FC = () => {
 	const dispatch = useDispatch()
