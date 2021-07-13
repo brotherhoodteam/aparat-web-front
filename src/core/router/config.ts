@@ -3,15 +3,15 @@ import { RouterType } from './interface'
 import { ACCESS } from './constant'
 import ROUTES from './routes'
 
-const HomeContainer = lazy(() => import('resources/containers/home'))
-const SignInContainer = lazy(() => import('resources/containers/sign-in'))
-const NotFoundContainer = lazy(() => import('resources/containers/notfound'))
-const DashboardContainer = lazy(() => import('resources/containers/dashboard'))
-const DashboardUpload = lazy(() => import('resources/pages/dashboard/upload'))
-const DashboardOverview = lazy(() => import('resources/pages/dashboard/overview'))
-const DashboardVideoList = lazy(() => import('resources/pages/dashboard/myvideos'))
-const DashboardSettings = lazy(() => import('resources/pages/dashboard/settings'))
-const DashboardEditVideo = lazy(() => import('resources/pages/dashboard/edit-video'))
+const HomeContainer = lazy(() => import('app/containers/home'))
+const SignInContainer = lazy(() => import('app/containers/sign-in'))
+const NotFoundContainer = lazy(() => import('app/containers/notfound'))
+const DashboardContainer = lazy(() => import('app/containers/dashboard'))
+const DashboardUpload = lazy(() => import('app/pages/dashboard/upload'))
+const DashboardOverview = lazy(() => import('app/pages/dashboard/overview'))
+const DashboardVideoList = lazy(() => import('app/pages/dashboard/myvideos'))
+const DashboardSettings = lazy(() => import('app/pages/dashboard/settings'))
+const DashboardEditVideo = lazy(() => import('app/pages/dashboard/edit-video'))
 
 const router: RouterType = [
 	{
