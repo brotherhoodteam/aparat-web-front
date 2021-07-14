@@ -12,7 +12,7 @@ import { selectAppDrawer } from 'store/app/selectors'
 import { getCategoryListStartAction } from 'store/categories/slice'
 import { getPlaylistsStartAction } from 'store/playlists/slice'
 import { getTagsStartAction } from 'store/tags/slice'
-import { signInFromLocalStorageAction } from 'store/auth/slice'
+import { changeAuthState, loadCredentialsFromStorageAction } from 'store/auth/slice'
 import { getVideoListStartAction } from 'store/video/slice'
 
 import './styles.scss'
@@ -33,24 +33,27 @@ const MainContainer: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-	const isLoggedIn = useAuth()
+	const { auth } = useAuth()
 	const dispatch = useDispatch()
+
 	useEffect(() => {
 		let credentials = localStorage.getItem('auth')
 		if (credentials) {
 			credentials = JSON.parse(credentials)
-			dispatch(signInFromLocalStorageAction({ credentials }))
+			dispatch(loadCredentialsFromStorageAction({ credentials }))
+		} else {
+			dispatch(changeAuthState())
 		}
 	}, [])
 	useEffect(() => {
 		// Fetch Global data onLoad
-		if (isLoggedIn) {
+		if (auth) {
 			dispatch(getCategoryListStartAction())
 			dispatch(getPlaylistsStartAction())
 			dispatch(getTagsStartAction())
 			dispatch(getVideoListStartAction())
 		}
-	}, [isLoggedIn])
+	}, [auth])
 	return (
 		<>
 			<Header />

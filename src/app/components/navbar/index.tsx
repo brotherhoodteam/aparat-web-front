@@ -24,7 +24,7 @@ import ProfileImg from 'assets/images/img6.jpg'
 import './styles.scss'
 
 const Navbar = () => {
-	const isLoggedIn = useAuth()
+	const { auth } = useAuth()
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
 		dispatch(enableAppDrawerAction())
@@ -59,8 +59,8 @@ const Navbar = () => {
 				</div>
 				<div className="navbar-content-left">
 					<ul className="navbar-nav">
-						{isLoggedIn && <SubscriberNav />}
-						{!isLoggedIn && <GuestNav />}
+						{{ auth } && <SubscriberNav />}
+						{!{ auth } && <GuestNav />}
 					</ul>
 				</div>
 			</div>

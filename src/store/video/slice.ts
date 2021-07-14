@@ -9,11 +9,12 @@ import {
 	PublishVideoSuccessPayloadType,
 	ProgressPayloadType,
 	GetVideoListSuccessPayloadType,
-	RemoveVideoStartPayloadType,
+	DeleteVideoStartPayloadType,
 	RemoveVideoSuccessPayloadType,
 	GetVideoSuccessPayloadType,
 	GetVideoStartPayloadType,
 	UpdateVideoStartPayloadType,
+	GetVideoListStartPayloadType,
 	UpdateVideoSuccessPayloadType,
 	ErrorPayloadType
 } from './interface'
@@ -130,7 +131,7 @@ const videoSlice = createSlice({
 			state.get.errors = action.payload.error
 		},
 
-		getVideoListStartAction: state => {
+		getVideoListStartAction: (state, action: GetVideoListStartPayloadType) => {
 			state.list.data = null
 			state.list.loading = true
 			state.list.errors = null
@@ -145,7 +146,7 @@ const videoSlice = createSlice({
 			state.list.loading = false
 			state.list.errors = action.payload.error
 		},
-		deleteVideoStartAction: (state, action: RemoveVideoStartPayloadType) => {
+		deleteVideoStartAction: (state, action: DeleteVideoStartPayloadType) => {
 			state.delete.slug = action.payload.slug
 			state.delete.done = false
 			state.delete.loading = true

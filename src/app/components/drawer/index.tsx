@@ -19,10 +19,11 @@ import {
 } from '../navbar-vertical'
 
 import LogoImage from 'assets/images/logo--color-black--without_text.svg'
-import 'react-perfect-scrollbar/dist/css/styles.css'
-import './styles.scss'
 import { CategoryNormalizedType } from 'store/categories/interface'
 import { useCategories } from 'store/categories/hooks'
+
+import 'react-perfect-scrollbar/dist/css/styles.css'
+import './styles.scss'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
@@ -54,14 +55,10 @@ const Drawer = () => {
 	return (
 		<CSSTransition
 			in={isOpenDrawer}
-			timeout={300}
+			timeout={200}
 			classNames={{
-				enter: 'hidden',
 				enterActive: 'active',
-				enterDone: 'active',
-				exit: 'active',
-				exitActive: 'hidden',
-				exitDone: 'hidden'
+				enterDone: 'active'
 			}}
 			unmountOnExit
 		>

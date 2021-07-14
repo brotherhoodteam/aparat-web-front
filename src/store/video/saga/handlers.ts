@@ -2,8 +2,8 @@ import { call, fork, put, take } from '@redux-saga/core/effects'
 import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
 import { selectListVideo } from '../selectors'
-
 import api from 'core/api'
+
 import {
 	uploadVideoSuccessAction,
 	uploadVideoFailedAction,
@@ -28,7 +28,7 @@ import { setStatusAction } from 'store/status/slice'
 import {
 	GetVideoStartPayloadType,
 	PublishVideoStartPayloadType,
-	RemoveVideoStartPayloadType,
+	DeleteVideoStartPayloadType,
 	ResponseGetVideoList,
 	ResponseGetVideo,
 	ResponsePublishType,
@@ -36,9 +36,11 @@ import {
 	UpdateVideoStartPayloadType,
 	UploadBannerStartPayloadType,
 	UploadVideoStartPayloadType,
-	VideosType
+	VideosType,
+	GetVideoListStartPayloadType
 } from '../interface'
 import { appErrorHandler } from 'store/app/saga/handlers'
+import { createNoSubstitutionTemplateLiteral } from 'typescript'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -162,9 +164,9 @@ export function* publishVideoHandler({
 	}
 }
 
-export function* getVideoList() {
+export function* getVideoList({ payload }: GetVideoListStartPayloadType) {
 	try {
-		const { data }: ResponseGetVideoList = yield call(api.video.getList)
+		const { data }: ResponseGetVideoList = yield call(api.video.getList, payload?.page)
 		yield put(
 			getVideoListSuccessAction({
 				videos: data
@@ -175,7 +177,7 @@ export function* getVideoList() {
 	}
 }
 
-export function* removeVideoHandler({ payload: { slug } }: RemoveVideoStartPayloadType) {
+export function* deleteVideoHandler({ payload: { slug } }: DeleteVideoStartPayloadType) {
 	try {
 		const { data }: ResponseRemoveVideo = yield call(api.video.delete, slug)
 		yield put(deleteVideoSuccessAction(data))

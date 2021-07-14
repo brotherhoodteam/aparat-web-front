@@ -12,7 +12,7 @@ import {
 	uploadVideoHandler,
 	uploadBannerHandler,
 	publishVideoHandler,
-	removeVideoHandler,
+	deleteVideoHandler,
 	getVideoHandler,
 	getVideoList,
 	updateVideoHandler
@@ -23,7 +23,7 @@ export function* uploadWatcher() {
 	yield takeLatest(uploadVideoStartAction, uploadVideoHandler)
 	yield takeLatest(publishVideoStartAction, publishVideoHandler)
 	yield takeLatest(getVideoListStartAction, getVideoList)
-	yield takeLatest(deleteVideoStartAction, removeVideoHandler)
+	yield takeLatest(deleteVideoStartAction, deleteVideoHandler)
 	yield takeLatest(getVideoStartAction, getVideoHandler)
 	yield takeLatest(updateVideoStartAction, updateVideoHandler)
 }

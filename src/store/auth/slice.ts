@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import {
 	SignInPayloadType,
 	SignInFailedPayloadType,
@@ -8,7 +9,8 @@ import {
 
 const initialState: AuthStateType = {
 	auth: {
-		credentials: null
+		credentials: null,
+		pending: true
 	},
 	signIn: {
 		passport: null,
@@ -29,9 +31,6 @@ const authSlice = createSlice({
 			state.signIn.passport = action.payload.passport
 			state.signIn.loading = true
 			state.signIn.error = null
-		},
-		signInFromLocalStorageAction: (state, action: any) => {
-			state.auth.credentials = action.payload.credentials
 		},
 		signInSuccessAction: (state, action: SignInSuccessPayloadType) => {
 			state.auth.credentials = action.payload.credentials
@@ -56,6 +55,13 @@ const authSlice = createSlice({
 		},
 		logoutSuccessAction: state => {
 			state.logout.loading = false
+		},
+		loadCredentialsFromStorageAction: (state, action: any) => {
+			state.auth.credentials = action.payload.credentials
+			state.auth.pending = false
+		},
+		changeAuthState: state => {
+			state.auth.pending = false
 		}
 	}
 })
@@ -65,8 +71,9 @@ export const {
 	signInAction,
 	signInSuccessAction,
 	signInFailedAction,
-	signInFromLocalStorageAction,
+	loadCredentialsFromStorageAction,
 	logoutStartAction,
-	logoutSuccessAction
+	logoutSuccessAction,
+	changeAuthState
 } = authSlice.actions
 export default authSlice.reducer

@@ -16,10 +16,25 @@ export const API_END_POINT = {
 			url: `/video/${slug}`,
 			method: 'GET'
 		}),
-		GET_LIST: (pagination?: string): EndPoint => ({
-			url: `/video${pagination ? '?' + pagination : ''}`,
-			method: 'GET'
-		}),
+		GET_LIST: (page?: string, per_page?: string): EndPoint => {
+			let queries = ''
+			if (page || per_page) {
+				queries += '?'
+			}
+			if (page) {
+				queries += `page=${page}`
+			}
+			if (page && per_page) {
+				queries += '&'
+			}
+			if (per_page) {
+				queries += `page=${per_page}`
+			}
+			return {
+				url: `/video${queries ? '/' + queries : ''}`,
+				method: 'GET'
+			}
+		},
 		DELETE: (slug: string): EndPoint => ({
 			url: `/video/${slug}`,
 			method: 'DELETE'

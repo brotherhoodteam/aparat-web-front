@@ -52,6 +52,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 			handleCloseModal()
 		}
 	}, [deleteVideoDone])
+
 	return (
 		<Card className="h-100" bordered>
 			<CardImgTop img={video.banner_link}>

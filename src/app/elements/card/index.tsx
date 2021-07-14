@@ -98,4 +98,16 @@ const CardTitle: React.FC<CardTitleProps> = ({ children, className }) => {
 const CardText: React.FC<CardTextProps> = ({ children, className }) => {
 	return <p className={`card-text ${className ? className : ''}`}>{children}</p>
 }
-export { Card, CardHeader, CardImgTop, CardBody, CardTitle, CardText }
+const CardFooter: React.FC<CardBodyProps> = ({ children, className, ...props }) => {
+	const styles = useClass({
+		defaultClass: 'card-footer',
+		otherClass: className
+	})
+
+	return (
+		<div className={styles} {...props}>
+			{children}
+		</div>
+	)
+}
+export { Card, CardHeader, CardImgTop, CardBody, CardTitle, CardText, CardFooter }

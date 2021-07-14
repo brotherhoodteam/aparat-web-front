@@ -7,17 +7,22 @@
 	background-color: #fff;
 	border-left: 0.0625rem solid #e7eaf3;
 	box-shadow: -5px 0 12px rgb(103 119 136 / 10%);
-	transform: translate3d(0, 0, 0);
-	opacity: 0;
 	z-index: 101;
-	transition: 300ms opacity ease, 300ms transform ease;
-	&.active {
-		transform: translate3d(0, 0, 0);
-		opacity: 1;
-	}
+	opacity: 0;
+	transform: translate3d(100%, 0, 0);
+	transition: all 200ms ease;
+	// &.init {
+	// 	transform: translate3d(100%, 0, 0);
+	// 	opacity: 0;
+	// }
+
 	&.hidden {
 		opacity: 0;
 		transform: translate3d(100%, 0, 0);
+	}
+	&.active {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
 	}
 	&-logo {
 		width: 5rem;
@@ -33,6 +38,6 @@
 	}
 	&-body {
 		max-height: 86vh;
-		padding: .5rem 0 !important;
+		padding: 0.5rem 0 !important;
 	}
 }

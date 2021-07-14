@@ -22,9 +22,9 @@ import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
 import Button from 'app/elements/button'
 import ROUTES from 'core/router/routes'
 import { imageResolver } from 'core/utils'
+import { useTags } from 'store/tags/hooks'
 
 import './style.scss'
-import { useTags } from 'store/tags/hooks'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {
@@ -101,13 +101,13 @@ const EditVideo: React.FC<Props> = () => {
 		},
 		onSubmit: (value: any) => {
 			if (video) {
-				const video = {
+				const data = {
 					...value,
 					category: value?.category.value,
 					tags: value.tags?.map((tag: any) => tag.value)
 				}
 				console.log('video', video)
-				dispatch(updateVideoStartAction({ slug: video.slug, video }))
+				dispatch(updateVideoStartAction({ slug: video.slug, video: data }))
 			}
 		},
 

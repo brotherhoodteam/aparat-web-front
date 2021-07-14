@@ -4,7 +4,10 @@ import { RouteType } from './interface'
 import useAccess from 'core/hooks/use-access'
 
 const RouterComponent = () => {
-	const { routerAccess } = useAccess()
+	const { routerAccess, pending } = useAccess()
+
+	if (pending) return null
+
 	return (
 		<Switch>
 			{router.map(

@@ -44,6 +44,7 @@ export type UserActionTypes =
 export interface AuthStateType {
 	auth: {
 		credentials: CredentialsType | null
+		pending: boolean
 	}
 	signIn: {
 		passport: SignInType | null
