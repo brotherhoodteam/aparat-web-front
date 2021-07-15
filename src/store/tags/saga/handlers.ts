@@ -1,5 +1,5 @@
 import { call, put } from '@redux-saga/core/effects'
-import api from 'core/api'
+import api from 'config/api'
 import { appErrorHandler } from 'store/app/saga/handlers'
 import { setStatusAction } from 'store/status/slice'
 import {

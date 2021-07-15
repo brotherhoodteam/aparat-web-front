@@ -20,7 +20,7 @@ import Uploader from 'app/components/uploader'
 
 import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
 import Button from 'app/elements/button'
-import ROUTES from 'core/router/routes'
+import ROUTES from 'config/router/routes'
 import { imageResolver } from 'core/utils'
 import { useTags } from 'store/tags/hooks'
 

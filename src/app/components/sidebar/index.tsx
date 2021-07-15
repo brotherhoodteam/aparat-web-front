@@ -7,12 +7,13 @@ import {
 } from 'app/components/navbar-vertical'
 
 import avatarImage from 'assets/images/img6.jpg'
-import ROUTES from 'core/router/routes'
+import ROUTES from 'config/router/routes'
 import './styles.scss'
+import React from 'react'
 
 const Sidebar: React.FC = () => {
 	return (
-		<>
+		<React.Fragment>
 			<aside className="sidebar">
 				<Card className="mb-3">
 					<CardBody className="px-0">
@@ -59,7 +60,7 @@ const Sidebar: React.FC = () => {
 					</CardBody>
 				</Card>
 			</aside>
-		</>
+		</React.Fragment>
 	)
 }
 

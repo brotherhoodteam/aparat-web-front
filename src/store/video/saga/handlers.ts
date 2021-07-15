@@ -2,7 +2,7 @@ import { call, fork, put, take } from '@redux-saga/core/effects'
 import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
 import { selectListVideo } from '../selectors'
-import api from 'core/api'
+import api from 'config/api'
 
 import {
 	uploadVideoSuccessAction,

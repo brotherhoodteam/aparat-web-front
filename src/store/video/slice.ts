@@ -132,7 +132,7 @@ const videoSlice = createSlice({
 		},
 
 		getVideoListStartAction: (state, action: GetVideoListStartPayloadType) => {
-			state.list.data = null
+			// state.list.data = null
 			state.list.loading = true
 			state.list.errors = null
 		},
@@ -145,6 +145,11 @@ const videoSlice = createSlice({
 			state.list.data = null
 			state.list.loading = false
 			state.list.errors = action.payload.error
+		},
+		videoListResetAction: state => {
+			state.list.data = null
+			state.list.loading = false
+			state.list.errors = null
 		},
 		deleteVideoStartAction: (state, action: DeleteVideoStartPayloadType) => {
 			state.delete.slug = action.payload.slug
@@ -231,6 +236,7 @@ export const {
 	publishVideoResetAction,
 	getVideoListStartAction,
 	getVideoListSuccessAction,
+	videoListResetAction,
 	getVideoListFailedAction,
 	deleteVideoStartAction,
 	deleteVideoSuccessAction,

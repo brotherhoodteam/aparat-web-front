@@ -76,13 +76,26 @@ const router: RouterType = [
 				exact: false,
 				access: ACCESS.PUBLIC,
 				component: NotFoundContainer
+			},
+			{
+				name: 'notfound',
+				path: '*',
+				exact: false,
+				access: ACCESS.PUBLIC,
+				component: NotFoundContainer
 			}
 		]
 	},
-
 	{
 		name: 'notfound',
 		path: ROUTES.MAIN.NOTFOUND().path,
+		exact: false,
+		access: ACCESS.PUBLIC,
+		component: NotFoundContainer
+	},
+	{
+		name: 'notfound',
+		path: '*',
 		exact: false,
 		access: ACCESS.PUBLIC,
 		component: NotFoundContainer

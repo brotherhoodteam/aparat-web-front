@@ -4,7 +4,7 @@ import Sidebar from 'app/components/sidebar'
 import Button from 'app/elements/button'
 
 import useAccess from 'core/hooks/use-access'
-import { RouteType } from 'core/router/interface'
+import { RouteType } from 'config/router/interface'
 
 import accountBg from 'assets/images/abstract-shapes-20.svg'
 import { useDispatch, useSelector } from 'react-redux'

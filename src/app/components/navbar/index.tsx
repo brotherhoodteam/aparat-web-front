@@ -12,7 +12,7 @@ import Avatar from 'app/elements/avatar'
 import Media from 'app/components/media'
 import Button from 'app/elements/button'
 import Search from 'app/components/search'
-import ROUTES from 'core/router/routes'
+import ROUTES from 'config/router/routes'
 
 import { enableAppDrawerAction } from 'store/app/slice'
 import useAuth from 'store/auth/hooks'
@@ -22,6 +22,7 @@ import LogoMini from 'assets/images/icon--color-black.svg'
 import ProfileImg from 'assets/images/img6.jpg'
 
 import './styles.scss'
+import React from 'react'
 
 const Navbar = () => {
 	const { auth } = useAuth()
@@ -70,7 +71,7 @@ const Navbar = () => {
 
 const SubscriberNav = () => {
 	return (
-		<>
+		<React.Fragment>
 			<li className="navbar-item">
 				<Button
 					variant="ghost"
@@ -157,7 +158,7 @@ const SubscriberNav = () => {
 					</DropdownMenu>
 				</Dropdown>
 			</li>
-		</>
+		</React.Fragment>
 	)
 }
 const GuestNav = () => {

@@ -9,7 +9,7 @@ interface RouteType {
 const ROUTES = {
 	MAIN: {
 		HOME: (): RouteType => ({ path: '/', link: '/' }),
-		NOTFOUND: (): RouteType => ({ path: '*', link: '*' })
+		NOTFOUND: (): RouteType => ({ path: '/notfound', link: 'notfound' })
 	},
 	VIDEO: {
 		SINGLE: (slug?: string) => ({

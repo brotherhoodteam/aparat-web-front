@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -48,7 +48,7 @@ const Notification: React.FC = () => {
 		}
 	}
 	return (
-		<>
+		<React.Fragment>
 			<ToastContainer
 				position="bottom-left"
 				autoClose={5000}
@@ -60,7 +60,7 @@ const Notification: React.FC = () => {
 				draggable
 				pauseOnHover
 			/>
-		</>
+		</React.Fragment>
 	)
 }
 export default Notification

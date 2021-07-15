@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useField } from 'formik'
 import { FileRejection, useDropzone } from 'react-dropzone'
 
@@ -100,10 +100,10 @@ const Uploader: React.FC<Props> = ({
 				{/* After Select File */}
 				<div {...getRootProps({ className: 'uploader-body' })}>
 					{(meta.error || (!acceptedFiles.length && !isDragActive)) && (
-						<>
+						<React.Fragment>
 							<input {...getInputProps()} />
 							{children}
-						</>
+						</React.Fragment>
 					)}
 
 					{/* onSelect File */}
@@ -143,21 +143,21 @@ const Uploader: React.FC<Props> = ({
 											{uploadValue && 'آپلود با موفقیت انجام شد'}
 											{/* upload pending */}
 											{!uploadValue && !uploadError && (
-												<>
+												<React.Fragment>
 													درحال آپلود
 													<span dir="ltr" className="px-1">
 														{uploadProgress}%
 													</span>
-												</>
+												</React.Fragment>
 											)}
 											{/* upload Failed */}
 											{uploadError && (
-												<>
+												<React.Fragment>
 													<span className="text-danger">
 														{uploadProgress}% مشکلی پیش آمده
 														<span dir="ltr" className="px-1"></span>
 													</span>
-												</>
+												</React.Fragment>
 											)}
 										</small>
 									</div>

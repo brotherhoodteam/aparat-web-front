@@ -1,0 +1,7 @@
+.content-loader {
+	$self: &;
+    overflow-x: hidden;
+	&#{$self}-rtl {
+		transform: scaleX(-1) translateX(-10px)!important;;
+	}
+}

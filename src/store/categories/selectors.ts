@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { StateType } from 'core/redux/interface'
+import { StateType } from 'config/redux/interface'
 import { CategoryNormalizedType, CategoryType } from './interface'
 
 // State

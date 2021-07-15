@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Router from 'core/router'
+import Router from 'config/router'
 import useAuth from 'store/auth/hooks'
 import useClass from 'core/hooks/use-class'
 import Drawer from 'app/components/drawer'
@@ -51,11 +51,10 @@ const App: React.FC = () => {
 			dispatch(getCategoryListStartAction())
 			dispatch(getPlaylistsStartAction())
 			dispatch(getTagsStartAction())
-			dispatch(getVideoListStartAction())
 		}
 	}, [auth])
 	return (
-		<>
+		<React.Fragment>
 			<Header />
 			<MainContainer>
 				<Router />
@@ -63,7 +62,7 @@ const App: React.FC = () => {
 			<Notification />
 			<Drawer />
 			<Overlay />
-		</>
+		</React.Fragment>
 	)
 }
 

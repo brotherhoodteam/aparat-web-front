@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { VIDEO_STATE } from 'core/constants'
-import ROUTES from 'core/router/routes'
+import ROUTES from 'config/router/routes'
 import { useCategories } from 'store/categories/hooks'
 import { disableAppOverlayAction, enableAppOverlayAction } from 'store/app/slice'
 import { VideoType } from 'store/video/interface'
