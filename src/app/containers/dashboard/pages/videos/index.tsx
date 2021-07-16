@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'core/hooks/use-query'
@@ -9,51 +9,50 @@ import PanelLayout from 'app/layouts/panel'
 import Pagination from 'app/components/pagination'
 import { getVideoListStartAction, videoListResetAction } from 'store/video/slice'
 import { VideoLoader } from 'app/components/content-loader'
+import NoData from 'app/components/no-data'
 
 interface Props {}
 
 const DashboardVideoList: React.FC<Props> = () => {
-	const [page, setPage] = useState<string | null>(null)
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const query = useQuery()
+	const q = Number(query.get('page'))
 
-	// get data
-	const { data: videos, loading } = useSelector(selectListVideo)
+	// Select Videos Store
+	const { data, loading } = useSelector(selectListVideo)
 
+	// Set Default page
 	useEffect(() => {
-		// Set Default Queries
-		const q = query.get('page')
-		history.push({
-			search: `?page=${q ? q : 1}`
-		})
-		setPage(q ? q : '1')
+		handleChangePage(q)
+
 		return () => {
+			// Reset Videos Store when componnet unmounted
 			dispatch(videoListResetAction())
 		}
 	}, [])
 
-	// chack data
+	// Fetch Data
 	useEffect(() => {
-		if (videos) {
-			if (videos.current_page > videos.last_page) {
-				history.push({ pathname: '/notfound' })
+		if (q) {
+			dispatch(getVideoListStartAction({ page: q }))
+		}
+	}, [q])
+
+	useEffect(() => {
+		if (data && q) {
+			if (q > data.last_page) {
+				handleChangePage(data.last_page)
 			}
 		}
-	}, [videos])
+	}, [data])
 
-	// Set Get Videos
-	useEffect(() => {
-		if (page) {
-			dispatch(getVideoListStartAction({ page }))
-		}
-	}, [page])
-
-	const handleChangePage = (page: number | string) => {
+	// Chnage Pages Query
+	const handleChangePage = (page: number | string | null) => {
+		console.log('page', page)
 		history.push({
-			search: `?page=${page}`
+			search: `?page=${page ? page : 1}`
 		})
-		setPage(page.toString())
 	}
 
 	return (
@@ -64,8 +63,12 @@ const DashboardVideoList: React.FC<Props> = () => {
 						<CardTitle className="h5">ویدئوهای من</CardTitle>
 					</CardHeader>
 					<CardBody>
-						{!loading && videos ? (
-							<VideoList videos={videos.data} />
+						{!loading && data ? (
+							data.total ? (
+								<VideoList videos={data.data} />
+							) : (
+								<NoData className="mx-auto">متاسفانه ویدئویی وجود ندارد</NoData>
+							)
 						) : (
 							<div className="row">
 								<div className="col-12">
@@ -75,10 +78,10 @@ const DashboardVideoList: React.FC<Props> = () => {
 						)}
 					</CardBody>
 					<CardFooter className="my-3">
-						{videos ? (
+						{data ? (
 							<Pagination
-								pageLength={videos.last_page}
-								active={videos.current_page}
+								pageLength={data.last_page}
+								active={data.current_page}
 								onChangePage={handleChangePage}
 							/>
 						) : null}

@@ -70,7 +70,7 @@ const api = {
 
 			return request(config)
 		},
-		getList: (pagination?: string) => {
+		getList: (pagination?: string | number) => {
 			const { method, url } = API_END_POINT.VIDEO.GET_LIST(pagination)
 			const config: AxiosRequestConfig = {
 				method,

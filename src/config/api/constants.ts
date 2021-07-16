@@ -16,7 +16,7 @@ export const API_END_POINT = {
 			url: `/video/${slug}`,
 			method: 'GET'
 		}),
-		GET_LIST: (page?: string, per_page?: string): EndPoint => {
+		GET_LIST: (page?: string | number, per_page?: string): EndPoint => {
 			let queries = ''
 			if (page || per_page) {
 				queries += '?'

@@ -12,6 +12,7 @@ const DashboardOverview = lazy(() => import('app/containers/dashboard/pages/over
 const DashboardVideoList = lazy(() => import('app/containers/dashboard/pages/videos'))
 const DashboardSettings = lazy(() => import('app/containers/dashboard/pages/settings'))
 const DashboardEditVideo = lazy(() => import('app/containers/dashboard/pages/edit-video'))
+const DashboardVideo = lazy(() => import('app/containers/dashboard/pages/video'))
 
 const router: RouterType = [
 	{
@@ -48,6 +49,13 @@ const router: RouterType = [
 				exact: true,
 				access: ACCESS.PROTECTED,
 				component: DashboardUpload
+			},
+			{
+				name: 'video',
+				path: ROUTES.DASHBOARD.VIDEO().path,
+				exact: true,
+				access: ACCESS.PROTECTED,
+				component: DashboardVideo
 			},
 			{
 				name: 'edit',

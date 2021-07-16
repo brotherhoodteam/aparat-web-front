@@ -10,7 +10,7 @@ import {
 	ProgressPayloadType,
 	GetVideoListSuccessPayloadType,
 	DeleteVideoStartPayloadType,
-	RemoveVideoSuccessPayloadType,
+	DeleteVideoSuccessPayloadType,
 	GetVideoSuccessPayloadType,
 	GetVideoStartPayloadType,
 	UpdateVideoStartPayloadType,
@@ -157,7 +157,7 @@ const videoSlice = createSlice({
 			state.delete.loading = true
 			state.delete.errors = null
 		},
-		deleteVideoSuccessAction: (state, action: RemoveVideoSuccessPayloadType) => {
+		deleteVideoSuccessAction: (state, action: DeleteVideoSuccessPayloadType) => {
 			state.delete.loading = false
 			state.delete.done = true
 			state.delete.errors = null

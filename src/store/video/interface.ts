@@ -93,7 +93,7 @@ export interface UpdateVideoData {
 	video: VideoUpdateType
 }
 export interface VideoQueryData {
-	page?: string
+	page?: string | number
 	per_page?: string
 }
 export interface GetVideoSuccessData {
@@ -138,7 +138,7 @@ export interface UploadBannerSuccessPayloadType
 	extends PayloadAction<UploadedBannerDataType> {}
 
 export interface DeleteVideoStartPayloadType extends PayloadAction<DeleteVideoData> {}
-export interface RemoveVideoSuccessPayloadType extends PayloadAction<any> {}
+export interface DeleteVideoSuccessPayloadType extends PayloadAction<any> {}
 
 export interface GetVideoStartPayloadType extends PayloadAction<GetVideoData> {}
 export interface GetVideoSuccessPayloadType extends PayloadAction<GetVideoSuccessData> {}
@@ -166,7 +166,7 @@ export interface ResponsePublishType {
 export interface ResponseGetVideoList {
 	data: VideosType
 }
-export interface ResponseRemoveVideo {
+export interface ResponseDeleteVideo {
 	data: any
 }
 export interface ResponseGetVideo {
@@ -182,7 +182,7 @@ export type VideoActionTypes =
 	| PublishVideoSuccessPayloadType
 	| GetVideoListSuccessPayloadType
 	| DeleteVideoStartPayloadType
-	| RemoveVideoSuccessPayloadType
+	| DeleteVideoSuccessPayloadType
 	| ErrorPayloadType
 	| ProgressPayloadType
 

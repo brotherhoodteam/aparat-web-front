@@ -26,6 +26,10 @@ const ROUTES = {
 			path: `/${BASE_URL.DASHBOARD}/video/add`,
 			link: `/${BASE_URL.DASHBOARD}/video/add`
 		}),
+		VIDEO: (slug?: string) => ({
+			path: `/${BASE_URL.DASHBOARD}/video/:slug`,
+			link: `/${BASE_URL.DASHBOARD}/video/${slug}`
+		}),
 		EDIT_VIDEO: (slug?: string) => ({
 			path: `/${BASE_URL.DASHBOARD}/video/edit/:slug`,
 			link: `/${BASE_URL.DASHBOARD}/video/edit/${slug}`

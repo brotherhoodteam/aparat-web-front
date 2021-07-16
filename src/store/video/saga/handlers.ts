@@ -32,7 +32,7 @@ import {
 	ResponseGetVideoList,
 	ResponseGetVideo,
 	ResponsePublishType,
-	ResponseRemoveVideo,
+	ResponseDeleteVideo,
 	UpdateVideoStartPayloadType,
 	UploadBannerStartPayloadType,
 	UploadVideoStartPayloadType,
@@ -40,7 +40,6 @@ import {
 	GetVideoListStartPayloadType
 } from '../interface'
 import { appErrorHandler } from 'store/app/saga/handlers'
-import { createNoSubstitutionTemplateLiteral } from 'typescript'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -179,11 +178,11 @@ export function* getVideoList({ payload }: GetVideoListStartPayloadType) {
 
 export function* deleteVideoHandler({ payload: { slug } }: DeleteVideoStartPayloadType) {
 	try {
-		const { data }: ResponseRemoveVideo = yield call(api.video.delete, slug)
+		const { data }: ResponseDeleteVideo = yield call(api.video.delete, slug)
 		yield put(deleteVideoSuccessAction(data))
+
 		const { data: videos }: { data: VideosType } = yield select(selectListVideo)
-		const newItems = videos.data.filter(item => item.slug !== slug)
-		yield put(getVideoListSuccessAction({ videos: { ...videos, data: newItems } }))
+		yield put(getVideoListStartAction({ page: videos.current_page }))
 		yield put(setStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
 	} catch (error) {
 		yield call(appErrorHandler, error, deleteVideoFailedAction, true)

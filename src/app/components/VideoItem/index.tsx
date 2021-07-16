@@ -43,7 +43,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 		dispatch(disableAppOverlayAction())
 		setIsOpenModal(false)
 	}
-	const handleRemoveVideo = () => {
+	const handleDeleteVideo = () => {
 		dispatch(deleteVideoStartAction({ slug: video.slug }))
 	}
 
@@ -112,7 +112,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 				</div>
 				<div className="d-flex align-items-center">
 					<Button
-						to={{ pathname: `/${ROUTES.VIDEO.SINGLE(video.slug).link}` }}
+						to={{ pathname: ROUTES.DASHBOARD.VIDEO(video.slug).link }}
 						classNames="mx-2 ms-0"
 						color="primary"
 						size="sm"
@@ -148,18 +148,19 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 						<strong className="mx-1">{video.title}</strong>
 						را میخواهید پاک کنید؟
 					</p>
-					<div className="d-flex justify-content-center align-items-center ">
+					<div className="d-flex align-items-center ">
 						<Button
 							classNames="mx-1"
 							color="danger"
-							onClick={handleRemoveVideo}
+							onClick={handleDeleteVideo}
 							loader={deleteVideoLoading}
 						>
 							حذف
 						</Button>
 						<Button
 							classNames="mx-1"
-							color="secondary"
+							variant="outline"
+							color="danger"
 							disanled={deleteVideoLoading}
 							onClick={handleCloseModal}
 						>
