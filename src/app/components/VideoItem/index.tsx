@@ -13,6 +13,8 @@ import Button from 'app/elements/button'
 import { Card, CardBody, CardImgTop } from 'app/elements/card'
 import Modal from 'app/components/modal'
 import './styles.scss'
+import Moment from 'react-moment'
+import 'moment-timezone'
 
 interface Props {
 	video: VideoType
@@ -31,8 +33,8 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 		[categories, video.category_id]
 	)
 	const GetPublishDate = () => {
-		const date = new Date(video.updated_at)
-		return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`
+		const date = new Date(video.updated_at).toLocaleDateString('fa-IR')
+		return date
 	}
 
 	const handleOpenModal = () => {
