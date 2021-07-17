@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet'
-
+import './styles.scss'
 interface PayloadLayoutProp {
 	title?: string
 }

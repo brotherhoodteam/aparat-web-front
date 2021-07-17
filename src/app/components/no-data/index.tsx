@@ -18,7 +18,7 @@ const NoData: React.FC<Props> = ({ children, className }) => {
 			<div className="no-data-img mb-3">
 				<LazyLoadImage effect="blur" src={SorryImage} alt="no data" />
 			</div>
-			{children && <p>{children}</p>}
+			{children && children}
 		</div>
 	)
 }

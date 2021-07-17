@@ -26,6 +26,8 @@ import { useTags } from 'store/tags/hooks'
 
 import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import NoData from 'app/components/no-data'
+import EditVideoLoader from 'app/components/content-loader/edit-video-loader'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {
@@ -137,15 +139,26 @@ const EditVideo: React.FC<Props> = () => {
 					<CardTitle className="h5">{title}</CardTitle>
 				</CardHeader>
 				<CardBody>
-					{/*Start Render Loading */}
-					{videoLoading && <div>در حال بارگذاری</div>}
-					{/*Finish Content Loading */}
-
 					{/*Start Render Errors */}
 					{videoErrors && (
-						<p>موردی که می‌خواهید ویرایش کنید پیدا نشد. شاید حذف شده باشد؟</p>
+						<NoData className="align-items-center justify-content-center">
+							<p className="mb-3">
+								موردی که می‌خواهید ویرایش کنید پیدا نشد. شاید حذف شده باشد؟
+							</p>
+							<Button
+								color="primary"
+								variant="soft"
+								to={{ pathname: ROUTES.DASHBOARD.OVERVIEW().link }}
+							>
+								رفتن به داشتبورد
+							</Button>
+						</NoData>
 					)}
 					{/*Finish Render Errors */}
+
+					{/*Start Render Loading */}
+					{videoLoading && <EditVideoLoader />}
+					{/*Finish Content Loading */}
 
 					{/*Start Render Content */}
 					{video && (

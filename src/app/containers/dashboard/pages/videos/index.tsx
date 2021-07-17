@@ -10,6 +10,8 @@ import Pagination from 'app/components/pagination'
 import { fetchVideoListRequest, fetchVideoListReset } from 'store/video/slice'
 import { VideoLoader } from 'app/components/content-loader'
 import NoData from 'app/components/no-data'
+import Button from 'app/elements/button'
+import ROUTES from 'config/router/routes'
 
 interface Props {}
 
@@ -20,7 +22,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 	const q = Number(query.get('page'))
 
 	// Select Videos Store
-	const { data, loading } = useSelector(selectVideoList)
+	const { data, loading, errors } = useSelector(selectVideoList)
 
 	// Set Default page
 	useEffect(() => {
@@ -49,33 +51,56 @@ const DashboardVideoList: React.FC<Props> = () => {
 
 	// Chnage Pages Query
 	const handleChangePage = (page: number | string | null) => {
-		console.log('page', page)
 		history.push({
 			search: `?page=${page ? page : 1}`
 		})
 	}
 
+	const title = errors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
+
 	return (
 		<div>
-			<PanelLayout title="ویدئوهای من">
+			<PanelLayout title={title}>
 				<Card>
 					<CardHeader>
-						<CardTitle className="h5">ویدئوهای من</CardTitle>
+						<CardTitle className="h5">{title}</CardTitle>
 					</CardHeader>
 					<CardBody>
-						{!loading && data ? (
-							data.total ? (
-								<VideoList videos={data.data} />
-							) : (
-								<NoData className="mx-auto">متاسفانه ویدئویی وجود ندارد</NoData>
-							)
-						) : (
+						{/*Start Render Errors */}
+						{errors && (
+							<NoData className="align-items-center justify-content-center">
+								<p className="mb-3">متاسفانه مشکلی پیش آمده</p>
+								<Button
+									color="primary"
+									variant="soft"
+									to={{ pathname: ROUTES.DASHBOARD.OVERVIEW().link }}
+								>
+									رفتن به داشتبورد
+								</Button>
+							</NoData>
+						)}
+						{/*Finish Render Errors */}
+
+						{/*Start Render Loading */}
+						{loading && !data && (
 							<div className="row">
 								<div className="col-12">
 									<VideoLoader length={9} size="col-12 col-md-6" />
 								</div>
 							</div>
 						)}
+
+						{/*Start Content Loading */}
+						{!loading &&
+							data &&
+							(data.total ? (
+								<VideoList videos={data.data} />
+							) : (
+								<NoData className="mx-auto">
+									<p>متاسفانه ویدئویی وجود ندارد</p>
+								</NoData>
+							))}
+						{/*Finish Content Loading */}
 					</CardBody>
 					<CardFooter className="my-3">
 						{data ? (
