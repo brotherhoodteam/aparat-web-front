@@ -13,8 +13,6 @@ import Button from 'app/elements/button'
 import { Card, CardBody, CardImgTop } from 'app/elements/card'
 import Modal from 'app/components/modal'
 import './styles.scss'
-import Moment from 'react-moment'
-import 'moment-timezone'
 
 interface Props {
 	video: Video

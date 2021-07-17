@@ -2,6 +2,7 @@ import React from 'react'
 import useClass from 'core/hooks/use-class'
 import { ClassName, Colors, Size } from 'core/interface/component'
 import './styles.scss'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 interface AvatarProps {
 	image: string
 	size?: Size
@@ -37,7 +38,7 @@ const Avatar: React.FC<AvatarProps> = React.memo(
 
 		return (
 			<span className={styles}>
-				<img src={image} className="avatar-img" alt={alt} />
+				<LazyLoadImage effect="blur" src={image} className="avatar-img" alt={alt} />
 				{status && <span className={statusStyles}></span>}
 			</span>
 		)

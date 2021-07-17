@@ -1,7 +1,9 @@
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import useClass from 'core/hooks/use-class'
 import { ClassName, Size } from 'core/interface/component'
 
+import ImgaePlacehlder from 'assets/images/placeholder.png'
 import './styles.scss'
 
 interface CardPorps {
@@ -62,7 +64,13 @@ const CardImgTop: React.FC<CardImgTopProps> = ({
 	return (
 		<div className={styles} {...props}>
 			<div className="card-img-top">
-				<img src={img} alt={alt ? alt : ''} />
+				<LazyLoadImage
+					delayTime={2000}
+					placeholderSrc={ImgaePlacehlder}
+					effect="blur"
+					src={img}
+					alt={alt ? alt : ''}
+				/>
 			</div>
 			{children}
 		</div>

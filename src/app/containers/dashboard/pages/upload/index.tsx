@@ -28,9 +28,10 @@ import {
 } from 'store/video/selectors'
 
 import UploadVideoIcon from 'assets/images/video-file.svg'
-import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
+import UploadBannerIcon from 'assets/images/placeholder.svg'
 import { CreatePost } from 'store/video/interface'
 import './styles.scss'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const DashboardUpload: React.FC = () => {
 	const panelRef = useRef<HTMLDivElement>(null)
@@ -197,7 +198,11 @@ const DashboardUpload: React.FC = () => {
 														accept="video/*"
 													>
 														<div className="uploader-drag-img">
-															<img src={UploadVideoIcon} alt="add file" />
+															<LazyLoadImage
+																effect="blur"
+																src={UploadVideoIcon}
+																alt="add file"
+															/>
 														</div>
 														<p className="mb-2">فایل ویدئو را انتخاب یا اینحا رها کنید</p>
 														<small className="text-muted">
@@ -219,7 +224,11 @@ const DashboardUpload: React.FC = () => {
 														accept="image/*"
 													>
 														<div className="uploader-drag-img">
-															<img src={UploadBannerIcon} alt="add file" />
+															<LazyLoadImage
+																effect="blur"
+																src={UploadBannerIcon}
+																alt="add file"
+															/>
 														</div>
 														<p className="mb-2">فایل بنر را انتخاب یا اینحا رها کنید</p>
 														<small className="text-muted mb-0">
@@ -337,7 +346,8 @@ const DashboardUpload: React.FC = () => {
 											<CardBody>
 												<div className="row">
 													<div className="col-sm-5 col-lg-3 mb-3 mb-sm-0">
-														<img
+														<LazyLoadImage
+															effect="blur"
 															className="img-fluid rounded-lg w-100"
 															src={createPost.banner_link}
 															alt={createPost.title}

@@ -18,13 +18,14 @@ import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Uploader from 'app/components/uploader'
 
-import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
+import UploadBannerIcon from 'assets/images/placeholder.svg'
 import Button from 'app/elements/button'
 import ROUTES from 'config/router/routes'
 import { imageResolver } from 'core/utils'
 import { useTags } from 'store/tags/hooks'
 
 import './style.scss'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {
@@ -209,7 +210,8 @@ const EditVideo: React.FC<Props> = () => {
 													تصویر ویدئو
 												</span>
 												<div className="preview-img">
-													<img
+													<LazyLoadImage
+														effect="blur"
 														src={getPreviewImg(uploadBannerId, video.banner_link)}
 														alt="تصویر ویدئو"
 														width="100%"
@@ -226,7 +228,11 @@ const EditVideo: React.FC<Props> = () => {
 												accept="image/*"
 											>
 												<div className="uploader-drag-img">
-													<img src={UploadBannerIcon} alt="add file" />
+													<LazyLoadImage
+														effect="blur"
+														src={UploadBannerIcon}
+														alt="add file"
+													/>
 												</div>
 												<p className="mb-2">فایل بنر را انتخاب یا اینحا رها کنید</p>
 												<small className="text-muted mb-0">

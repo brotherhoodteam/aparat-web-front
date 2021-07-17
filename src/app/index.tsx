@@ -13,7 +13,6 @@ import { fetchCategoryListRequest } from 'store/categories/slice'
 import { fetchPlaylistListRequest } from 'store/playlists/slice'
 import { fetchTagListRequest } from 'store/tags/slice'
 import { changeAuthState, loadCredentialsFromStorageAction } from 'store/auth/slice'
-import { fetchVideoListRequest } from 'store/video/slice'
 
 import './styles.scss'
 

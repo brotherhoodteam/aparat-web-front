@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 import useClickOutside from 'core/hooks/use-click-outside'
 
@@ -76,7 +78,7 @@ const Drawer = () => {
 							<i className="tio-clear tio-lg"></i>
 						</Button>
 						<div className="drawer-logo">
-							<img src={LogoImage} alt="" />
+							<LazyLoadImage src={LogoImage} alt="user" effect="blur" />
 						</div>
 					</CardHeader>
 

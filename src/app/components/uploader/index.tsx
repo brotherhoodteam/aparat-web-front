@@ -8,6 +8,7 @@ import { Error } from 'core/interface/exception'
 
 import UploadImage from 'assets/images/upload.svg'
 import './style.scss'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
 	name: string
@@ -110,7 +111,7 @@ const Uploader: React.FC<Props> = ({
 					{!meta.error && isDragActive ? (
 						<div>
 							<div className="uploader-drag-img">
-								<img src={UploadImage} alt="add file" />
+								<LazyLoadImage effect="blur" src={UploadImage} alt="add file" />
 							</div>
 							<p>فایل را رها کنید</p>
 						</div>
@@ -126,7 +127,7 @@ const Uploader: React.FC<Props> = ({
 											<video src={preview.url} autoPlay muted />
 										)}
 										{preview && file.type === 'image' && (
-											<img src={preview.url} alt={file.name} />
+											<LazyLoadImage effect="blur" src={preview.url} alt={file.name} />
 										)}
 									</div>
 								</div>

@@ -17,6 +17,7 @@ import LogoImage from 'assets/images/logo--color-black--without_text.svg'
 import AbstractBg from 'assets/images/abstract-bg-4.svg'
 import GoolgleLogo from 'assets/images/google.svg'
 import ROUTES from 'config/router/routes'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const SignInContainer: React.FC = () => {
 	// TODO باید متن اررور الرت فرم داینامیک شود
@@ -49,7 +50,7 @@ const SignInContainer: React.FC = () => {
 				</div>
 				{/* LOGO */}
 				<div className="d-flex justify-content-center mb-5">
-					<img
+					<LazyLoadImage
 						src={LogoImage}
 						alt="logo"
 						className="z-index-2"

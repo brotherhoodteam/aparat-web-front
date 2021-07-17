@@ -1,6 +1,7 @@
 import SorryImage from 'assets/images/sorry.svg'
 import useClass from 'core/hooks/use-class'
 import { ClassName } from 'core/interface/component'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import './styles.scss'
 
 interface Props {
@@ -15,7 +16,7 @@ const NoData: React.FC<Props> = ({ children, className }) => {
 	return (
 		<div className={styles}>
 			<div className="no-data-img mb-3">
-				<img src={SorryImage} alt="no data" />
+				<LazyLoadImage effect="blur" src={SorryImage} alt="no data" />
 			</div>
 			{children && <p>{children}</p>}
 		</div>

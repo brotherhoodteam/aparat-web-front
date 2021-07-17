@@ -23,6 +23,7 @@ import ProfileImg from 'assets/images/img6.jpg'
 
 import './styles.scss'
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const Navbar = () => {
 	const { auth } = useAuth()
@@ -49,8 +50,18 @@ const Navbar = () => {
 						</li>
 						<li className="navbar-item">
 							<div className="navbar-brand">
-								<img src={Logo} alt="Logo" className="navbar-brand-logo" />
-								<img src={LogoMini} alt="Logo" className="navbar-brand-logo-mini" />
+								<LazyLoadImage
+									effect="blur"
+									src={Logo}
+									alt="Logo"
+									className="navbar-brand-logo"
+								/>
+								<LazyLoadImage
+									effect="blur"
+									src={LogoMini}
+									alt="Logo"
+									className="navbar-brand-logo-mini"
+								/>
 							</div>
 						</li>
 					</ul>
