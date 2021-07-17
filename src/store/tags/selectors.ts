@@ -1,17 +1,13 @@
 import { createSelector } from 'reselect'
-import { StateType } from 'config/redux/interface'
-import { TagType } from './interface'
+import { State } from 'config/redux/interface'
+import { Tag } from './interface'
 
 // State
-export const selectTagsState = (state: StateType) => state.tags
-
-// set
-export const selectSetTag = createSelector([selectTagsState], tags => tags.set)
-
-// list
-export const selectTagList = createSelector([selectTagsState], tags => tags.list)
+export const selectTagsStore = (state: State) => state.tags
+export const selectCreatedTag = createSelector([selectTagsStore], tags => tags.create)
+export const selectTagList = createSelector([selectTagsStore], tags => tags.list)
 export const selectNormalizedTagList = createSelector([selectTagList], list => ({
-	data: list.data.map((item: TagType) => ({
+	data: list.data.map((item: Tag) => ({
 		id: item.id,
 		label: item.title,
 		value: item.id

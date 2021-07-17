@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { AppErrorPayloadType, AppStateType } from './interface'
-const initialState: AppStateType = {
+import { AppErrorPayload, AppState } from './interface'
+
+const initialState: AppState = {
 	error: null,
 	drawer: false,
 	overlay: false,
@@ -12,41 +13,41 @@ const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setAppErrorAction: (state, action: AppErrorPayloadType) => {
+		openAppError: (state, action: AppErrorPayload) => {
 			state.error = action.payload.error
 		},
-		cleanAppErrorAction: state => {
+		cleanAppError: state => {
 			state.error = null
 		},
-		enableAppDrawerAction: state => {
+		enableAppDrawer: state => {
 			state.drawer = true
 		},
-		disableAppDrawerAction: state => {
+		disableAppDrawer: state => {
 			state.drawer = false
 		},
-		enableAppOverlayAction: state => {
+		enableAppOverlay: state => {
 			state.overlay = true
 		},
-		disableAppOverlayAction: state => {
+		disableAppOverlay: state => {
 			state.overlay = false
 		},
-		enableAppModalAction: state => {
+		enableAppModal: state => {
 			state.modal = true
 		},
-		disableAppModalAction: state => {
+		disableAppModal: state => {
 			state.modal = false
 		}
 	}
 })
 
 export const {
-	setAppErrorAction,
-	cleanAppErrorAction,
-	enableAppDrawerAction,
-	enableAppOverlayAction,
-	disableAppOverlayAction,
-	disableAppDrawerAction,
-	enableAppModalAction,
-	disableAppModalAction
+	openAppError,
+	cleanAppError,
+	enableAppDrawer,
+	enableAppOverlay,
+	disableAppOverlay,
+	disableAppDrawer,
+	enableAppModal,
+	disableAppModal
 } = appSlice.actions
 export default appSlice.reducer

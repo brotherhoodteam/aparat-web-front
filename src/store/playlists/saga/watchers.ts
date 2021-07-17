@@ -1,8 +1,8 @@
 import { takeLatest } from '@redux-saga/core/effects'
-import { getPlaylistsStartAction, setPlaylistStartAction } from '../slice'
-import { getPlaylistsHandler, setPlaylistHandler } from './handlers'
+import { fetchPlaylistListRequest, createPlaylistRequest } from '../slice'
+import { fetchPlaylistListHandler, createPlaylistHandler } from './handlers'
 
 export function* playlistsWatcher() {
-	yield takeLatest(getPlaylistsStartAction, getPlaylistsHandler)
-	yield takeLatest(setPlaylistStartAction, setPlaylistHandler)
+	yield takeLatest(fetchPlaylistListRequest, fetchPlaylistListHandler)
+	yield takeLatest(createPlaylistRequest, createPlaylistHandler)
 }

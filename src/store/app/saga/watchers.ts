@@ -1,23 +1,23 @@
 import { takeLatest } from '@redux-saga/core/effects'
 import {
-	disableAppDrawerAction,
-	disableAppModalAction,
-	enableAppDrawerAction,
-	enableAppModalAction,
-	setAppErrorAction
+	disableAppDrawer,
+	disableAppModal,
+	enableAppDrawer,
+	enableAppModal,
+	openAppError
 } from '../slice'
 import {
-	closeAppDrawerHandler,
-	openAppDrawerHandler,
-	openAppModalHandler,
-	closeAppModalHandler,
+	disableAppDrawerHandler,
+	enableAppDrawerHandler,
+	enableAppModalHandler,
+	disableAppModalHandler,
 	appGlobalErrorHandler
 } from './handlers'
 
 export function* appWatcher() {
-	yield takeLatest(enableAppDrawerAction, openAppDrawerHandler)
-	yield takeLatest(disableAppDrawerAction, closeAppDrawerHandler)
-	yield takeLatest(enableAppModalAction, openAppModalHandler)
-	yield takeLatest(disableAppModalAction, closeAppModalHandler)
-	yield takeLatest(setAppErrorAction, appGlobalErrorHandler)
+	yield takeLatest(enableAppDrawer, enableAppDrawerHandler)
+	yield takeLatest(disableAppDrawer, disableAppDrawerHandler)
+	yield takeLatest(enableAppModal, enableAppModalHandler)
+	yield takeLatest(disableAppModal, disableAppModalHandler)
+	yield takeLatest(openAppError, appGlobalErrorHandler)
 }

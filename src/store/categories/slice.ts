@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	SetCategoryStartPayloadType,
-	GetCategoriesSuccessPayloadType,
-	ErrorPayloadType,
-	CategoriesStateType,
-	SetCategorySuccessPayloadType
+	CreateCategoryRequest,
+	FetchCategoryListSuccess,
+	ErrorAction,
+	CategoriesState,
+	CreateCategorySuccess
 } from './interface'
 
-const initialState: CategoriesStateType = {
+const initialState: CategoriesState = {
 	list: {
 		data: [],
 		loading: false,
 		errors: null
 	},
-	set: {
+	create: {
 		loading: false,
 		errors: null
 	}
@@ -23,43 +23,43 @@ const tagsSlice = createSlice({
 	name: 'categories',
 	initialState,
 	reducers: {
-		getCategoryListStartAction: state => {
+		fetchCategoryListRequest: state => {
 			state.list.data = []
 			state.list.loading = true
 			state.list.errors = null
 		},
-		getCategoryListSuccessAction: (state, action: GetCategoriesSuccessPayloadType) => {
-			state.list.data = action.payload.categories
+		fetchCategoryListSuccess: (state, action: FetchCategoryListSuccess) => {
+			state.list.data = action.payload.categoryList
 			state.list.loading = true
 			state.list.errors = null
 		},
-		getCategoryListFailedAction: (state, action: ErrorPayloadType) => {
+		fetchCategoryListFailure: (state, action: ErrorAction) => {
 			state.list.data = []
 			state.list.loading = true
 			state.list.errors = action.payload.error
 		},
-		setCategoryStartAction: (state, action: SetCategoryStartPayloadType) => {
-			state.set.loading = true
-			state.set.errors = null
+		createCategoryRequest: (state, action: CreateCategoryRequest) => {
+			state.create.loading = true
+			state.create.errors = null
 		},
-		setCategorySuccessAction: (state, action: SetCategorySuccessPayloadType) => {
+		createCategorySuccess: (state, action: CreateCategorySuccess) => {
 			state.list.data.push(action.payload.category)
-			state.set.loading = false
-			state.set.errors = null
+			state.create.loading = false
+			state.create.errors = null
 		},
-		setCategoryFailedAction: (state, action: ErrorPayloadType) => {
-			state.set.loading = false
-			state.set.errors = action.payload.error
+		createCategoryFailure: (state, action: ErrorAction) => {
+			state.create.loading = false
+			state.create.errors = action.payload.error
 		}
 	}
 })
 
 export const {
-	getCategoryListStartAction,
-	getCategoryListSuccessAction,
-	getCategoryListFailedAction,
-	setCategoryStartAction,
-	setCategorySuccessAction,
-	setCategoryFailedAction
+	fetchCategoryListRequest,
+	fetchCategoryListSuccess,
+	fetchCategoryListFailure,
+	createCategoryRequest,
+	createCategorySuccess,
+	createCategoryFailure
 } = tagsSlice.actions
 export default tagsSlice.reducer

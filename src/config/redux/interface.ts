@@ -1,18 +1,18 @@
-import { AppActionTypes } from 'store/app/interface'
-import { IntlActionTypes } from 'store/intl/interface'
-import { TagsActionType } from 'store/tags/interface'
+import { AppActions } from 'store/app/interface'
+import { IntlActions } from 'store/intl/interface'
+import { TagsActions } from 'store/tags/interface'
 import { CategoriesActionType } from 'store/categories/interface'
-import { UserActionTypes } from 'store/auth/interface'
+import { UserActions } from 'store/auth/interface'
 import { VideoActionTypes } from 'store/video/interface'
-import { PlaylistsActionType } from 'store/playlists/interface'
+import { PlaylistsActions } from 'store/playlists/interface'
 import appReducer from './reducer'
 
-export type StateType = ReturnType<typeof appReducer>
-export type ActionType =
-	| IntlActionTypes
-	| UserActionTypes
-	| AppActionTypes
-	| TagsActionType
+export type State = ReturnType<typeof appReducer>
+export type Actions =
+	| IntlActions
+	| UserActions
+	| AppActions
+	| TagsActions
 	| VideoActionTypes
 	| CategoriesActionType
-	| PlaylistsActionType
+	| PlaylistsActions

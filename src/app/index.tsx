@@ -9,11 +9,11 @@ import Notification from 'app/components/notification'
 import Overlay from 'app/components/overlay'
 
 import { selectAppDrawer } from 'store/app/selectors'
-import { getCategoryListStartAction } from 'store/categories/slice'
-import { getPlaylistsStartAction } from 'store/playlists/slice'
-import { getTagsStartAction } from 'store/tags/slice'
+import { fetchCategoryListRequest } from 'store/categories/slice'
+import { fetchPlaylistListRequest } from 'store/playlists/slice'
+import { fetchTagListRequest } from 'store/tags/slice'
 import { changeAuthState, loadCredentialsFromStorageAction } from 'store/auth/slice'
-import { getVideoListStartAction } from 'store/video/slice'
+import { fetchVideoListRequest } from 'store/video/slice'
 
 import './styles.scss'
 
@@ -48,9 +48,9 @@ const App: React.FC = () => {
 	useEffect(() => {
 		// Fetch Global data onLoad
 		if (auth) {
-			dispatch(getCategoryListStartAction())
-			dispatch(getPlaylistsStartAction())
-			dispatch(getTagsStartAction())
+			dispatch(fetchCategoryListRequest())
+			dispatch(fetchPlaylistListRequest())
+			dispatch(fetchTagListRequest())
 		}
 	}, [auth])
 	return (

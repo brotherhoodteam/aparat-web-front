@@ -1,24 +1,21 @@
 import { createSelector } from 'reselect'
-import { StateType } from 'config/redux/interface'
-import { CategoryNormalizedType, CategoryType } from './interface'
+import { State } from 'config/redux/interface'
+import { CategoryNormalized, Category } from './interface'
 
-// State
-export const selectCategories = (state: StateType) => state.categories
-
-// Set Item
-export const selectSetCategory = createSelector([selectCategories], state => state.set)
-
-// lsit
+export const selectCategories = (state: State) => state.categories
+export const selectCreatedCategory = createSelector(
+	[selectCategories],
+	state => state.create
+)
 export const selectCategoryList = createSelector(
 	[selectCategories],
 	categories => categories.list
 )
-
 export const selectNormalizedCategoryList = createSelector(
 	[selectCategoryList],
 	state => {
 		return {
-			data: state.data.map((item: CategoryType) => ({
+			data: state.data.map((item: Category) => ({
 				id: item.id,
 				userId: item.user_id,
 				label: item.title,
@@ -32,23 +29,21 @@ export const selectNormalizedCategoryList = createSelector(
 		}
 	}
 )
-
 export const selectGeneralCategoryList = createSelector(
 	[selectNormalizedCategoryList],
 	categories => {
 		return {
 			...categories,
-			data: categories.data.filter((item: CategoryNormalizedType) => !item.userId)
+			data: categories.data.filter((item: CategoryNormalized) => !item.userId)
 		}
 	}
 )
-
 export const selectChannelCategoryList = createSelector(
 	[selectNormalizedCategoryList],
 	categories => {
 		return {
 			...categories,
-			data: categories.data.filter((item: CategoryNormalizedType) => item.userId)
+			data: categories.data.filter((item: CategoryNormalized) => item.userId)
 		}
 	}
 )

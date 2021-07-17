@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	SetPlaylistStartPayloadType,
-	GetPlaylistsSuccessPayloadType,
-	ErrorPayloadType,
-	PlaylistsStateType,
-	SetPlaylistSuccessPayloadType
+	CreatePlaylistRequest,
+	FetchPlaylistListSuccess,
+	ErrorAction,
+	PlaylistsState,
+	CreatePlaylistSuccess
 } from './interface'
 
-const initialState: PlaylistsStateType = {
+const initialState: PlaylistsState = {
 	list: {
 		data: [],
 		loading: false,
 		errors: null
 	},
-	set: {
+	create: {
 		loading: false,
 		errors: null
 	}
@@ -23,43 +23,43 @@ const playlistSlice = createSlice({
 	name: 'playlists',
 	initialState,
 	reducers: {
-		getPlaylistsStartAction: state => {
+		fetchPlaylistListRequest: state => {
 			state.list.data = []
 			state.list.loading = true
 			state.list.errors = null
 		},
-		getPlaylistsSuccessAction: (state, action: GetPlaylistsSuccessPayloadType) => {
-			state.list.data = action.payload.playlists
+		fetchPlaylistListSuccess: (state, action: FetchPlaylistListSuccess) => {
+			state.list.data = action.payload.playlistList
 			state.list.loading = false
 			state.list.errors = null
 		},
-		getPlaylistsFailedAction: (state, action: ErrorPayloadType) => {
+		fetchPlaylistListFailure: (state, action: ErrorAction) => {
 			state.list.data = []
 			state.list.loading = false
 			state.list.errors = action.payload.error
 		},
-		setPlaylistStartAction: (state, action: SetPlaylistStartPayloadType) => {
-			state.set.loading = true
-			state.set.errors = null
+		createPlaylistRequest: (state, action: CreatePlaylistRequest) => {
+			state.create.loading = true
+			state.create.errors = null
 		},
-		setPlaylistSuccessAction: (state, action: SetPlaylistSuccessPayloadType) => {
+		createPlaylistSuccess: (state, action: CreatePlaylistSuccess) => {
 			state.list.data.push(action.payload.playlist)
-			state.set.loading = false
-			state.set.errors = null
+			state.create.loading = false
+			state.create.errors = null
 		},
-		setPlaylistFailedAction: (state, action: ErrorPayloadType) => {
-			state.set.loading = false
-			state.set.errors = action.payload.error
+		createPlaylistFailure: (state, action: ErrorAction) => {
+			state.create.loading = false
+			state.create.errors = action.payload.error
 		}
 	}
 })
 
 export const {
-	getPlaylistsStartAction,
-	getPlaylistsSuccessAction,
-	getPlaylistsFailedAction,
-	setPlaylistStartAction,
-	setPlaylistSuccessAction,
-	setPlaylistFailedAction
+	fetchPlaylistListRequest,
+	fetchPlaylistListSuccess,
+	fetchPlaylistListFailure,
+	createPlaylistRequest,
+	createPlaylistSuccess,
+	createPlaylistFailure
 } = playlistSlice.actions
 export default playlistSlice.reducer

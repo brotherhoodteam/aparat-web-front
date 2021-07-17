@@ -1,69 +1,70 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { BaseEntity } from 'core/interface/base'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
-// Models
-export interface PlaylistType extends BaseEntity {
+// TYPIES
+export interface Playlist extends BaseEntity {
 	title: string
 	size: number
 }
-export interface CreatePlaylistType {
+export interface CreatePlaylist {
 	title: string
 }
-export interface PlaylistNormalizedType {
+export interface PlaylistNormalized {
 	id: number
 	userId?: string
 	label: string
 	value: number
 }
 
-// Data Interface
-export interface PlaylistDataType {
-	playlist: PlaylistType
+// PAYLOAD
+export interface CreatePlaylistRequestPayload {
+	playlist: CreatePlaylist
 }
-export interface PlaylistsDataType {
-	playlists: Array<PlaylistType>
+export interface CreatePlaylistSuccessPayload {
+	playlist: Playlist
 }
-export interface CreatePlaylistDataType {
-	playlist: CreatePlaylistType
-}
-export interface ErrorDataType {
-	error: ErrorType
+export interface CreatePlaylistResponsePayload {
+	data: Playlist
 }
 
-// Payloads
-// set
-export interface SetPlaylistStartPayloadType
-	extends PayloadAction<CreatePlaylistDataType> {}
-export interface SetPlaylistSuccessPayloadType extends PayloadAction<PlaylistDataType> {}
-// get
-export interface GetPlaylistsSuccessPayloadType
-	extends PayloadAction<PlaylistsDataType> {}
-// error
-export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
+export interface FetchPlaylistListSuccessPayload {
+	playlistList: Array<Playlist>
+}
+export interface FetchPlaylistListResponsePayload {
+	data: Array<Playlist>
+}
 
-// Response
-export type PlaylistsDataResponseType = {
-	data: Array<PlaylistType>
+export interface ErrorPayload {
+	error: Error
 }
-export type PlaylistDataResponseType = {
-	data: PlaylistType
-}
+
+// CREATOR ACTION
+export interface CreatePlaylistRequest
+	extends PayloadAction<CreatePlaylistRequestPayload> {}
+export interface CreatePlaylistSuccess
+	extends PayloadAction<CreatePlaylistSuccessPayload> {}
+
+export interface FetchPlaylistListSuccess
+	extends PayloadAction<FetchPlaylistListSuccessPayload> {}
+
+export interface ErrorAction extends PayloadAction<ErrorPayload> {}
+
 // Actions
-export type PlaylistsActionType =
-	| SetPlaylistStartPayloadType
-	| GetPlaylistsSuccessPayloadType
-	| ErrorPayloadType
+export type PlaylistsActions =
+	| CreatePlaylistRequest
+	| FetchPlaylistListSuccessPayload
+	| ErrorPayload
 
 // State
-export interface PlaylistsStateType {
+export interface PlaylistsState {
 	list: {
-		data: Array<PlaylistType>
+		data: Array<Playlist>
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
-	set: {
+	create: {
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
 }

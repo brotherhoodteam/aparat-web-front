@@ -1,25 +1,20 @@
 import { call, put, delay } from '@redux-saga/core/effects'
 import api from 'config/api'
-import {
-	logoutSuccessAction,
-	signInFailedAction,
-	signInResetAction,
-	signInSuccessAction
-} from '../slice'
-import { ResponseAuthType, SignInPayloadType } from '../interface'
+import { logoutSuccess, signInFailure, signInReset, signInSuccess } from '../slice'
+import { SignInRequest, SignInResponsePayload } from '../interface'
 // ! setAuth bayad check shavad
 import { setAuth } from 'config/http/util'
-import { appErrorHandler } from 'store/app/saga/handlers'
-import { setStatusAction } from 'store/status/slice'
+import { appError } from 'store/app/saga/handlers'
+import { showStatusAction } from 'store/status/slice'
 
-export function* signInActionHandler({ payload: { passport } }: SignInPayloadType) {
+export function* signInHandler({ payload: { passport } }: SignInRequest) {
 	try {
-		const { data }: ResponseAuthType = yield call(api.auth.login, passport)
+		const { data }: SignInResponsePayload = yield call(api.auth.login, passport)
 		yield call(setAuth, data)
-		yield put(signInSuccessAction({ credentials: data }))
+		yield put(signInSuccess({ credentials: data }))
 	} catch (error) {
-		yield call(appErrorHandler, error, signInFailedAction, false)
-		yield put(signInResetAction())
+		yield call(appError, error, signInFailure, false)
+		yield put(signInReset())
 	}
 }
 
@@ -27,12 +22,12 @@ export function* clearExpireCredentialhandler() {
 	const credentials = localStorage.getItem('auth')
 	if (credentials) {
 		yield localStorage.removeItem('auth')
-		yield put(signInResetAction())
+		yield put(signInReset())
 	}
 }
-export function* logoutActionHandler() {
+export function* logoutHandler() {
 	yield delay(3000)
 	yield call(clearExpireCredentialhandler)
-	yield put(logoutSuccessAction())
-	yield put(setStatusAction({ message: 'با موفقیت خارج شدید', status: 'success' }))
+	yield put(logoutSuccess())
+	yield put(showStatusAction({ message: 'با موفقیت خارج شدید', status: 'success' }))
 }

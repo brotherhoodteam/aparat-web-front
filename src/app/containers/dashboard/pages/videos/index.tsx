@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'core/hooks/use-query'
-import { selectListVideo } from 'store/video/selectors'
+import { selectVideoList } from 'store/video/selectors'
 import VideoList from 'app/components/videoList'
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Pagination from 'app/components/pagination'
-import { getVideoListStartAction, videoListResetAction } from 'store/video/slice'
+import { fetchVideoListRequest, fetchVideoListReset } from 'store/video/slice'
 import { VideoLoader } from 'app/components/content-loader'
 import NoData from 'app/components/no-data'
 
@@ -20,7 +20,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 	const q = Number(query.get('page'))
 
 	// Select Videos Store
-	const { data, loading } = useSelector(selectListVideo)
+	const { data, loading } = useSelector(selectVideoList)
 
 	// Set Default page
 	useEffect(() => {
@@ -28,14 +28,14 @@ const DashboardVideoList: React.FC<Props> = () => {
 
 		return () => {
 			// Reset Videos Store when componnet unmounted
-			dispatch(videoListResetAction())
+			dispatch(fetchVideoListReset())
 		}
 	}, [])
 
 	// Fetch Data
 	useEffect(() => {
 		if (q) {
-			dispatch(getVideoListStartAction({ page: q }))
+			dispatch(fetchVideoListRequest({ page: q }))
 		}
 	}, [q])
 

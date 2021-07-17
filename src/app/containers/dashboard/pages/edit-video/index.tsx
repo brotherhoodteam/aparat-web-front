@@ -6,12 +6,12 @@ import * as yup from 'yup'
 
 import useTypedDispatch from 'core/hooks/use-typed-dispatch'
 import {
-	getVideoStartAction,
-	updateVideoStartAction,
-	uploadBannerStartAction
+	fetchVideoRequest,
+	updatePostRequest,
+	uploadBannerRequest
 } from 'store/video/slice'
 import { useCategories } from 'store/categories/hooks'
-import { selectGetVideo, selectUploadBanner } from 'store/video/selectors'
+import { selectVideo, selectUploadBanner } from 'store/video/selectors'
 
 import { Input, SelectBox, TextArea, Switch, CopyInput } from 'app/elements/form'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
@@ -37,7 +37,7 @@ const EditVideo: React.FC<Props> = () => {
 		data: video,
 		loading: videoLoading,
 		errors: videoErrors
-	} = useSelector(selectGetVideo)
+	} = useSelector(selectVideo)
 
 	// upload banner
 	const {
@@ -64,7 +64,7 @@ const EditVideo: React.FC<Props> = () => {
 	}, [video])
 
 	useEffect(() => {
-		dispatch(getVideoStartAction({ slug: params.slug }))
+		dispatch(fetchVideoRequest({ slug: params.slug }))
 	}, [params])
 
 	// form validations
@@ -107,7 +107,7 @@ const EditVideo: React.FC<Props> = () => {
 					tags: value.tags?.map((tag: any) => tag.value)
 				}
 				console.log('video', video)
-				dispatch(updateVideoStartAction({ slug: video.slug, video: data }))
+				dispatch(updatePostRequest({ slug: video.slug, video: data }))
 			}
 		},
 
@@ -115,10 +115,10 @@ const EditVideo: React.FC<Props> = () => {
 	}
 
 	const uploadBanner = (banner: File) => {
-		dispatchTyped(uploadBannerStartAction({ banner }))
+		dispatchTyped(uploadBannerRequest({ banner }))
 	}
 
-	const getVideoUrl = (slug: string) => {
+	const fetchVideoUrl = (slug: string) => {
 		const protocol = window.location.protocol
 		const port = window.location.port
 		const host = window.location.hostname
@@ -235,7 +235,7 @@ const EditVideo: React.FC<Props> = () => {
 											</Uploader>
 											<div className="mb-3">
 												<CopyInput
-													value={getVideoUrl(video.slug)}
+													value={fetchVideoUrl(video.slug)}
 													name="address"
 													label="آدرس ویدئو"
 													orginalText="کپی در کلیپ بورد"

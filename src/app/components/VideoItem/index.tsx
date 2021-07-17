@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { VIDEO_STATE } from 'core/constants'
 import ROUTES from 'config/router/routes'
 import { useCategories } from 'store/categories/hooks'
-import { disableAppOverlayAction, enableAppOverlayAction } from 'store/app/slice'
-import { VideoType } from 'store/video/interface'
-import { selectrDeleteVideo } from 'store/video/selectors'
-import { deleteVideoStartAction } from 'store/video/slice'
+import { disableAppOverlay, enableAppOverlay } from 'store/app/slice'
+import { Video } from 'store/video/interface'
+import { selectDeletedPost } from 'store/video/selectors'
+import { deleteVideoRequest } from 'store/video/slice'
 import Avatar from 'app/elements/avatar'
 import Badge from 'app/elements/badge'
 import Button from 'app/elements/button'
@@ -17,13 +17,13 @@ import Moment from 'react-moment'
 import 'moment-timezone'
 
 interface Props {
-	video: VideoType
+	video: Video
 }
 
 const VideoItem: React.FC<Props> = ({ video }) => {
 	const dispatch = useDispatch()
 	const { done: deleteVideoDone, loading: deleteVideoLoading } =
-		useSelector(selectrDeleteVideo)
+		useSelector(selectDeletedPost)
 	const { data: categories } = useCategories()
 
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
@@ -38,15 +38,15 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 	}
 
 	const handleOpenModal = () => {
-		dispatch(enableAppOverlayAction())
+		dispatch(enableAppOverlay())
 		setIsOpenModal(true)
 	}
 	const handleCloseModal = () => {
-		dispatch(disableAppOverlayAction())
+		dispatch(disableAppOverlay())
 		setIsOpenModal(false)
 	}
 	const handleDeleteVideo = () => {
-		dispatch(deleteVideoStartAction({ slug: video.slug }))
+		dispatch(deleteVideoRequest({ slug: video.slug }))
 	}
 
 	useEffect(() => {

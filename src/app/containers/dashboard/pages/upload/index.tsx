@@ -9,10 +9,10 @@ import { SelectBox, Input, TextArea, Switch } from 'app/elements/form'
 import PanelLayout from 'app/layouts/panel'
 
 import {
-	publishVideoStartAction,
-	publishVideoResetAction,
-	uploadBannerStartAction,
-	uploadVideoStartAction
+	createPostRequest,
+	createPostReset,
+	uploadBannerRequest,
+	uploadVideoRequest
 } from 'store/video/slice'
 import useTypedDispatch from 'core/hooks/use-typed-dispatch'
 import { useCategories, useChannelCategories } from 'store/categories/hooks'
@@ -22,14 +22,14 @@ import { usePlaylists } from 'store/playlists/hooks'
 import Uploader from 'app/components/uploader'
 import Button from 'app/elements/button'
 import {
-	selectUploadVideo,
-	selectPublishVideo,
+	selectUploadedVideo,
+	selectPost,
 	selectUploadBanner
 } from 'store/video/selectors'
 
 import UploadVideoIcon from 'assets/images/video-file.svg'
 import UploadBannerIcon from 'assets/images/placeholder-img-format.svg'
-import { PublishVideo } from 'store/video/interface'
+import { CreatePost } from 'store/video/interface'
 import './styles.scss'
 
 const DashboardUpload: React.FC = () => {
@@ -43,7 +43,7 @@ const DashboardUpload: React.FC = () => {
 		loading: uploadVideoLoading,
 		progress: uploadVideoProgress,
 		errors: uploadVideoError
-	} = useSelector(selectUploadVideo)
+	} = useSelector(selectUploadedVideo)
 
 	// upload banner
 	const {
@@ -54,10 +54,9 @@ const DashboardUpload: React.FC = () => {
 	} = useSelector(selectUploadBanner)
 
 	// published video
-	const { response: publishVideo, loading: publishLoading } =
-		useSelector(selectPublishVideo)
+	const { response: createPost, loading: publishLoading } = useSelector(selectPost)
 
-	// const {}: VideoType | null = useSelector(selectPublishVideo)
+	// const {}: Video | null = useSelector(selectPost)
 
 	// categories
 	const { data: categories, loading: categoriesLoading } = useCategories()
@@ -71,15 +70,15 @@ const DashboardUpload: React.FC = () => {
 	const { data: tags, loading: tagsLoading } = useTags()
 
 	useEffect(() => {
-		if (publishVideo) {
+		if (createPost) {
 			scrollTop()
 		}
-	}, [publishVideo])
+	}, [createPost])
 
 	useEffect(() => {
 		return () => {
 			// reset page when onload
-			dispatch(publishVideoResetAction())
+			dispatch(createPostReset())
 		}
 	}, [])
 
@@ -131,7 +130,7 @@ const DashboardUpload: React.FC = () => {
 		onSubmit: (value: any) => {
 			const banner = value.banner_id.split('/')
 			const bannerId = banner[banner.length - 1]
-			const video: PublishVideo = {
+			const video: CreatePost = {
 				video_id: value.video_id,
 				banner: bannerId,
 				title: value.title,
@@ -144,17 +143,17 @@ const DashboardUpload: React.FC = () => {
 				enable_watermark: value.enable_watermark,
 				publish_at_: new Date().getDate().toString()
 			}
-			dispatchTyped(publishVideoStartAction({ video }))
+			dispatchTyped(createPostRequest({ video }))
 		},
 		validationSchema: validation
 	}
 
 	// Upload video and banner
 	const uploadVideo = (video: File) => {
-		dispatchTyped(uploadVideoStartAction({ video }))
+		dispatchTyped(uploadVideoRequest({ video }))
 	}
 	const onUploadBanner = (banner: File) => {
-		dispatchTyped(uploadBannerStartAction({ banner }))
+		dispatchTyped(uploadBannerRequest({ banner }))
 	}
 	const scrollTop = () => {
 		if (!panelRef.current) return
@@ -176,7 +175,7 @@ const DashboardUpload: React.FC = () => {
 						<Formik {...form} validateOnChange={false}>
 							{({ resetForm }) => (
 								<Form>
-									{!publishVideo ? (
+									{!createPost ? (
 										<React.Fragment>
 											<div className="mb-4">
 												<p>
@@ -340,18 +339,18 @@ const DashboardUpload: React.FC = () => {
 													<div className="col-sm-5 col-lg-3 mb-3 mb-sm-0">
 														<img
 															className="img-fluid rounded-lg w-100"
-															src={publishVideo.banner_link}
-															alt={publishVideo.title}
+															src={createPost.banner_link}
+															alt={createPost.title}
 														/>
 													</div>
 													<div className="col-sm-7 col-lg-9">
 														<div className="row">
 															<div className="col-lg-9 mb-2 mb-lg-0">
 																<h5 className="text-dark text-hover-primary">
-																	{publishVideo.title}
+																	{createPost.title}
 																</h5>
 																<span className="d-block text-muted text-primary text-lh-sm mb-0">
-																	{publishVideo.info}
+																	{createPost.info}
 																</span>
 															</div>
 
@@ -359,7 +358,7 @@ const DashboardUpload: React.FC = () => {
 																<div className="text-right">
 																	<small className="d-block text-muted">طول ویدئو</small>
 																	<span className="d-block h5 text-primary text-lh-sm mb-0">
-																		{publishVideo.duration}
+																		{createPost.duration}
 																	</span>
 																</div>
 															</div>
@@ -387,15 +386,15 @@ const DashboardUpload: React.FC = () => {
 																uploadBannerLoading
 															}
 															loaderText="درحال پردازش اطلاعات"
-															disanled={!!publishVideo}
+															disanled={!!createPost}
 														>
-															{!publishVideo ? (
+															{!createPost ? (
 																<span>انتشار ویدئو</span>
 															) : (
 																<span>ویدئو با موفقیت منتشر شد</span>
 															)}
 														</Button>
-														{!publishVideo && (
+														{!createPost && (
 															<Button
 																type="button"
 																variant="ghost"
@@ -406,7 +405,7 @@ const DashboardUpload: React.FC = () => {
 																انتشار در زمانی دیگر
 															</Button>
 														)}
-														{publishVideo && (
+														{createPost && (
 															<Button
 																type="button"
 																variant="ghost"

@@ -4,7 +4,7 @@ import { FileRejection, useDropzone } from 'react-dropzone'
 
 import Progress from 'app/elements/progress'
 import { ClassName } from 'core/interface/component'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
 import UploadImage from 'assets/images/upload.svg'
 import './style.scss'
@@ -14,7 +14,7 @@ interface Props {
 	className?: ClassName
 	uploadValue: string | null
 	uploadProgress?: number
-	uploadError: ErrorType | null
+	uploadError: Error | null
 	onDropFiles: (file: File) => void
 	accept?: string
 	maxSize?: number

@@ -1,45 +1,45 @@
 import { call, fork, put, take } from '@redux-saga/core/effects'
 import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
-import { selectListVideo } from '../selectors'
+import { selectVideoList } from '../selectors'
 import api from 'config/api'
 
 import {
-	uploadVideoSuccessAction,
-	uploadVideoFailedAction,
-	uploadVideoProgressAction,
-	uploadBannerSuccessAction,
-	uploadBannerFailedAction,
-	uploadBannerProgressAction,
-	publishVideoSuccessAction,
-	publishVideoFailedAction,
-	getVideoListSuccessAction,
-	deleteVideoFailedAction,
-	deleteVideoSuccessAction,
-	deleteVideoResetAction,
-	getVideoFailedAction,
-	getVideoSuccessAction,
-	getVideoListStartAction,
-	updateVideoFailedAction,
-	updateVideoSuccessAction,
-	getVideoListFailedAction
+	uploadVideoSuccess,
+	uploadVideoFailure,
+	uploadVideoProgress,
+	uploadBannerSuccess,
+	uploadBannerFailure,
+	uploadBannerProgress,
+	createPostSuccess,
+	createPostFailure,
+	fetchVideoListSuccess,
+	deleteVideoFailure,
+	deleteVideoSuccess,
+	deleteVideoReset,
+	fetchVideoFailure,
+	fetchVideoSuccess,
+	fetchVideoListRequest,
+	updatePostFailure,
+	updatePostSuccess,
+	fetchVideoListFailure
 } from '../slice'
-import { setStatusAction } from 'store/status/slice'
+import { showStatusAction } from 'store/status/slice'
 import {
-	GetVideoStartPayloadType,
-	PublishVideoStartPayloadType,
-	DeleteVideoStartPayloadType,
-	ResponseGetVideoList,
-	ResponseGetVideo,
-	ResponsePublishType,
-	ResponseDeleteVideo,
-	UpdateVideoStartPayloadType,
-	UploadBannerStartPayloadType,
-	UploadVideoStartPayloadType,
-	VideosType,
-	GetVideoListStartPayloadType
+	FetchVideoRequest,
+	CreatePostRequest,
+	DeleteVideoRequest,
+	FetchVideoListResponsePayload,
+	FetchVideoResponsePayload,
+	CreatePostResponsePayload,
+	DeletePostResponsePayload,
+	UpdateVideoRequest,
+	UploadBannerRequest,
+	UploadVideoRequest,
+	VideoList,
+	FetchVideoListRequest
 } from '../interface'
-import { appErrorHandler } from 'store/app/saga/handlers'
+import { appError } from 'store/app/saga/handlers'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -49,7 +49,7 @@ interface VideoData {
 	}
 	error: any
 }
-interface BannerData {
+interface UploadBannerRequestPayload {
 	state: 'ok' | 'proccess' | 'error'
 	percent: number
 	response: {
@@ -94,16 +94,16 @@ const createAsyncUploadBanner = (file: File) => {
 	return [promise, chan]
 }
 
-function* onProgressVideo(chan: any) {
+function* onProgressVideoHanlder(chan: any) {
 	while (true) {
 		const data: VideoData = yield take(chan)
 		if (data.state === 'proccess') {
-			yield put(uploadVideoProgressAction({ percent: Number(data.percent.toFixed(0)) }))
+			yield put(uploadVideoProgress({ percent: Number(data.percent.toFixed(0)) }))
 		} else if (data.state === 'ok') {
-			yield put(uploadVideoSuccessAction({ videoId: data.response.data.video }))
+			yield put(uploadVideoSuccess({ videoId: data.response.data.video }))
 		} else {
 			yield put(
-				uploadVideoFailedAction({
+				uploadVideoFailure({
 					error: { message: data.error.message, status: data.error.response?.status }
 				})
 			)
@@ -111,16 +111,16 @@ function* onProgressVideo(chan: any) {
 	}
 }
 
-function* onProgressBanner(chan: any) {
+function* onProgressBannerHanlder(chan: any) {
 	while (true) {
-		const data: BannerData = yield take(chan)
+		const data: UploadBannerRequestPayload = yield take(chan)
 		if (data.state === 'proccess') {
-			yield put(uploadBannerProgressAction({ percent: Number(data.percent.toFixed(0)) }))
+			yield put(uploadBannerProgress({ percent: Number(data.percent.toFixed(0)) }))
 		} else if (data.state === 'ok') {
-			yield put(uploadBannerSuccessAction({ bannerId: data.response.data.banner }))
+			yield put(uploadBannerSuccess({ bannerId: data.response.data.banner }))
 		} else {
 			yield put(
-				uploadBannerFailedAction({
+				uploadBannerFailure({
 					error: { message: data.error.message, status: data.error.response?.status }
 				})
 			)
@@ -128,88 +128,87 @@ function* onProgressBanner(chan: any) {
 	}
 }
 
-export function* uploadVideoHandler({ payload: { video } }: UploadVideoStartPayloadType) {
+export function* uploadVideoHanlder({ payload: { video } }: UploadVideoRequest) {
 	try {
 		const [promise, chan] = createAsyncUploadVideo(video)
-		yield fork(onProgressVideo, chan)
+		yield fork(onProgressVideoHanlder, chan)
 		yield call(identity, promise)
 	} catch (error) {
-		yield call(appErrorHandler, error, uploadVideoFailedAction, true)
+		yield call(appError, error, uploadVideoFailure, true)
 	}
 }
 
-export function* uploadBannerHandler({
-	payload: { banner }
-}: UploadBannerStartPayloadType) {
+export function* uploadBannerHanlder({ payload: { banner } }: UploadBannerRequest) {
 	try {
 		const [promise, chan] = createAsyncUploadBanner(banner)
-		yield fork(onProgressBanner, chan)
+		yield fork(onProgressBannerHanlder, chan)
 		yield call(identity, promise)
 	} catch (error) {
-		yield call(appErrorHandler, error, uploadBannerFailedAction, true)
+		yield call(appError, error, uploadBannerFailure, true)
 	}
 }
 
-export function* publishVideoHandler({
-	payload: { video }
-}: PublishVideoStartPayloadType) {
+export function* createPostHanlder({ payload: { video } }: CreatePostRequest) {
 	try {
-		const { data }: ResponsePublishType = yield call(api.video.publish, video)
-		yield put(publishVideoSuccessAction({ data }))
-		yield put(getVideoListStartAction())
-		yield put(setStatusAction({ message: 'ویدئو با موفقیت اضافه شد', status: 'success' }))
-	} catch (error) {
-		yield call(appErrorHandler, error, publishVideoFailedAction, true)
-	}
-}
-
-export function* getVideoList({ payload }: GetVideoListStartPayloadType) {
-	try {
-		const { data }: ResponseGetVideoList = yield call(api.video.getList, payload?.page)
+		const { data }: CreatePostResponsePayload = yield call(api.video.publish, video)
+		yield put(createPostSuccess({ data }))
+		yield put(fetchVideoListRequest())
 		yield put(
-			getVideoListSuccessAction({
+			showStatusAction({ message: 'ویدئو با موفقیت اضافه شد', status: 'success' })
+		)
+	} catch (error) {
+		yield call(appError, error, createPostFailure, true)
+	}
+}
+
+export function* fetchVideoListHanlder({ payload }: FetchVideoListRequest) {
+	try {
+		const { data }: FetchVideoListResponsePayload = yield call(
+			api.video.getList,
+			payload?.page
+		)
+		yield put(
+			fetchVideoListSuccess({
 				videos: data
 			})
 		)
 	} catch (error) {
-		yield call(appErrorHandler, error, getVideoListFailedAction, true)
+		yield call(appError, error, fetchVideoListFailure, true)
 	}
 }
 
-export function* deleteVideoHandler({ payload: { slug } }: DeleteVideoStartPayloadType) {
+export function* deleteVideoHanlder({ payload: { slug } }: DeleteVideoRequest) {
 	try {
-		const { data }: ResponseDeleteVideo = yield call(api.video.delete, slug)
-		yield put(deleteVideoSuccessAction(data))
+		const { data }: DeletePostResponsePayload = yield call(api.video.delete, slug)
+		yield put(deleteVideoSuccess(data))
 
-		const { data: videos }: { data: VideosType } = yield select(selectListVideo)
-		yield put(getVideoListStartAction({ page: videos.current_page }))
-		yield put(setStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
+		const { data: videos }: { data: VideoList } = yield select(selectVideoList)
+		yield put(fetchVideoListRequest({ page: videos.current_page }))
+		yield put(showStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
 	} catch (error) {
-		yield call(appErrorHandler, error, deleteVideoFailedAction, true)
+		yield call(appError, error, deleteVideoFailure, true)
 	} finally {
-		yield put(deleteVideoResetAction())
+		yield put(deleteVideoReset())
 	}
 }
 
-export function* getVideoHandler({ payload: { slug } }: GetVideoStartPayloadType) {
+export function* fetchVideoHanlder({ payload: { slug } }: FetchVideoRequest) {
 	try {
-		const { data }: ResponseGetVideo = yield call(api.video.get, slug)
-		yield put(getVideoSuccessAction({ video: data }))
+		const { data }: FetchVideoResponsePayload = yield call(api.video.get, slug)
+		yield put(fetchVideoSuccess({ video: data }))
 	} catch (error) {
-		yield call(appErrorHandler, error, getVideoFailedAction, true)
+		yield call(appError, error, fetchVideoFailure, true)
 	}
 }
 
-export function* updateVideoHandler({
-	payload: { slug, video }
-}: UpdateVideoStartPayloadType) {
+export function* updatePostHanlder({ payload: { slug, video } }: UpdateVideoRequest) {
 	try {
-		const { data }: ResponseGetVideo = yield call(api.video.update, slug, video)
-		yield put(updateVideoSuccessAction({ video: data }))
+		const { data }: FetchVideoResponsePayload = yield call(api.video.update, slug, video)
+		yield put(updatePostSuccess({ video: data }))
 		yield put(
-			setStatusAction({ message: 'ویدئو با موفقیت بروزرسانی شد', status: 'success' })
+			showStatusAction({ message: 'ویدئو با موفقیت بروزرسانی شد', status: 'success' })
 		)
 	} catch (error) {
-		yield call(appErrorHandler, error, updateVideoFailedAction, true)
+		yield call(appError, error, updatePostFailure, true)
 	}
 }

@@ -1,4 +1,4 @@
-import { CredentialsType } from 'store/auth/interface'
+import { Credentials } from 'store/auth/interface'
 
 export const createToken = (key: string) => {
 	const props = {
@@ -29,12 +29,12 @@ export const createToken = (key: string) => {
 	return props
 }
 
-export const setAuth = (data: CredentialsType): void => {
+export const setAuth = (data: Credentials): void => {
 	const key = 'auth'
 	localStorage.setItem(key, JSON.stringify(data))
 }
 
-export const getAuth = (): CredentialsType | null => {
+export const getAuth = (): Credentials | null => {
 	const key = 'auth'
 	let auth = null
 	try {

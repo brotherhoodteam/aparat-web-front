@@ -1,18 +1,18 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 
-// Models
-export type LocaleType = 'en' | 'fa'
+// TYPIES
+export type Locale = 'en' | 'fa'
 
-// Data
-export interface LocaleDataType {
-	locale: LocaleType
+// PAYLOAD
+export interface SelectLocalePayload {
+	locale: Locale
 }
 
-// Payload
-export interface SetLocalePayload extends PayloadAction<LocaleDataType> {}
+// ACTION
+export interface SelectLocale extends PayloadAction<SelectLocalePayload> {}
 
 // State
 export interface IntlState {
-	locale: LocaleType
+	locale: Locale
 }
-export type IntlActionTypes = SetLocalePayload
+export type IntlActions = SelectLocale

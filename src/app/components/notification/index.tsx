@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { StatusStateType } from 'store/status/interface'
+import { StatusState } from 'store/status/interface'
 import { selectStatus } from 'store/status/selector'
 import { clearStatusAction } from 'store/status/slice'
 
@@ -17,7 +17,7 @@ const Notification: React.FC = () => {
 		}
 	}, [statusState])
 
-	const statusHandler = (state: StatusStateType) => {
+	const statusHandler = (state: StatusState) => {
 		switch (state.status) {
 			case 'success': {
 				toast.success(state.message, {

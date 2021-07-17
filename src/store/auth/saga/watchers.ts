@@ -1,8 +1,8 @@
 import { takeLatest } from '@redux-saga/core/effects'
-import { logoutActionHandler, signInActionHandler } from './handlers'
-import { logoutStartAction, signInAction } from '../slice'
+import { logoutHandler, signInHandler } from './handlers'
+import { logoutRequest, signInRequest } from '../slice'
 
 export function* userWatcher() {
-	yield takeLatest(signInAction, signInActionHandler)
-	yield takeLatest(logoutStartAction, logoutActionHandler)
+	yield takeLatest(signInRequest, signInHandler)
+	yield takeLatest(logoutRequest, logoutHandler)
 }

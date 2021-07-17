@@ -1,22 +1,22 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
-// Data
-export interface ErrorDataType {
-	error: ErrorType
+// TYPIES
+export interface ErrorAction {
+	error: Error
 }
 
-// Payloads
-export interface AppErrorPayloadType extends PayloadAction<ErrorDataType> {}
+// PAYLOAD
+export interface AppErrorPayload extends PayloadAction<ErrorAction> {}
 
-// Actions
-export type AppActionTypes = AppErrorPayloadType
+// ACTIONS
+export type AppActions = AppErrorPayload
 
-// State
-export interface AppStateType {
+// STATE
+export interface AppState {
 	drawer: boolean
 	modal: boolean
 	overlay: boolean
 	loading: boolean
-	error: ErrorType | null
+	error: Error | null
 }

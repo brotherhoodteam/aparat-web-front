@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect'
-import { StateType } from 'config/redux/interface'
-import { PlaylistType } from './interface'
+import { State } from 'config/redux/interface'
+import { Playlist } from './interface'
 
-// State
-export const selectPlaylists = (state: StateType) => state.playlists
-
-// set
-export const selectSetPlaylist = createSelector([selectPlaylists], state => state.set)
-
-// list
-export const selectPlaylistList = createSelector([selectPlaylists], state => state.list)
-
+export const selectPlaylistsStore = (state: State) => state.playlists
+export const selectCreatedPlaylist = createSelector(
+	[selectPlaylistsStore],
+	state => state.create
+)
+export const selectPlaylistList = createSelector(
+	[selectPlaylistsStore],
+	state => state.list
+)
 export const selectNormalizedPlaylistList = createSelector([selectPlaylistList], list => {
 	return {
-		data: list.data.map((item: PlaylistType) => ({
+		data: list.data.map((item: Playlist) => ({
 			id: item.id,
 			userId: item.user_id,
 			label: item.title,

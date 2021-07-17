@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from 'react-router'
+import { Redirect, Switch } from 'react-router'
 
 import Sidebar from 'app/components/sidebar'
 import Button from 'app/elements/button'
@@ -6,11 +6,13 @@ import Button from 'app/elements/button'
 import useAccess from 'core/hooks/use-access'
 import { RouteType } from 'config/router/interface'
 
-import accountBg from 'assets/images/abstract-shapes-20.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogout } from 'store/auth/selectors'
-import { logoutStartAction } from 'store/auth/slice'
+import { logoutRequest } from 'store/auth/slice'
+
+import accountBg from 'assets/images/abstract-shapes-20.svg'
 import './styles.scss'
+import { Route } from 'react-router-dom'
 
 interface DashboardProps {
 	routes: Array<RouteType>
@@ -21,7 +23,7 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 	const { loading } = useSelector(selectLogout)
 
 	const handleLogout = () => {
-		dispatch(logoutStartAction())
+		dispatch(logoutRequest())
 	}
 	return (
 		<div className="dashboard">

@@ -1,39 +1,40 @@
 import { call, put } from '@redux-saga/core/effects'
 import api from 'config/api'
 import {
-	CategoriesDataResponseType,
-	CategoryDataResponseType,
-	SetCategoryStartPayloadType
+	CreateCategoryRequest,
+	CreateCategoryResponsePayload,
+	FetchCategoryListResponsePayload
 } from '../interface'
 import {
-	getCategoryListSuccessAction,
-	getCategoryListFailedAction,
-	setCategorySuccessAction,
-	setCategoryFailedAction
+	fetchCategoryListSuccess,
+	fetchCategoryListFailure,
+	createCategorySuccess,
+	createCategoryFailure
 } from '../slice'
-import { setStatusAction } from 'store/status/slice'
+import { showStatusAction } from 'store/status/slice'
 
-import { appErrorHandler } from 'store/app/saga/handlers'
+import { appError } from 'store/app/saga/handlers'
 
-export function* getCategoriesHandler() {
+export function* fetchCategoryListHandler() {
 	try {
-		const { data }: CategoriesDataResponseType = yield call(api.categories.get)
-		yield put(getCategoryListSuccessAction({ categories: data }))
+		const { data }: FetchCategoryListResponsePayload = yield call(api.categories.get)
+		yield put(fetchCategoryListSuccess({ categoryList: data }))
 	} catch (error) {
-		yield call(appErrorHandler, error, getCategoryListFailedAction, true)
+		yield call(appError, error, fetchCategoryListFailure, true)
 	}
 }
 
-export function* setCategoryHandler({
-	payload: { category }
-}: SetCategoryStartPayloadType) {
+export function* createCategoryHandler({ payload: { category } }: CreateCategoryRequest) {
 	try {
-		const { data }: CategoryDataResponseType = yield call(api.categories.set, category)
-		yield put(setCategorySuccessAction({ category: data }))
+		const { data }: CreateCategoryResponsePayload = yield call(
+			api.categories.set,
+			category
+		)
+		yield put(createCategorySuccess({ category: data }))
 		yield put(
-			setStatusAction({ status: 'success', message: 'دسته جدید باموفقیت اضافه شد' })
+			showStatusAction({ status: 'success', message: 'دسته جدید باموفقیت اضافه شد' })
 		)
 	} catch (error) {
-		yield call(appErrorHandler, error, setCategoryFailedAction, true)
+		yield call(appError, error, createCategoryFailure, true)
 	}
 }

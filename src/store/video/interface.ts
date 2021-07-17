@@ -1,9 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'core/interface/exception'
-import { UserType } from 'core/interface/user'
-import { TagType } from 'store/tags/interface'
+import { Error } from 'core/interface/exception'
+import { User } from 'core/interface/user'
+import { Tag } from 'store/tags/interface'
 
-export interface PublishVideo {
+// TYPIES
+export interface CreatePost {
 	video_id: string
 	title: string
 	category: number
@@ -16,32 +17,8 @@ export interface PublishVideo {
 	enable_comments: boolean
 	enable_watermark: boolean
 }
-export interface VideoType {
-	user: UserType
-	title: string
-	user_id: number
-	category_id: number | null
-	channel_category_id: number | null
-	slug: string
-	info: string
-	duration: number
-	banner: string
-	enable_comments: boolean
-	publish_at: string | null
-	state: string
-	updated_at: string
-	created_at: string
-	id: number
-	likeCount: number
-	age: number
-	link: string
-	banner_link: string
-	views: number
-	tags: Array<TagType>
-}
-
-export interface VideoUpdateType {
-	user?: UserType
+export interface VideoUpdate {
+	user?: User
 	title?: string
 	user_id?: number
 	category_id?: number | null
@@ -61,12 +38,11 @@ export interface VideoUpdateType {
 	link?: string
 	banner_link?: string
 	views?: number
-	tags?: Array<TagType>
+	tags?: Array<Tag>
 }
-
-export interface VideosType {
+export interface VideoList {
 	current_page: number
-	data: Array<VideoType>
+	data: Array<Video>
 	first_page_url: string
 	from: number
 	last_page: number
@@ -78,153 +54,182 @@ export interface VideosType {
 	to: number
 	total: number
 }
-// Data
-export interface PublishVideoData {
-	video: PublishVideo
+export interface Video {
+	user: User
+	title: string
+	user_id: number
+	category_id: number | null
+	channel_category_id: number | null
+	slug: string
+	info: string
+	duration: number
+	banner: string
+	enable_comments: boolean
+	publish_at: string | null
+	state: string
+	updated_at: string
+	created_at: string
+	id: number
+	likeCount: number
+	age: number
+	link: string
+	banner_link: string
+	views: number
+	tags: Array<Tag>
 }
-export interface DeleteVideoData {
+
+// PAYLOADS
+export interface CreatePostRequestPayload {
+	video: CreatePost
+}
+export interface CreatePostSuccessPayload {
+	data: Video
+}
+export interface CreatePostResponsePayload {
+	data: Video
+}
+
+export interface DeletePostRequestPayload {
 	slug: string
 }
-export interface GetVideoData {
-	slug: string
+export interface DeletePostResponsePayload {
+	data: any
 }
-export interface UpdateVideoData {
+
+export interface UpdatePostRequestPayload {
 	slug: string
-	video: VideoUpdateType
+	video: VideoUpdate
 }
-export interface VideoQueryData {
+
+export interface FetchVideoListRequestPayload {
 	page?: string | number
 	per_page?: string
 }
-export interface GetVideoSuccessData {
-	video: VideoType
+export interface FetchVideoListSuccessPayload {
+	videos: VideoList
 }
-export interface PublishResponseData {
-	data: VideoType
+export interface FetchVideoListResponsePayload {
+	data: VideoList
 }
-export interface VideosDataType {
-	videos: VideosType
+
+export interface FetchVideoRequestPayload {
+	slug: string
 }
-interface VideoDataType {
+export interface FetchVideoSuccessPayload {
+	video: Video
+}
+export interface FetchVideoResponsePayload {
+	data: Video
+}
+
+export interface UploadVideoRequestPayload {
 	video: File
 }
-interface BannerDataType {
-	banner: File
-}
-interface ProgressDataType {
-	percent: number
-}
-interface UploadedVideoDataType {
+export interface UploadVideoSuccessPayload {
 	videoId: string
 }
-interface UploadedBannerDataType {
+export interface UploadVideoResponsePayload {
+	data: string
+}
+
+export interface UploadBannerRequestPayload {
+	banner: File
+}
+export interface UploadBannerSuccessPayload {
 	bannerId: string
 }
-interface ErrorDataType {
-	error: ErrorType
-}
-
-// Payloads
-export interface PublishVideoStartPayloadType extends PayloadAction<PublishVideoData> {}
-export interface PublishVideoSuccessPayloadType
-	extends PayloadAction<PublishResponseData> {}
-
-export interface UploadVideoStartPayloadType extends PayloadAction<VideoDataType> {}
-export interface UploadVideoSuccessPayloadType
-	extends PayloadAction<UploadedVideoDataType> {}
-
-export interface UploadBannerStartPayloadType extends PayloadAction<BannerDataType> {}
-export interface UploadBannerSuccessPayloadType
-	extends PayloadAction<UploadedBannerDataType> {}
-
-export interface DeleteVideoStartPayloadType extends PayloadAction<DeleteVideoData> {}
-export interface DeleteVideoSuccessPayloadType extends PayloadAction<any> {}
-
-export interface GetVideoStartPayloadType extends PayloadAction<GetVideoData> {}
-export interface GetVideoSuccessPayloadType extends PayloadAction<GetVideoSuccessData> {}
-
-export interface UpdateVideoStartPayloadType extends PayloadAction<UpdateVideoData> {}
-export interface UpdateVideoSuccessPayloadType extends PayloadAction<any> {}
-
-export interface GetVideoListStartPayloadType
-	extends PayloadAction<VideoQueryData | undefined> {}
-export interface GetVideoListSuccessPayloadType extends PayloadAction<VideosDataType> {}
-
-export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
-export interface ProgressPayloadType extends PayloadAction<ProgressDataType> {}
-
-// Response
-export interface ResponseVideoType {
+export interface UploadBannerResponsePayload {
 	data: string
 }
-export interface ResponseBannerType {
-	data: string
+
+export interface ProgressPayload {
+	percent: number
 }
-export interface ResponsePublishType {
-	data: VideoType
+export interface ErrorPayload {
+	error: Error
 }
-export interface ResponseGetVideoList {
-	data: VideosType
-}
-export interface ResponseDeleteVideo {
-	data: any
-}
-export interface ResponseGetVideo {
-	data: VideoType
-}
-// actions
+
+// ACTION CREATORS
+export interface CreatePostRequest extends PayloadAction<CreatePostRequestPayload> {}
+export interface CreatePostSuccess extends PayloadAction<CreatePostSuccessPayload> {}
+
+export interface UpdateVideoRequest extends PayloadAction<UpdatePostRequestPayload> {}
+export interface UpdateVideoSuccess extends PayloadAction<any> {}
+
+export interface DeleteVideoRequest extends PayloadAction<DeletePostRequestPayload> {}
+export interface DeleteVideoSuccess extends PayloadAction<any> {}
+
+export interface FetchVideoListRequest
+	extends PayloadAction<FetchVideoListRequestPayload | undefined> {}
+export interface FetchVideoListSuccess
+	extends PayloadAction<FetchVideoListSuccessPayload> {}
+
+export interface FetchVideoRequest extends PayloadAction<FetchVideoRequestPayload> {}
+export interface FetchVideoSuccess extends PayloadAction<FetchVideoSuccessPayload> {}
+
+export interface UploadVideoRequest extends PayloadAction<UploadVideoRequestPayload> {}
+export interface UploadVideoSuccess extends PayloadAction<UploadVideoSuccessPayload> {}
+
+export interface UploadBannerRequest extends PayloadAction<UploadBannerRequestPayload> {}
+export interface UploadBannerSuccess extends PayloadAction<UploadBannerSuccessPayload> {}
+
+export interface Progress extends PayloadAction<ProgressPayload> {}
+
+export interface ErrorAction extends PayloadAction<ErrorPayload> {}
+
+// ACTIONS
 export type VideoActionTypes =
-	| UploadVideoStartPayloadType
-	| UploadVideoSuccessPayloadType
-	| UploadBannerStartPayloadType
-	| UploadBannerSuccessPayloadType
-	| PublishVideoStartPayloadType
-	| PublishVideoSuccessPayloadType
-	| GetVideoListSuccessPayloadType
-	| DeleteVideoStartPayloadType
-	| DeleteVideoSuccessPayloadType
-	| ErrorPayloadType
-	| ProgressPayloadType
+	| CreatePostRequest
+	| CreatePostSuccess
+	| DeleteVideoRequest
+	| DeleteVideoSuccess
+	| UploadVideoRequest
+	| UploadVideoSuccess
+	| UploadBannerRequest
+	| UploadBannerSuccess
+	| FetchVideoListSuccess
+	| ErrorPayload
+	| ProgressPayload
 
-// state
-export interface VideoStateType {
-	upload: {
+// State
+export interface VideoState {
+	post: {
+		response: Video | null
+		loading: boolean
+		errors: Error | null
+	}
+	deletePost: {
+		slug: string | null
+		done: boolean
+		loading: boolean
+		errors: Error | null
+	}
+	updatePost: {
+		slug: string | null
+		loading: boolean
+		errors: Error | null
+	}
+	list: {
+		data: VideoList | null
+		loading: boolean
+		errors: Error | null
+	}
+	single: {
+		slug: string | null
+		data: Video | null
+		loading: boolean
+		errors: Error | null
+	}
+	uploadVideo: {
 		id: string | null
 		loading: boolean
 		progress: number
-		errors: ErrorType | null
+		errors: Error | null
 	}
 	uploadBanner: {
 		id: string | null
 		loading: boolean
 		progress: number
-		errors: ErrorType | null
-	}
-	get: {
-		slug: string | null
-		data: VideoType | null
-		loading: boolean
-		errors: ErrorType | null
-	}
-	list: {
-		data: VideosType | null
-		loading: boolean
-		errors: ErrorType | null
-	}
-	delete: {
-		slug: string | null
-		done: boolean
-		loading: boolean
-		errors: ErrorType | null
-	}
-	update: {
-		slug: string | null
-		loading: boolean
-		errors: ErrorType | null
-	}
-	publish: {
-		response: VideoType | null
-		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
 }

@@ -6,7 +6,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import useClickOutside from 'core/hooks/use-click-outside'
 
 import { selectAppDrawer } from 'store/app/selectors'
-import { disableAppDrawerAction } from 'store/app/slice'
+import { disableAppDrawer } from 'store/app/slice'
 
 import { Card, CardBody, CardHeader } from 'app/elements/card'
 import Button from 'app/elements/button'
@@ -19,7 +19,7 @@ import {
 } from '../navbar-vertical'
 
 import LogoImage from 'assets/images/logo--color-black--without_text.svg'
-import { CategoryNormalizedType } from 'store/categories/interface'
+import { CategoryNormalized } from 'store/categories/interface'
 import { useCategories } from 'store/categories/hooks'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
@@ -33,7 +33,7 @@ const Drawer = () => {
 	const disaptch = useDispatch()
 
 	const handleClose = () => {
-		disaptch(disableAppDrawerAction())
+		disaptch(disableAppDrawer())
 		setTimeout(() => {
 			setLimit(prevState => ({ ...prevState, status: true }))
 		}, 300)
@@ -48,7 +48,7 @@ const Drawer = () => {
 	const renderCategoies = () => {
 		const itmes = limit.status ? categoroies?.slice(0, limit.length) : categoroies
 
-		return itmes?.map((item: CategoryNormalizedType) => (
+		return itmes?.map((item: CategoryNormalized) => (
 			<NavbarLink key={item.id} {...item} />
 		))
 	}

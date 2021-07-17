@@ -1,8 +1,8 @@
 import { takeLatest } from '@redux-saga/core/effects'
-import { getTagsStartAction, setTagStartAction } from '../slice'
-import { getTagsHandler, setTagHandler } from './handlers'
+import { fetchTagListRequest, createTagRequest } from '../slice'
+import { fetchTagListHandler, createTagHandler } from './handlers'
 
 export function* tagsWatcher() {
-	yield takeLatest(getTagsStartAction, getTagsHandler)
-	yield takeLatest(setTagStartAction, setTagHandler)
+	yield takeLatest(fetchTagListRequest, fetchTagListHandler)
+	yield takeLatest(createTagRequest, createTagHandler)
 }

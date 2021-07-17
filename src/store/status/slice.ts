@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { StatusPayloadType, StatusStateType } from './interface'
+import { ShowStatusPayload, StatusState } from './interface'
 
-const initialState: StatusStateType = {
+const initialState: StatusState = {
 	status: null,
 	message: null
 }
@@ -9,7 +9,7 @@ const statusSlice = createSlice({
 	name: 'status',
 	initialState,
 	reducers: {
-		setStatusAction: (state, action: StatusPayloadType) => {
+		showStatusAction: (state, action: ShowStatusPayload) => {
 			state.status = action.payload.status
 			state.message = action.payload.message
 		},
@@ -20,5 +20,5 @@ const statusSlice = createSlice({
 	}
 })
 
-export const { setStatusAction, clearStatusAction } = statusSlice.actions
+export const { showStatusAction, clearStatusAction } = statusSlice.actions
 export default statusSlice.reducer

@@ -2,25 +2,24 @@ import { Form, Formik } from 'formik'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import useTypedDispatch from 'core/hooks/use-typed-dispatch'
-import { setTagStartAction } from 'store/tags/slice'
-import { selectSetTag } from 'store/tags/selectors'
-import { setCategoryStartAction } from 'store/categories/slice'
-
+import { createTagRequest } from 'store/tags/slice'
+import { selectCreatedTag } from 'store/tags/selectors'
+import { createCategoryRequest } from 'store/categories/slice'
 import PanelLayout from 'app/layouts/panel'
 import { Input } from 'app/elements/form'
 import Button from 'app/elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 
-import { selectSetPlaylist } from 'store/playlists/selectors'
-import { setPlaylistStartAction } from 'store/playlists/slice'
-import { selectSetCategory } from 'store/categories/selectors'
+import { selectCreatedPlaylist } from 'store/playlists/selectors'
+import { createPlaylistRequest } from 'store/playlists/slice'
+import { selectCreatedCategory } from 'store/categories/selectors'
 import './styles.scss'
 
 const DashboardSettings: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
-	const { loading: setCategoryLoading } = useSelector(selectSetCategory)
-	const { loading: setTagLoading } = useSelector(selectSetTag)
-	const { loading: setPlaylistLoading } = useSelector(selectSetPlaylist)
+	const { loading: setCategoryLoading } = useSelector(selectCreatedCategory)
+	const { loading: setTagLoading } = useSelector(selectCreatedTag)
+	const { loading: CreatePlaylistLoading } = useSelector(selectCreatedPlaylist)
 
 	const tagValidation = yup.object({
 		tagLabel: yup.string().required('نام برچسب را وارد نمایید')
@@ -48,7 +47,7 @@ const DashboardSettings: React.FC = () => {
 		},
 		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
-				setTagStartAction({
+				createTagRequest({
 					tag: { title: value.tagLabel, id: 0 }
 				})
 			)
@@ -63,7 +62,7 @@ const DashboardSettings: React.FC = () => {
 		},
 		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
-				setPlaylistStartAction({
+				createPlaylistRequest({
 					playlist: { title: value.playlistLabel }
 				})
 			)
@@ -80,7 +79,7 @@ const DashboardSettings: React.FC = () => {
 		},
 		onSubmit: (value: any, { resetForm }: { resetForm: any }) => {
 			dispatchTyped(
-				setCategoryStartAction({
+				createCategoryRequest({
 					category: {
 						title: value.categoryLabel,
 						icon: value.categoryIcon,
@@ -189,7 +188,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={setPlaylistLoading}>
+								<Button type="submit" color="primary" loader={CreatePlaylistLoading}>
 									افزودن لیست پخش
 								</Button>
 							</div>

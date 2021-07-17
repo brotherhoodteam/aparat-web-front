@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux'
 import useTypedDispatch from 'core/hooks/use-typed-dispatch'
 
 import { selectSignIn } from 'store/auth/selectors'
-import { signInAction } from 'store/auth/slice'
+import { signInRequest } from 'store/auth/slice'
 import * as yup from 'yup'
 
 import Button from 'app/elements/button'
 import { Input } from 'app/elements/form'
 
-interface SignInFormType {
+interface SignInForm {
 	username: string
 	password: string
 }
@@ -30,8 +30,8 @@ const SignInForm: React.FC = () => {
 			username: 'admin@aparat.me',
 			password: '123456'
 		},
-		onSubmit: (user: SignInFormType) => {
-			dispatch(signInAction({ passport: user }))
+		onSubmit: (user: SignInForm) => {
+			dispatch(signInRequest({ passport: user }))
 		},
 		validationSchema
 	}

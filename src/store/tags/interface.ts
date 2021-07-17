@@ -1,52 +1,50 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
-// Inrface
-export type TagType = {
+// TYPIES
+export type Tag = {
 	id: number
 	title: string
 }
 
-// Data Interface
-export interface TagDataType {
-	tag: TagType
+// PAYLOADS
+export interface CreateTagRequestPayload {
+	tag: Tag
 }
-export interface TagsDataType {
-	tags: Array<TagType>
+export interface CreateTagSuccessPayload {
+	tag: Tag
 }
-export interface ErrorDataType {
-	error: ErrorType
+export interface CreateTagResponsePayload {
+	data: Tag
 }
-
-// Payload
-export interface SetTagStartPayloadType extends PayloadAction<TagDataType> {}
-export interface SetTagSuccessPayloadType extends PayloadAction<TagDataType> {}
-export interface GetTagsSuccessPayloadType extends PayloadAction<TagsDataType> {}
-export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
-
-// Response
-export interface TagDataResponseType {
-	data: TagType
+export interface FetchTagsSuccessPayload {
+	tags: Array<Tag>
 }
-export interface TagsDataResponseType {
-	data: Array<TagType>
+export interface FetchTagListResponsePayload {
+	data: Array<Tag>
+}
+export interface ErrorPayload {
+	error: Error
 }
 
-// Actions
-export type TagsActionType =
-	| SetTagStartPayloadType
-	| GetTagsSuccessPayloadType
-	| ErrorPayloadType
+// ACTION CREATORS
+export interface CreateTagRequest extends PayloadAction<CreateTagRequestPayload> {}
+export interface CreateTagSuccess extends PayloadAction<CreateTagSuccessPayload> {}
+export interface FetchTagsSuccess extends PayloadAction<FetchTagsSuccessPayload> {}
+export interface ErrorAction extends PayloadAction<ErrorPayload> {}
 
-// State
-export interface TagsStateType {
+// ACTIONS
+export type TagsActions = CreateTagRequest | FetchTagsSuccess | ErrorPayload
+
+// STATE
+export interface TagsState {
 	list: {
-		data: Array<TagType>
+		data: Array<Tag>
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
-	set: {
+	create: {
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
 }

@@ -14,7 +14,7 @@ import Button from 'app/elements/button'
 import Search from 'app/components/search'
 import ROUTES from 'config/router/routes'
 
-import { enableAppDrawerAction } from 'store/app/slice'
+import { enableAppDrawer } from 'store/app/slice'
 import useAuth from 'store/auth/hooks'
 
 import Logo from 'assets/images/logo--color-black--without_text.svg'
@@ -28,7 +28,7 @@ const Navbar = () => {
 	const { auth } = useAuth()
 	const dispatch = useDispatch()
 	const handleOpenDrawer = () => {
-		dispatch(enableAppDrawerAction())
+		dispatch(enableAppDrawer())
 	}
 	return (
 		<div className="navbar">

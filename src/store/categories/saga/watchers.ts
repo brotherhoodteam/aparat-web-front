@@ -1,8 +1,8 @@
 import { takeLatest } from '@redux-saga/core/effects'
-import { getCategoryListStartAction, setCategoryStartAction } from '../slice'
-import { getCategoriesHandler, setCategoryHandler } from './handlers'
+import { fetchCategoryListRequest, createCategoryRequest } from '../slice'
+import { fetchCategoryListHandler, createCategoryHandler } from './handlers'
 
 export function* categoriesWatcher() {
-	yield takeLatest(getCategoryListStartAction, getCategoriesHandler)
-	yield takeLatest(setCategoryStartAction, setCategoryHandler)
+	yield takeLatest(fetchCategoryListRequest, fetchCategoryListHandler)
+	yield takeLatest(createCategoryRequest, createCategoryHandler)
 }

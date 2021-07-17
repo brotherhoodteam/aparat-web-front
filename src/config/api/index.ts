@@ -1,14 +1,14 @@
 import { AxiosRequestConfig } from 'axios'
 import request from 'config/http/request'
-import { SignInType } from 'store/auth/interface'
-import { CreateCategoryType } from 'store/categories/interface'
-import { CreatePlaylistType } from 'store/playlists/interface'
-import { PublishVideo, VideoUpdateType } from 'store/video/interface'
+import { SignIn } from 'store/auth/interface'
+import { CreateCategory } from 'store/categories/interface'
+import { CreatePlaylist } from 'store/playlists/interface'
+import { CreatePost, VideoUpdate } from 'store/video/interface'
 import { API_END_POINT } from './constants'
 
 const api = {
 	auth: {
-		login: (auth: SignInType) => {
+		login: (auth: SignIn) => {
 			const { method, url } = API_END_POINT.AUTH.LOGIN()
 			const config: AxiosRequestConfig = {
 				method,
@@ -60,7 +60,7 @@ const api = {
 			}
 			return request(config)
 		},
-		publish: (data: PublishVideo) => {
+		publish: (data: CreatePost) => {
 			const { method, url } = API_END_POINT.VIDEO.PUBLISH()
 			const config: AxiosRequestConfig = {
 				method,
@@ -94,7 +94,7 @@ const api = {
 			}
 			return request(config)
 		},
-		update: (slug: string, data: VideoUpdateType) => {
+		update: (slug: string, data: VideoUpdate) => {
 			const { method, url } = API_END_POINT.VIDEO.UPDATE(slug)
 			const config: AxiosRequestConfig = {
 				method,
@@ -113,7 +113,7 @@ const api = {
 			}
 			return request(config)
 		},
-		set: (data: CreateCategoryType) => {
+		set: (data: CreateCategory) => {
 			const { method, url } = API_END_POINT.CATEGORIES.SET()
 			const config: AxiosRequestConfig = {
 				method,
@@ -132,7 +132,7 @@ const api = {
 			}
 			return request(config)
 		},
-		set: (data: CreatePlaylistType) => {
+		set: (data: CreatePlaylist) => {
 			const { method, url } = API_END_POINT.PLAYLISTS.SET()
 			const config: AxiosRequestConfig = {
 				method,

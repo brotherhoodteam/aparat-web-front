@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import {
-	SignInPayloadType,
-	SignInFailedPayloadType,
-	SignInSuccessPayloadType,
-	AuthStateType
-} from './interface'
+import { SignInRequest, ErrorAction, SignInSuccess, AuthState } from './interface'
 
-const initialState: AuthStateType = {
+const initialState: AuthState = {
 	auth: {
 		credentials: null,
 		pending: true
@@ -26,34 +21,34 @@ const authSlice = createSlice({
 	name: 'passport',
 	initialState,
 	reducers: {
-		signInAction: (state, action: SignInPayloadType) => {
+		signInRequest: (state, action: SignInRequest) => {
 			state.auth.credentials = null
 			state.signIn.passport = action.payload.passport
 			state.signIn.loading = true
 			state.signIn.error = null
 		},
-		signInSuccessAction: (state, action: SignInSuccessPayloadType) => {
+		signInSuccess: (state, action: SignInSuccess) => {
 			state.auth.credentials = action.payload.credentials
 			state.signIn.passport = null
 			state.signIn.loading = false
 			state.signIn.error = null
 		},
-		signInFailedAction: (state, action: SignInFailedPayloadType) => {
+		signInFailure: (state, action: ErrorAction) => {
 			state.auth.credentials = null
 			state.signIn.passport = null
 			state.signIn.loading = false
 			state.signIn.error = action.payload.error
 		},
-		signInResetAction: state => {
+		signInReset: state => {
 			state.signIn.passport = null
 			state.auth.credentials = null
 			state.signIn.loading = false
 			state.signIn.error = null
 		},
-		logoutStartAction: state => {
+		logoutRequest: state => {
 			state.logout.loading = true
 		},
-		logoutSuccessAction: state => {
+		logoutSuccess: state => {
 			state.logout.loading = false
 		},
 		loadCredentialsFromStorageAction: (state, action: any) => {
@@ -67,13 +62,13 @@ const authSlice = createSlice({
 })
 
 export const {
-	signInResetAction,
-	signInAction,
-	signInSuccessAction,
-	signInFailedAction,
+	signInReset,
+	signInRequest,
+	signInSuccess,
+	signInFailure,
 	loadCredentialsFromStorageAction,
-	logoutStartAction,
-	logoutSuccessAction,
+	logoutRequest,
+	logoutSuccess,
 	changeAuthState
 } = authSlice.actions
 export default authSlice.reducer

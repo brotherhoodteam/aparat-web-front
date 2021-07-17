@@ -1,9 +1,9 @@
 import { Dispatch } from 'react'
 import { useDispatch } from 'react-redux'
-import { ActionType } from 'config/redux/interface'
+import { Actions } from 'config/redux/interface'
 
-const useTypedDispatch = (): Dispatch<ActionType> => {
-	const dispatch: Dispatch<ActionType> = useDispatch()
+const useTypedDispatch = (): Dispatch<Actions> => {
+	const dispatch: Dispatch<Actions> = useDispatch()
 	return dispatch
 }
 

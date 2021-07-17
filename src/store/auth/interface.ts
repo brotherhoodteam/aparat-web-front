@@ -1,55 +1,50 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
-export interface SignInType {
+// TYPIES
+export interface SignIn {
 	username: string
 	password: string
 }
-
-export type CredentialsType = {
+export type Credentials = {
 	access_token: string
 	expire_in: number
 	refresh_token: number
 	token_type: string
 }
 
-//  Data Interface
-export interface SignInDataType {
-	passport: SignInType
+//  PAYLOAD
+export interface SignInRequestPayload {
+	passport: SignIn
 }
-export interface CredentialsDataType {
-	credentials: CredentialsType
+export interface SignInSuccessPayload {
+	credentials: Credentials
 }
-export interface ErrorDataType {
-	error: ErrorType
+export interface SignInResponsePayload {
+	data: Credentials
 }
-
-// Payload
-export interface SignInPayloadType extends PayloadAction<SignInDataType> {}
-export interface SignInSuccessPayloadType extends PayloadAction<CredentialsDataType> {}
-export interface SignInFailedPayloadType extends PayloadAction<ErrorDataType> {}
-
-// AUTH RESPONSE TYPES
-export interface ResponseAuthType {
-	data: CredentialsType
+export interface ErrorPayload {
+	error: Error
 }
 
-// AUTH ACTIONS TYPE
-export type UserActionTypes =
-	| SignInPayloadType
-	| SignInSuccessPayloadType
-	| SignInFailedPayloadType
+// ACTION CREATOR
+export interface SignInRequest extends PayloadAction<SignInRequestPayload> {}
+export interface SignInSuccess extends PayloadAction<SignInSuccessPayload> {}
+export interface ErrorAction extends PayloadAction<ErrorPayload> {}
 
-// AUTH STATE TYPE
-export interface AuthStateType {
+// ACTIONS
+export type UserActions = SignInRequest | SignInSuccess | ErrorAction
+
+// STATE
+export interface AuthState {
 	auth: {
-		credentials: CredentialsType | null
+		credentials: Credentials | null
 		pending: boolean
 	}
 	signIn: {
-		passport: SignInType | null
+		passport: SignIn | null
 		loading: boolean
-		error: ErrorType | null
+		error: Error | null
 	}
 	logout: {
 		loading: boolean

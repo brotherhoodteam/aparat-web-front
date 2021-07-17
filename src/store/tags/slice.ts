@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	ErrorPayloadType,
-	SetTagStartPayloadType,
-	TagsStateType,
-	GetTagsSuccessPayloadType,
-	SetTagSuccessPayloadType
+	ErrorAction,
+	CreateTagRequest,
+	TagsState,
+	FetchTagsSuccess,
+	CreateTagSuccess
 } from './interface'
 
-const initialState: TagsStateType = {
+const initialState: TagsState = {
 	list: {
 		data: [],
 		loading: false,
 		errors: null
 	},
-	set: {
+	create: {
 		loading: false,
 		errors: null
 	}
@@ -23,43 +23,43 @@ const tagsSlice = createSlice({
 	name: 'tags',
 	initialState,
 	reducers: {
-		getTagsStartAction: state => {
+		fetchTagListRequest: state => {
 			state.list.data = []
 			state.list.loading = true
 			state.list.errors = null
 		},
-		getTagsSuccessAction: (state, action: GetTagsSuccessPayloadType) => {
+		fetchTagListSuccess: (state, action: FetchTagsSuccess) => {
 			state.list.data = action.payload.tags
 			state.list.loading = false
 			state.list.errors = null
 		},
-		getTagsFailedAction: (state, action: ErrorPayloadType) => {
+		fetchTagListFailure: (state, action: ErrorAction) => {
 			state.list.data = []
 			state.list.loading = false
 			state.list.errors = action.payload.error
 		},
-		setTagStartAction: (state, action: SetTagStartPayloadType) => {
-			state.set.loading = true
-			state.set.errors = null
+		createTagRequest: (state, action: CreateTagRequest) => {
+			state.create.loading = true
+			state.create.errors = null
 		},
-		setTagSuccessAction: (state, action: SetTagSuccessPayloadType) => {
-			state.set.loading = false
+		createTagSuccess: (state, action: CreateTagSuccess) => {
+			state.create.loading = false
 			state.list.data.push(action.payload.tag)
-			state.set.errors = null
+			state.create.errors = null
 		},
-		setTagFailedAction: (state, action: ErrorPayloadType) => {
-			state.set.loading = false
-			state.set.errors = action.payload.error
+		createTagFailure: (state, action: ErrorAction) => {
+			state.create.loading = false
+			state.create.errors = action.payload.error
 		}
 	}
 })
 
 export const {
-	getTagsStartAction,
-	getTagsSuccessAction,
-	getTagsFailedAction,
-	setTagStartAction,
-	setTagSuccessAction,
-	setTagFailedAction
+	fetchTagListRequest,
+	fetchTagListSuccess,
+	fetchTagListFailure,
+	createTagRequest,
+	createTagSuccess,
+	createTagFailure
 } = tagsSlice.actions
 export default tagsSlice.reducer

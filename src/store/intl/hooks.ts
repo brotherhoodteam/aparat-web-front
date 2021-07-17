@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux'
 import { selectIntlLocale } from 'store/intl/selectors'
-import { setLocaleAction } from 'store/intl/slice'
-import useTypedDispatch from './use-typed-dispatch'
-import { LocaleType } from 'store/intl/interface'
+import { selectLocale } from 'store/intl/slice'
+import useTypedDispatch from '../../core/hooks/use-typed-dispatch'
+import { Locale } from 'store/intl/interface'
 
 const useIntl = () => {
 	const locale = useSelector(selectIntlLocale)
 	const dispatch = useTypedDispatch()
 
-	const changeLocale = (locale: LocaleType): void => {
-		dispatch(setLocaleAction({ locale }))
+	const changeLocale = (locale: Locale): void => {
+		dispatch(selectLocale({ locale }))
 	}
 	return { locale, changeLocale }
 }

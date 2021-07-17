@@ -3,8 +3,8 @@ import PanelLayout from 'app/layouts/panel'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import { selectGetVideo } from 'store/video/selectors'
-import { getVideoStartAction } from 'store/video/slice'
+import { selectVideo } from 'store/video/selectors'
+import { fetchVideoRequest } from 'store/video/slice'
 import './style.scss'
 
 interface Props {}
@@ -12,10 +12,10 @@ const DashboardVideo: React.FC<Props> = ({}) => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
 
-	const { data, loading, errors } = useSelector(selectGetVideo)
+	const { data, loading, errors } = useSelector(selectVideo)
 
 	useEffect(() => {
-		dispatch(getVideoStartAction({ slug: params.slug }))
+		dispatch(fetchVideoRequest({ slug: params.slug }))
 	}, [params])
 
 	return (

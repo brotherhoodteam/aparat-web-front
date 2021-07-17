@@ -24,7 +24,7 @@ interface InputProps {
 	placeholder?: string
 }
 
-interface SelectBoxType {
+interface SelectBox {
 	id: string
 	name: string
 	label?: string
@@ -144,7 +144,7 @@ const NoOptionsMessage = (props: any, other: any) => {
 	)
 }
 
-const SelectBox: React.FC<SelectBoxType> = React.memo(
+const SelectBox: React.FC<SelectBox> = React.memo(
 	({
 		id,
 		name,

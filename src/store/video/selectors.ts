@@ -1,13 +1,20 @@
 import { createSelector } from 'reselect'
-import { StateType } from 'config/redux/interface'
+import { State } from 'config/redux/interface'
 
-export const selectVideo = (state: StateType) => state.video
-export const selectUploadVideo = createSelector([selectVideo], video => video.upload)
+export const selectVideoStore = (state: State) => state.video
+
+export const selectPost = createSelector([selectVideoStore], video => video.post)
+export const selectDeletedPost = createSelector(
+	[selectVideoStore],
+	video => video.deletePost
+)
+export const selectVideo = createSelector([selectVideoStore], video => video.single)
+export const selectVideoList = createSelector([selectVideoStore], video => video.list)
+export const selectUploadedVideo = createSelector(
+	[selectVideoStore],
+	video => video.uploadVideo
+)
 export const selectUploadBanner = createSelector(
-	[selectVideo],
+	[selectVideoStore],
 	video => video.uploadBanner
 )
-export const selectListVideo = createSelector([selectVideo], video => video.list)
-export const selectrDeleteVideo = createSelector([selectVideo], video => video.delete)
-export const selectGetVideo = createSelector([selectVideo], video => video.get)
-export const selectPublishVideo = createSelector([selectVideo], video => video.publish)

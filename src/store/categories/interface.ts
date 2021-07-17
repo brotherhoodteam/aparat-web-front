@@ -1,19 +1,17 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { BaseEntity } from 'core/interface/base'
-import { ErrorType } from 'core/interface/exception'
+import { Error } from 'core/interface/exception'
 
-// Base
+// TYPIES
 export interface BaseCategory {
 	title: string
 	icon?: string
 	banner?: string
 	slug: string
 }
-export interface CategoryType extends BaseEntity, BaseCategory {}
-export interface CreateCategoryType extends BaseCategory {}
-
-// Transfrom Interface
-export interface CategoryNormalizedType {
+export interface Category extends BaseEntity, BaseCategory {}
+export interface CreateCategory extends BaseCategory {}
+export interface CategoryNormalized {
 	id: number
 	userId?: string
 	label: string
@@ -23,54 +21,52 @@ export interface CategoryNormalizedType {
 	slug: string
 }
 
-// Data Interface
-export interface CategoryDataType {
-	category: CategoryType
+// PAYLOAD
+export interface CreateCategoryRequestPayload {
+	category: CreateCategory
 }
-export interface CategoriesDataType {
-	categories: Array<CategoryType>
+export interface CreateCategorySuccessPayload {
+	category: Category
 }
-export interface CreateCategoryDataType {
-	category: CreateCategoryType
+export interface CreateCategoryResponsePayload {
+	data: Category
 }
-export interface ErrorDataType {
-	error: ErrorType
+export interface FetchCategoryListSuccessPayload {
+	categoryList: Array<Category>
 }
-
-// Payloads
-//set
-export interface SetCategoryStartPayloadType
-	extends PayloadAction<CreateCategoryDataType> {}
-export interface SetCategorySuccessPayloadType extends PayloadAction<CategoryDataType> {}
-// get
-export interface GetCategoriesSuccessPayloadType
-	extends PayloadAction<CategoriesDataType> {}
-// error
-export interface ErrorPayloadType extends PayloadAction<ErrorDataType> {}
-
-// Response
-export interface CategoryDataResponseType {
-	data: CategoryType
+export interface FetchCategoryListResponsePayload {
+	data: Array<Category>
 }
-export interface CategoriesDataResponseType {
-	data: Array<CategoryType>
+export interface ErrorPayload {
+	error: Error
 }
 
-// Actions
+// ACTIONS
+export interface CreateCategoryRequest
+	extends PayloadAction<CreateCategoryRequestPayload> {}
+export interface CreateCategorySuccess
+	extends PayloadAction<CreateCategorySuccessPayload> {}
+
+export interface FetchCategoryListSuccess
+	extends PayloadAction<FetchCategoryListSuccessPayload> {}
+
+export interface ErrorAction extends PayloadAction<ErrorPayload> {}
+
+// ACTIONS
 export type CategoriesActionType =
-	| SetCategoryStartPayloadType
-	| GetCategoriesSuccessPayloadType
-	| ErrorPayloadType
+	| CreateCategoryRequest
+	| FetchCategoryListSuccess
+	| ErrorAction
 
-// State
-export interface CategoriesStateType {
+// STATE
+export interface CategoriesState {
 	list: {
-		data: Array<CategoryType>
+		data: Array<Category>
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
-	set: {
+	create: {
 		loading: boolean
-		errors: ErrorType | null
+		errors: Error | null
 	}
 }

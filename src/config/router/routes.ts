@@ -2,14 +2,14 @@ enum BASE_URL {
 	DASHBOARD = 'dashboard',
 	VIDEO = 'video'
 }
-interface RouteType {
+interface Route {
 	path: string
 	link: string
 }
 const ROUTES = {
 	MAIN: {
-		HOME: (): RouteType => ({ path: '/', link: '/' }),
-		NOTFOUND: (): RouteType => ({ path: '/notfound', link: 'notfound' })
+		HOME: (): Route => ({ path: '/', link: '/' }),
+		NOTFOUND: (): Route => ({ path: '/notfound', link: 'notfound' })
 	},
 	VIDEO: {
 		SINGLE: (slug?: string) => ({
@@ -22,7 +22,7 @@ const ROUTES = {
 			path: `/${BASE_URL.DASHBOARD}`,
 			link: `/${BASE_URL.DASHBOARD}`
 		}),
-		ADD_VIDEO: (): RouteType => ({
+		ADD_VIDEO: (): Route => ({
 			path: `/${BASE_URL.DASHBOARD}/video/add`,
 			link: `/${BASE_URL.DASHBOARD}/video/add`
 		}),

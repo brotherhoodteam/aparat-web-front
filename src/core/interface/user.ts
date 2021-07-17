@@ -1,4 +1,4 @@
-export interface UserType {
+export interface User {
 	avatar: string
 	created_at: string
 	deleted_at: null

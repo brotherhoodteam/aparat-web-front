@@ -1,36 +1,36 @@
 import { call, put } from '@redux-saga/core/effects'
 import api from 'config/api'
-import { appErrorHandler } from 'store/app/saga/handlers'
-import { setStatusAction } from 'store/status/slice'
+import { appError } from 'store/app/saga/handlers'
+import { showStatusAction } from 'store/status/slice'
 import {
-	SetTagStartPayloadType,
-	TagsDataResponseType,
-	TagDataResponseType
+	CreateTagRequest,
+	FetchTagListResponsePayload,
+	CreateTagResponsePayload
 } from '../interface'
 import {
-	getTagsSuccessAction,
-	getTagsFailedAction,
-	setTagFailedAction,
-	setTagSuccessAction
+	fetchTagListSuccess,
+	fetchTagListFailure,
+	createTagFailure,
+	createTagSuccess
 } from '../slice'
 
-export function* getTagsHandler() {
+export function* fetchTagListHandler() {
 	try {
-		const { data }: TagsDataResponseType = yield call(api.tags.get)
-		yield put(getTagsSuccessAction({ tags: data }))
+		const { data }: FetchTagListResponsePayload = yield call(api.tags.get)
+		yield put(fetchTagListSuccess({ tags: data }))
 	} catch (error) {
-		yield call(appErrorHandler, error, getTagsFailedAction, true)
+		yield call(appError, error, fetchTagListFailure, true)
 	}
 }
 
-export function* setTagHandler({ payload: { tag } }: SetTagStartPayloadType) {
+export function* createTagHandler({ payload: { tag } }: CreateTagRequest) {
 	try {
-		const { data }: TagDataResponseType = yield call(api.tags.set, tag)
-		yield put(setTagSuccessAction({ tag: data }))
+		const { data }: CreateTagResponsePayload = yield call(api.tags.set, tag)
+		yield put(createTagSuccess({ tag: data }))
 		yield put(
-			setStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
+			showStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
 		)
 	} catch (error) {
-		yield call(appErrorHandler, error, setTagFailedAction, true)
+		yield call(appError, error, createTagFailure, true)
 	}
 }

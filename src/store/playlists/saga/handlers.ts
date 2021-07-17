@@ -2,38 +2,39 @@ import { call, put } from '@redux-saga/core/effects'
 
 import api from 'config/api'
 import {
-	PlaylistsDataResponseType,
-	PlaylistDataResponseType,
-	SetPlaylistStartPayloadType
+	CreatePlaylistRequest,
+	CreatePlaylistResponsePayload,
+	FetchPlaylistListResponsePayload
 } from '../interface'
 import {
-	getPlaylistsSuccessAction,
-	getPlaylistsFailedAction,
-	setPlaylistSuccessAction,
-	setPlaylistFailedAction
+	fetchPlaylistListSuccess,
+	fetchPlaylistListFailure,
+	createPlaylistSuccess,
+	createPlaylistFailure
 } from '../slice'
-import { setStatusAction } from 'store/status/slice'
-import { appErrorHandler } from 'store/app/saga/handlers'
+import { showStatusAction } from 'store/status/slice'
+import { appError } from 'store/app/saga/handlers'
 
-export function* getPlaylistsHandler() {
+export function* fetchPlaylistListHandler() {
 	try {
-		const { data }: PlaylistsDataResponseType = yield call(api.playlists.get)
-		yield put(getPlaylistsSuccessAction({ playlists: data }))
+		const { data }: FetchPlaylistListResponsePayload = yield call(api.playlists.get)
+		yield put(fetchPlaylistListSuccess({ playlistList: data }))
 	} catch (error) {
-		yield call(appErrorHandler, error, getPlaylistsFailedAction, true)
+		yield call(appError, error, fetchPlaylistListFailure, true)
 	}
 }
 
-export function* setPlaylistHandler({
-	payload: { playlist }
-}: SetPlaylistStartPayloadType) {
+export function* createPlaylistHandler({ payload: { playlist } }: CreatePlaylistRequest) {
 	try {
-		const { data }: PlaylistDataResponseType = yield call(api.playlists.set, playlist)
-		yield put(setPlaylistSuccessAction({ playlist: data }))
+		const { data }: CreatePlaylistResponsePayload = yield call(
+			api.playlists.set,
+			playlist
+		)
+		yield put(createPlaylistSuccess({ playlist: data }))
 		yield put(
-			setStatusAction({ status: 'success', message: 'لیست پخش جدید باموفقیت اضافه شد' })
+			showStatusAction({ status: 'success', message: 'لیست پخش جدید باموفقیت اضافه شد' })
 		)
 	} catch (error) {
-		yield call(appErrorHandler, error, setPlaylistFailedAction, true)
+		yield call(appError, error, createPlaylistFailure, true)
 	}
 }
