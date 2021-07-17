@@ -3,7 +3,7 @@ import router from './config'
 import { RouteType } from './interface'
 import useAccess from 'core/hooks/use-access'
 import history from 'core/utils/history'
-
+// import CustomSwitch from './custom-switch'
 const RouterComponent = () => {
 	const { routerAccess, pending } = useAccess()
 

@@ -13,9 +13,10 @@ import { fetchCategoryListRequest } from 'store/categories/slice'
 import { fetchPlaylistListRequest } from 'store/playlists/slice'
 import { fetchTagListRequest } from 'store/tags/slice'
 import { changeAuthState, loadCredentialsFromStorageAction } from 'store/auth/slice'
+import { fetchVideoListRequest } from 'store/video/slice'
 
 import './styles.scss'
-
+import 'react-lazy-load-image-component/src/effects/blur.css'
 const MainContainer: React.FC = ({ children }) => {
 	const appDrawer = useSelector(selectAppDrawer)
 	const styles = useClass({
