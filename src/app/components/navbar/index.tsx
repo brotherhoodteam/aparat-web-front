@@ -24,6 +24,7 @@ import ProfileImg from 'assets/images/img6.jpg'
 import './styles.scss'
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { logoutRequest } from 'store/auth/slice'
 
 const Navbar = () => {
 	const { auth } = useAuth()
@@ -31,6 +32,7 @@ const Navbar = () => {
 	const handleOpenDrawer = () => {
 		dispatch(enableAppDrawer())
 	}
+
 	return (
 		<div className="navbar">
 			<div className="navbar-wrap">
@@ -81,6 +83,11 @@ const Navbar = () => {
 }
 
 const SubscriberNav = () => {
+	const dispatch = useDispatch()
+	const handleLogout = () => {
+		dispatch(logoutRequest())
+	}
+
 	return (
 		<React.Fragment>
 			<li className="navbar-item">
@@ -161,7 +168,7 @@ const SubscriberNav = () => {
 							</span>
 						</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem to="#">
+						<DropdownItem onClick={handleLogout}>
 							<span className="text-truncate" title="خروج">
 								خروج
 							</span>

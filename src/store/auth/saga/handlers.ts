@@ -26,7 +26,6 @@ export function* clearExpireCredentialhandler() {
 	}
 }
 export function* logoutHandler() {
-	yield delay(3000)
 	yield call(clearExpireCredentialhandler)
 	yield put(logoutSuccess())
 	yield put(showStatusAction({ message: 'با موفقیت خارج شدید', status: 'success' }))

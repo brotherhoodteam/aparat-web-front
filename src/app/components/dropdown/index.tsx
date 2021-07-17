@@ -14,7 +14,8 @@ interface DropdownProps {
 }
 interface DropdownButtonPorps {}
 interface DropdownItemPorps {
-	to: LinkTarget
+	to?: LinkTarget
+	onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 interface DropdownMenuPorps {}
 
@@ -85,11 +86,15 @@ const DropdownMenu: React.FC<DropdownMenuPorps> = ({ children }) => {
 const DropdownHeader: React.FC = ({ children }) => {
 	return <div className="dropdown-header">{children}</div>
 }
-const DropdownItem: React.FC<DropdownItemPorps> = ({ children, to }) => {
-	return (
-		<Link to={to} className="dropdown-item">
+const DropdownItem: React.FC<DropdownItemPorps> = ({ children, onClick, to }) => {
+	return to ? (
+		<Link to={to} className="dropdown-item" onClick={onClick}>
 			{children}
 		</Link>
+	) : (
+		<span className="dropdown-item" onClick={onClick}>
+			{children}
+		</span>
 	)
 }
 const DropdownDivider: React.FC = ({ children }) => {
