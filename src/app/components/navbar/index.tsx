@@ -71,8 +71,8 @@ const Navbar = () => {
 				</div>
 				<div className="navbar-content-left">
 					<ul className="navbar-nav">
-						{{ auth } && <SubscriberNav />}
-						{!{ auth } && <GuestNav />}
+						{auth && <SubscriberNav />}
+						{!auth && <GuestNav />}
 					</ul>
 				</div>
 			</div>

@@ -55,10 +55,7 @@ const DashboardUpload: React.FC = () => {
 	} = useSelector(selectUploadBanner)
 
 	// published video
-	const { response: createPost, loading: publishLoading } = useSelector(selectPost)
-
-	// const {}: Video | null = useSelector(selectPost)
-
+	const { response: createdPost, loading: createdLoading } = useSelector(selectPost)
 	// categories
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: channelCategories, loading: channelCategoriesLoading } =
@@ -71,10 +68,10 @@ const DashboardUpload: React.FC = () => {
 	const { data: tags, loading: tagsLoading } = useTags()
 
 	useEffect(() => {
-		if (createPost) {
+		if (createdPost) {
 			scrollTop()
 		}
-	}, [createPost])
+	}, [createdPost])
 
 	useEffect(() => {
 		return () => {
@@ -121,9 +118,21 @@ const DashboardUpload: React.FC = () => {
 			banner_id: '',
 			title: '',
 			info: '',
-			category: { label: 'sport', value: 1 },
+			category: {
+				banner: null,
+				icon: null,
+				id: 1,
+				label: 'عمومی',
+				slug: 'general',
+				userId: null,
+				value: 'general'
+			},
 			channel: null,
-			tags: [],
+			tags: [
+				{ id: 3, label: 'علم و تکنولوژی', value: 3 },
+				{ id: 2, label: 'خبری', value: 2 },
+				{ id: 4, label: 'ورزشی', value: 4 }
+			],
 			playlist: null,
 			enable_comments: false,
 			enable_watermark: false
@@ -164,6 +173,10 @@ const DashboardUpload: React.FC = () => {
 			inline: 'nearest'
 		})
 	}
+
+	const handleResetCreateVideo = () => {
+		dispatch(createPostReset())
+	}
 	return (
 		<PanelLayout title="آپلود ویدئو">
 			<div ref={panelRef}>
@@ -176,7 +189,7 @@ const DashboardUpload: React.FC = () => {
 						<Formik {...form} validateOnChange={false}>
 							{({ resetForm }) => (
 								<Form>
-									{!createPost ? (
+									{!createdPost ? (
 										<React.Fragment>
 											<div className="mb-4">
 												<p>
@@ -349,18 +362,18 @@ const DashboardUpload: React.FC = () => {
 														<LazyLoadImage
 															effect="blur"
 															className="img-fluid rounded-lg w-100"
-															src={createPost.banner_link}
-															alt={createPost.title}
+															src={createdPost.banner_link}
+															alt={createdPost.title}
 														/>
 													</div>
 													<div className="col-sm-7 col-lg-9">
 														<div className="row">
 															<div className="col-lg-9 mb-2 mb-lg-0">
 																<h5 className="text-dark text-hover-primary">
-																	{createPost.title}
+																	{createdPost.title}
 																</h5>
 																<span className="d-block text-muted text-primary text-lh-sm mb-0">
-																	{createPost.info}
+																	{createdPost.info}
 																</span>
 															</div>
 
@@ -368,7 +381,7 @@ const DashboardUpload: React.FC = () => {
 																<div className="text-right">
 																	<small className="d-block text-muted">طول ویدئو</small>
 																	<span className="d-block h5 text-primary text-lh-sm mb-0">
-																		{createPost.duration}
+																		{createdPost.duration}
 																	</span>
 																</div>
 															</div>
@@ -391,20 +404,20 @@ const DashboardUpload: React.FC = () => {
 															type="submit"
 															color="primary"
 															loader={
-																publishLoading ||
+																createdLoading ||
 																uploadVideoLoading ||
 																uploadBannerLoading
 															}
 															loaderText="درحال پردازش اطلاعات"
-															disanled={!!createPost}
+															disanled={!!createdPost}
 														>
-															{!createPost ? (
+															{!createdPost ? (
 																<span>انتشار ویدئو</span>
 															) : (
 																<span>ویدئو با موفقیت منتشر شد</span>
 															)}
 														</Button>
-														{!createPost && (
+														{!createdPost && (
 															<Button
 																type="button"
 																variant="ghost"
@@ -415,12 +428,13 @@ const DashboardUpload: React.FC = () => {
 																انتشار در زمانی دیگر
 															</Button>
 														)}
-														{createPost && (
+														{createdPost && (
 															<Button
 																type="button"
 																variant="ghost"
 																color="light"
 																classNames="ms-2"
+																onClick={handleResetCreateVideo}
 															>
 																ارسال ویدئو جدید
 															</Button>

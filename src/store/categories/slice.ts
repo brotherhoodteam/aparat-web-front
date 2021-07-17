@@ -30,12 +30,12 @@ const tagsSlice = createSlice({
 		},
 		fetchCategoryListSuccess: (state, action: FetchCategoryListSuccess) => {
 			state.list.data = action.payload.categoryList
-			state.list.loading = true
+			state.list.loading = false
 			state.list.errors = null
 		},
 		fetchCategoryListFailure: (state, action: ErrorAction) => {
 			state.list.data = []
-			state.list.loading = true
+			state.list.loading = false
 			state.list.errors = action.payload.error
 		},
 		createCategoryRequest: (state, action: CreateCategoryRequest) => {

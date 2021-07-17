@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ErrorMessage, useField } from 'formik'
 import Select, {
 	ActionMeta,
@@ -169,6 +169,44 @@ const SelectBox: React.FC<SelectBox> = React.memo(
 			},
 			otherClass: className
 		})
+		const handleLoading = () => (loadingMessage ? loadingMessage : null)
+
+		// useEffect(() => {
+		// 	if (options) {
+		// 		const fieldVal = field.value
+		// 		let list: any
+		// 		if (!fieldVal) return
+
+		// 		if (fieldVal instanceof Array) {
+		// 			list = isMulti ?  : fieldVal[0]
+		// 		} else {
+		// 			list = isMulti ? [fieldVal] : fieldVal
+		// 		}
+
+		// 		const value = isMulti
+		// 			? options.filter(op => {
+		// 					return defaultValue.some((item: OptionTypeBase) => {
+		// 						return item.value === op.id
+		// 					})
+		// 			  })
+		// 			: options.find(op => {
+		// 					return op.id === defaultValue.value
+		// 			  })
+
+		// 		if (value) {
+		// 			// console.log('defaultValue options', { label: 'عمومی', value: 1 }, options)
+		// 			handleChange(
+		// 				{ label: 'عمومی', value: 1 },
+		// 				{
+		// 					action: 'select-option',
+		// 					name: name,
+		// 					option: undefined
+		// 				}
+		// 			)
+		// 		}
+		// 	}
+		// }, [options])
+
 		const handleChange = useCallback(
 			(select: OptionTypeBase | null, actionMeta: ActionMeta<OptionTypeBase>) => {
 				helper.setValue(select)
@@ -176,31 +214,6 @@ const SelectBox: React.FC<SelectBox> = React.memo(
 			[]
 		)
 
-		const defaultValues = useMemo(() => {
-			const fieldVal = field.value
-			let defaultValue: any
-			if (!fieldVal) return
-
-			if (fieldVal instanceof Array) {
-				defaultValue = isMulti ? fieldVal : fieldVal[0]
-			} else {
-				defaultValue = isMulti ? [fieldVal] : fieldVal
-			}
-
-			const value = isMulti
-				? options?.filter(op => {
-						return defaultValue.some((item: OptionTypeBase) => {
-							return item.value === op.value
-						})
-				  })
-				: options?.find(op => {
-						return op.id === defaultValue.value
-				  })
-
-			return value
-		}, [options])
-
-		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 		return (
 			<div className="form-group text-right">
 				{/* START LABEL */}
@@ -215,9 +228,9 @@ const SelectBox: React.FC<SelectBox> = React.memo(
 					id={htmlId}
 					className={styles}
 					classNamePrefix={'select-box'}
+					defaultValue={field.value}
 					placeholder={placeholder || ''}
 					options={options}
-					defaultValue={defaultValues}
 					isSearchable={isSearchable || false}
 					isMulti={isMulti}
 					closeMenuOnSelect={closeMenuOnSelect}
