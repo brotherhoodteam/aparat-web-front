@@ -6,24 +6,27 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 interface AvatarProps {
 	image: string
 	size?: Size
+	ratio?: '4by3'
 	circle?: boolean
 	className?: ClassName
 	alt: string
 	status?: Colors
 }
 const Avatar: React.FC<AvatarProps> = React.memo(
-	({ image, size, className, status, circle, alt }) => {
+	({ image, size, className, status, circle, alt, ratio }) => {
 		const baseClass = 'avatar'
 		const baseStatusClass = 'avatar-status'
 		const classSize = `${baseClass}-${size}`
 		const classStatusSize = `avatar-${size}-status`
 		const classCircle = `${baseClass}-circle`
 		const classStatusColor = `${baseStatusClass}-${status}`
+		const classRatio = `${baseClass}-${ratio}`
 		const styles = useClass({
 			defaultClass: baseClass,
 			optionalClass: {
 				[classSize]: size,
-				[classCircle]: circle
+				[classCircle]: circle,
+				[classRatio]: ratio
 			},
 			otherClass: className
 		})

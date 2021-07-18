@@ -5,6 +5,7 @@
 	width: 2.625rem;
 	height: 2.625rem;
 	border-radius: 0.3125rem;
+	flex-shrink: 0;
 
 	&-xxl {
 		width: 7rem;
@@ -87,4 +88,25 @@
 		height: 12px;
 		font-size: 0.4375rem;
 	}
+}
+.avatar.avatar-4by3 {
+	width: 3.5rem;
+}
+.avatar-xss.avatar-4by3 {
+	width: 1.33333rem;
+}
+.avatar-xs.avatar-4by3 {
+	width: 2.04167rem;
+}
+.avatar-sm.avatar-4by3 {
+	width: 2.91667rem;
+}
+.avatar-lg.avatar-4by3 {
+	width: 4.49167rem;
+}
+.avatar-xl.avatar-4by3 {
+	width: 6.5625rem;
+}
+.avatar-xxl.avatar-4by3 {
+	width: 10.5rem;
 }

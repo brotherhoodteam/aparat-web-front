@@ -13,8 +13,8 @@ const ROUTES = {
 	},
 	VIDEO: {
 		SINGLE: (slug?: string) => ({
-			path: `${BASE_URL.VIDEO}/:slug`,
-			link: `${BASE_URL.VIDEO}/${slug}`
+			path: `/${BASE_URL.VIDEO}/:slug`,
+			link: `/${BASE_URL.VIDEO}/${slug}`
 		})
 	},
 	DASHBOARD: {
@@ -45,6 +45,10 @@ const ROUTES = {
 		COMMENTS: () => ({
 			path: `/${BASE_URL.DASHBOARD}/comments`,
 			link: `/${BASE_URL.DASHBOARD}/comments`
+		}),
+		PROFILE: (slug?: string) => ({
+			path: `/${BASE_URL.DASHBOARD}/profile`,
+			link: `/${BASE_URL.DASHBOARD}/profile/${slug}`
 		}),
 		CHANNELS: () => ({
 			path: `/${BASE_URL.DASHBOARD}/channels`,

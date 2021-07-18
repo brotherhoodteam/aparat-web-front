@@ -83,25 +83,25 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 				</div>
 				{/* Details */}
 				<div className="d-flex align-items-center ml-auto mb-4">
-					<div className="small text-muted">
+					<div className="text-muted">
 						<small className="d-flex align-items-center">
 							<i className="fa fa-book-reader d-block d-sm-inline-block mb-1 mb-sm-0 me-1"></i>
 							{video.views} بازدید
 						</small>
 					</div>
 					<small className="text-muted mx-2">|</small>
-					<div className="small text-muted">
+					<div className="text-muted">
 						<small className="d-flex align-items-center">
 							<i className="fa fa-clock d-block d-sm-inline-block mb-1 mb-sm-0 me-1"></i>
 							{video.duration} دقیقه
 						</small>
 					</div>
 					<small className="text-muted mx-2">|</small>
-					<div className="small text-muted">
-						<small className="d-flex align-items-center">
+					<div className="text-muted">
+						<span className="d-flex align-items-center">
 							<i className="fa  fa-calendar-day d-block d-sm-inline-block mb-1 mb-sm-0 me-1"></i>
 							{GetPublishDate()} انتشار
-						</small>
+						</span>
 					</div>
 					<Avatar
 						size="sm"
@@ -110,19 +110,29 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 						className="ms-auto"
 					/>
 				</div>
-				<div className="d-flex align-items-center">
+				<div className="d-flex align-items-center justify-content-between">
 					<Button
-						to={{ pathname: ROUTES.DASHBOARD.VIDEO(video.slug).link }}
-						classNames="mx-2 ms-0"
-						color="primary"
+						to={{ pathname: ROUTES.VIDEO.SINGLE(video.slug).link }}
+						classNames="mx-1 ms-0"
+						color="success"
 						size="sm"
 						variant="soft"
 					>
 						<i className="tio tio-play-circle me-1"></i>
-						نمایش
+						مشاهده
 					</Button>
 					<Button
-						classNames="mx-2"
+						to={{ pathname: ROUTES.DASHBOARD.VIDEO(video.slug).link }}
+						classNames="mx-1"
+						color="primary"
+						size="sm"
+						variant="soft"
+					>
+						<i className="tio tio-chart-bar-4 me-1"></i>
+						اطلاعات
+					</Button>
+					<Button
+						classNames="mx-1"
 						to={{ pathname: ROUTES.DASHBOARD.EDIT_VIDEO(video.slug).link }}
 						color="secondary"
 						size="sm"
@@ -132,7 +142,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 						ویرایش
 					</Button>
 					<Button
-						classNames="mx-2"
+						classNames="mx-1 me-0"
 						color="danger"
 						size="sm"
 						variant="soft"

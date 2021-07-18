@@ -1,3 +1,13 @@
-.panel > .card > .card-body {
-	min-height: 400px;
+.panel {
+	& > .card > .card-body {
+		min-height: 400px;
+	}
+	&-header {
+		border-bottom: 0.0625rem solid #e7eaf3;
+		padding-bottom: 1.75rem;
+		margin-bottom: 2.25rem;
+		&-title {
+			margin-bottom: 0.25rem;
+		}
+	}
 }

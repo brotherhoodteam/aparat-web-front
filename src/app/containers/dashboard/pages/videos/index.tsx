@@ -23,7 +23,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 
 	// Select Videos Store
 	const { data, loading, errors } = useSelector(selectVideoList)
-
+	console.log(data)
 	// Set Default page
 	useEffect(() => {
 		handleChangePage(q)
@@ -57,7 +57,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 	}
 
 	const title = errors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
-
+	console.log('loading', loading)
 	return (
 		<div>
 			<PanelLayout title={title}>
@@ -82,7 +82,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 						{/*Finish Render Errors */}
 
 						{/*Start Render Loading */}
-						{loading && !data && (
+						{loading && (
 							<div className="row">
 								<div className="col-12">
 									<VideoLoader length={9} size="col-12 col-md-6" />

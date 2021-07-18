@@ -129,12 +129,21 @@ const SubscriberNav = () => {
 					</DropdownButton>
 					<DropdownMenu>
 						<DropdownHeader>
-							<Media
-								image={ProfileImg}
-								alt="آرش میلانی"
-								title="آرش میلانی"
-								desc="arash@example.com"
-							/>
+							<Media>
+								<Avatar
+									image={ProfileImg}
+									alt="آرش میلانی"
+									size="sm"
+									circle
+									className="me-2"
+								/>
+								<span style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}>
+									آرش میلانی
+								</span>
+								<span style={{ display: 'block', color: '#677788', margin: 0 }}>
+									arash@example.com"
+								</span>
+							</Media>
 						</DropdownHeader>
 						<DropdownDivider />
 						<DropdownItem to="/dashboard/profile">

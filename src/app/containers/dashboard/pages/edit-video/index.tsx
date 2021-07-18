@@ -56,14 +56,12 @@ const EditVideo: React.FC<Props> = () => {
 
 	const category = useMemo(() => {
 		if (!video) return {}
-		const item = categories.find(cat => cat.id === video.category_id)
-		return { label: item?.label, value: item?.id }
+		return categories.find(cat => cat.id === video.category_id)
 	}, [video])
 
 	const tags = useMemo(() => {
 		if (!video) return {}
-		const items = tagsData.filter(itm => video.tags.some(tag => tag.id === itm.id))
-		return items.map(itm => ({ label: itm?.label, value: itm?.id }))
+		return tagsData.filter(itm => video.tags.some(tag => tag.id === itm.id))
 	}, [video])
 
 	useEffect(() => {
@@ -95,7 +93,7 @@ const EditVideo: React.FC<Props> = () => {
 	// form setup
 	const form = {
 		initialValues: {
-			banner: video?.banner_link,
+			banner: video?.banner,
 			title: video?.title,
 			info: video?.info,
 			category: category,
@@ -103,13 +101,14 @@ const EditVideo: React.FC<Props> = () => {
 			enable_comments: video?.enable_comments
 		},
 		onSubmit: (value: any) => {
+			console.log('value', value)
+			console.log('video', video)
 			if (video) {
 				const data = {
 					...value,
-					category: value?.category.value,
-					tags: value.tags?.map((tag: any) => tag.value)
+					category: value.category.id,
+					tags: value.tags.map((tag: any) => tag.id)
 				}
-				console.log('video', video)
 				dispatch(updatePostRequest({ slug: video.slug, video: data }))
 			}
 		},

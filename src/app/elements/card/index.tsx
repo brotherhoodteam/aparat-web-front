@@ -30,7 +30,7 @@ interface CardTitleProps {
 }
 const Card: React.FC<CardPorps> = React.memo(
 	({ children, className, size, bordered, ...props }) => {
-		const baseClass = `card`
+		const baseClass = 'card'
 		const cardSize = `${baseClass}-${size}`
 
 		const styles = useClass({

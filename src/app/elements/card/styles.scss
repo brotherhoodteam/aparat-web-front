@@ -49,6 +49,9 @@
 		#{$self}-lg & {
 			padding: 2rem 2rem;
 		}
+		#{$self}-sm & {
+			padding: 1rem 1rem;
+		}
 	}
 	&-bordered {
 		border-width: 0.0625rem;

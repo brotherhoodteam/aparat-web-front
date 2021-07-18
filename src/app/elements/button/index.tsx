@@ -62,6 +62,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 			const btnRounded = `${baseClass}-circle`
 			const btnIcon = `${baseClass}-icon`
 			const btnStatus = `${baseStatusClass}-${status}`
+			const btnLink = `${baseClass}-link`
 			const styles = useClass({
 				defaultClass: baseClass,
 				optionalClass: {
@@ -70,7 +71,8 @@ const Button: React.FC<ButtonProps> = React.memo(
 					[btnSize]: size,
 					[btnBlock]: block,
 					[btnRounded]: circle,
-					[btnIcon]: icon
+					[btnIcon]: icon,
+					[btnLink]: to
 				},
 				otherClass: classNames
 			})

@@ -470,6 +470,21 @@ button:not(:disabled) {
 	transition: 200ms ease;
 }
 
+.btn-soft-success.active,
+.btn-soft-success:active,
+.btn-soft-success:focus,
+.btn-soft-success:hover {
+	color: #fff;
+	background-color: #00c9a7;
+	box-shadow: 0 4px 11px rgb(0 201 167 / 10%);
+}
+
+.btn-soft-success {
+	color: #00c9a7;
+	background-color: rgba(0, 201, 167, 0.1);
+	border-color: transparent;
+}
+
 // .btn-loader {
 // 	opacity: 0;
 // }
@@ -484,4 +499,8 @@ button:not(:disabled) {
 
 // .btn-animated .btn-content {
 // 	opacity: 0;
+// }
+
+// .btn.btn-link {
+// 	padding: 0 !important;
 // }
