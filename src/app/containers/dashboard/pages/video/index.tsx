@@ -1,6 +1,8 @@
 import videoLoader from 'app/components/content-loader/video-loader'
 import Media, { MediaBody } from 'app/components/media'
 import NoData from 'app/components/no-data'
+import Tooltip from 'app/components/Tooltip'
+import VideoButtonTools from 'app/components/video-button-tools'
 import Avatar from 'app/elements/avatar'
 import Button from 'app/elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
@@ -62,10 +64,10 @@ const DashboardVideo: React.FC<Props> = () => {
 								<Media className="mb-3">
 									<Avatar
 										image={data.banner_link}
-										size="xl"
+										size="xxl"
 										ratio="4by3"
 										alt={data.title}
-										className="me-2"
+										className="me-3"
 									/>
 									<MediaBody>
 										<div className="row">
@@ -130,6 +132,9 @@ const DashboardVideo: React.FC<Props> = () => {
 													)}
 												</div>
 											</div>
+											<div className="col-lg-auto">
+												<VideoButtonTools slug={data.slug} />
+											</div>
 										</div>
 									</MediaBody>
 								</Media>
@@ -137,7 +142,7 @@ const DashboardVideo: React.FC<Props> = () => {
 							{/* --- End Page Header --- */}
 							{/* --- State --- */}
 							<div className="row">
-								<div className="col-sm-6 col-lg-3 mb-3 mb-lg-6">
+								{/* <div className="col-sm-6 col-lg-4 mb-3 mb-lg-6">
 									<Card size="sm">
 										<CardBody>
 											<Media>
@@ -149,34 +154,34 @@ const DashboardVideo: React.FC<Props> = () => {
 											</Media>
 										</CardBody>
 									</Card>
-								</div>
-								<div className="col-sm-6 col-lg-3 mb-3 mb-lg-6">
+								</div> */}
+								<div className="col-sm-6 col-lg-4 mb-3 mb-lg-6">
 									<Card size="sm">
 										<CardBody>
 											<Media>
 												<i className="tio-heart nav-icon"></i>
 												<MediaBody>
-													<h4 className="mb-1">378</h4>
+													<h4 className="mb-1">{data.likeCount}</h4>
 													<span className="d-block">تعداد پسند‌ها</span>
 												</MediaBody>
 											</Media>
 										</CardBody>
 									</Card>
 								</div>
-								<div className="col-sm-6 col-lg-3 mb-3 mb-lg-6">
+								<div className="col-sm-6 col-lg-4 mb-3 mb-lg-6">
 									<Card size="sm">
 										<CardBody>
 											<Media>
 												<i className="tio-chart-bar-1 nav-icon"></i>
 												<MediaBody>
-													<h4 className="mb-1">3678</h4>
-													<span className="d-block">بازدید‌های ویدئو</span>
+													<h4 className="mb-1">{data.views}</h4>
+													<span className="d-block">بازدید‌های کل</span>
 												</MediaBody>
 											</Media>
 										</CardBody>
 									</Card>
 								</div>
-								<div className="col-sm-6 col-lg-3 mb-3 mb-lg-6">
+								<div className="col-sm-6 col-lg-4 mb-3 mb-lg-6">
 									<Card size="sm">
 										<CardBody>
 											<Media>

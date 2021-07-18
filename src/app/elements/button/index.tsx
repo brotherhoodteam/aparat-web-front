@@ -1,4 +1,4 @@
-import React, { Fragment, MouseEvent } from 'react'
+import React, { Fragment, MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import { Location, LocationDescriptor } from 'history'
 
@@ -26,6 +26,8 @@ interface ButtonProps {
 	status?: Colors
 	statusSize?: Size
 	onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
+	onMouseEnter?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
+	onMouseLeave?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
 }
 
 const Button: React.FC<ButtonProps> = React.memo(
@@ -45,8 +47,10 @@ const Button: React.FC<ButtonProps> = React.memo(
 			icon,
 			status,
 			statusSize,
-			onClick,
 			to,
+			onClick,
+			onMouseEnter,
+			onMouseLeave,
 			...props
 		}) => {
 			const baseClass = 'btn'
@@ -91,9 +95,26 @@ const Button: React.FC<ButtonProps> = React.memo(
 				onClick && onClick(e)
 			}
 
+			const handleMouseEnter = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+				if (disanled || loader) return
+				onMouseEnter && onMouseEnter(e)
+			}
+
+			const handleMouseLeave = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+				if (disanled || loader) return
+				onMouseLeave && onMouseLeave(e)
+			}
+
 			if (to)
 				return (
-					<Link to={to} onClick={handleClick} className={styles} {...props}>
+					<Link
+						to={to}
+						onClick={handleClick}
+						onMouseEnter={handleMouseEnter}
+						onMouseLeave={handleMouseLeave}
+						className={styles}
+						{...props}
+					>
 						{loader ? (
 							<Fragment>
 								<Spinner variants="border" size="sm" />
@@ -110,6 +131,8 @@ const Button: React.FC<ButtonProps> = React.memo(
 				<button
 					type={btnType}
 					onClick={handleClick}
+					onMouseEnter={handleMouseEnter}
+					onMouseLeave={handleMouseLeave}
 					className={styles}
 					{...props}
 					disabled={loader || disanled}
