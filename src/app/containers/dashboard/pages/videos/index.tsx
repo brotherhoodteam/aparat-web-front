@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'core/hooks/use-query'
@@ -16,17 +16,24 @@ import ROUTES from 'config/router/routes'
 interface Props {}
 
 const DashboardVideoList: React.FC<Props> = () => {
+	const [params] = useState({
+		page: 1,
+		perPage: 4
+	})
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const query = useQuery()
-	const q = Number(query.get('page'))
+
+	// Get Url Params
+	const page = Number(query.get('page'))
+	const perPage = Number(query.get('per_page'))
 
 	// Select Videos Store
 	const { data, loading, errors } = useSelector(selectVideoList)
-	console.log(data)
-	// Set Default page
+
+	// Set Default Queries
 	useEffect(() => {
-		handleChangePage(q)
+		handleChangePage(page, perPage)
 
 		return () => {
 			// Reset Videos Store when componnet unmounted
@@ -36,28 +43,28 @@ const DashboardVideoList: React.FC<Props> = () => {
 
 	// Fetch Data
 	useEffect(() => {
-		if (q) {
-			dispatch(fetchVideoListRequest({ page: q }))
-		}
-	}, [q])
+		dispatch(fetchVideoListRequest({ page, per_page: perPage }))
+	}, [page, perPage])
 
 	useEffect(() => {
-		if (data && q) {
-			if (q > data.last_page) {
+		if (data && page) {
+			if (page > data.last_page) {
 				handleChangePage(data.last_page)
 			}
 		}
 	}, [data])
 
 	// Chnage Pages Query
-	const handleChangePage = (page: number | string | null) => {
+	const handleChangePage = (page?: number | string, perPage?: number | string) => {
 		history.push({
-			search: `?page=${page ? page : 1}`
+			search: `?page=${page ? page : params.page}&per_page=${
+				perPage ? perPage : params.perPage
+			}`
 		})
 	}
 
-	const title = errors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
-	console.log('loading', loading)
+	const title = useMemo(() => (errors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'), [errors])
+
 	return (
 		<div>
 			<PanelLayout title={title}>
@@ -85,7 +92,7 @@ const DashboardVideoList: React.FC<Props> = () => {
 						{loading && (
 							<div className="row">
 								<div className="col-12">
-									<VideoLoader length={9} size="col-12 col-md-6" />
+									<VideoLoader length={perPage ? perPage : 10} size="col-12 col-md-6" />
 								</div>
 							</div>
 						)}

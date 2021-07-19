@@ -140,7 +140,7 @@ const videoSlice = createSlice({
 
 		// Fetch Video list
 		fetchVideoListRequest: (state, action: FetchVideoListRequest) => {
-			// state.list.data = null
+			state.list.data = null
 			state.list.loading = true
 			state.list.errors = null
 		},

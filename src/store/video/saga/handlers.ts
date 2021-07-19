@@ -165,7 +165,8 @@ export function* fetchVideoListHanlder({ payload }: FetchVideoListRequest) {
 	try {
 		const { data }: FetchVideoListResponsePayload = yield call(
 			api.video.getList,
-			payload?.page
+			payload?.page,
+			payload?.per_page
 		)
 		yield put(
 			fetchVideoListSuccess({

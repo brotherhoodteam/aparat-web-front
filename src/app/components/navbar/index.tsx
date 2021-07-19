@@ -9,7 +9,7 @@ import {
 	DropdownMenu
 } from 'app/components/dropdown'
 import Avatar from 'app/elements/avatar'
-import Media from 'app/components/media'
+import Media, { MediaBody } from 'app/components/media'
 import Button from 'app/elements/button'
 import Search from 'app/components/search'
 import ROUTES from 'config/router/routes'
@@ -137,12 +137,14 @@ const SubscriberNav = () => {
 									circle
 									className="me-2"
 								/>
-								<span style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}>
-									آرش میلانی
-								</span>
-								<span style={{ display: 'block', color: '#677788', margin: 0 }}>
-									arash@example.com"
-								</span>
+								<MediaBody>
+									<span style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}>
+										آرش میلانی
+									</span>
+									<span style={{ display: 'block', color: '#677788', margin: 0 }}>
+										arash@example.com
+									</span>
+								</MediaBody>
 							</Media>
 						</DropdownHeader>
 						<DropdownDivider />

@@ -16,25 +16,10 @@ export const API_END_POINT = {
 			url: `/video/${slug}`,
 			method: 'GET'
 		}),
-		GET_LIST: (page?: string | number, per_page?: string): EndPoint => {
-			let queries = ''
-			if (page || per_page) {
-				queries += '?'
-			}
-			if (page) {
-				queries += `page=${page}`
-			}
-			if (page && per_page) {
-				queries += '&'
-			}
-			if (per_page) {
-				queries += `page=${per_page}`
-			}
-			return {
-				url: `/video${queries ? '/' + queries : ''}`,
-				method: 'GET'
-			}
-		},
+		GET_LIST: (): EndPoint => ({
+			url: `/video`,
+			method: 'GET'
+		}),
 		DELETE: (slug: string): EndPoint => ({
 			url: `/video/${slug}`,
 			method: 'DELETE'
@@ -54,12 +39,17 @@ export const API_END_POINT = {
 		PUBLISH: (): EndPoint => ({
 			url: '/video',
 			method: 'POST'
+		}),
+		STATISTICS: (slug: string): EndPoint => ({
+			url: `/video/${slug}/statistics`,
+			method: 'POST'
 		})
 	},
 	CATEGORIES: {
 		SET: (): EndPoint => ({ url: '/category', method: 'POST' }),
 		GET: (): EndPoint => ({ url: '/category', method: 'GET' })
 	},
+
 	TAGS: {
 		SET: (): EndPoint => ({ url: '/tag', method: 'POST' }),
 		GET: (): EndPoint => ({ url: '/tag', method: 'GET' })

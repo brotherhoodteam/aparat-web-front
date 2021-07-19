@@ -1,7 +1,6 @@
-import videoLoader from 'app/components/content-loader/video-loader'
+import React, { useEffect } from 'react'
 import Media, { MediaBody } from 'app/components/media'
 import NoData from 'app/components/no-data'
-import Tooltip from 'app/components/Tooltip'
 import VideoButtonTools from 'app/components/video-button-tools'
 import Avatar from 'app/elements/avatar'
 import Button from 'app/elements/button'
@@ -9,7 +8,6 @@ import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout, { PanelHeader, PanelTitle } from 'app/layouts/panel'
 import ROUTES from 'config/router/routes'
 import VIDEO_STATE from 'core/constants'
-import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import { selectVideo } from 'store/video/selectors'
@@ -25,6 +23,7 @@ const DashboardVideo: React.FC<Props> = () => {
 
 	useEffect(() => {
 		dispatch(fetchVideoRequest({ slug: params.slug }))
+		// dispatch(fetchVideoStatisticRequest({ slug: params.slug }))
 	}, [params])
 
 	console.log('data', data)

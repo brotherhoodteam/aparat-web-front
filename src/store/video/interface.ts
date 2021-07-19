@@ -103,7 +103,7 @@ export interface UpdatePostRequestPayload {
 
 export interface FetchVideoListRequestPayload {
 	page?: string | number
-	per_page?: string
+	per_page?: string | number
 }
 export interface FetchVideoListSuccessPayload {
 	videos: VideoList

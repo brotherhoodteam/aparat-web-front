@@ -70,11 +70,15 @@ const api = {
 
 			return request(config)
 		},
-		getList: (pagination?: string | number) => {
-			const { method, url } = API_END_POINT.VIDEO.GET_LIST(pagination)
+		getList: (page?: string | number, per_page?: string | number) => {
+			const { method, url } = API_END_POINT.VIDEO.GET_LIST()
 			const config: AxiosRequestConfig = {
 				method,
-				url
+				url,
+				params: {
+					page,
+					per_page
+				}
 			}
 			return request(config)
 		},
@@ -100,6 +104,17 @@ const api = {
 				method,
 				url,
 				data
+			}
+			return request(config)
+		},
+		statistics: (slug: string, renge: string) => {
+			const { method, url } = API_END_POINT.VIDEO.UPDATE(slug)
+			const config: AxiosRequestConfig = {
+				method,
+				url,
+				params: {
+					last_n_days: renge
+				}
 			}
 			return request(config)
 		}
