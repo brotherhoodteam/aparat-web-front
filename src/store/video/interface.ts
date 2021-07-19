@@ -111,6 +111,15 @@ export interface FetchVideoListSuccessPayload {
 export interface FetchVideoListResponsePayload {
 	data: VideoList
 }
+export interface FetchVideoStatisticRequestPayload {
+	renge: string
+}
+export interface FetchVideoStatisticSuccessPayload {
+	videos: string
+}
+export interface FetchVideoStatisticResponsePayload {
+	data: VideoList
+}
 
 export interface FetchVideoRequestPayload {
 	slug: string

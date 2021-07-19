@@ -8,7 +8,7 @@ const videoLoader: React.FC<Props> = ({ length, size }) => {
 	return (
 		<div className="content-loader">
 			<div className="row">
-				{Array(length - 1)
+				{Array(length)
 					.fill('')
 					.map((_, inx) => (
 						<div className={size} key={inx}>

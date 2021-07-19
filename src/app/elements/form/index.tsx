@@ -12,7 +12,7 @@ import { ClassName, Size } from 'core/interface/component'
 
 import './styles.scss'
 import Button from 'app/elements/button'
-import Tooltip from 'app/components/Tooltip'
+import Tooltip from 'app/components/tooltip'
 
 interface InputProps {
 	id?: string

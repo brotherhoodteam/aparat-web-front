@@ -1,7 +1,7 @@
 import Button from 'app/elements/button'
 import ROUTES from 'config/router/routes'
 import React, { useState } from 'react'
-import Tooltip from '../Tooltip'
+import Tooltip from '../tooltip'
 
 interface Props {
 	slug: string

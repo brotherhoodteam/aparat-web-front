@@ -1,5 +1,5 @@
 import { Video } from 'store/video/interface'
-import VideoItem from 'app/components/VideoItem'
+import VideoItem from 'app/components/video-item'
 
 interface Props {
 	videos: Array<Video>

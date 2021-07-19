@@ -1,3 +1,6 @@
+import React from 'react'
+import ROUTES from 'config/router/routes'
+
 import Avatar from 'app/elements/avatar'
 import { Card, CardBody, CardText, CardTitle } from 'app/elements/card'
 import {
@@ -7,9 +10,7 @@ import {
 } from 'app/components/navbar-vertical'
 
 import avatarImage from 'assets/images/img6.jpg'
-import ROUTES from 'config/router/routes'
 import './styles.scss'
-import React from 'react'
 
 const Sidebar: React.FC = () => {
 	return (
