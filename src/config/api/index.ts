@@ -107,8 +107,8 @@ const api = {
 			}
 			return request(config)
 		},
-		statistics: (slug: string, renge: string) => {
-			const { method, url } = API_END_POINT.VIDEO.UPDATE(slug)
+		statistics: (slug: string, renge?: string | number) => {
+			const { method, url } = API_END_POINT.VIDEO.STATISTICS(slug)
 			const config: AxiosRequestConfig = {
 				method,
 				url,

@@ -1,4 +1,5 @@
 import { Redirect, Switch } from 'react-router'
+import { Route } from 'react-router-dom'
 
 import Sidebar from 'app/components/sidebar'
 import Button from 'app/elements/button'
@@ -12,7 +13,6 @@ import { logoutRequest } from 'store/auth/slice'
 
 import accountBg from 'assets/images/abstract-shapes-20.svg'
 import './styles.scss'
-import { Route } from 'react-router-dom'
 
 interface DashboardProps {
 	routes: Array<RouteType>

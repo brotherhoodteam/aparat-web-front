@@ -43,7 +43,9 @@ const DashboardVideoList: React.FC<Props> = () => {
 
 	// Fetch Data
 	useEffect(() => {
-		dispatch(fetchVideoListRequest({ page, per_page: perPage }))
+		if (page && perPage) {
+			dispatch(fetchVideoListRequest({ page, per_page: perPage }))
+		}
 	}, [page, perPage])
 
 	useEffect(() => {

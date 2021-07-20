@@ -101,13 +101,17 @@ const EditVideo: React.FC<Props> = () => {
 			enable_comments: video?.enable_comments
 		},
 		onSubmit: (value: any) => {
+			console.log('data', video)
 			console.log('value', value)
-			console.log('video', video)
 			if (video) {
 				const data = {
 					...value,
 					category: value.category.id,
 					tags: value.tags.map((tag: any) => tag.id)
+				}
+
+				if (video.banner === value.banner) {
+					delete data['banner']
 				}
 				dispatch(updatePostRequest({ slug: video.slug, video: data }))
 			}

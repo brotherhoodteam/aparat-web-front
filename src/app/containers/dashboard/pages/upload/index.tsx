@@ -207,7 +207,7 @@ const DashboardUpload: React.FC = () => {
 														uploadValue={uploadVideoId}
 														uploadProgress={uploadVideoProgress}
 														uploadError={uploadVideoError}
-														maxSize={2000000}
+														maxSize={20000000}
 														accept="video/*"
 													>
 														<div className="uploader-drag-img">

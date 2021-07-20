@@ -77,6 +77,14 @@ export interface Video {
 	views: number
 	tags: Array<Tag>
 }
+export interface Statistic {
+	[key: string]: number
+}
+
+export interface Statistics {
+	views: Statistic
+	total_views: number
+}
 
 // PAYLOADS
 export interface CreatePostRequestPayload {
@@ -111,14 +119,15 @@ export interface FetchVideoListSuccessPayload {
 export interface FetchVideoListResponsePayload {
 	data: VideoList
 }
-export interface FetchVideoStatisticRequestPayload {
-	renge: string
+export interface FetchVideoStatisticsRequestPayload {
+	slug: string
+	renge?: string | number
 }
-export interface FetchVideoStatisticSuccessPayload {
-	videos: string
+export interface FetchVideoStatisticsSuccessPayload {
+	statistics: Statistics
 }
-export interface FetchVideoStatisticResponsePayload {
-	data: VideoList
+export interface FetchVideoStatisticsResponsePayload {
+	data: Statistics
 }
 
 export interface FetchVideoRequestPayload {
@@ -176,6 +185,11 @@ export interface FetchVideoListSuccess
 export interface FetchVideoRequest extends PayloadAction<FetchVideoRequestPayload> {}
 export interface FetchVideoSuccess extends PayloadAction<FetchVideoSuccessPayload> {}
 
+export interface FetchVideoStatisticsRequest
+	extends PayloadAction<FetchVideoStatisticsRequestPayload> {}
+export interface FetchVideoStatisticsSuccess
+	extends PayloadAction<FetchVideoStatisticsSuccessPayload> {}
+
 export interface UploadVideoRequest extends PayloadAction<UploadVideoRequestPayload> {}
 export interface UploadVideoSuccess extends PayloadAction<UploadVideoSuccessPayload> {}
 
@@ -226,6 +240,12 @@ export interface VideoState {
 	single: {
 		slug: string | null
 		data: Video | null
+		loading: boolean
+		errors: Error | null
+	}
+	statistics: {
+		data: Statistics | null
+		slug: string | null
 		loading: boolean
 		errors: Error | null
 	}

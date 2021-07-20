@@ -9,6 +9,10 @@ export const selectDeletedPost = createSelector(
 	video => video.deletePost
 )
 export const selectVideo = createSelector([selectVideoStore], video => video.single)
+export const selectVideoStatistics = createSelector(
+	[selectVideoStore],
+	video => video.statistics
+)
 export const selectVideoList = createSelector([selectVideoStore], video => video.list)
 export const selectUploadedVideo = createSelector(
 	[selectVideoStore],
