@@ -38,7 +38,7 @@ const Navbar = () => {
 			<div className="navbar-wrap">
 				<div className="navbar-content-right">
 					<ul className="navbar-nav">
-						<li className="navbar-item">
+						{/* <li className="navbar-item">
 							<Button
 								variant="ghost"
 								color="secondary"
@@ -49,7 +49,7 @@ const Navbar = () => {
 							>
 								<i className="tio-menu-vs-outlined"></i>
 							</Button>
-						</li>
+						</li> */}
 						<li className="navbar-item">
 							<div className="navbar-brand">
 								<LazyLoadImage
@@ -68,9 +68,9 @@ const Navbar = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="navbar-content-center">
+				{/* <div className="navbar-content-center">
 					<Search />
-				</div>
+				</div> */}
 				<div className="navbar-content-left">
 					<ul className="navbar-nav">
 						{auth && <SubscriberNav />}
@@ -90,7 +90,7 @@ const SubscriberNav = () => {
 
 	return (
 		<React.Fragment>
-			<li className="navbar-item">
+			{/* <li className="navbar-item">
 				<Button
 					variant="ghost"
 					color="secondary"
@@ -113,7 +113,7 @@ const SubscriberNav = () => {
 				>
 					<i className="tio-notifications-on-outlined"></i>
 				</Button>
-			</li>
+			</li> */}
 			<li className="navbar-item">
 				<Dropdown>
 					<DropdownButton>
@@ -148,34 +148,24 @@ const SubscriberNav = () => {
 							</Media>
 						</DropdownHeader>
 						<DropdownDivider />
-						<DropdownItem to="/dashboard/profile">
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.OVERVIEW().link }}>
 							<span className="text-truncate" title="داشبورد">
 								داشبورد
 							</span>
 						</DropdownItem>
-						<DropdownItem to="/dashboard/profile">
-							<span className="text-truncate" title="شروع پخش زنده">
-								شروع پخش زنده
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.ADD_VIDEO().link }}>
+							<span className="text-truncate" title="ویدئوی جدید">
+								ویدئوی جدید
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.VIDEOS().link }}>
 							<span className="text-truncate" title="ویدئو‌های من">
 								ویدئو‌های من
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="دیدگاه">
-								دیدگاه
-							</span>
-						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="کانالهای دنبال شده">
-								کانالهای دنبال شده
-							</span>
-						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="آمار بازدید">
-								آمار بازدید
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.SETTINGS().link }}>
+							<span className="text-truncate" title="	پیکربندی محتوا">
+								پیکربندی محتوا
 							</span>
 						</DropdownItem>
 						<DropdownDivider />

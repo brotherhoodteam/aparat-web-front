@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
 								icon="tio-video-gallery"
 								slug={ROUTES.DASHBOARD.VIDEOS().link}
 							/>
-							<NavbarLink
+							{/* <NavbarLink
 								label="دیدگاه"
 								icon="tio-comment-text"
 								slug={ROUTES.DASHBOARD.COMMENTS().link}
@@ -51,9 +51,9 @@ const Sidebar: React.FC = () => {
 								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
 								slug={ROUTES.DASHBOARD.COMMENTS().link}
-							/>
+							/> */}
 							<NavbarLink
-								label="تنظیمات کانال"
+								label="پیکربندی محتوا"
 								icon="tio-settings-outlined"
 								slug={ROUTES.DASHBOARD.SETTINGS().link}
 							/>

@@ -60,7 +60,7 @@ const App: React.FC = () => {
 				<Router />
 			</MainContainer>
 			<Notification />
-			<Drawer />
+			{/* <Drawer /> */}
 			<Overlay />
 		</React.Fragment>
 	)
