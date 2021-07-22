@@ -5,6 +5,12 @@ interface EndPoint {
 	method: Method
 }
 export const API_END_POINT = {
+	USERS: {
+		FETCH_PROFILE: (): EndPoint => ({
+			url: '/user/me',
+			method: 'get'
+		})
+	},
 	AUTH: {
 		LOGIN: (): EndPoint => ({
 			url: '/login',

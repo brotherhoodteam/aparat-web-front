@@ -7,6 +7,16 @@ import { CreatePost, VideoUpdate } from 'store/video/interface'
 import { API_END_POINT } from './constants'
 
 const api = {
+	user: {
+		fetchProfile: () => {
+			const { method, url } = API_END_POINT.USERS.FETCH_PROFILE()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
+		}
+	},
 	auth: {
 		login: (auth: SignIn) => {
 			const { method, url } = API_END_POINT.AUTH.LOGIN()

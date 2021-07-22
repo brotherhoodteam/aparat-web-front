@@ -1,13 +1,16 @@
+import { Channel } from './channel'
+
 export interface User {
-	avatar: string
-	created_at: string
-	deleted_at: null
-	email: string
 	id: number
 	mobile: string
+	email: string
 	name: string
 	type: string
-	updated_at: string
-	verified_at: string
+	avatar: string
 	website: string
+	verified_at: string
+	created_at: string
+	updated_at: string
+	deleted_at: null
+	channel: Channel
 }

@@ -25,10 +25,14 @@ import './styles.scss'
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { logoutRequest } from 'store/auth/slice'
+import AvatarLoader from '../content-loader/avatar-loader'
+import { useUserProfile } from 'store/user/hooks'
+import AvatarWithTextLoader from '../content-loader/avatar-with-text'
 
 const Navbar = () => {
 	const { auth } = useAuth()
 	const dispatch = useDispatch()
+
 	const handleOpenDrawer = () => {
 		dispatch(enableAppDrawer())
 	}
@@ -84,6 +88,7 @@ const Navbar = () => {
 
 const SubscriberNav = () => {
 	const dispatch = useDispatch()
+	const { data: profile, loading } = useUserProfile()
 	const handleLogout = () => {
 		dispatch(logoutRequest())
 	}
@@ -118,33 +123,45 @@ const SubscriberNav = () => {
 				<Dropdown>
 					<DropdownButton>
 						<div className="navbar-avatar-wrapper">
-							<Avatar
-								image={ProfileImg}
-								alt="profile"
-								size="sm"
-								circle
-								status="success"
-							/>
+							{profile && !loading ? (
+								<Avatar
+									image={profile.avatar}
+									alt={profile.name}
+									size="sm"
+									circle
+									status="success"
+								/>
+							) : (
+								<AvatarLoader />
+							)}
 						</div>
 					</DropdownButton>
 					<DropdownMenu>
 						<DropdownHeader>
 							<Media>
-								<Avatar
-									image={ProfileImg}
-									alt="آرش میلانی"
-									size="sm"
-									circle
-									className="me-2"
-								/>
-								<MediaBody>
-									<span style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}>
-										آرش میلانی
-									</span>
-									<span style={{ display: 'block', color: '#677788', margin: 0 }}>
-										arash@example.com
-									</span>
-								</MediaBody>
+								{profile && !loading ? (
+									<React.Fragment>
+										<Avatar
+											image={profile.avatar}
+											alt={profile.name}
+											size="sm"
+											circle
+											className="me-2"
+										/>
+										<MediaBody>
+											<span
+												style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}
+											>
+												{profile.name}
+											</span>
+											<span style={{ display: 'block', color: '#677788', margin: 0 }}>
+												{profile.email}
+											</span>
+										</MediaBody>
+									</React.Fragment>
+								) : (
+									<AvatarWithTextLoader />
+								)}
 							</Media>
 						</DropdownHeader>
 						<DropdownDivider />

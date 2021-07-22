@@ -33,7 +33,7 @@ export interface SignInSuccess extends PayloadAction<SignInSuccessPayload> {}
 export interface ErrorAction extends PayloadAction<ErrorPayload> {}
 
 // ACTIONS
-export type UserActions = SignInRequest | SignInSuccess | ErrorAction
+export type AuthActions = SignInRequest | SignInSuccess | ErrorAction
 
 // STATE
 export interface AuthState {
