@@ -177,6 +177,12 @@ textarea {
 	-webkit-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 }
+.position-absolute-center{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .w-100 {
 	width: 100%;
 }
@@ -229,7 +235,7 @@ textarea {
 	z-index: 99999;
 }
 .nav-icon {
-	font-size: 1.8rem!important;
+	font-size: 1.8rem !important;
 	line-height: 1.4;
 	opacity: 0.7;
 	// -ms-flex: 0 0 1.75rem;
@@ -443,4 +449,13 @@ pre code {
 }
 .text-success {
 	color: #00c9a7 !important;
+}
+.acsept-16-9 {
+	position: relative;
+}
+.acsept-16-9::before {
+	content: '';
+	display: block;
+	padding-bottom: 56.25%;
+	width: 100%;
 }
