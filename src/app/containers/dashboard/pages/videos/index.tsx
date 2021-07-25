@@ -12,6 +12,8 @@ import { VideoLoader } from 'app/components/content-loader'
 import NoData from 'app/components/no-data'
 import Button from 'app/elements/button'
 import ROUTES from 'config/router/routes'
+import VideoDashboardItem from 'app/components/video-dashboard-item'
+import { Video } from 'store/video/interface'
 
 interface Props {}
 
@@ -103,7 +105,9 @@ const DashboardVideoList: React.FC<Props> = () => {
 						{!loading &&
 							data &&
 							(data.total ? (
-								<VideoList videos={data.data} />
+								<VideoList videos={data.data} GridClassName="col-12 col-lg-6 ">
+									{(video: Video) => <VideoDashboardItem video={video} />}
+								</VideoList>
 							) : (
 								<NoData className="mx-auto">
 									<p>متاسفانه ویدئویی وجود ندارد</p>

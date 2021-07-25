@@ -1,15 +1,18 @@
 import { Video } from 'store/video/interface'
-import VideoItem from 'app/components/video-item'
+
+import { ClassName } from 'core/interface/component'
 
 interface Props {
 	videos: Array<Video>
+	GridClassName: ClassName
+	children: (video: Video) => JSX.Element
 }
-const VideoList: React.FC<Props> = ({ videos }) => {
+const VideoList: React.FC<Props> = ({ videos, children, GridClassName }) => {
 	return (
 		<div className="row">
 			{videos.map((video: Video) => (
-				<div className="col-12 col-lg-6 mb-4" key={video.id}>
-					<VideoItem video={video} />
+				<div className={GridClassName + ' mb-4'} key={video.id}>
+					{children(video)}
 				</div>
 			))}
 		</div>

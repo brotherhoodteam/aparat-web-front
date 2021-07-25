@@ -7,7 +7,7 @@ import Badge from 'app/elements/badge'
 import { Link, useRouteMatch } from 'react-router-dom'
 import { selectVideo } from 'store/video/selectors'
 import { fetchVideoRequest } from 'store/video/slice'
-import VideoPlayer from 'app/components/vodeo-player'
+import VideoPlayer from 'app/components/video-player'
 import './styles.scss'
 
 interface Props {}
