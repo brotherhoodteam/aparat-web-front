@@ -1,3 +1,5 @@
+import { forwardRef } from 'react'
+
 import {
 	FastForwardIcon,
 	FullScreenIcon,
@@ -29,7 +31,7 @@ interface Props {
 	onVolumeChange: (value: number) => void
 	onVolumeSeekUp: (value: number) => void
 }
-const PlayerController: React.FC<Props> = props => {
+const PlayerController = forwardRef<HTMLDivElement, Props>((props, ref) => {
 	const {
 		title,
 		playing,
@@ -49,7 +51,7 @@ const PlayerController: React.FC<Props> = props => {
 	} = props
 
 	return (
-		<div className="video-player-controller">
+		<div className="video-player-controller" ref={ref}>
 			{/* TOP CONTROLLER */}
 			<div className="video-player-top-controller">
 				<h2 className="video-player-title">{title}</h2>
@@ -144,6 +146,6 @@ const PlayerController: React.FC<Props> = props => {
 			<div className="video-player-bottom-gradient"></div>
 		</div>
 	)
-}
+})
 
 export default PlayerController

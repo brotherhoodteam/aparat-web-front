@@ -28,6 +28,7 @@ import { logoutRequest } from 'store/auth/slice'
 import AvatarLoader from '../content-loader/avatar-loader'
 import { useUserProfile } from 'store/user/hooks'
 import AvatarWithTextLoader from '../content-loader/avatar-with-text'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 	const { auth } = useAuth()
@@ -56,18 +57,20 @@ const Navbar = () => {
 						</li> */}
 						<li className="navbar-item">
 							<div className="navbar-brand">
-								<LazyLoadImage
-									effect="blur"
-									src={Logo}
-									alt="Logo"
-									className="navbar-brand-logo"
-								/>
-								<LazyLoadImage
-									effect="blur"
-									src={LogoMini}
-									alt="Logo"
-									className="navbar-brand-logo-mini"
-								/>
+								<Link to="/">
+									<LazyLoadImage
+										effect="blur"
+										src={Logo}
+										alt="Logo"
+										className="navbar-brand-logo"
+									/>
+									<LazyLoadImage
+										effect="blur"
+										src={LogoMini}
+										alt="Logo"
+										className="navbar-brand-logo-mini"
+									/>
+								</Link>
 							</div>
 						</li>
 					</ul>

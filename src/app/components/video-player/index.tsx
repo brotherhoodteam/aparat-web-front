@@ -29,6 +29,12 @@ const VideoPlayer: React.FC<Props> = props => {
 	const handleFullscreen = useFullScreenHandle()
 
 	const playerRef = useRef<BaseReactPlayer<ReactPlayerProps>>(null)
+	const controllerRef = useRef<HTMLDivElement>(null)
+	const controllerCountRef = useRef<number>(0)
+	const handleMouseMove = () => {
+		if (controllerRef.current) controllerRef.current.style.visibility = 'visible'
+		controllerCountRef.current = 0
+	}
 
 	const handlePlayPause = () => {
 		setState(cur => ({ ...cur, playing: !cur.playing }))
@@ -67,6 +73,17 @@ const VideoPlayer: React.FC<Props> = props => {
 		loaded: number
 		loadedSeconds: number
 	}) => {
+		if (controllerRef.current) {
+			if (controllerCountRef.current > 3) {
+				controllerRef.current.style.visibility = 'hidden'
+				controllerCountRef.current = 0
+			}
+
+			if (controllerRef.current.style.visibility === 'visible') {
+				controllerCountRef.current += 1
+			}
+		}
+
 		if (playing) {
 			if (!seeking) {
 				setState({ ...state, ...value })
@@ -109,32 +126,10 @@ const VideoPlayer: React.FC<Props> = props => {
 		})
 	}
 
-	const handleReadyPlayer = (player: ReactPlayer) => {
-		console.log('player', player)
-	}
-
 	return (
 		<div className="player">
 			<div className="acsept-16-9">
-				<div className="player-container">
-					{/* VIDEO BANNER */}
-
-					{/* <div className="player-banner">
-							<LazyLoadImage src="https://static.cdn.asset.aparat.com/avt/35640198-7473-b.jpg" />
-
-							<span
-								className="video-player-btn video-player-centered text-center"
-								onClick={handlePlayPause}
-							>
-								<span className="video-player-icon mb-2">
-									<i className="fa fa-play"></i>
-								</span>
-								<span className="d-block text-center text-white">نمایش ویدئو</span>
-							</span>
-						</div> */}
-
-					{/* END VIDEO BANNER  */}
-
+				<div className="player-container" onMouseMove={handleMouseMove}>
 					{/* VIDEO PLAYER */}
 					<FullScreen handle={handleFullscreen}>
 						<div className="video-player">
@@ -144,7 +139,6 @@ const VideoPlayer: React.FC<Props> = props => {
 								height="100%"
 								url={url}
 								light={false}
-								onReady={handleReadyPlayer}
 								// url="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
 								playing={playing}
 								volume={volume}
@@ -154,6 +148,7 @@ const VideoPlayer: React.FC<Props> = props => {
 								onEnded={handleEnded}
 							></ReactPlayer>
 							<PlayerController
+								ref={controllerRef}
 								title={title}
 								playing={playing}
 								muted={muted}

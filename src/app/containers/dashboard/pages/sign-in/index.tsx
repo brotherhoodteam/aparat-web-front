@@ -48,15 +48,7 @@ const SignInContainer: React.FC = () => {
 						</svg>
 					</figure>
 				</div>
-				{/* LOGO */}
-				<div className="d-flex justify-content-center mb-5">
-					<LazyLoadImage
-						src={LogoImage}
-						alt="logo"
-						className="z-index-2"
-						style={{ width: '8rem' }}
-					/>
-				</div>
+
 				{/* CONTENT */}
 				<div className="row justify-content-center">
 					<div className="col-md-7 col-lg-5">
@@ -68,44 +60,8 @@ const SignInContainer: React.FC = () => {
 										<h1 className="display-4 text-capitalize">
 											<FormattedMessage id="signin" />
 										</h1>
-										<p>
-											<FormattedMessage id="guest-register-message" />
-
-											<Link to={{ pathname: ROUTES.AUTH.SIGNUP().link }} className="ms-1">
-												<FormattedMessage id="sign-up-here" />
-											</Link>
-										</p>
-									</div>
-									<div className="mb-4">
-										<Button color="white" size="lg" block classNames="mb-4">
-											<span className="d-flex justify-content-center align-items-center">
-												<Avatar
-													image={GoolgleLogo}
-													size="xs"
-													circle={true}
-													alt="google icon"
-													className="me-2"
-												/>
-												<FormattedMessage id="sign-in-google" />
-											</span>
-										</Button>
-									</div>
-									<div className="mb-4">
-										<Divider className="text-muted">
-											<FormattedMessage id="or" />
-										</Divider>
 									</div>
 								</div>
-								{/* Form Error Handler */}
-								<div className="mb-4">
-									<Alert
-										message={error?.message}
-										color="danger"
-										animated
-										show={!!error}
-									/>
-								</div>
-								{/* FORM */}
 								<SignInForm />
 							</CardBody>
 						</Card>

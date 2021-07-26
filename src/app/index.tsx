@@ -17,6 +17,7 @@ import { fetchUserProfileRequest } from 'store/user/slice'
 
 import './styles.scss'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+import Footer from './components/footer'
 
 const MainContainer: React.FC = ({ children }) => {
 	const appDrawer = useSelector(selectAppDrawer)
@@ -61,8 +62,8 @@ const App: React.FC = () => {
 			<MainContainer>
 				<Router />
 			</MainContainer>
+			<Footer />
 			<Notification />
-			{/* <Drawer /> */}
 			<Overlay />
 		</React.Fragment>
 	)
