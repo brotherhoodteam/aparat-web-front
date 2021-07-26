@@ -9,6 +9,10 @@ export const API_END_POINT = {
 		FETCH_PROFILE: (): EndPoint => ({
 			url: '/user/me',
 			method: 'get'
+		}),
+		FETCH_USER_LIST: (): EndPoint => ({
+			url: '/user',
+			method: 'get'
 		})
 	},
 	AUTH: {

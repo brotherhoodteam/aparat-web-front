@@ -9,3 +9,8 @@ export const selectUserProfile = createSelector(
 
 	state => state.profile
 )
+export const selectUserList = createSelector(
+	[selectUsersStore],
+
+	state => state.list
+)

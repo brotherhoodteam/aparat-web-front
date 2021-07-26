@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { Pagination } from 'core/interface/base'
 import { Error } from 'core/interface/exception'
 import { User } from 'core/interface/user'
 import { Tag } from 'store/tags/interface'
@@ -40,19 +41,8 @@ export interface VideoUpdate {
 	views?: number
 	tags?: Array<Tag>
 }
-export interface VideoList {
-	current_page: number
+export interface VideoList extends Pagination {
 	data: Array<Video>
-	first_page_url: string
-	from: number
-	last_page: number
-	last_page_url: string
-	next_page_url: null
-	path: string
-	per_page: number
-	prev_page_url: number | null
-	to: number
-	total: number
 }
 export interface Video {
 	user: User

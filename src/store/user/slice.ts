@@ -3,11 +3,18 @@ import {
 	FetchUserProfileRequest,
 	FetchUserProfileSuccess,
 	UserState,
-	ErrorAction
+	ErrorAction,
+	FetchUserListRequest,
+	FetchUserListSuccess
 } from './interface'
 
 const initialState: UserState = {
-	profile: { data: null, loading: false, errors: null }
+	profile: { data: null, loading: false, errors: null },
+	list: {
+		data: null,
+		loading: false,
+		errors: null
+	}
 }
 
 const userSlice = createSlice({
@@ -21,7 +28,7 @@ const userSlice = createSlice({
 		},
 
 		fetchUserProfileSuccess: (state, action: FetchUserProfileSuccess) => {
-			state.profile.data = action.payload.user
+			state.profile.data = action.payload.data
 			state.profile.loading = false
 			state.profile.errors = null
 		},
@@ -29,6 +36,22 @@ const userSlice = createSlice({
 			state.profile.data = null
 			state.profile.loading = false
 			state.profile.errors = action.payload.error
+		},
+		fetchUserListRequest: (state, action: FetchUserListRequest) => {
+			state.list.data = null
+			state.list.loading = true
+			state.list.errors = null
+		},
+
+		fetchUserListSuccess: (state, action: FetchUserListSuccess) => {
+			state.list.data = action.payload.data
+			state.list.loading = false
+			state.list.errors = null
+		},
+		fetchUserListFailur: (state, action: ErrorAction) => {
+			state.list.data = null
+			state.list.loading = false
+			state.list.errors = action.payload.error
 		}
 	}
 })
@@ -36,6 +59,9 @@ const userSlice = createSlice({
 export const {
 	fetchUserProfileRequest,
 	fetchUserProfileSuccess,
-	fetchUserProfileFailur
+	fetchUserProfileFailur,
+	fetchUserListRequest,
+	fetchUserListSuccess,
+	fetchUserListFailur
 } = userSlice.actions
 export default userSlice.reducer

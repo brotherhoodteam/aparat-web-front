@@ -58,7 +58,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 		<Card className="h-100" bordered>
 			<CardImgTop img={video.banner_link}>
 				{/* Video Status */}
-				<div className="position-absolute top-0 left-0 mt-3 me-3">
+				{/* <div className="position-absolute top-0 left-0 mt-3 me-3">
 					{video.state === VIDEO_STATE.ACCEPTED().value && (
 						<Badge color="success">{VIDEO_STATE.ACCEPTED().label}</Badge>
 					)}
@@ -71,7 +71,7 @@ const VideoItem: React.FC<Props> = ({ video }) => {
 					{video.state === VIDEO_STATE.BLOCKED().value && (
 						<Badge color="danger">{VIDEO_STATE.BLOCKED().label}</Badge>
 					)}
-				</div>
+				</div> */}
 			</CardImgTop>
 			<CardBody>
 				{/* CateGories */}

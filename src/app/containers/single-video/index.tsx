@@ -60,9 +60,9 @@ const SingleVideoContainer: React.FC<Props> = ({}) => {
 								</div>
 							</div>
 							<div className="col-12 col-lg-4">
-								<Badge color="success" pill>
+								{/* <Badge color="success" pill>
 									پر بازدید
-								</Badge>
+								</Badge> */}
 								<h1 className="text-lh-sm">{data.title}</h1>
 								<p>{data.info}</p>
 								<div className="d-flex align-items-center me-4">

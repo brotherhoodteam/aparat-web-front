@@ -15,6 +15,14 @@ const api = {
 				url
 			}
 			return request(config)
+		},
+		fetchUserList: (page?: string | number, per_page?: string | number) => {
+			const { method, url } = API_END_POINT.USERS.FETCH_USER_LIST()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
 		}
 	},
 	auth: {
