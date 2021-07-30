@@ -13,7 +13,7 @@ export function* signInHandler({ payload: { passport } }: SignInRequest) {
 		yield call(setAuth, data)
 		yield put(signInSuccess({ credentials: data }))
 	} catch (error) {
-		yield call(appError, error, signInFailure, false)
+		yield call(appError, error, signInFailure, true)
 		yield put(signInReset())
 	}
 }

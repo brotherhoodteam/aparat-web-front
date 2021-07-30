@@ -31,6 +31,11 @@ export function* appError(error: any, hanlder: (payload: any) => any, toster: bo
 	if (status && status === 401) {
 		yield call(clearExpireCredentialhandler)
 		yield put(hanlder({ error: { message, status } }))
+		if (toster) {
+			yield put(
+				showStatusAction({ message: 'اطلاعات وارد شده صحیح نمیباشد', status: 'warn' })
+			)
+		}
 	} else if (status && status < 500) {
 		yield put(hanlder({ error: { message, status } }))
 		if (toster) {

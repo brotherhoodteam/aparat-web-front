@@ -7,6 +7,24 @@ import { CreatePost, VideoUpdate } from 'store/video/interface'
 import { API_END_POINT } from './constants'
 
 const api = {
+	user: {
+		fetchProfile: () => {
+			const { method, url } = API_END_POINT.USERS.FETCH_PROFILE()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
+		},
+		fetchUserList: (page?: string | number, per_page?: string | number) => {
+			const { method, url } = API_END_POINT.USERS.FETCH_USER_LIST()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
+		}
+	},
 	auth: {
 		login: (auth: SignIn) => {
 			const { method, url } = API_END_POINT.AUTH.LOGIN()
@@ -107,8 +125,8 @@ const api = {
 			}
 			return request(config)
 		},
-		statistics: (slug: string, renge: string) => {
-			const { method, url } = API_END_POINT.VIDEO.UPDATE(slug)
+		statistics: (slug: string, renge?: string | number) => {
+			const { method, url } = API_END_POINT.VIDEO.STATISTICS(slug)
 			const config: AxiosRequestConfig = {
 				method,
 				url,

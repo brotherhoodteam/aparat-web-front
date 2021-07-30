@@ -46,6 +46,10 @@ const ROUTES = {
 			path: `/${BASE_URL.DASHBOARD}/comments`,
 			link: `/${BASE_URL.DASHBOARD}/comments`
 		}),
+		FOLLOWERS: () => ({
+			path: `/${BASE_URL.DASHBOARD}/followers`,
+			link: `/${BASE_URL.DASHBOARD}/followers`
+		}),
 		PROFILE: (slug?: string) => ({
 			path: `/${BASE_URL.DASHBOARD}/profile`,
 			link: `/${BASE_URL.DASHBOARD}/profile/${slug}`

@@ -13,13 +13,14 @@ const DashboardVideoList = lazy(() => import('app/containers/dashboard/pages/vid
 const DashboardSettings = lazy(() => import('app/containers/dashboard/pages/settings'))
 const DashboardEditVideo = lazy(() => import('app/containers/dashboard/pages/edit-video'))
 const DashboardVideo = lazy(() => import('app/containers/dashboard/pages/video'))
+const SongleVideoContainer = lazy(() => import('app/containers/single-video'))
 
 const router: RouterType = [
 	{
 		name: 'home',
 		path: ROUTES.MAIN.HOME().path,
 		exact: true,
-		access: ACCESS.GUEST,
+		access: ACCESS.PUBLIC,
 		component: HomeContainer
 	},
 	{
@@ -28,6 +29,13 @@ const router: RouterType = [
 		exact: true,
 		access: ACCESS.GUEST,
 		component: SignInContainer
+	},
+	{
+		name: 'single-video',
+		path: ROUTES.VIDEO.SINGLE().path,
+		exact: true,
+		access: ACCESS.PUBLIC,
+		component: SongleVideoContainer
 	},
 	{
 		name: 'dashboard',

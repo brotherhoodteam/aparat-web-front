@@ -6,7 +6,8 @@ import {
 	fetchVideoListRequest,
 	deleteVideoRequest,
 	fetchVideoRequest,
-	updatePostRequest
+	updatePostRequest,
+	fetchVideoStatisticsRequest
 } from '../slice'
 import {
 	createPostHanlder,
@@ -15,7 +16,8 @@ import {
 	uploadVideoHanlder,
 	uploadBannerHanlder,
 	fetchVideoHanlder,
-	fetchVideoListHanlder
+	fetchVideoListHanlder,
+	fetchVideoStatisticsHanlder
 } from './handlers'
 
 export function* uploadWatcher() {
@@ -23,7 +25,8 @@ export function* uploadWatcher() {
 	yield takeLatest(uploadVideoRequest, uploadVideoHanlder)
 	yield takeLatest(createPostRequest, createPostHanlder)
 	yield takeLatest(fetchVideoListRequest, fetchVideoListHanlder)
-	yield takeLatest(deleteVideoRequest, deleteVideoHanlder)
+	yield takeLatest(fetchVideoStatisticsRequest, fetchVideoStatisticsHanlder)
 	yield takeLatest(fetchVideoRequest, fetchVideoHanlder)
+	yield takeLatest(deleteVideoRequest, deleteVideoHanlder)
 	yield takeLatest(updatePostRequest, updatePostHanlder)
 }

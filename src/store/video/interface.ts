@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
+import { Pagination } from 'core/interface/base'
 import { Error } from 'core/interface/exception'
 import { User } from 'core/interface/user'
 import { Tag } from 'store/tags/interface'
@@ -40,19 +41,8 @@ export interface VideoUpdate {
 	views?: number
 	tags?: Array<Tag>
 }
-export interface VideoList {
-	current_page: number
+export interface VideoList extends Pagination {
 	data: Array<Video>
-	first_page_url: string
-	from: number
-	last_page: number
-	last_page_url: string
-	next_page_url: null
-	path: string
-	per_page: number
-	prev_page_url: number | null
-	to: number
-	total: number
 }
 export interface Video {
 	user: User
@@ -76,6 +66,14 @@ export interface Video {
 	banner_link: string
 	views: number
 	tags: Array<Tag>
+}
+export interface Statistic {
+	[key: string]: number
+}
+
+export interface Statistics {
+	views: Statistic
+	total_views: number
 }
 
 // PAYLOADS
@@ -111,14 +109,15 @@ export interface FetchVideoListSuccessPayload {
 export interface FetchVideoListResponsePayload {
 	data: VideoList
 }
-export interface FetchVideoStatisticRequestPayload {
-	renge: string
+export interface FetchVideoStatisticsRequestPayload {
+	slug: string
+	renge?: string | number
 }
-export interface FetchVideoStatisticSuccessPayload {
-	videos: string
+export interface FetchVideoStatisticsSuccessPayload {
+	statistics: Statistics
 }
-export interface FetchVideoStatisticResponsePayload {
-	data: VideoList
+export interface FetchVideoStatisticsResponsePayload {
+	data: Statistics
 }
 
 export interface FetchVideoRequestPayload {
@@ -176,6 +175,11 @@ export interface FetchVideoListSuccess
 export interface FetchVideoRequest extends PayloadAction<FetchVideoRequestPayload> {}
 export interface FetchVideoSuccess extends PayloadAction<FetchVideoSuccessPayload> {}
 
+export interface FetchVideoStatisticsRequest
+	extends PayloadAction<FetchVideoStatisticsRequestPayload> {}
+export interface FetchVideoStatisticsSuccess
+	extends PayloadAction<FetchVideoStatisticsSuccessPayload> {}
+
 export interface UploadVideoRequest extends PayloadAction<UploadVideoRequestPayload> {}
 export interface UploadVideoSuccess extends PayloadAction<UploadVideoSuccessPayload> {}
 
@@ -187,7 +191,7 @@ export interface Progress extends PayloadAction<ProgressPayload> {}
 export interface ErrorAction extends PayloadAction<ErrorPayload> {}
 
 // ACTIONS
-export type VideoActionTypes =
+export type VideoActions =
 	| CreatePostRequest
 	| CreatePostSuccess
 	| DeleteVideoRequest
@@ -226,6 +230,12 @@ export interface VideoState {
 	single: {
 		slug: string | null
 		data: Video | null
+		loading: boolean
+		errors: Error | null
+	}
+	statistics: {
+		data: Statistics | null
+		slug: string | null
 		loading: boolean
 		errors: Error | null
 	}

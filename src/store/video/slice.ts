@@ -16,7 +16,9 @@ import {
 	DeleteVideoRequest,
 	DeleteVideoSuccess,
 	Progress,
-	ErrorAction
+	ErrorAction,
+	FetchVideoStatisticsRequest,
+	FetchVideoStatisticsSuccess
 } from './interface'
 
 const initialState: VideoState = {
@@ -44,6 +46,12 @@ const initialState: VideoState = {
 	single: {
 		slug: null,
 		data: null,
+		loading: false,
+		errors: null
+	},
+	statistics: {
+		data: null,
+		slug: null,
 		loading: false,
 		errors: null
 	},
@@ -159,6 +167,30 @@ const videoSlice = createSlice({
 			state.list.loading = false
 			state.list.errors = null
 		},
+		// Fetch Statistic
+		fetchVideoStatisticsRequest: (state, action: FetchVideoStatisticsRequest) => {
+			state.statistics.slug = action.payload.slug
+			state.statistics.data = null
+			state.statistics.loading = true
+			state.statistics.errors = null
+		},
+		fetchVideoStatisticsSuccess: (state, action: FetchVideoStatisticsSuccess) => {
+			state.statistics.data = action.payload.statistics
+			state.statistics.loading = false
+			state.statistics.errors = null
+		},
+		fetchVideoStatisticsFailure: (state, action) => {
+			state.statistics.slug = null
+			state.statistics.data = null
+			state.statistics.loading = false
+			state.statistics.errors = action.payload.error
+		},
+		fetchVideoStatisticsReset: state => {
+			state.statistics.slug = null
+			state.statistics.data = null
+			state.statistics.loading = false
+			state.statistics.errors = null
+		},
 		// Fetch Single Video
 		fetchVideoRequest: (state, action: FetchVideoRequest) => {
 			state.single.slug = action.payload.slug
@@ -245,6 +277,11 @@ export const {
 	fetchVideoRequest,
 	fetchVideoSuccess,
 	fetchVideoFailure,
+
+	fetchVideoStatisticsRequest,
+	fetchVideoStatisticsSuccess,
+	fetchVideoStatisticsFailure,
+	fetchVideoStatisticsReset,
 
 	deleteVideoRequest,
 	deleteVideoSuccess,

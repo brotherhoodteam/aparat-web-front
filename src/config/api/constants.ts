@@ -5,6 +5,16 @@ interface EndPoint {
 	method: Method
 }
 export const API_END_POINT = {
+	USERS: {
+		FETCH_PROFILE: (): EndPoint => ({
+			url: '/user/me',
+			method: 'get'
+		}),
+		FETCH_USER_LIST: (): EndPoint => ({
+			url: '/user',
+			method: 'get'
+		})
+	},
 	AUTH: {
 		LOGIN: (): EndPoint => ({
 			url: '/login',
@@ -42,14 +52,13 @@ export const API_END_POINT = {
 		}),
 		STATISTICS: (slug: string): EndPoint => ({
 			url: `/video/${slug}/statistics`,
-			method: 'POST'
+			method: 'GET'
 		})
 	},
 	CATEGORIES: {
 		SET: (): EndPoint => ({ url: '/category', method: 'POST' }),
 		GET: (): EndPoint => ({ url: '/category', method: 'GET' })
 	},
-
 	TAGS: {
 		SET: (): EndPoint => ({ url: '/tag', method: 'POST' }),
 		GET: (): EndPoint => ({ url: '/tag', method: 'GET' })

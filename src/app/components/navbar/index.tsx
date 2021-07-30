@@ -19,16 +19,20 @@ import useAuth from 'store/auth/hooks'
 
 import Logo from 'assets/images/logo--color-black--without_text.svg'
 import LogoMini from 'assets/images/icon--color-black.svg'
-import ProfileImg from 'assets/images/img6.jpg'
 
 import './styles.scss'
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { logoutRequest } from 'store/auth/slice'
+import AvatarLoader from '../content-loader/avatar-loader'
+import { useUserProfile } from 'store/user/hooks'
+import AvatarWithTextLoader from '../content-loader/avatar-with-text'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 	const { auth } = useAuth()
 	const dispatch = useDispatch()
+
 	const handleOpenDrawer = () => {
 		dispatch(enableAppDrawer())
 	}
@@ -52,18 +56,20 @@ const Navbar = () => {
 						</li>
 						<li className="navbar-item">
 							<div className="navbar-brand">
-								<LazyLoadImage
-									effect="blur"
-									src={Logo}
-									alt="Logo"
-									className="navbar-brand-logo"
-								/>
-								<LazyLoadImage
-									effect="blur"
-									src={LogoMini}
-									alt="Logo"
-									className="navbar-brand-logo-mini"
-								/>
+								<Link to="/">
+									<LazyLoadImage
+										effect="blur"
+										src={Logo}
+										alt="Logo"
+										className="navbar-brand-logo"
+									/>
+									<LazyLoadImage
+										effect="blur"
+										src={LogoMini}
+										alt="Logo"
+										className="navbar-brand-logo-mini"
+									/>
+								</Link>
 							</div>
 						</li>
 					</ul>
@@ -84,6 +90,7 @@ const Navbar = () => {
 
 const SubscriberNav = () => {
 	const dispatch = useDispatch()
+	const { data: profile, loading } = useUserProfile()
 	const handleLogout = () => {
 		dispatch(logoutRequest())
 	}
@@ -118,64 +125,76 @@ const SubscriberNav = () => {
 				<Dropdown>
 					<DropdownButton>
 						<div className="navbar-avatar-wrapper">
-							<Avatar
-								image={ProfileImg}
-								alt="profile"
-								size="sm"
-								circle
-								status="success"
-							/>
+							{profile && !loading ? (
+								<Avatar
+									image={profile.avatar}
+									alt={profile.name}
+									size="sm"
+									circle
+									status="success"
+								/>
+							) : (
+								<AvatarLoader />
+							)}
 						</div>
 					</DropdownButton>
 					<DropdownMenu>
 						<DropdownHeader>
 							<Media>
-								<Avatar
-									image={ProfileImg}
-									alt="آرش میلانی"
-									size="sm"
-									circle
-									className="me-2"
-								/>
-								<MediaBody>
-									<span style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}>
-										آرش میلانی
-									</span>
-									<span style={{ display: 'block', color: '#677788', margin: 0 }}>
-										arash@example.com
-									</span>
-								</MediaBody>
+								{profile && !loading ? (
+									<React.Fragment>
+										<Avatar
+											image={profile.avatar}
+											alt={profile.name}
+											size="sm"
+											circle
+											className="me-2"
+										/>
+										<MediaBody>
+											<span
+												style={{ display: 'block', color: '#1e2022', marginBottom: 0 }}
+											>
+												{profile.name}
+											</span>
+											<span style={{ display: 'block', color: '#677788', margin: 0 }}>
+												{profile.email}
+											</span>
+										</MediaBody>
+									</React.Fragment>
+								) : (
+									<AvatarWithTextLoader />
+								)}
 							</Media>
 						</DropdownHeader>
 						<DropdownDivider />
-						<DropdownItem to="/dashboard/profile">
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.OVERVIEW().link }}>
 							<span className="text-truncate" title="داشبورد">
 								داشبورد
 							</span>
 						</DropdownItem>
-						<DropdownItem to="/dashboard/profile">
-							<span className="text-truncate" title="شروع پخش زنده">
-								شروع پخش زنده
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.ADD_VIDEO().link }}>
+							<span className="text-truncate" title="ویدئوی جدید">
+								ویدئوی جدید
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="ویدئو‌های من">
-								ویدئو‌های من
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.VIDEOS().link }}>
+							<span className="text-truncate" title="ویدیوهای من">
+								ویدیوهای من
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="دیدگاه">
-								دیدگاه
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.COMMENTS().link }}>
+							<span className="text-truncate" title="دیدگاه‌ها">
+								دیدگاه‌ها
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="کانالهای دنبال شده">
-								کانالهای دنبال شده
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.CHANNELS().link }}>
+							<span className="text-truncate" title="کانال‌های دنبال شده">
+								کانال‌های دنبال شده
 							</span>
 						</DropdownItem>
-						<DropdownItem to="#">
-							<span className="text-truncate" title="آمار بازدید">
-								آمار بازدید
+						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.SETTINGS().link }}>
+							<span className="text-truncate" title="	تنظیمات">
+								تنظیمات
 							</span>
 						</DropdownItem>
 						<DropdownDivider />

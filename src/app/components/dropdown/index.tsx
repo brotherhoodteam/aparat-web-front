@@ -1,12 +1,10 @@
-import { createContext, useContext, useRef, useState } from 'react'
+import { createContext, MouseEvent, useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
 import useClass from 'core/hooks/use-class'
 import useClickOutside from 'core/hooks/use-click-outside'
-
-import { LinkTarget } from 'core/interface/component'
-
+import { Location, LocationDescriptor } from 'history'
 import './styles.scss'
 
 interface DropdownProps {
@@ -14,8 +12,10 @@ interface DropdownProps {
 }
 interface DropdownButtonPorps {}
 interface DropdownItemPorps {
-	to?: LinkTarget
-	onClick?: React.MouseEventHandler<HTMLAnchorElement>
+	to?:
+		| LocationDescriptor<unknown>
+		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
+	onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
 }
 interface DropdownMenuPorps {}
 
@@ -87,8 +87,16 @@ const DropdownHeader: React.FC = ({ children }) => {
 	return <div className="dropdown-header">{children}</div>
 }
 const DropdownItem: React.FC<DropdownItemPorps> = ({ children, onClick, to }) => {
+	const { setIsOpen } = useDropdown()
 	return to ? (
-		<Link to={to} className="dropdown-item" onClick={onClick}>
+		<Link
+			to={to}
+			className="dropdown-item"
+			onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+				setIsOpen((prev: boolean) => !prev)
+				onClick && onClick(e)
+			}}
+		>
 			{children}
 		</Link>
 	) : (

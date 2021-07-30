@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import moment from 'jalali-moment'
+import { Line, defaults } from 'react-chartjs-2'
 import Media, { MediaBody } from 'app/components/media'
 import NoData from 'app/components/no-data'
 import VideoButtonTools from 'app/components/video-button-tools'
@@ -10,23 +12,105 @@ import ROUTES from 'config/router/routes'
 import VIDEO_STATE from 'core/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import { selectVideo } from 'store/video/selectors'
-import { fetchVideoRequest } from 'store/video/slice'
+import { selectVideo, selectVideoStatistics } from 'store/video/selectors'
+import { fetchVideoRequest, fetchVideoStatisticsRequest } from 'store/video/slice'
 import './style.scss'
 
 interface Props {}
+defaults.font.family = 'iranyekan'
+
 const DashboardVideo: React.FC<Props> = () => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
 	const { data, loading, errors } = useSelector(selectVideo)
+	const {
+		data: statistics,
+		loading: statisticsLoading,
+		errors: statisticsErrors
+	} = useSelector(selectVideoStatistics)
 	const title = errors ? 'جزئیات ویدئو | خطا' : 'جزئیات ویدئو'
 
 	useEffect(() => {
 		dispatch(fetchVideoRequest({ slug: params.slug }))
-		// dispatch(fetchVideoStatisticRequest({ slug: params.slug }))
+		dispatch(fetchVideoStatisticsRequest({ slug: params.slug }))
 	}, [params])
 
-	console.log('data', data)
+	const dataChart = {
+		labels: statistics?.views
+			? Object.keys(statistics?.views).map(dt => {
+					const IRDate = new Date(dt).toLocaleDateString('fa-IR')
+
+					return IRDate
+			  })
+			: [],
+		datasets: [
+			{
+				label: 'بازدید روزانه',
+				data: statistics?.views ? Object.values(statistics?.views) : [],
+				fill: true,
+				borderColor: 'rgb(75, 192, 192)',
+				backgroundColor: ['rgba(55, 125, 255, .5)', 'rgba(255, 255, 255, .2)'],
+				tension: 0.1,
+				borderWidth: 2,
+				pointRadius: 4,
+				stepSize: 1,
+				hoverBorderColor: '#377dff',
+				pointBackgroundColor: '#377dff',
+				pointBorderColor: '#fff',
+				pointHoverRadius: 10
+			}
+		]
+	}
+	const options = {
+		gradientPosition: { x0: 0, y0: 0, x1: 0, y1: 200 },
+		responsive: true,
+		plugins: {
+			title: {
+				display: true,
+				text: 'آمار بازدید ویدئو'
+			}
+		},
+		scales: {
+			x: {
+				gridLines: {
+					display: true,
+					drawBorder: true
+				}
+			},
+			y: {
+				min: 0,
+				max:
+					statistics && statistics.views
+						? Math.max(
+								...Object.entries(statistics?.views).map(
+									([key, val]: [key: string, val: number], _inx) => val
+								)
+						  )
+						: [],
+				ticks: {
+					// forces step size to be 50 units
+					stepSize: 1,
+					color: '#97a4af',
+					padding: 10,
+					postfix: 'k'
+				}
+			}
+		}
+	}
+
+	const getStatisticsDay = () => {
+		let result = 0
+		if (statistics && statistics?.views) {
+			Object.entries(statistics?.views).map(([key, value]) => {
+				if (!moment().startOf('day').diff(key, 'days')) {
+					result = value
+				}
+			})
+		}
+
+		return result
+	}
+
 	return (
 		<PanelLayout title={title}>
 			<Card>
@@ -79,7 +163,7 @@ const DashboardVideo: React.FC<Props> = () => {
 														<div className="col-auto">
 															<span>تاریخ انتشار :</span>
 															<span className="text-primary p-0 px-2">
-																{new Date(data.updated_at).toLocaleDateString('fa-IR')}
+																{moment(data.updated_at).locale('fa').fromNow()}
 															</span>
 														</div>
 													)}
@@ -173,7 +257,9 @@ const DashboardVideo: React.FC<Props> = () => {
 											<Media>
 												<i className="tio-chart-bar-1 nav-icon"></i>
 												<MediaBody>
-													<h4 className="mb-1">{data.views}</h4>
+													<h4 className="mb-1">
+														{statistics ? statistics.total_views : 0}
+													</h4>
 													<span className="d-block">بازدید‌های کل</span>
 												</MediaBody>
 											</Media>
@@ -186,7 +272,7 @@ const DashboardVideo: React.FC<Props> = () => {
 											<Media>
 												<i className="tio-brightness-2 nav-icon"></i>
 												<MediaBody>
-													<h4 className="mb-1">400</h4>
+													<h4 className="mb-1">{getStatisticsDay()}</h4>
 													<span className="d-block">بازدید‌های امروز</span>
 												</MediaBody>
 											</Media>
@@ -195,6 +281,13 @@ const DashboardVideo: React.FC<Props> = () => {
 								</div>
 							</div>
 							{/* --- End State --- */}
+							<div className="row">
+								<div className="col-12">
+									{statistics && (
+										<Line typeof="line" data={dataChart} options={options} />
+									)}
+								</div>
+							</div>
 						</React.Fragment>
 					)}
 					{/* --- End Content --- */}

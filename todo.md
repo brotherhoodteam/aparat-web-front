@@ -17,3 +17,16 @@
 - [] Get Video --> User 
 - [] Playlist
 - [] Update and Change Banner
+
+
+
+
+<!-- Daily Tasks -->
+- [] Refactor Components
+- [] Refactor Global interface
+- [] Refactor Icons
+- [] Refactor page's name
+- [] Implelemete Follower Page
+- [] Add College Features to Main branch
+- [] Error handleing
+- [] Skeleton from page 

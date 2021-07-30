@@ -22,7 +22,9 @@ import {
 	fetchVideoListRequest,
 	updatePostFailure,
 	updatePostSuccess,
-	fetchVideoListFailure
+	fetchVideoListFailure,
+	fetchVideoStatisticsSuccess,
+	fetchVideoStatisticsFailure
 } from '../slice'
 import { showStatusAction } from 'store/status/slice'
 import {
@@ -37,7 +39,9 @@ import {
 	UploadBannerRequest,
 	UploadVideoRequest,
 	VideoList,
-	FetchVideoListRequest
+	FetchVideoListRequest,
+	FetchVideoStatisticsRequest,
+	FetchVideoStatisticsResponsePayload
 } from '../interface'
 import { appError } from 'store/app/saga/handlers'
 
@@ -175,6 +179,23 @@ export function* fetchVideoListHanlder({ payload }: FetchVideoListRequest) {
 		)
 	} catch (error) {
 		yield call(appError, error, fetchVideoListFailure, true)
+	}
+}
+
+export function* fetchVideoStatisticsHanlder({ payload }: FetchVideoStatisticsRequest) {
+	try {
+		const { data }: FetchVideoStatisticsResponsePayload = yield call(
+			api.video.statistics,
+			payload.slug,
+			payload.renge
+		)
+		yield put(
+			fetchVideoStatisticsSuccess({
+				statistics: data
+			})
+		)
+	} catch (error) {
+		yield call(appError, error, fetchVideoStatisticsFailure, true)
 	}
 }
 

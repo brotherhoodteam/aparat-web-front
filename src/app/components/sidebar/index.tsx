@@ -8,26 +8,33 @@ import {
 	NavbarSubtitle,
 	NavbarVertical
 } from 'app/components/navbar-vertical'
-
-import avatarImage from 'assets/images/img6.jpg'
+import { useUserProfile } from 'store/user/hooks'
+import UserProfileLoader from '../content-loader/user-profile'
 import './styles.scss'
 
 const Sidebar: React.FC = () => {
+	const { data: profile, loading } = useUserProfile()
 	return (
 		<React.Fragment>
 			<aside className="sidebar">
 				<Card className="mb-3">
 					<CardBody className="px-0">
-						<div className="d-none d-lg-block text-center mb-3">
-							<Avatar
-								image={avatarImage}
-								alt="آرش میلانی"
-								size="xxl"
-								circle
-								className="mb-2"
-							/>
-							<CardTitle>آرش میلانی</CardTitle>
-							<CardText className="font-size-1">arash@example.com</CardText>
+						<div className="d-block  text-center mb-3">
+							{profile && !loading ? (
+								<React.Fragment>
+									<Avatar
+										image={profile.avatar}
+										alt={profile.name}
+										size="xxl"
+										circle
+										className="mb-2"
+									/>
+									<CardTitle>{profile.name}</CardTitle>
+									<CardText className="font-size-1">{profile.email}</CardText>
+								</React.Fragment>
+							) : (
+								<UserProfileLoader />
+							)}
 						</div>
 						<NavbarVertical>
 							<NavbarSubtitle label="حساب کاربری" />
@@ -50,10 +57,10 @@ const Sidebar: React.FC = () => {
 							<NavbarLink
 								label="کانال‌های دنبال شده"
 								icon="tio-subscribe"
-								slug={ROUTES.DASHBOARD.COMMENTS().link}
+								slug={ROUTES.DASHBOARD.FOLLOWERS().link}
 							/>
 							<NavbarLink
-								label="تنظیمات کانال"
+								label="تنظیمات"
 								icon="tio-settings-outlined"
 								slug={ROUTES.DASHBOARD.SETTINGS().link}
 							/>

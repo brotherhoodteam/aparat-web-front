@@ -27,7 +27,7 @@ import { useTags } from 'store/tags/hooks'
 import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NoData from 'app/components/no-data'
-import EditVideoLoader from 'app/components/content-loader/edit-video-loader'
+import { EditVideoLoader } from 'app/components/content-loader'
 
 interface Props {}
 const EditVideo: React.FC<Props> = () => {
@@ -108,6 +108,10 @@ const EditVideo: React.FC<Props> = () => {
 					...value,
 					category: value.category.id,
 					tags: value.tags.map((tag: any) => tag.id)
+				}
+
+				if (video.banner === value.banner) {
+					delete data['banner']
 				}
 				dispatch(updatePostRequest({ slug: video.slug, video: data }))
 			}
