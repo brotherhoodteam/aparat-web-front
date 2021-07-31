@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { VIDEO_STATE } from 'core/constants'
 import ROUTES from 'config/router/routes'
 import { useCategories } from 'store/categories/hooks'
 import { disableAppOverlay, enableAppOverlay } from 'store/app/slice'
@@ -8,7 +7,7 @@ import { Video } from 'store/video/interface'
 import { selectDeletedPost } from 'store/video/selectors'
 import { deleteVideoRequest } from 'store/video/slice'
 import Avatar from 'app/elements/avatar'
-import Badge from 'app/elements/badge'
+
 import Button from 'app/elements/button'
 import { Card, CardBody, CardImgTop } from 'app/elements/card'
 import Modal from 'app/components/modal'
@@ -18,7 +17,7 @@ interface Props {
 	video: Video
 }
 
-const VideoDashboardItem: React.FC<Props> = ({ video }) => {
+const PostThumbnailDhashboardItem: React.FC<Props> = ({ video }) => {
 	const dispatch = useDispatch()
 	const { done: deleteVideoDone, loading: deleteVideoLoading } =
 		useSelector(selectDeletedPost)
@@ -183,4 +182,4 @@ const VideoDashboardItem: React.FC<Props> = ({ video }) => {
 	)
 }
 
-export default VideoDashboardItem
+export default PostThumbnailDhashboardItem

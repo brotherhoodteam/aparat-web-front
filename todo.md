@@ -24,9 +24,9 @@
 <!-- Daily Tasks -->
 - [] Refactor Components
 - [] Refactor Global interface
-- [] Refactor Icons
+- [x] Refactor Icons
 - [] Refactor page's name
 - [] Implelemete Follower Page
-- [] Add College Features to Main branch
+- [x] Merge College Features to Main branch
 - [] Error handleing
 - [] Skeleton from page 

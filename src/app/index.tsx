@@ -1,35 +1,20 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Router from 'config/router'
 import useAuth from 'store/auth/hooks'
-import useClass from 'core/hooks/use-class'
 import Drawer from 'app/components/drawer'
 import Header from 'app/components/header'
 import Notification from 'app/components/notification'
 import Overlay from 'app/components/overlay'
 
-import { selectAppDrawer } from 'store/app/selectors'
 import { fetchCategoryListRequest } from 'store/categories/slice'
 import { fetchPlaylistListRequest } from 'store/playlists/slice'
 import { fetchTagListRequest } from 'store/tags/slice'
 import { changeAuthState, loadCredentialsFromStorageAction } from 'store/auth/slice'
-import 'react-lazy-load-image-component/src/effects/blur.css'
 import { fetchUserProfileRequest } from 'store/user/slice'
+import MainLayout from './layouts/main'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 import './styles.scss'
-const MainContainer: React.FC = ({ children }) => {
-	const appDrawer = useSelector(selectAppDrawer)
-	const styles = useClass({
-		defaultClass: 'main',
-		optionalClass: {
-			'overflow-y-hidden': appDrawer
-		}
-	})
-	return (
-		<main id="content" className={styles} role="main">
-			{children}
-		</main>
-	)
-}
 
 const App: React.FC = () => {
 	const { auth } = useAuth()
@@ -56,9 +41,9 @@ const App: React.FC = () => {
 	return (
 		<React.Fragment>
 			<Header />
-			<MainContainer>
+			<MainLayout>
 				<Router />
-			</MainContainer>
+			</MainLayout>
 			<Notification />
 			<Drawer />
 			<Overlay />

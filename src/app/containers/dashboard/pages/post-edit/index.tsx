@@ -30,7 +30,7 @@ import NoData from 'app/components/no-data'
 import { EditVideoLoader } from 'app/components/content-loader'
 
 interface Props {}
-const EditVideo: React.FC<Props> = () => {
+const DashboardPostEdit: React.FC<Props> = () => {
 	const dispatch = useDispatch()
 	const dispatchTyped = useTypedDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
@@ -314,4 +314,4 @@ const EditVideo: React.FC<Props> = () => {
 		</PanelLayout>
 	)
 }
-export default EditVideo
+export default DashboardPostEdit

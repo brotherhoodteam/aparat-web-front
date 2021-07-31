@@ -41,7 +41,7 @@ export interface VideoUpdate {
 	views?: number
 	tags?: Array<Tag>
 }
-export interface VideoList extends Pagination {
+export interface PostWrapper extends Pagination {
 	data: Array<Video>
 }
 export interface Video {
@@ -104,10 +104,10 @@ export interface FetchVideoListRequestPayload {
 	per_page?: string | number
 }
 export interface FetchVideoListSuccessPayload {
-	videos: VideoList
+	videos: PostWrapper
 }
 export interface FetchVideoListResponsePayload {
-	data: VideoList
+	data: PostWrapper
 }
 export interface FetchVideoStatisticsRequestPayload {
 	slug: string
@@ -223,7 +223,7 @@ export interface VideoState {
 		errors: Error | null
 	}
 	list: {
-		data: VideoList | null
+		data: PostWrapper | null
 		loading: boolean
 		errors: Error | null
 	}

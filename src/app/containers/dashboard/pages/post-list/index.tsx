@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'core/hooks/use-query'
 import { selectVideoList } from 'store/video/selectors'
-import VideoList from 'app/components/video-list'
+import PostWrapper from 'app/components/post-wrapper'
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Pagination from 'app/components/pagination'
@@ -13,11 +13,11 @@ import NoData from 'app/components/no-data'
 import Button from 'app/elements/button'
 import ROUTES from 'config/router/routes'
 import { Video } from 'store/video/interface'
-import VideoDashboardItem from 'app/components/video-dashboard-item'
+import PostThumbnailDhashboardItem from 'app/components/post-thumbnail-dashboard-item'
 
 interface Props {}
 
-const DashboardVideoList: React.FC<Props> = () => {
+const DashboardPostList: React.FC<Props> = () => {
 	const [params] = useState({
 		page: 1,
 		perPage: 4
@@ -103,9 +103,9 @@ const DashboardVideoList: React.FC<Props> = () => {
 						{!loading &&
 							data &&
 							(data.total ? (
-								<VideoList videos={data.data} GridClassName="col-12 col-lg-6 ">
-									{(video: Video) => <VideoDashboardItem video={video} />}
-								</VideoList>
+								<PostWrapper videos={data.data} GridClassName="col-12 col-lg-6 ">
+									{(video: Video) => <PostThumbnailDhashboardItem video={video} />}
+								</PostWrapper>
 							) : (
 								<NoData className="mx-auto">
 									<p>متاسفانه ویدئویی وجود ندارد</p>
@@ -128,4 +128,4 @@ const DashboardVideoList: React.FC<Props> = () => {
 	)
 }
 
-export default DashboardVideoList
+export default DashboardPostList

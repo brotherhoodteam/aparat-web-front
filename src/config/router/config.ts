@@ -3,17 +3,19 @@ import { RouterType } from './interface'
 import { ACCESS } from './constant'
 import ROUTES from './routes'
 
-const HomeContainer = lazy(() => import('app/containers/home'))
-const SignInContainer = lazy(() => import('app/containers/dashboard/pages/sign-in'))
-const NotFoundContainer = lazy(() => import('app/containers/notfound'))
+const HomeContainer = lazy(() => import('app/containers/landing/home'))
+const SignInContainer = lazy(() => import('app/containers/auth/sign-in'))
+const NotFoundContainer = lazy(() => import('app/containers/specialty/error-404'))
+const SinglePostContainer = lazy(() => import('app/containers/post/single-post'))
 const DashboardContainer = lazy(() => import('app/containers/dashboard'))
-const DashboardUpload = lazy(() => import('app/containers/dashboard/pages/upload'))
 const DashboardOverview = lazy(() => import('app/containers/dashboard/pages/overview'))
-const DashboardVideoList = lazy(() => import('app/containers/dashboard/pages/videos'))
+const DashboardVideoPublish = lazy(
+	() => import('app/containers/dashboard/pages/post-publish')
+)
+const DashboardPostList = lazy(() => import('app/containers/dashboard/pages/post-list'))
+const DashboardPostInfo = lazy(() => import('app/containers/dashboard/pages/post-info'))
+const DashboardPostEdit = lazy(() => import('app/containers/dashboard/pages/post-edit'))
 const DashboardSettings = lazy(() => import('app/containers/dashboard/pages/settings'))
-const DashboardEditVideo = lazy(() => import('app/containers/dashboard/pages/edit-video'))
-const DashboardVideo = lazy(() => import('app/containers/dashboard/pages/video'))
-const SongleVideoContainer = lazy(() => import('app/containers/single-video'))
 
 const router: RouterType = [
 	{
@@ -28,6 +30,7 @@ const router: RouterType = [
 		path: ROUTES.AUTH.SIGNIN().path,
 		exact: true,
 		access: ACCESS.GUEST,
+
 		component: SignInContainer
 	},
 	{
@@ -35,7 +38,7 @@ const router: RouterType = [
 		path: ROUTES.VIDEO.SINGLE().path,
 		exact: true,
 		access: ACCESS.PUBLIC,
-		component: SongleVideoContainer
+		component: SinglePostContainer
 	},
 	{
 		name: 'dashboard',
@@ -56,28 +59,28 @@ const router: RouterType = [
 				path: ROUTES.DASHBOARD.ADD_VIDEO().path,
 				exact: true,
 				access: ACCESS.PROTECTED,
-				component: DashboardUpload
+				component: DashboardVideoPublish
 			},
 			{
 				name: 'video',
 				path: ROUTES.DASHBOARD.VIDEO().path,
 				exact: true,
 				access: ACCESS.PROTECTED,
-				component: DashboardVideo
+				component: DashboardPostInfo
 			},
 			{
 				name: 'edit',
 				path: ROUTES.DASHBOARD.EDIT_VIDEO().path,
 				exact: true,
 				access: ACCESS.PROTECTED,
-				component: DashboardEditVideo
+				component: DashboardPostEdit
 			},
 			{
 				name: 'myvideos',
 				path: ROUTES.DASHBOARD.VIDEOS().path,
 				exact: true,
 				access: ACCESS.PROTECTED,
-				component: DashboardVideoList
+				component: DashboardPostList
 			},
 			{
 				name: 'setting',

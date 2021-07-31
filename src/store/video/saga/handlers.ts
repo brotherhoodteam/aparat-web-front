@@ -38,7 +38,7 @@ import {
 	UpdateVideoRequest,
 	UploadBannerRequest,
 	UploadVideoRequest,
-	VideoList,
+	PostWrapper,
 	FetchVideoListRequest,
 	FetchVideoStatisticsRequest,
 	FetchVideoStatisticsResponsePayload
@@ -204,7 +204,7 @@ export function* deleteVideoHanlder({ payload: { slug } }: DeleteVideoRequest) {
 		const { data }: DeletePostResponsePayload = yield call(api.video.delete, slug)
 		yield put(deleteVideoSuccess(data))
 
-		const { data: videos }: { data: VideoList } = yield select(selectVideoList)
+		const { data: videos }: { data: PostWrapper } = yield select(selectVideoList)
 		yield put(fetchVideoListRequest({ page: videos.current_page }))
 		yield put(showStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
 	} catch (error) {

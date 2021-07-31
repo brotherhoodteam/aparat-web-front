@@ -1,8 +1,8 @@
 import { VideoLoader } from 'app/components/content-loader'
 import NoData from 'app/components/no-data'
 import Pagination from 'app/components/pagination'
-import VideoItem from 'app/components/video-item'
-import VideoList from 'app/components/video-list'
+import PostThumbnailItem from 'app/components/post-thumbnail-item'
+import PostWrapper from 'app/components/post-wrapper'
 import { useQuery } from 'core/hooks/use-query'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
@@ -99,12 +99,12 @@ const HomeContainer: React.FC = () => {
 												<span>آخرین ویدئوها</span>
 											</h3>
 
-											<VideoList
+											<PostWrapper
 												videos={data.data}
 												GridClassName="col-12 col-md-6 col-xl-3"
 											>
-												{(video: Video) => <VideoItem video={video} />}
-											</VideoList>
+												{(video: Video) => <PostThumbnailItem video={video} />}
+											</PostWrapper>
 										</React.Fragment>
 									) : (
 										<NoData className="mx-auto">

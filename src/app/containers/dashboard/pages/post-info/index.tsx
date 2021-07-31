@@ -19,7 +19,7 @@ import './style.scss'
 interface Props {}
 defaults.font.family = 'iranyekan'
 
-const DashboardVideo: React.FC<Props> = () => {
+const DashboardPostInfo: React.FC<Props> = () => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
 	const { data, loading, errors } = useSelector(selectVideo)
@@ -296,4 +296,4 @@ const DashboardVideo: React.FC<Props> = () => {
 		</PanelLayout>
 	)
 }
-export default DashboardVideo
+export default DashboardPostInfo

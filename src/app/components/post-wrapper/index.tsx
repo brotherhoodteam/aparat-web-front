@@ -7,7 +7,7 @@ interface Props {
 	GridClassName: ClassName
 	children: (video: Video) => JSX.Element
 }
-const VideoList: React.FC<Props> = ({ videos, children, GridClassName }) => {
+const PostWrapper: React.FC<Props> = ({ videos, children, GridClassName }) => {
 	return (
 		<div className="row">
 			{videos.map((video: Video) => (
@@ -18,4 +18,4 @@ const VideoList: React.FC<Props> = ({ videos, children, GridClassName }) => {
 		</div>
 	)
 }
-export default VideoList
+export default PostWrapper

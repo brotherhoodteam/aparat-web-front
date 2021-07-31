@@ -33,7 +33,7 @@ import { CreatePost } from 'store/video/interface'
 import './styles.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-const DashboardUpload: React.FC = () => {
+const DashboardPostPublish: React.FC = () => {
 	const panelRef = useRef<HTMLDivElement>(null)
 	const dispatchTyped = useTypedDispatch()
 	const dispatch = useDispatch()
@@ -472,4 +472,4 @@ const DashboardUpload: React.FC = () => {
 	)
 }
 
-export default DashboardUpload
+export default DashboardPostPublish

@@ -9,7 +9,7 @@ import VideoPlayer from 'app/components/video-player'
 import './styles.scss'
 
 interface Props {}
-const SingleVideoContainer: React.FC<Props> = ({}) => {
+const SinglePostContainer: React.FC<Props> = ({}) => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
 	const { data, loading, errors } = useSelector(selectVideo)
@@ -71,4 +71,4 @@ const SingleVideoContainer: React.FC<Props> = ({}) => {
 	)
 }
 
-export default SingleVideoContainer
+export default SinglePostContainer
