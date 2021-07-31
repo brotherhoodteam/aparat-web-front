@@ -13,10 +13,10 @@ import Alert from 'app/elements/alert'
 import { useSelector } from 'react-redux'
 import { selectSignIn } from 'store/auth/selectors'
 
-import LogoImage from 'assets/images/logo--color-black--without_text.svg'
-import AbstractBg from 'assets/images/abstract-bg-4.svg'
-import GoolgleLogo from 'assets/images/google.svg'
-import ROUTES from 'config/router/routes'
+import LogoImage from 'static/images/logo--color-black--without_text.svg'
+import AbstractBg from 'static/images/abstract-bg-4.svg'
+import GoolgleLogo from 'static/images/google.svg'
+import ROUTES from 'core/router/routes'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const SignInContainer: React.FC = () => {

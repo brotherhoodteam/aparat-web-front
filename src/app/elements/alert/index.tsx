@@ -1,7 +1,7 @@
 import React from 'react'
 import { CSSTransition } from 'react-transition-group'
-import useClass from 'core/hooks/use-class'
-import { ClassName, Colors } from 'core/interface/component'
+import useClass from 'lib/hooks/use-class'
+import { ClassName, Colors } from 'lib/interface/component'
 
 import './styles.scss'
 

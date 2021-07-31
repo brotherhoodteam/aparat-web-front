@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
-import useClickOutside from 'core/hooks/use-click-outside'
+import useClickOutside from 'lib/hooks/use-click-outside'
 import { Card, CardBody } from 'app/elements/card'
 import './styles.scss'
 

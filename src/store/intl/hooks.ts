@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectIntlLocale } from 'store/intl/selectors'
 import { selectLocale } from 'store/intl/slice'
-import useTypedDispatch from '../../core/hooks/use-typed-dispatch'
+import useTypedDispatch from '../../lib/hooks/use-typed-dispatch'
 import { Locale } from 'store/intl/interface'
 
 const useIntl = () => {

@@ -1,5 +1,5 @@
-import useClass from 'core/hooks/use-class'
-import { ClassName } from 'core/interface/component'
+import useClass from 'lib/hooks/use-class'
+import { ClassName } from 'lib/interface/component'
 import { useEffect, useMemo, useState } from 'react'
 import './style.scss'
 

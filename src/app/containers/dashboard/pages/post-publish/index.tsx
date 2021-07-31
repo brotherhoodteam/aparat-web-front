@@ -14,7 +14,7 @@ import {
 	uploadBannerRequest,
 	uploadVideoRequest
 } from 'store/video/slice'
-import useTypedDispatch from 'core/hooks/use-typed-dispatch'
+import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import { useCategories, useChannelCategories } from 'store/categories/hooks'
 import { useTags } from 'store/tags/hooks'
 
@@ -27,8 +27,8 @@ import {
 	selectUploadBanner
 } from 'store/video/selectors'
 
-import UploadVideoIcon from 'assets/images/video-file.svg'
-import UploadBannerIcon from 'assets/images/placeholder.svg'
+import UploadVideoIcon from 'static/images/video-file.svg'
+import UploadBannerIcon from 'static/images/placeholder.svg'
 import { CreatePost } from 'store/video/interface'
 import './styles.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'

@@ -1,5 +1,5 @@
 import Button from 'app/elements/button'
-import ROUTES from 'config/router/routes'
+import ROUTES from 'core/router/routes'
 import React, { useState } from 'react'
 import Tooltip from '../tooltip'
 

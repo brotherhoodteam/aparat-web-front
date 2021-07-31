@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Pagination } from 'core/interface/base'
-import { Error } from 'core/interface/exception'
-import { User } from 'core/interface/user'
+import { Pagination } from 'lib/interface/base'
+import { Error } from 'lib/interface/exception'
+import { User } from 'lib/interface/user'
 import { Tag } from 'store/tags/interface'
 
 // TYPIES

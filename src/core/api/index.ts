@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import request from 'config/http/request'
+import request from 'core/http/request'
 import { SignIn } from 'store/auth/interface'
 import { CreateCategory } from 'store/categories/interface'
 import { CreatePlaylist } from 'store/playlists/interface'

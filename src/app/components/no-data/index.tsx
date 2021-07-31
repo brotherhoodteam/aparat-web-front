@@ -1,6 +1,6 @@
-import SorryImage from 'assets/images/sorry.svg'
-import useClass from 'core/hooks/use-class'
-import { ClassName } from 'core/interface/component'
+import SorryImage from 'static/images/sorry.svg'
+import useClass from 'lib/hooks/use-class'
+import { ClassName } from 'lib/interface/component'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import './styles.scss'
 

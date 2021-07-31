@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ROUTES from 'config/router/routes'
+import ROUTES from 'core/router/routes'
 import { useCategories } from 'store/categories/hooks'
 import { disableAppOverlay, enableAppOverlay } from 'store/app/slice'
 import { Video } from 'store/video/interface'

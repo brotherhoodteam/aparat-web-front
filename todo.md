@@ -25,7 +25,7 @@
 - [] Refactor Components
 - [] Refactor Global interface
 - [x] Refactor Icons
-- [] Refactor page's name
+- [x] Refactor page's name
 - [] Implelemete Follower Page
 - [x] Merge College Features to Main branch
 - [] Error handleing

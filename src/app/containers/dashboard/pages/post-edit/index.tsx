@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import * as yup from 'yup'
 
-import useTypedDispatch from 'core/hooks/use-typed-dispatch'
+import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import {
 	fetchVideoRequest,
 	updatePostRequest,
@@ -18,10 +18,10 @@ import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Uploader from 'app/components/uploader'
 
-import UploadBannerIcon from 'assets/images/placeholder.svg'
+import UploadBannerIcon from 'static/images/placeholder.svg'
 import Button from 'app/elements/button'
-import ROUTES from 'config/router/routes'
-import { imageResolver } from 'core/utils'
+import ROUTES from 'core/router/routes'
+import { imageResolver } from 'lib/utils'
 import { useTags } from 'store/tags/hooks'
 
 import './style.scss'

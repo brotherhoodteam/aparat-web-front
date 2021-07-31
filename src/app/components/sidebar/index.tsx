@@ -1,5 +1,5 @@
 import React from 'react'
-import ROUTES from 'config/router/routes'
+import ROUTES from 'core/router/routes'
 
 import Avatar from 'app/elements/avatar'
 import { Card, CardBody, CardText, CardTitle } from 'app/elements/card'

@@ -2,8 +2,8 @@ import { createContext, MouseEvent, useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
-import useClass from 'core/hooks/use-class'
-import useClickOutside from 'core/hooks/use-click-outside'
+import useClass from 'lib/hooks/use-class'
+import useClickOutside from 'lib/hooks/use-click-outside'
 import { Location, LocationDescriptor } from 'history'
 import './styles.scss'
 

@@ -1,4 +1,4 @@
-import useClass from 'core/hooks/use-class'
+import useClass from 'lib/hooks/use-class'
 import './styles.scss'
 
 interface Props {

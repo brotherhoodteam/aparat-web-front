@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity } from 'core/interface/base'
-import { Error } from 'core/interface/exception'
+import { BaseEntity } from 'lib/interface/base'
+import { Error } from 'lib/interface/exception'
 
 // TYPIES
 export interface BaseCategory {

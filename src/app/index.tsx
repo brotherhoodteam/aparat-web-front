@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Router from 'config/router'
+import Router from 'core/router'
 import useAuth from 'store/auth/hooks'
 import Drawer from 'app/components/drawer'
 import Header from 'app/components/header'

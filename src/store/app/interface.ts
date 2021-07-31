@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Error } from 'core/interface/exception'
+import { Error } from 'lib/interface/exception'
 
 // TYPIES
 export interface ErrorAction {

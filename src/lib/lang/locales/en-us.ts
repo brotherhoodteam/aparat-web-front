@@ -1,4 +1,4 @@
-import Locales from 'core/lang/constant'
+import Locales from 'lib/lang/constant'
 
 const ENGLISH_US = {
 	[Locales.ENGLISH_US]: {

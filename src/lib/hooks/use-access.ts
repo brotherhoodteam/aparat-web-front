@@ -1,4 +1,4 @@
-import { ACCESS } from 'config/router/constant'
+import { ACCESS } from 'core/router/constant'
 import useAuth from 'store/auth/hooks'
 
 const guestRedirectPath = process.env.REACT_APP_GUEST_REDIRECT_PATH || '/'

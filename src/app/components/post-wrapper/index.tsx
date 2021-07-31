@@ -1,6 +1,6 @@
 import { Video } from 'store/video/interface'
 
-import { ClassName } from 'core/interface/component'
+import { ClassName } from 'lib/interface/component'
 
 interface Props {
 	videos: Array<Video>

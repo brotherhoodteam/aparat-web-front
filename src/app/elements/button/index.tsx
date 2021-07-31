@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { Location, LocationDescriptor } from 'history'
 
 import Spinner from 'app/elements/spinner'
-import useClass from 'core/hooks/use-class'
-import { ClassName, Colors, Size, Variants } from 'core/interface/component'
+import useClass from 'lib/hooks/use-class'
+import { ClassName, Colors, Size, Variants } from 'lib/interface/component'
 
 import './styles.scss'
 

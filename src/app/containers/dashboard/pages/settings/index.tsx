@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
-import useTypedDispatch from 'core/hooks/use-typed-dispatch'
+import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import { createTagRequest } from 'store/tags/slice'
 import { selectCreatedTag } from 'store/tags/selectors'
 import { createCategoryRequest } from 'store/categories/slice'

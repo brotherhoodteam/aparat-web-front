@@ -3,14 +3,14 @@ import { Redirect, Switch } from 'react-router'
 import Sidebar from 'app/components/sidebar'
 import Button from 'app/elements/button'
 
-import useAccess from 'core/hooks/use-access'
-import { RouteType } from 'config/router/interface'
+import useAccess from 'lib/hooks/use-access'
+import { RouteType } from 'core/router/interface'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogout } from 'store/auth/selectors'
 import { logoutRequest } from 'store/auth/slice'
 
-import accountBg from 'assets/images/abstract-shapes-20.svg'
+import accountBg from 'static/images/abstract-shapes-20.svg'
 import './styles.scss'
 import { Route } from 'react-router-dom'
 

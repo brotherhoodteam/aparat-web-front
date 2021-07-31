@@ -5,7 +5,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
-import useClickOutside from 'core/hooks/use-click-outside'
+import useClickOutside from 'lib/hooks/use-click-outside'
 
 import { selectAppDrawer } from 'store/app/selectors'
 import { disableAppDrawer } from 'store/app/slice'
@@ -20,7 +20,7 @@ import {
 	NavbarVertical
 } from '../navbar-vertical'
 
-import LogoImage from 'assets/images/logo--color-black--without_text.svg'
+import LogoImage from 'static/images/logo--color-black--without_text.svg'
 import { CategoryNormalized } from 'store/categories/interface'
 import { useCategories } from 'store/categories/hooks'
 

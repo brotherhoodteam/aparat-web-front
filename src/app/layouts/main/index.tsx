@@ -1,4 +1,4 @@
-import useClass from 'core/hooks/use-class'
+import useClass from 'lib/hooks/use-class'
 import { useSelector } from 'react-redux'
 import { selectAppDrawer } from 'store/app/selectors'
 

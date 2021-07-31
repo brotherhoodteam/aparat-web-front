@@ -1,5 +1,5 @@
 import { call, put } from '@redux-saga/core/effects'
-import api from 'config/api'
+import api from 'core/api'
 import {
 	CreateCategoryRequest,
 	CreateCategoryResponsePayload,

@@ -1,9 +1,9 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import useClass from 'core/hooks/use-class'
-import { ClassName, Size } from 'core/interface/component'
+import useClass from 'lib/hooks/use-class'
+import { ClassName, Size } from 'lib/interface/component'
 
-import ImgaePlacehlder from 'assets/images/placeholder.png'
+import ImgaePlacehlder from 'static/images/placeholder.png'
 import './styles.scss'
 
 interface CardPorps {

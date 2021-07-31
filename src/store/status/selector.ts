@@ -1,3 +1,3 @@
-import { State } from 'config/redux/interface'
+import { State } from 'core/redux/interface'
 
 export const selectStatus = (state: State) => state.status

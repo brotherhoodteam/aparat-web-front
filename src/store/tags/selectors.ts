@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { State } from 'config/redux/interface'
+import { State } from 'core/redux/interface'
 import { Tag } from './interface'
 
 // State

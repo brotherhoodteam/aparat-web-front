@@ -1,9 +1,9 @@
 import { call, put, delay } from '@redux-saga/core/effects'
-import api from 'config/api'
+import api from 'core/api'
 import { logoutSuccess, signInFailure, signInReset, signInSuccess } from '../slice'
 import { SignInRequest, SignInResponsePayload } from '../interface'
 // ! setAuth bayad check shavad
-import { setAuth } from 'config/http/util'
+import { setAuth } from 'core/http/util'
 import { appError } from 'store/app/saga/handlers'
 import { showStatusAction } from 'store/status/slice'
 

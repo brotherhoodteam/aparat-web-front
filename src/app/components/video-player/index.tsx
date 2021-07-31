@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
-import { ClassName } from 'core/interface/component'
+import { ClassName } from 'lib/interface/component'
 import PlayerController from './player-controller'
 import BaseReactPlayer from 'react-player/base'
 import './styles.scss'

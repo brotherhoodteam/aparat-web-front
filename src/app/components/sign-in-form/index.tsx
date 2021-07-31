@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik'
 import { useSelector } from 'react-redux'
-import useTypedDispatch from 'core/hooks/use-typed-dispatch'
+import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 
 import { selectSignIn } from 'store/auth/selectors'
 import { signInRequest } from 'store/auth/slice'

@@ -3,10 +3,10 @@ import { useField } from 'formik'
 import { FileRejection, useDropzone } from 'react-dropzone'
 
 import Progress from 'app/elements/progress'
-import { ClassName } from 'core/interface/component'
-import { Error } from 'core/interface/exception'
+import { ClassName } from 'lib/interface/component'
+import { Error } from 'lib/interface/exception'
 
-import UploadImage from 'assets/images/upload.svg'
+import UploadImage from 'static/images/upload.svg'
 import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 

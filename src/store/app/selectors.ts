@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { State } from 'config/redux/interface'
+import { State } from 'core/redux/interface'
 
 export const selectAppState = (state: State) => state.app
 export const selectAppError = createSelector([selectAppState], app => app.error)

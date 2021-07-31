@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { State } from 'config/redux/interface'
+import { State } from 'core/redux/interface'
 import { IntlState } from './interface'
 
 export const selectIntl = (state: State): IntlState => state.intl

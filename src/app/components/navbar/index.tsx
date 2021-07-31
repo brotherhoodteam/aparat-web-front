@@ -12,13 +12,13 @@ import Avatar from 'app/elements/avatar'
 import Media, { MediaBody } from 'app/components/media'
 import Button from 'app/elements/button'
 import Search from 'app/components/search'
-import ROUTES from 'config/router/routes'
+import ROUTES from 'core/router/routes'
 
 import { enableAppDrawer } from 'store/app/slice'
 import useAuth from 'store/auth/hooks'
 
-import Logo from 'assets/images/logo--color-black--without_text.svg'
-import LogoMini from 'assets/images/icon--color-black.svg'
+import Logo from 'static/images/logo--color-black--without_text.svg'
+import LogoMini from 'static/images/icon--color-black.svg'
 
 import './styles.scss'
 import React from 'react'

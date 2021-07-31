@@ -1,4 +1,4 @@
-import api from 'config/api'
+import api from 'core/api'
 import { call, put } from 'redux-saga/effects'
 import { appError } from 'store/app/saga/handlers'
 import {

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { State } from 'config/redux/interface'
+import { State } from 'core/redux/interface'
 import { CategoryNormalized, Category } from './interface'
 
 export const selectCategories = (state: State) => state.categories
