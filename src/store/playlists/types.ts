@@ -1,20 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity } from 'lib/interface/base'
-import { Error } from 'lib/interface/exception'
+import { Error } from 'lib/types/exception'
+import { Playlist } from 'lib/types/playlist'
 
 // TYPIES
-export interface Playlist extends BaseEntity {
-	title: string
-	size: number
-}
 export interface CreatePlaylist {
 	title: string
-}
-export interface PlaylistNormalized {
-	id: number
-	userId?: string
-	label: string
-	value: number
 }
 
 // PAYLOAD
@@ -63,7 +53,7 @@ export interface PlaylistsState {
 		loading: boolean
 		errors: Error | null
 	}
-	create: {
+	draft: {
 		loading: boolean
 		errors: Error | null
 	}

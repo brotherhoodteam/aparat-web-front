@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import ROUTES from 'core/router/routes'
 import { useCategories } from 'store/categories/hooks'
 import { disableAppOverlay, enableAppOverlay } from 'store/app/slice'
-import { Video } from 'store/video/interface'
-import { selectDeletedPost } from 'store/video/selectors'
-import { deleteVideoRequest } from 'store/video/slice'
+import { selectDeletedPost } from 'store/post/selectors'
+import { deleteVideoRequest } from 'store/post/slice'
 import { Card, CardBody, CardImgTop } from 'app/elements/card'
-import './styles.scss'
 import { Link } from 'react-router-dom'
+import { Video } from 'lib/types/video'
+import './styles.scss'
+import { useDeletedPost } from 'store/post/hooks'
 
 interface Props {
 	video: Video
@@ -16,8 +17,7 @@ interface Props {
 
 const PostThumbnailItem: React.FC<Props> = ({ video }) => {
 	const dispatch = useDispatch()
-	const { done: deleteVideoDone, loading: deleteVideoLoading } =
-		useSelector(selectDeletedPost)
+	const { done: deleteVideoDone, loading: deleteVideoLoading } = useDeletedPost()
 	const { data: categories } = useCategories()
 
 	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
@@ -39,7 +39,7 @@ const PostThumbnailItem: React.FC<Props> = ({ video }) => {
 		dispatch(disableAppOverlay())
 		setIsOpenModal(false)
 	}
-	const handleDeleteVideo = () => {
+	const handleDeletePost = () => {
 		dispatch(deleteVideoRequest({ slug: video.slug }))
 	}
 

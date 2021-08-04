@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
-import { selectAppOverlay } from 'store/app/selectors'
+import { useAppOverlay } from 'store/app/hooks'
 
 import './styles.scss'
 
 const Overlay = () => {
-	const isOpenOverlay = useSelector(selectAppOverlay)
+	const isOpenOverlay = useAppOverlay()
 	return (
 		<CSSTransition
 			timeout={200}

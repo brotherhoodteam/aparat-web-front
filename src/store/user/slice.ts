@@ -6,7 +6,7 @@ import {
 	ErrorAction,
 	FetchUserListRequest,
 	FetchUserListSuccess
-} from './interface'
+} from './types'
 
 const initialState: UserState = {
 	profile: { data: null, loading: false, errors: null },

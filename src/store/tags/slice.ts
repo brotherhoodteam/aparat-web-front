@@ -5,7 +5,7 @@ import {
 	TagsState,
 	FetchTagsSuccess,
 	CreateTagSuccess
-} from './interface'
+} from './types'
 
 const initialState: TagsState = {
 	list: {
@@ -13,7 +13,7 @@ const initialState: TagsState = {
 		loading: false,
 		errors: null
 	},
-	create: {
+	draft: {
 		loading: false,
 		errors: null
 	}
@@ -39,17 +39,17 @@ const tagsSlice = createSlice({
 			state.list.errors = action.payload.error
 		},
 		createTagRequest: (state, action: CreateTagRequest) => {
-			state.create.loading = true
-			state.create.errors = null
+			state.draft.loading = true
+			state.draft.errors = null
 		},
 		createTagSuccess: (state, action: CreateTagSuccess) => {
-			state.create.loading = false
-			state.list.data.push(action.payload.tag)
-			state.create.errors = null
+			state.draft.loading = false
+			state.list.data.push(action.payload.data)
+			state.draft.errors = null
 		},
 		createTagFailure: (state, action: ErrorAction) => {
-			state.create.loading = false
-			state.create.errors = action.payload.error
+			state.draft.loading = false
+			state.draft.errors = action.payload.error
 		}
 	}
 })

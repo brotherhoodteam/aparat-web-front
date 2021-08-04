@@ -4,13 +4,13 @@ import Pagination from 'app/components/pagination'
 import PostThumbnailItem from 'app/components/post-thumbnail-item'
 import PostWrapper from 'app/components/post-wrapper'
 import { useQuery } from 'lib/hooks/use-query'
+import { Video } from 'lib/types/video'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { Video } from 'store/video/interface'
-import { selectVideoList } from 'store/video/selectors'
-import { fetchVideoListRequest, fetchVideoListReset } from 'store/video/slice'
+import { usePostList } from 'store/post/hooks'
+import { fetchVideoListRequest, fetchVideoListReset } from 'store/post/slice'
 import './styles.scss'
 
 const HomeContainer: React.FC = () => {
@@ -27,7 +27,7 @@ const HomeContainer: React.FC = () => {
 	const perPage = Number(query.get('per_page'))
 
 	// Select Videos Store
-	const { data, loading, errors } = useSelector(selectVideoList)
+	const { data, loading, errors } = usePostList()
 
 	useEffect(() => {
 		dispatch(fetchVideoListRequest())

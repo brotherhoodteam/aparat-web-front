@@ -1,10 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Pagination } from 'lib/interface/base'
-import { Error } from 'lib/interface/exception'
-import { User } from 'lib/interface/user'
-import { Tag } from 'store/tags/interface'
+import { Pagination } from 'lib/types/base'
+import { Error } from 'lib/types/exception'
+import { Statistics } from 'lib/types/statistic'
+import { Video, VideoUpdate } from 'lib/types/video'
 
-// TYPIES
 export interface CreatePost {
 	video_id: string
 	title: string
@@ -18,62 +17,8 @@ export interface CreatePost {
 	enable_comments: boolean
 	enable_watermark: boolean
 }
-export interface VideoUpdate {
-	user?: User
-	title?: string
-	user_id?: number
-	category_id?: number | null
-	channel_category_id?: number | null
-	slug?: string
-	info?: string
-	duration?: number
-	banner?: string
-	enable_comments?: boolean
-	publish_at?: string | null
-	state?: string
-	updated_at?: string
-	created_at?: string
-	id?: number
-	likeCount?: number
-	age?: number
-	link?: string
-	banner_link?: string
-	views?: number
-	tags?: Array<Tag>
-}
-export interface PostWrapper extends Pagination {
+export interface PostData extends Pagination {
 	data: Array<Video>
-}
-export interface Video {
-	user: User
-	title: string
-	user_id: number
-	category_id: number | null
-	channel_category_id: number | null
-	slug: string
-	info: string
-	duration: number
-	banner: string
-	enable_comments: boolean
-	publish_at: string | null
-	state: string
-	updated_at: string
-	created_at: string
-	id: number
-	likeCount: number
-	age: number
-	link: string
-	banner_link: string
-	views: number
-	tags: Array<Tag>
-}
-export interface Statistic {
-	[key: string]: number
-}
-
-export interface Statistics {
-	views: Statistic
-	total_views: number
 }
 
 // PAYLOADS
@@ -99,35 +44,36 @@ export interface UpdatePostRequestPayload {
 	video: VideoUpdate
 }
 
-export interface FetchVideoListRequestPayload {
+export interface FetchPostRequestPayload {
+	slug: string
+}
+export interface FetchPostSuccessPayload {
+	data: Video
+}
+export interface FetchPostResponsePayload {
+	data: Video
+}
+
+export interface FetchPostListRequestPayload {
 	page?: string | number
 	per_page?: string | number
 }
-export interface FetchVideoListSuccessPayload {
-	videos: PostWrapper
+export interface FetchPostListSuccessPayload {
+	data: PostData
 }
-export interface FetchVideoListResponsePayload {
-	data: PostWrapper
+export interface FetchPostListResponsePayload {
+	data: PostData
 }
-export interface FetchVideoStatisticsRequestPayload {
+
+export interface FetchPostStatisticsRequestPayload {
 	slug: string
 	renge?: string | number
 }
-export interface FetchVideoStatisticsSuccessPayload {
+export interface FetchPostStatisticsSuccessPayload {
 	statistics: Statistics
 }
-export interface FetchVideoStatisticsResponsePayload {
+export interface FetchPostStatisticsResponsePayload {
 	data: Statistics
-}
-
-export interface FetchVideoRequestPayload {
-	slug: string
-}
-export interface FetchVideoSuccessPayload {
-	video: Video
-}
-export interface FetchVideoResponsePayload {
-	data: Video
 }
 
 export interface UploadVideoRequestPayload {
@@ -164,21 +110,21 @@ export interface CreatePostSuccess extends PayloadAction<CreatePostSuccessPayloa
 export interface UpdateVideoRequest extends PayloadAction<UpdatePostRequestPayload> {}
 export interface UpdateVideoSuccess extends PayloadAction<any> {}
 
-export interface DeleteVideoRequest extends PayloadAction<DeletePostRequestPayload> {}
-export interface DeleteVideoSuccess extends PayloadAction<any> {}
+export interface DeletePostRequest extends PayloadAction<DeletePostRequestPayload> {}
+export interface DeletePostSuccess extends PayloadAction<any> {}
 
-export interface FetchVideoListRequest
-	extends PayloadAction<FetchVideoListRequestPayload | undefined> {}
-export interface FetchVideoListSuccess
-	extends PayloadAction<FetchVideoListSuccessPayload> {}
+export interface FetchPostListRequest
+	extends PayloadAction<FetchPostListRequestPayload | undefined> {}
+export interface FetchPostListSuccess
+	extends PayloadAction<FetchPostListSuccessPayload> {}
 
-export interface FetchVideoRequest extends PayloadAction<FetchVideoRequestPayload> {}
-export interface FetchVideoSuccess extends PayloadAction<FetchVideoSuccessPayload> {}
+export interface FetchPostRequest extends PayloadAction<FetchPostRequestPayload> {}
+export interface FetchPostSuccess extends PayloadAction<FetchPostSuccessPayload> {}
 
-export interface FetchVideoStatisticsRequest
-	extends PayloadAction<FetchVideoStatisticsRequestPayload> {}
-export interface FetchVideoStatisticsSuccess
-	extends PayloadAction<FetchVideoStatisticsSuccessPayload> {}
+export interface FetchPostStatisticsRequest
+	extends PayloadAction<FetchPostStatisticsRequestPayload> {}
+export interface FetchPostStatisticsSuccess
+	extends PayloadAction<FetchPostStatisticsSuccessPayload> {}
 
 export interface UploadVideoRequest extends PayloadAction<UploadVideoRequestPayload> {}
 export interface UploadVideoSuccess extends PayloadAction<UploadVideoSuccessPayload> {}
@@ -194,20 +140,20 @@ export interface ErrorAction extends PayloadAction<ErrorPayload> {}
 export type VideoActions =
 	| CreatePostRequest
 	| CreatePostSuccess
-	| DeleteVideoRequest
-	| DeleteVideoSuccess
+	| DeletePostRequest
+	| DeletePostSuccess
 	| UploadVideoRequest
 	| UploadVideoSuccess
 	| UploadBannerRequest
 	| UploadBannerSuccess
-	| FetchVideoListSuccess
+	| FetchPostListSuccess
 	| ErrorPayload
 	| ProgressPayload
 
 // State
-export interface VideoState {
-	post: {
-		response: Video | null
+export interface PostState {
+	draftPost: {
+		data: Video | null
 		loading: boolean
 		errors: Error | null
 	}
@@ -223,7 +169,7 @@ export interface VideoState {
 		errors: Error | null
 	}
 	list: {
-		data: PostWrapper | null
+		data: PostData | null
 		loading: boolean
 		errors: Error | null
 	}

@@ -1,8 +1,14 @@
 import { useSelector } from 'react-redux'
 import {
-	selectGeneralCategoryList,
-	selectChannelCategoryList
-} from 'store/categories/selectors'
+	selectChannelCategoryList,
+	selectDraftCategory,
+	selectGeneralCategoryList
+} from './selectors'
+
+// HOOKS
+export const useDraftCategory = () => {
+	return useSelector(selectDraftCategory)
+}
 
 export const useCategories = () => {
 	return useSelector(selectGeneralCategoryList)

@@ -1,6 +1,6 @@
 import React from 'react'
 import useClass from 'lib/hooks/use-class'
-import { ClassName, Colors, Size } from 'lib/interface/component'
+import { ClassName, Colors, Size } from 'lib/types/component'
 import './styles.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 interface AvatarProps {

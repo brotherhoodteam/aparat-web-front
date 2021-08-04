@@ -1,4 +1,4 @@
-type VideoState =
+type PostState =
 	| {
 			label: 'منتشر شده'
 			value: 'accepted'
@@ -17,19 +17,19 @@ type VideoState =
 	  }
 
 export const VIDEO_STATE = {
-	ACCEPTED: (): VideoState => ({
+	ACCEPTED: (): PostState => ({
 		label: 'منتشر شده',
 		value: 'accepted'
 	}),
-	PENDING: (): VideoState => ({
+	PENDING: (): PostState => ({
 		label: 'درحال برسی',
 		value: 'pending'
 	}),
-	CONVERTED: (): VideoState => ({
+	CONVERTED: (): PostState => ({
 		label: 'تبدیل شده',
 		value: 'converted'
 	}),
-	BLOCKED: (): VideoState => ({
+	BLOCKED: (): PostState => ({
 		label: 'رد شده',
 		value: 'blocked'
 	})

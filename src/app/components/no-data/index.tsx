@@ -1,6 +1,6 @@
 import SorryImage from 'static/images/sorry.svg'
 import useClass from 'lib/hooks/use-class'
-import { ClassName } from 'lib/interface/component'
+import { ClassName } from 'lib/types/component'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import './styles.scss'
 

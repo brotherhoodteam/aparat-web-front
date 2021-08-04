@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux'
-import { selectNormalizedPlaylistList } from 'store/playlists/selectors'
+import { selectCreatePlaylist, selectNormalizedPlaylistList } from './selectors'
 
+// HOOKS
 export const usePlaylists = () => {
 	return useSelector(selectNormalizedPlaylistList)
+}
+export const useDraftPlaylist = () => {
+	return useSelector(selectCreatePlaylist)
 }

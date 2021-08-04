@@ -1,7 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-
-// TYPIES
-export type Locale = 'en' | 'fa'
+import { Locale } from 'lib/types/locale'
 
 // PAYLOAD
 export interface SelectLocalePayload {

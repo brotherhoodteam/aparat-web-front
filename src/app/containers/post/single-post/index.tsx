@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Avatar from 'app/elements/avatar'
 import { Link, useRouteMatch } from 'react-router-dom'
-import { selectVideo } from 'store/video/selectors'
-import { fetchVideoRequest } from 'store/video/slice'
+import { fetchVideoRequest } from 'store/post/slice'
 import VideoPlayer from 'app/components/video-player'
+import { useSinglePost } from 'store/post/hooks'
 import './styles.scss'
 
 interface Props {}
 const SinglePostContainer: React.FC<Props> = ({}) => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
-	const { data, loading, errors } = useSelector(selectVideo)
+	const { data, loading, errors } = useSinglePost()
 
 	useEffect(() => {
 		dispatch(fetchVideoRequest({ slug: params.slug }))

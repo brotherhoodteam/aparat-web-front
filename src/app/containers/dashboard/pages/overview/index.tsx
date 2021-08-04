@@ -3,20 +3,16 @@ import NoData from 'app/components/no-data'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useUserList } from 'store/user/hooks'
-import { selectVideoList } from 'store/video/selectors'
-import { fetchVideoListRequest } from 'store/video/slice'
+import { fetchVideoListRequest } from 'store/post/slice'
 import './styles.scss'
+import { usePostList } from 'store/post/hooks'
 
 const DashboardOverview: React.FC = () => {
 	const dispatch = useDispatch()
 	const { fetchUserListData, selectUserListData } = useUserList()
-	const {
-		data: videosData,
-		loading: videosLoading,
-		errors: videosErros
-	} = useSelector(selectVideoList)
+	const { data: videosData, loading: videosLoading, errors: videosErros } = usePostList()
 	const {
 		data: usersData,
 		loading: usersLoading,

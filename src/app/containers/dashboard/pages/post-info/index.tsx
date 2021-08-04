@@ -10,11 +10,11 @@ import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout, { PanelHeader, PanelTitle } from 'app/layouts/panel'
 import ROUTES from 'core/router/routes'
 import VIDEO_STATE from 'lib/constants'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import { selectVideo, selectVideoStatistics } from 'store/video/selectors'
-import { fetchVideoRequest, fetchVideoStatisticsRequest } from 'store/video/slice'
+import { fetchVideoRequest, fetchVideoStatisticsRequest } from 'store/post/slice'
 import './style.scss'
+import { useDraftPost, usePostStatistics } from 'store/post/hooks'
 
 interface Props {}
 defaults.font.family = 'iranyekan'
@@ -22,12 +22,12 @@ defaults.font.family = 'iranyekan'
 const DashboardPostInfo: React.FC<Props> = () => {
 	const dispatch = useDispatch()
 	const { params } = useRouteMatch<{ slug: string }>()
-	const { data, loading, errors } = useSelector(selectVideo)
+	const { data, loading, errors } = useDraftPost()
 	const {
 		data: statistics,
 		loading: statisticsLoading,
 		errors: statisticsErrors
-	} = useSelector(selectVideoStatistics)
+	} = usePostStatistics()
 	const title = errors ? 'جزئیات ویدئو | خطا' : 'جزئیات ویدئو'
 
 	useEffect(() => {

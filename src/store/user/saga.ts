@@ -1,17 +1,19 @@
 import api from 'core/api'
-import { call, put } from 'redux-saga/effects'
-import { appError } from 'store/app/saga/handlers'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { appError } from 'store/app/saga'
 import {
 	FetchUserListRequest,
 	FetchUserListResponsePayload,
 	FetchUserProfileResponsePayload
-} from '../interface'
+} from './types'
 import {
 	fetchUserListFailur,
+	fetchUserListRequest,
 	fetchUserListSuccess,
 	fetchUserProfileFailur,
+	fetchUserProfileRequest,
 	fetchUserProfileSuccess
-} from '../slice'
+} from './slice'
 
 export function* fetchUserProfilehandler() {
 	try {
@@ -33,3 +35,14 @@ export function* fetchUserListhandler({ payload }: FetchUserListRequest) {
 		yield call(appError, err, fetchUserListFailur, true)
 	}
 }
+
+function* usersWatchers() {
+	yield takeLatest(fetchUserProfileRequest, fetchUserProfilehandler)
+	yield takeLatest(fetchUserListRequest, fetchUserListhandler)
+}
+
+function* usersSaga() {
+	yield all([call(usersWatchers)])
+}
+
+export default usersSaga

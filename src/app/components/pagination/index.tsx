@@ -1,5 +1,5 @@
 import useClass from 'lib/hooks/use-class'
-import { ClassName } from 'lib/interface/component'
+import { ClassName } from 'lib/types/component'
 import { useEffect, useMemo, useState } from 'react'
 import './style.scss'
 

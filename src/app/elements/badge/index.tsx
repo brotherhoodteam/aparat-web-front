@@ -1,5 +1,5 @@
 import useClass from 'lib/hooks/use-class'
-import { ClassName, Colors } from 'lib/interface/component'
+import { ClassName, Colors } from 'lib/types/component'
 import './styles.scss'
 
 interface Props {

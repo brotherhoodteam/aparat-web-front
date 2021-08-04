@@ -1,11 +1,12 @@
 import { createSelector } from 'reselect'
 import { State } from 'core/redux/interface'
-import { CategoryNormalized, Category } from './interface'
+import { Category, CategoryNormalized } from 'lib/types/category'
 
+// SELECTORS
 export const selectCategories = (state: State) => state.categories
-export const selectCreatedCategory = createSelector(
+export const selectDraftCategory = createSelector(
 	[selectCategories],
-	state => state.create
+	state => state.draft
 )
 export const selectCategoryList = createSelector(
 	[selectCategories],

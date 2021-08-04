@@ -1,6 +1,6 @@
 import React from 'react'
 import useClass from 'lib/hooks/use-class'
-import { Size } from 'lib/interface/component'
+import { Size } from 'lib/types/component'
 import './index'
 
 interface LogoProp {

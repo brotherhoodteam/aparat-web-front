@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { FetchUserListRequestPayload } from './interface'
 import { selectUserList, selectUserProfile } from './selectors'
 import { fetchUserListRequest } from './slice'
+import { FetchUserListRequestPayload } from './types'
 
+// HOOKS
 export const useUserProfile = () => {
 	return useSelector(selectUserProfile)
 }

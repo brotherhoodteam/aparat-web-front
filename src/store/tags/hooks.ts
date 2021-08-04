@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux'
-import { selectNormalizedTagList } from 'store/tags/selectors'
+import { selectDraftTag, selectNormalizedTagList } from './selectors'
 
-export const useTags = () => {
+// HOOKS
+export const useDraftTag = () => {
+	return useSelector(selectDraftTag)
+}
+export const useTagList = () => {
 	return useSelector(selectNormalizedTagList)
 }

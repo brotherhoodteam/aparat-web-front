@@ -1,18 +1,20 @@
-import { call, put } from '@redux-saga/core/effects'
+import { all, call, put, takeLatest } from '@redux-saga/core/effects'
 import api from 'core/api'
-import { appError } from 'store/app/saga/handlers'
+import { appError } from 'store/app/saga'
 import { showStatusAction } from 'store/status/slice'
 import {
 	CreateTagRequest,
 	FetchTagListResponsePayload,
 	CreateTagResponsePayload
-} from '../interface'
+} from './types'
 import {
 	fetchTagListSuccess,
 	fetchTagListFailure,
 	createTagFailure,
-	createTagSuccess
-} from '../slice'
+	createTagSuccess,
+	fetchTagListRequest,
+	createTagRequest
+} from './slice'
 
 export function* fetchTagListHandler() {
 	try {
@@ -26,7 +28,7 @@ export function* fetchTagListHandler() {
 export function* createTagHandler({ payload: { tag } }: CreateTagRequest) {
 	try {
 		const { data }: CreateTagResponsePayload = yield call(api.tags.set, tag)
-		yield put(createTagSuccess({ tag: data }))
+		yield put(createTagSuccess({ data }))
 		yield put(
 			showStatusAction({ status: 'success', message: 'برچسب جدید با موفقیت اضافه شد' })
 		)
@@ -34,3 +36,14 @@ export function* createTagHandler({ payload: { tag } }: CreateTagRequest) {
 		yield call(appError, error, createTagFailure, true)
 	}
 }
+
+function* tagsWatcher() {
+	yield takeLatest(fetchTagListRequest, fetchTagListHandler)
+	yield takeLatest(createTagRequest, createTagHandler)
+}
+
+function* tagsSaga() {
+	yield all([call(tagsWatcher)])
+}
+
+export default tagsSaga

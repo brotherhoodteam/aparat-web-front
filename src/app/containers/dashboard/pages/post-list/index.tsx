@@ -1,19 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from 'lib/hooks/use-query'
-import { selectVideoList } from 'store/video/selectors'
+import { usePostList } from 'store/post/hooks'
 import PostWrapper from 'app/components/post-wrapper'
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Pagination from 'app/components/pagination'
-import { fetchVideoListRequest, fetchVideoListReset } from 'store/video/slice'
+import { fetchVideoListRequest, fetchVideoListReset } from 'store/post/slice'
 import { VideoLoader } from 'app/components/content-loader'
 import NoData from 'app/components/no-data'
 import Button from 'app/elements/button'
 import ROUTES from 'core/router/routes'
-import { Video } from 'store/video/interface'
+
 import PostThumbnailDhashboardItem from 'app/components/post-thumbnail-dashboard-item'
+import { Video } from 'lib/types/video'
 
 interface Props {}
 
@@ -31,7 +32,7 @@ const DashboardPostList: React.FC<Props> = () => {
 	const perPage = Number(query.get('per_page'))
 
 	// Select Videos Store
-	const { data, loading, errors } = useSelector(selectVideoList)
+	const { data, loading, errors } = usePostList()
 
 	// Set Default Queries
 	useEffect(() => {

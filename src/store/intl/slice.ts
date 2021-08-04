@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Locales from 'lib/lang/constant'
-import { IntlState, SelectLocale } from './interface'
+import Locale from 'lib/lang/constant'
+import { IntlState, SelectLocale } from './types'
 
 // Define the initial state
 const initialState: IntlState = {
-	locale: Locales.DEFAULT
+	locale: Locale.DEFAULT
 }
 
 const intlSlice = createSlice({

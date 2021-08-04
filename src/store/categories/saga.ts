@@ -1,24 +1,26 @@
-import { call, put } from '@redux-saga/core/effects'
+import { all, call, put, takeLatest } from '@redux-saga/core/effects'
 import api from 'core/api'
 import {
 	CreateCategoryRequest,
 	CreateCategoryResponsePayload,
 	FetchCategoryListResponsePayload
-} from '../interface'
+} from './types'
 import {
 	fetchCategoryListSuccess,
 	fetchCategoryListFailure,
 	createCategorySuccess,
-	createCategoryFailure
-} from '../slice'
+	createCategoryFailure,
+	fetchCategoryListRequest,
+	createCategoryRequest
+} from './slice'
 import { showStatusAction } from 'store/status/slice'
 
-import { appError } from 'store/app/saga/handlers'
+import { appError } from 'store/app/saga'
 
 export function* fetchCategoryListHandler() {
 	try {
 		const { data }: FetchCategoryListResponsePayload = yield call(api.categories.get)
-		yield put(fetchCategoryListSuccess({ categoryList: data }))
+		yield put(fetchCategoryListSuccess({ data }))
 	} catch (error) {
 		yield call(appError, error, fetchCategoryListFailure, true)
 	}
@@ -37,4 +39,13 @@ export function* createCategoryHandler({ payload: { category } }: CreateCategory
 	} catch (error) {
 		yield call(appError, error, createCategoryFailure, true)
 	}
+}
+
+function* categoriesWatcher() {
+	yield takeLatest(fetchCategoryListRequest, fetchCategoryListHandler)
+	yield takeLatest(createCategoryRequest, createCategoryHandler)
+}
+
+export default function* catgoriesSaga() {
+	yield all([call(categoriesWatcher)])
 }

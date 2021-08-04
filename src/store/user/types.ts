@@ -1,10 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Pagination } from 'lib/interface/base'
-import { Error } from 'lib/interface/exception'
-import { User } from 'lib/interface/user'
+import { Pagination } from 'lib/types/base'
+import { Error } from 'lib/types/exception'
+import { User } from 'lib/types/user'
 
 // TYPES
-export interface UserList extends Pagination {
+export interface UserData extends Pagination {
 	data: Array<User>
 }
 
@@ -21,10 +21,10 @@ export interface FetchUserListRequestPayload {
 	per_page?: string | number
 }
 export interface FetchUserListSuccessPayload {
-	data: UserList
+	data: UserData
 }
 export interface FetchUserListResponsePayload {
-	data: UserList
+	data: UserData
 }
 
 export interface ErrorPayload {
@@ -54,7 +54,7 @@ export type UserState = {
 		errors: Error | null
 	}
 	list: {
-		data: UserList | null
+		data: UserData | null
 		loading: boolean
 		errors: Error | null
 	}

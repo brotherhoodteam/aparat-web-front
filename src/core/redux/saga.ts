@@ -4,14 +4,14 @@ import categoriesSaga from 'store/categories/saga'
 import tagsSaga from 'store/tags/saga'
 import authSaga from 'store/auth/saga'
 import playlistSaga from 'store/playlists/saga'
-import videoSaga from 'store/video/saga'
+import postSaga from 'store/post/saga'
 import usersSaga from 'store/user/saga'
 
 function* rooSaga() {
 	yield all([
 		call(appSaga),
 		call(authSaga),
-		call(videoSaga),
+		call(postSaga),
 		call(categoriesSaga),
 		call(tagsSaga),
 		call(playlistSaga),

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ShowStatusPayload, StatusState } from './interface'
+import { ShowStatusPayload, StatusState } from './types'
 
 const initialState: StatusState = {
 	status: null,

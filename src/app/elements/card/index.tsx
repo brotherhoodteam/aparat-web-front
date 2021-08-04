@@ -1,7 +1,7 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import useClass from 'lib/hooks/use-class'
-import { ClassName, Size } from 'lib/interface/component'
+import { ClassName, Size } from 'lib/types/component'
 
 import ImgaePlacehlder from 'static/images/placeholder.png'
 import './styles.scss'

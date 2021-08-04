@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { StatusState } from 'store/status/interface'
+import { StatusState } from 'store/status/types'
 import { selectStatus } from 'store/status/selector'
 import { clearStatusAction } from 'store/status/slice'
 

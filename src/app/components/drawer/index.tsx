@@ -1,13 +1,11 @@
 import { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
 import useClickOutside from 'lib/hooks/use-click-outside'
-
-import { selectAppDrawer } from 'store/app/selectors'
 import { disableAppDrawer } from 'store/app/slice'
 
 import { Card, CardBody, CardHeader } from 'app/elements/card'
@@ -21,17 +19,18 @@ import {
 } from '../navbar-vertical'
 
 import LogoImage from 'static/images/logo--color-black--without_text.svg'
-import { CategoryNormalized } from 'store/categories/interface'
 import { useCategories } from 'store/categories/hooks'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import './styles.scss'
+import { CategoryNormalized } from 'lib/types/category'
+import { useAppDrawer } from 'store/app/hooks'
 
 const Drawer = () => {
 	const drewerRef = useRef<HTMLDivElement>(null)
 	const [limit, setLimit] = useState({ status: true, length: 4 })
 	const { data: categoroies } = useCategories()
-	const isOpenDrawer = useSelector(selectAppDrawer)
+	const isOpenDrawer = useAppDrawer()
 	const disaptch = useDispatch()
 
 	const handleClose = () => {

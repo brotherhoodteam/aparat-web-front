@@ -1,8 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Error } from 'lib/interface/exception'
+import { Error } from 'lib/types/exception'
 
 // TYPIES
-export interface SignIn {
+export interface SignInField {
 	username: string
 	password: string
 }
@@ -15,7 +15,7 @@ export type Credentials = {
 
 //  PAYLOAD
 export interface SignInRequestPayload {
-	passport: SignIn
+	passport: SignInField
 }
 export interface SignInSuccessPayload {
 	credentials: Credentials
@@ -42,7 +42,7 @@ export interface AuthState {
 		pending: boolean
 	}
 	signIn: {
-		passport: SignIn | null
+		passport: SignInField | null
 		loading: boolean
 		error: Error | null
 	}

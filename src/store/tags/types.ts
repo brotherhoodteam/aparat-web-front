@@ -1,18 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { Error } from 'lib/interface/exception'
-
-// TYPIES
-export type Tag = {
-	id: number
-	title: string
-}
+import { Error } from 'lib/types/exception'
+import { Tag } from 'lib/types/tag'
 
 // PAYLOADS
 export interface CreateTagRequestPayload {
 	tag: Tag
 }
 export interface CreateTagSuccessPayload {
-	tag: Tag
+	data: Tag
 }
 export interface CreateTagResponsePayload {
 	data: Tag
@@ -43,7 +38,7 @@ export interface TagsState {
 		loading: boolean
 		errors: Error | null
 	}
-	create: {
+	draft: {
 		loading: boolean
 		errors: Error | null
 	}

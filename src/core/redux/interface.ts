@@ -1,11 +1,11 @@
 import { AppActions } from 'store/app/interface'
-import { IntlActions } from 'store/intl/interface'
-import { TagsActions } from 'store/tags/interface'
-import { CategoriesActionType } from 'store/categories/interface'
+import { IntlActions } from 'store/intl/types'
+import { TagsActions } from 'store/tags/types'
+import { CategoriesActionType } from 'store/categories/types'
 import { AuthActions } from 'store/auth/interface'
-import { UsersActions } from 'store/user/interface'
-import { VideoActions } from 'store/video/interface'
-import { PlaylistsActions } from 'store/playlists/interface'
+import { UsersActions } from 'store/user/types'
+import { VideoActions } from 'store/post/types'
+import { PlaylistsActions } from 'store/playlists/types'
 import appReducer from './reducer'
 
 export type State = ReturnType<typeof appReducer>

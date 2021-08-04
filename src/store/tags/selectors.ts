@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
 import { State } from 'core/redux/interface'
-import { Tag } from './interface'
+import { Tag } from 'lib/types/tag'
 
-// State
+// SELECTORS
 export const selectTagsStore = (state: State) => state.tags
-export const selectCreatedTag = createSelector([selectTagsStore], tags => tags.create)
+export const selectDraftTag = createSelector([selectTagsStore], tags => tags.draft)
 export const selectTagList = createSelector([selectTagsStore], tags => tags.list)
 export const selectNormalizedTagList = createSelector([selectTagList], list => ({
 	data: list.data.map((item: Tag) => ({

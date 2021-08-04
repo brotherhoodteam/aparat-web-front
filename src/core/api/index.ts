@@ -1,9 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
 import request from 'core/http/request'
-import { SignIn } from 'store/auth/interface'
-import { CreateCategory } from 'store/categories/interface'
-import { CreatePlaylist } from 'store/playlists/interface'
-import { CreatePost, VideoUpdate } from 'store/video/interface'
+import { VideoUpdate } from 'lib/types/video'
+import { SignInField } from 'store/auth/interface'
+import { CreateCategory } from 'store/categories/types'
+import { CreatePlaylist } from 'store/playlists/types'
+import { CreatePost } from 'store/post/types'
 import { API_END_POINT } from './constants'
 
 const api = {
@@ -26,7 +27,7 @@ const api = {
 		}
 	},
 	auth: {
-		login: (auth: SignIn) => {
+		login: (auth: SignInField) => {
 			const { method, url } = API_END_POINT.AUTH.LOGIN()
 			const config: AxiosRequestConfig = {
 				method,

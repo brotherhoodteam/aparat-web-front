@@ -1,25 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { BaseEntity } from 'lib/interface/base'
-import { Error } from 'lib/interface/exception'
+import { BaseCategory, Category } from 'lib/types/category'
+import { Error } from 'lib/types/exception'
 
 // TYPIES
-export interface BaseCategory {
-	title: string
-	icon?: string
-	banner?: string
-	slug: string
-}
-export interface Category extends BaseEntity, BaseCategory {}
 export interface CreateCategory extends BaseCategory {}
-export interface CategoryNormalized {
-	id: number
-	userId?: string
-	label: string
-	value: string
-	icon?: string
-	banner?: string
-	slug: string
-}
 
 // PAYLOAD
 export interface CreateCategoryRequestPayload {
@@ -32,7 +16,7 @@ export interface CreateCategoryResponsePayload {
 	data: Category
 }
 export interface FetchCategoryListSuccessPayload {
-	categoryList: Array<Category>
+	data: Array<Category>
 }
 export interface FetchCategoryListResponsePayload {
 	data: Array<Category>
@@ -65,7 +49,7 @@ export interface CategoriesState {
 		loading: boolean
 		errors: Error | null
 	}
-	create: {
+	draft: {
 		loading: boolean
 		errors: Error | null
 	}

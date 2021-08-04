@@ -1,7 +1,7 @@
-import Locales from 'lib/lang/constant'
+import Locale from 'lib/lang/constant'
 
 const ENGLISH_US = {
-	[Locales.ENGLISH_US]: {
+	[Locale.ENGLISH_US]: {
 		hello: 'hello world',
 		signin: 'sign in',
 		'guest-register-message': "Don't have an account yet?",

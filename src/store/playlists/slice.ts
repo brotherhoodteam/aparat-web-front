@@ -5,7 +5,7 @@ import {
 	ErrorAction,
 	PlaylistsState,
 	CreatePlaylistSuccess
-} from './interface'
+} from './types'
 
 const initialState: PlaylistsState = {
 	list: {
@@ -13,7 +13,7 @@ const initialState: PlaylistsState = {
 		loading: false,
 		errors: null
 	},
-	create: {
+	draft: {
 		loading: false,
 		errors: null
 	}
@@ -39,17 +39,17 @@ const playlistSlice = createSlice({
 			state.list.errors = action.payload.error
 		},
 		createPlaylistRequest: (state, action: CreatePlaylistRequest) => {
-			state.create.loading = true
-			state.create.errors = null
+			state.draft.loading = true
+			state.draft.errors = null
 		},
 		createPlaylistSuccess: (state, action: CreatePlaylistSuccess) => {
 			state.list.data.push(action.payload.playlist)
-			state.create.loading = false
-			state.create.errors = null
+			state.draft.loading = false
+			state.draft.errors = null
 		},
 		createPlaylistFailure: (state, action: ErrorAction) => {
-			state.create.loading = false
-			state.create.errors = action.payload.error
+			state.draft.loading = false
+			state.draft.errors = action.payload.error
 		}
 	}
 })

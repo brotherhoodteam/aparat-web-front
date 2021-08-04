@@ -1,10 +1,18 @@
-import { put } from '@redux-saga/core/effects'
-import { call } from 'redux-saga/effects'
+import { put, takeLatest } from '@redux-saga/core/effects'
+import { all, call } from 'redux-saga/effects'
 import { getErrorInfo } from 'lib/utils'
 import { showStatusAction } from 'store/status/slice'
-import { clearExpireCredentialhandler } from 'store/auth/saga/handlers'
-import { AppErrorPayload } from '../interface'
-import { disableAppOverlay, enableAppOverlay, openAppError } from '../slice'
+import { clearExpireCredentialhandler } from 'store/auth/saga'
+import { AppErrorPayload } from './interface'
+import {
+	disableAppDrawer,
+	disableAppModal,
+	disableAppOverlay,
+	enableAppDrawer,
+	enableAppModal,
+	enableAppOverlay,
+	openAppError
+} from './slice'
 
 export function* enableAppDrawerHandler() {
 	yield put(enableAppOverlay())
@@ -45,3 +53,17 @@ export function* appError(error: any, hanlder: (payload: any) => any, toster: bo
 		yield put(openAppError({ error: { message, status } }))
 	}
 }
+
+export function* appWatcher() {
+	yield takeLatest(enableAppDrawer, enableAppDrawerHandler)
+	yield takeLatest(disableAppDrawer, disableAppDrawerHandler)
+	yield takeLatest(enableAppModal, enableAppModalHandler)
+	yield takeLatest(disableAppModal, disableAppModalHandler)
+	yield takeLatest(openAppError, appGlobalErrorHandler)
+}
+
+function* appSaga() {
+	yield all([call(appWatcher)])
+}
+
+export default appSaga

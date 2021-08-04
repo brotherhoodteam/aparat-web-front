@@ -9,9 +9,8 @@ import {
 	fetchVideoRequest,
 	updatePostRequest,
 	uploadBannerRequest
-} from 'store/video/slice'
+} from 'store/post/slice'
 import { useCategories } from 'store/categories/hooks'
-import { selectVideo, selectUploadBanner } from 'store/video/selectors'
 
 import { Input, SelectBox, TextArea, Switch, CopyInput } from 'app/elements/form'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
@@ -22,12 +21,14 @@ import UploadBannerIcon from 'static/images/placeholder.svg'
 import Button from 'app/elements/button'
 import ROUTES from 'core/router/routes'
 import { imageResolver } from 'lib/utils'
-import { useTags } from 'store/tags/hooks'
+import { useTagList } from 'store/tags/hooks'
 
 import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NoData from 'app/components/no-data'
 import { EditVideoLoader } from 'app/components/content-loader'
+import { Tag } from 'lib/types/tag'
+import { useDraftPost, useUploadBanner } from 'store/post/hooks'
 
 interface Props {}
 const DashboardPostEdit: React.FC<Props> = () => {
@@ -36,11 +37,7 @@ const DashboardPostEdit: React.FC<Props> = () => {
 	const { params } = useRouteMatch<{ slug: string }>()
 
 	// get video
-	const {
-		data: video,
-		loading: videoLoading,
-		errors: videoErrors
-	} = useSelector(selectVideo)
+	const { data: video, loading: videoLoading, errors: videoErrors } = useDraftPost()
 
 	// upload banner
 	const {
@@ -48,10 +45,10 @@ const DashboardPostEdit: React.FC<Props> = () => {
 		loading: uploadBannerLoading,
 		progress: uploadBannerProgress,
 		errors: uploadBannerError
-	} = useSelector(selectUploadBanner)
+	} = useUploadBanner()
 
 	const { data: categories } = useCategories()
-	const { data: tagsData } = useTags()
+	const { data: tagsData } = useTagList()
 	const title = videoErrors ? 'ویرایش ویدئو | خطا' : 'ویرایش ویدئو'
 
 	const category = useMemo(() => {
@@ -61,7 +58,7 @@ const DashboardPostEdit: React.FC<Props> = () => {
 
 	const tags = useMemo(() => {
 		if (!video) return {}
-		return tagsData.filter(itm => video.tags.some(tag => tag.id === itm.id))
+		return tagsData.filter(itm => video.tags.some((tag: Tag) => tag.id === itm.id))
 	}, [video])
 
 	useEffect(() => {
@@ -315,3 +312,10 @@ const DashboardPostEdit: React.FC<Props> = () => {
 	)
 }
 export default DashboardPostEdit
+function selectCreatePost(selectCreatePost: any): {
+	data: any
+	loading: any
+	errors: any
+} {
+	throw new Error('Function not implemented.')
+}

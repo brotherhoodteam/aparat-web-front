@@ -1,7 +1,7 @@
-import Locales from 'lib/lang/constant'
+import Locale from 'lib/lang/constant'
 
 const FARSI = {
-	[Locales.FARSI]: {
+	[Locale.FARSI]: {
 		hello: 'سلام دنیا',
 		signin: 'ورود',
 		'guest-register-message': 'حساب کاربری ندارید؟',

@@ -5,7 +5,7 @@ import {
 	ErrorAction,
 	CategoriesState,
 	CreateCategorySuccess
-} from './interface'
+} from './types'
 
 const initialState: CategoriesState = {
 	list: {
@@ -13,7 +13,7 @@ const initialState: CategoriesState = {
 		loading: false,
 		errors: null
 	},
-	create: {
+	draft: {
 		loading: false,
 		errors: null
 	}
@@ -29,7 +29,7 @@ const tagsSlice = createSlice({
 			state.list.errors = null
 		},
 		fetchCategoryListSuccess: (state, action: FetchCategoryListSuccess) => {
-			state.list.data = action.payload.categoryList
+			state.list.data = action.payload.data
 			state.list.loading = false
 			state.list.errors = null
 		},
@@ -39,17 +39,17 @@ const tagsSlice = createSlice({
 			state.list.errors = action.payload.error
 		},
 		createCategoryRequest: (state, action: CreateCategoryRequest) => {
-			state.create.loading = true
-			state.create.errors = null
+			state.draft.loading = true
+			state.draft.errors = null
 		},
 		createCategorySuccess: (state, action: CreateCategorySuccess) => {
 			state.list.data.push(action.payload.category)
-			state.create.loading = false
-			state.create.errors = null
+			state.draft.loading = false
+			state.draft.errors = null
 		},
 		createCategoryFailure: (state, action: ErrorAction) => {
-			state.create.loading = false
-			state.create.errors = action.payload.error
+			state.draft.loading = false
+			state.draft.errors = action.payload.error
 		}
 	}
 })

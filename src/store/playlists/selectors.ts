@@ -1,11 +1,13 @@
 import { createSelector } from 'reselect'
 import { State } from 'core/redux/interface'
-import { Playlist } from './interface'
+import { useSelector } from 'react-redux'
+import { Playlist } from 'lib/types/playlist'
 
+// SELECTORS
 export const selectPlaylistsStore = (state: State) => state.playlists
-export const selectCreatedPlaylist = createSelector(
+export const selectCreatePlaylist = createSelector(
 	[selectPlaylistsStore],
-	state => state.create
+	state => state.draft
 )
 export const selectPlaylistList = createSelector(
 	[selectPlaylistsStore],

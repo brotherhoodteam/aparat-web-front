@@ -1,7 +1,10 @@
 import { createSelector } from 'reselect'
 import { State } from 'core/redux/interface'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserListRequest } from './slice'
+import { FetchUserListRequestPayload } from './types'
 
-// STATE
+// SELECTORS
 export const selectUsersStore = (state: State) => state.users
 
 export const selectUserProfile = createSelector(

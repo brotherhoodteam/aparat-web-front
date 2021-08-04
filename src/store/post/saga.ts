@@ -1,7 +1,7 @@
-import { call, fork, put, take } from '@redux-saga/core/effects'
+import { all, call, fork, put, take, takeLatest } from '@redux-saga/core/effects'
 import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
-import { selectVideoList } from '../selectors'
+import { selectPostList } from './selectors'
 import api from 'core/api'
 
 import {
@@ -24,26 +24,34 @@ import {
 	updatePostSuccess,
 	fetchVideoListFailure,
 	fetchVideoStatisticsSuccess,
-	fetchVideoStatisticsFailure
-} from '../slice'
-import { showStatusAction } from 'store/status/slice'
+	fetchVideoStatisticsFailure,
+	uploadBannerRequest,
+	uploadVideoRequest,
+	createPostRequest,
+	fetchVideoStatisticsRequest,
+	fetchVideoRequest,
+	deleteVideoRequest,
+	updatePostRequest
+} from './slice'
+
 import {
-	FetchVideoRequest,
+	FetchPostRequest,
 	CreatePostRequest,
-	DeleteVideoRequest,
-	FetchVideoListResponsePayload,
-	FetchVideoResponsePayload,
+	DeletePostRequest,
+	FetchPostListResponsePayload,
+	FetchPostResponsePayload,
 	CreatePostResponsePayload,
 	DeletePostResponsePayload,
 	UpdateVideoRequest,
 	UploadBannerRequest,
 	UploadVideoRequest,
-	PostWrapper,
-	FetchVideoListRequest,
-	FetchVideoStatisticsRequest,
-	FetchVideoStatisticsResponsePayload
-} from '../interface'
-import { appError } from 'store/app/saga/handlers'
+	FetchPostListRequest,
+	FetchPostStatisticsRequest,
+	FetchPostStatisticsResponsePayload,
+	PostData
+} from './types'
+import { showStatusAction } from 'store/status/slice'
+import { appError } from 'store/app/saga'
 
 interface VideoData {
 	state: 'ok' | 'proccess' | 'error'
@@ -165,26 +173,22 @@ export function* createPostHanlder({ payload: { video } }: CreatePostRequest) {
 	}
 }
 
-export function* fetchVideoListHanlder({ payload }: FetchVideoListRequest) {
+export function* fetchVideoListHanlder({ payload }: FetchPostListRequest) {
 	try {
-		const { data }: FetchVideoListResponsePayload = yield call(
+		const { data }: FetchPostListResponsePayload = yield call(
 			api.video.getList,
 			payload?.page,
 			payload?.per_page
 		)
-		yield put(
-			fetchVideoListSuccess({
-				videos: data
-			})
-		)
+		yield put(fetchVideoListSuccess({ data }))
 	} catch (error) {
 		yield call(appError, error, fetchVideoListFailure, true)
 	}
 }
 
-export function* fetchVideoStatisticsHanlder({ payload }: FetchVideoStatisticsRequest) {
+export function* fetchVideoStatisticsHanlder({ payload }: FetchPostStatisticsRequest) {
 	try {
-		const { data }: FetchVideoStatisticsResponsePayload = yield call(
+		const { data }: FetchPostStatisticsResponsePayload = yield call(
 			api.video.statistics,
 			payload.slug,
 			payload.renge
@@ -199,12 +203,12 @@ export function* fetchVideoStatisticsHanlder({ payload }: FetchVideoStatisticsRe
 	}
 }
 
-export function* deleteVideoHanlder({ payload: { slug } }: DeleteVideoRequest) {
+export function* deleteVideoHanlder({ payload: { slug } }: DeletePostRequest) {
 	try {
 		const { data }: DeletePostResponsePayload = yield call(api.video.delete, slug)
 		yield put(deleteVideoSuccess(data))
 
-		const { data: videos }: { data: PostWrapper } = yield select(selectVideoList)
+		const { data: videos }: { data: PostData } = yield select(selectPostList)
 		yield put(fetchVideoListRequest({ page: videos.current_page }))
 		yield put(showStatusAction({ message: 'ویدئو با موفقیت حذف شد', status: 'success' }))
 	} catch (error) {
@@ -214,10 +218,10 @@ export function* deleteVideoHanlder({ payload: { slug } }: DeleteVideoRequest) {
 	}
 }
 
-export function* fetchVideoHanlder({ payload: { slug } }: FetchVideoRequest) {
+export function* fetchVideoHanlder({ payload: { slug } }: FetchPostRequest) {
 	try {
-		const { data }: FetchVideoResponsePayload = yield call(api.video.get, slug)
-		yield put(fetchVideoSuccess({ video: data }))
+		const { data }: FetchPostResponsePayload = yield call(api.video.get, slug)
+		yield put(fetchVideoSuccess({ data }))
 	} catch (error) {
 		yield call(appError, error, fetchVideoFailure, true)
 	}
@@ -225,7 +229,7 @@ export function* fetchVideoHanlder({ payload: { slug } }: FetchVideoRequest) {
 
 export function* updatePostHanlder({ payload: { slug, video } }: UpdateVideoRequest) {
 	try {
-		const { data }: FetchVideoResponsePayload = yield call(api.video.update, slug, video)
+		const { data }: FetchPostResponsePayload = yield call(api.video.update, slug, video)
 		yield put(updatePostSuccess({ video: data }))
 		yield put(
 			showStatusAction({ message: 'ویدئو با موفقیت بروزرسانی شد', status: 'success' })
@@ -234,3 +238,20 @@ export function* updatePostHanlder({ payload: { slug, video } }: UpdateVideoRequ
 		yield call(appError, error, updatePostFailure, true)
 	}
 }
+
+function* postWatcher() {
+	yield takeLatest(uploadBannerRequest, uploadBannerHanlder)
+	yield takeLatest(uploadVideoRequest, uploadVideoHanlder)
+	yield takeLatest(createPostRequest, createPostHanlder)
+	yield takeLatest(fetchVideoListRequest, fetchVideoListHanlder)
+	yield takeLatest(fetchVideoStatisticsRequest, fetchVideoStatisticsHanlder)
+	yield takeLatest(fetchVideoRequest, fetchVideoHanlder)
+	yield takeLatest(deleteVideoRequest, deleteVideoHanlder)
+	yield takeLatest(updatePostRequest, updatePostHanlder)
+}
+
+function* postSaga() {
+	yield all([call(postWatcher)])
+}
+
+export default postSaga

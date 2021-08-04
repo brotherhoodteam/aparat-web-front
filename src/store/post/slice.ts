@@ -1,29 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-	VideoState,
+	PostState,
 	CreatePostRequest,
 	CreatePostSuccess,
 	UpdateVideoRequest,
 	UpdateVideoSuccess,
-	FetchVideoListRequest,
-	FetchVideoListSuccess,
-	FetchVideoRequest,
-	FetchVideoSuccess,
+	FetchPostListRequest,
+	FetchPostListSuccess,
+	FetchPostRequest,
+	FetchPostSuccess,
 	UploadVideoRequest,
 	UploadVideoSuccess,
 	UploadBannerRequest,
 	UploadBannerSuccess,
-	DeleteVideoRequest,
-	DeleteVideoSuccess,
+	DeletePostRequest,
+	DeletePostSuccess,
 	Progress,
 	ErrorAction,
-	FetchVideoStatisticsRequest,
-	FetchVideoStatisticsSuccess
-} from './interface'
+	FetchPostStatisticsRequest,
+	FetchPostStatisticsSuccess
+} from './types'
 
-const initialState: VideoState = {
-	post: {
-		response: null,
+const initialState: PostState = {
+	draftPost: {
+		data: null,
 		loading: false,
 		errors: null
 	},
@@ -75,19 +75,19 @@ const videoSlice = createSlice({
 	reducers: {
 		// Create New Post
 		createPostRequest: (state, action: CreatePostRequest) => {
-			state.post.response = null
-			state.post.loading = true
-			state.post.errors = null
+			state.draftPost.data = null
+			state.draftPost.loading = true
+			state.draftPost.errors = null
 		},
 		createPostSuccess: (state, action: CreatePostSuccess) => {
-			state.post.response = action.payload.data
-			state.post.loading = false
-			state.post.errors = null
+			state.draftPost.data = action.payload.data
+			state.draftPost.loading = false
+			state.draftPost.errors = null
 		},
 		createPostFailure: (state, action: ErrorAction) => {
-			state.post.response = null
-			state.post.loading = false
-			state.post.errors = action.payload.error
+			state.draftPost.data = null
+			state.draftPost.loading = false
+			state.draftPost.errors = action.payload.error
 		},
 		createPostReset: state => {
 			state.uploadVideo.id = null
@@ -100,9 +100,9 @@ const videoSlice = createSlice({
 			state.uploadBanner.progress = 0
 			state.uploadBanner.errors = null
 
-			state.post.response = null
-			state.post.loading = false
-			state.post.errors = null
+			state.draftPost.data = null
+			state.draftPost.loading = false
+			state.draftPost.errors = null
 		},
 
 		// Update Post
@@ -122,13 +122,13 @@ const videoSlice = createSlice({
 		},
 
 		// Delete Post
-		deleteVideoRequest: (state, action: DeleteVideoRequest) => {
+		deleteVideoRequest: (state, action: DeletePostRequest) => {
 			state.deletePost.slug = action.payload.slug
 			state.deletePost.done = false
 			state.deletePost.loading = true
 			state.deletePost.errors = null
 		},
-		deleteVideoSuccess: (state, action: DeleteVideoSuccess) => {
+		deleteVideoSuccess: (state, action: DeletePostSuccess) => {
 			state.deletePost.loading = false
 			state.deletePost.done = true
 			state.deletePost.errors = null
@@ -147,13 +147,13 @@ const videoSlice = createSlice({
 		},
 
 		// Fetch Video list
-		fetchVideoListRequest: (state, action: FetchVideoListRequest) => {
+		fetchVideoListRequest: (state, action: FetchPostListRequest) => {
 			state.list.data = null
 			state.list.loading = true
 			state.list.errors = null
 		},
-		fetchVideoListSuccess: (state, action: FetchVideoListSuccess) => {
-			state.list.data = action.payload.videos
+		fetchVideoListSuccess: (state, action: FetchPostListSuccess) => {
+			state.list.data = action.payload.data
 			state.list.loading = false
 			state.list.errors = null
 		},
@@ -168,13 +168,13 @@ const videoSlice = createSlice({
 			state.list.errors = null
 		},
 		// Fetch Statistic
-		fetchVideoStatisticsRequest: (state, action: FetchVideoStatisticsRequest) => {
+		fetchVideoStatisticsRequest: (state, action: FetchPostStatisticsRequest) => {
 			state.statistics.slug = action.payload.slug
 			state.statistics.data = null
 			state.statistics.loading = true
 			state.statistics.errors = null
 		},
-		fetchVideoStatisticsSuccess: (state, action: FetchVideoStatisticsSuccess) => {
+		fetchVideoStatisticsSuccess: (state, action: FetchPostStatisticsSuccess) => {
 			state.statistics.data = action.payload.statistics
 			state.statistics.loading = false
 			state.statistics.errors = null
@@ -192,14 +192,14 @@ const videoSlice = createSlice({
 			state.statistics.errors = null
 		},
 		// Fetch Single Video
-		fetchVideoRequest: (state, action: FetchVideoRequest) => {
+		fetchVideoRequest: (state, action: FetchPostRequest) => {
 			state.single.slug = action.payload.slug
 			state.single.data = null
 			state.single.loading = true
 			state.single.errors = null
 		},
-		fetchVideoSuccess: (state, action: FetchVideoSuccess) => {
-			state.single.data = action.payload.video
+		fetchVideoSuccess: (state, action: FetchPostSuccess) => {
+			state.single.data = action.payload.data
 			state.single.loading = false
 			state.single.errors = null
 		},

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Form, Formik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
@@ -13,25 +13,21 @@ import {
 	createPostReset,
 	uploadBannerRequest,
 	uploadVideoRequest
-} from 'store/video/slice'
+} from 'store/post/slice'
 import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import { useCategories, useChannelCategories } from 'store/categories/hooks'
-import { useTags } from 'store/tags/hooks'
+import { useTagList } from 'store/tags/hooks'
 
 import { usePlaylists } from 'store/playlists/hooks'
 import Uploader from 'app/components/uploader'
 import Button from 'app/elements/button'
-import {
-	selectUploadedVideo,
-	selectPost,
-	selectUploadBanner
-} from 'store/video/selectors'
 
 import UploadVideoIcon from 'static/images/video-file.svg'
 import UploadBannerIcon from 'static/images/placeholder.svg'
-import { CreatePost } from 'store/video/interface'
-import './styles.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import './styles.scss'
+import { CreatePost } from 'store/post/types'
+import { useDraftPost, useUploadBanner, useUploadedVideo } from 'store/post/hooks'
 
 const DashboardPostPublish: React.FC = () => {
 	const panelRef = useRef<HTMLDivElement>(null)
@@ -44,7 +40,7 @@ const DashboardPostPublish: React.FC = () => {
 		loading: uploadVideoLoading,
 		progress: uploadVideoProgress,
 		errors: uploadVideoError
-	} = useSelector(selectUploadedVideo)
+	} = useUploadedVideo()
 
 	// upload banner
 	const {
@@ -52,10 +48,10 @@ const DashboardPostPublish: React.FC = () => {
 		loading: uploadBannerLoading,
 		progress: uploadBannerProgress,
 		errors: uploadbannerError
-	} = useSelector(selectUploadBanner)
+	} = useUploadBanner()
 
 	// published video
-	const { response: createdPost, loading: createdLoading } = useSelector(selectPost)
+	const { data: createdPost, loading: createdLoading } = useDraftPost()
 	// categories
 	const { data: categories, loading: categoriesLoading } = useCategories()
 	const { data: channelCategories, loading: channelCategoriesLoading } =
@@ -65,7 +61,7 @@ const DashboardPostPublish: React.FC = () => {
 	const { data: playlists, loading: playlistsLoading } = usePlaylists()
 
 	// tags
-	const { data: tags, loading: tagsLoading } = useTags()
+	const { data: tags, loading: tagsLoading } = useTagList()
 
 	useEffect(() => {
 		if (createdPost) {

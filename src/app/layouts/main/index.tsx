@@ -1,9 +1,8 @@
 import useClass from 'lib/hooks/use-class'
-import { useSelector } from 'react-redux'
-import { selectAppDrawer } from 'store/app/selectors'
+import { useAppDrawer } from 'store/app/hooks'
 
 const MainLayout: React.FC = ({ children }) => {
-	const appDrawer = useSelector(selectAppDrawer)
+	const appDrawer = useAppDrawer()
 	const styles = useClass({
 		defaultClass: 'main',
 		optionalClass: {

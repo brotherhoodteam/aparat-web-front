@@ -1,25 +1,24 @@
 import { Form, Formik } from 'formik'
-import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import { createTagRequest } from 'store/tags/slice'
-import { selectCreatedTag } from 'store/tags/selectors'
+import { useDraftTag } from 'store/tags/hooks'
 import { createCategoryRequest } from 'store/categories/slice'
 import PanelLayout from 'app/layouts/panel'
 import { Input } from 'app/elements/form'
 import Button from 'app/elements/button'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 
-import { selectCreatedPlaylist } from 'store/playlists/selectors'
+import { useDraftPlaylist } from 'store/playlists/hooks'
 import { createPlaylistRequest } from 'store/playlists/slice'
-import { selectCreatedCategory } from 'store/categories/selectors'
+import { useDraftCategory } from 'store/categories/hooks'
 import './styles.scss'
 
 const DashboardSettings: React.FC = () => {
 	const dispatchTyped = useTypedDispatch()
-	const { loading: setCategoryLoading } = useSelector(selectCreatedCategory)
-	const { loading: setTagLoading } = useSelector(selectCreatedTag)
-	const { loading: CreatePlaylistLoading } = useSelector(selectCreatedPlaylist)
+	const { loading: createCategoryLoading } = useDraftCategory()
+	const { loading: createTagLoading } = useDraftTag()
+	const { loading: createPlaylistLoading } = useDraftPlaylist()
 
 	const tagValidation = yup.object({
 		tagLabel: yup.string().required('نام برچسب را وارد نمایید')
@@ -127,7 +126,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={setCategoryLoading}>
+								<Button type="submit" color="primary" loader={createCategoryLoading}>
 									افزودن دسته
 								</Button>
 							</div>
@@ -159,7 +158,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={setTagLoading}>
+								<Button type="submit" color="primary" loader={createTagLoading}>
 									افزودن برچسب
 								</Button>
 							</div>
@@ -188,7 +187,7 @@ const DashboardSettings: React.FC = () => {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<Button type="submit" color="primary" loader={CreatePlaylistLoading}>
+								<Button type="submit" color="primary" loader={createPlaylistLoading}>
 									افزودن لیست پخش
 								</Button>
 							</div>

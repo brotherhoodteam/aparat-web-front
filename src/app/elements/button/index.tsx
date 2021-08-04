@@ -4,7 +4,7 @@ import { Location, LocationDescriptor } from 'history'
 
 import Spinner from 'app/elements/spinner'
 import useClass from 'lib/hooks/use-class'
-import { ClassName, Colors, Size, Variants } from 'lib/interface/component'
+import { ClassName, Colors, Size, Variants } from 'lib/types/component'
 
 import './styles.scss'
 

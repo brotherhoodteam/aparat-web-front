@@ -1,11 +1,12 @@
-import { call, put, delay } from '@redux-saga/core/effects'
+import { all, call, put, takeLatest } from '@redux-saga/core/effects'
 import api from 'core/api'
-import { logoutSuccess, signInFailure, signInReset, signInSuccess } from '../slice'
-import { SignInRequest, SignInResponsePayload } from '../interface'
+import { logoutSuccess, signInFailure, signInReset, signInSuccess } from './slice'
+import { SignInRequest, SignInResponsePayload } from './interface'
 // ! setAuth bayad check shavad
 import { setAuth } from 'core/http/util'
-import { appError } from 'store/app/saga/handlers'
+import { appError } from 'store/app/saga'
 import { showStatusAction } from 'store/status/slice'
+import { logoutRequest, signInRequest } from './slice'
 
 export function* signInHandler({ payload: { passport } }: SignInRequest) {
 	try {
@@ -30,3 +31,13 @@ export function* logoutHandler() {
 	yield put(logoutSuccess())
 	yield put(showStatusAction({ message: 'با موفقیت خارج شدید', status: 'success' }))
 }
+
+function* authWatcher() {
+	yield takeLatest(signInRequest, signInHandler)
+	yield takeLatest(logoutRequest, logoutHandler)
+}
+function* userSaga() {
+	yield all([call(authWatcher)])
+}
+
+export default userSaga
