@@ -7,29 +7,37 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 
 import useClickOutside from 'lib/hooks/use-click-outside'
 import { disableAppDrawer } from 'store/app/slice'
-
 import { Card, CardBody, CardHeader } from 'app/elements/card'
 import Button from 'app/elements/button'
-import {
+import NavbarVertical, {
 	NavbarButton,
 	NavbarDivider,
+	NavbarItem,
 	NavbarLink,
-	NavbarSubtitle,
-	NavbarVertical
+	NavbarSubtitle
 } from '../navbar-vertical'
-
 import LogoImage from 'static/images/logo--color-black--without_text.svg'
 import { useCategories } from 'store/categories/hooks'
-
-import 'react-perfect-scrollbar/dist/css/styles.css'
-import './styles.scss'
 import { CategoryNormalized } from 'lib/types/category'
 import { useAppDrawer } from 'store/app/hooks'
+import { BaseComponent } from 'lib/types/component'
+import useClassName from 'lib/hooks/use-class'
+import 'react-perfect-scrollbar/dist/css/styles.css'
+import './styles.scss'
 
-const Drawer = () => {
+interface DrawerProps extends BaseComponent<HTMLDivElement> {}
+
+const Drawer: React.FC<DrawerProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'drawer',
+		appendClassName: className
+	})
+
 	const drewerRef = useRef<HTMLDivElement>(null)
 	const [limit, setLimit] = useState({ status: true, length: 4 })
-	const { data: categoroies } = useCategories()
+	const { data } = useCategories()
 	const isOpenDrawer = useAppDrawer()
 	const disaptch = useDispatch()
 
@@ -39,18 +47,23 @@ const Drawer = () => {
 			setLimit(prevState => ({ ...prevState, status: true }))
 		}, 300)
 	}
+
 	useClickOutside(drewerRef, handleClose)
+
 	const toggleList = () => {
 		setLimit(prevState => ({
 			...prevState,
 			status: !prevState.status
 		}))
 	}
+
 	const renderCategoies = () => {
-		const itmes = limit.status ? categoroies?.slice(0, limit.length) : categoroies
+		const itmes = limit.status ? data?.slice(0, limit.length) : data
 
 		return itmes?.map((item: CategoryNormalized) => (
-			<NavbarLink key={item.id} {...item} />
+			<NavbarItem key={item.id}>
+				<NavbarLink slug={item.slug} icon={item.icon} />
+			</NavbarItem>
 		))
 	}
 	return (
@@ -63,7 +76,7 @@ const Drawer = () => {
 			}}
 			unmountOnExit
 		>
-			<div className="drawer" ref={drewerRef}>
+			<div className={computedClassName} ref={drewerRef} {...attr}>
 				<Card size="lg" className="drawer-card">
 					<CardHeader>
 						<Button
@@ -84,20 +97,47 @@ const Drawer = () => {
 					<CardBody className="drawer-body">
 						<PerfectScrollbar style={{ width: '100%', height: '100%' }}>
 							<NavbarVertical>
-								<NavbarLink label="صفحه اصلی" icon="tio-home-vs" slug="/dashboard" />
-								<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" slug="/dashboard" />
+								<NavbarItem>
+									<NavbarLink icon="tio-home-vs" slug="/dashboard">
+										صفحه اصلی
+									</NavbarLink>
+								</NavbarItem>
+								<NavbarItem>
+									<NavbarLink icon="tio-dashboard-vs" slug="/dashboard">
+										داشتبورد
+									</NavbarLink>
+								</NavbarItem>
 								<NavbarDivider />
-								<NavbarSubtitle label="دسته‌بندی" />
+								<NavbarItem>
+									<NavbarSubtitle>دسته‌بندی</NavbarSubtitle>
+								</NavbarItem>
 								{renderCategoies()}
-								<NavbarButton
-									label={`${limit.status ? 'نمایش بیشتر' : 'نمایش کمتر'}`}
-									icon={`${limit.status ? 'tio-chevron-down' : 'tio-chevron-up'}`}
-									onClick={toggleList}
-								/>
-								<NavbarDivider />
-								<NavbarLink label="تماس‌باما" icon="tio-support" slug="/dashboard" />
-								<NavbarLink label="تبلیغات" icon="tio-comment-play" slug="/dashboard" />
-								<NavbarLink label="قوانین" icon="tio-new-release" slug="/dashboard" />
+								<NavbarItem>
+									<NavbarButton
+										icon={`${limit.status ? 'tio-chevron-down' : 'tio-chevron-up'}`}
+										onClick={toggleList}
+									>
+										{limit.status ? 'نمایش بیشتر' : 'نمایش کمتر'}
+									</NavbarButton>
+								</NavbarItem>
+								<NavbarItem>
+									<NavbarDivider />
+								</NavbarItem>
+								<NavbarItem>
+									<NavbarLink icon="tio-support" slug="/dashboard">
+										تماس‌باما
+									</NavbarLink>
+								</NavbarItem>
+								<NavbarItem>
+									<NavbarLink icon="tio-comment-play" slug="/dashboard">
+										تبلیغات
+									</NavbarLink>
+								</NavbarItem>
+								<NavbarItem>
+									<NavbarLink icon="tio-new-release" slug="/dashboard">
+										قوانین
+									</NavbarLink>
+								</NavbarItem>
 							</NavbarVertical>
 						</PerfectScrollbar>
 					</CardBody>

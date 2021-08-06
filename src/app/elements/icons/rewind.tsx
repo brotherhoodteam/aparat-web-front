@@ -1,17 +1,16 @@
+import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+interface RewindIconProps extends BaseComponent<HTMLOrSVGElement> {}
 
-const RewindIcon: React.FC<Props> = props => {
-	const { style } = props
+const RewindIcon: React.FC<RewindIconProps> = props => {
+	const { children, ...attr } = props
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 321.9 321.9"
 			fill="currentColor"
-			style={style}
+			{...attr}
 		>
 			<path
 				d="M307.7,48.894c-2.6,0-5.3,1.1-7.4,2.1l-125.5,84v-71.9c0.2-7.8-6.1-14.1-14-14.1v0c-2.6,0-5.3,1.1-7.4,2.1l-147.1,98.2

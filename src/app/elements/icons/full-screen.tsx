@@ -1,9 +1,8 @@
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+import { BaseComponent } from 'lib/types/component'
 
-const FullScreenIcon: React.FC<Props> = props => {
-	const { style } = props
+interface FullScreenIconProps extends BaseComponent<HTMLOrSVGElement> {}
+const FullScreenIcon: React.FC<FullScreenIconProps> = props => {
+	const { children, ...attr } = props
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +10,7 @@ const FullScreenIcon: React.FC<Props> = props => {
 			y="0px"
 			viewBox="0 0 469.333 469.333"
 			fill="currentColor"
+			{...attr}
 		>
 			<path
 				d="M160,0H10.667C4.771,0,0,4.771,0,10.667V160c0,5.896,4.771,10.667,10.667,10.667H32c5.896,0,10.667-4.771,10.667-10.667

@@ -1,50 +1,51 @@
 import React from 'react'
-import useClass from 'lib/hooks/use-class'
-import { ClassName, Colors, Size } from 'lib/types/component'
-import './styles.scss'
+import useClassName from 'lib/hooks/use-class'
+import { BaseComponent, Colors, Size } from 'lib/types/component'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-interface AvatarProps {
+import './styles.scss'
+
+interface AvatarProps extends BaseComponent<HTMLDivElement> {
 	image: string
 	size?: Size
 	ratio?: '4by3'
 	circle?: boolean
-	className?: ClassName
 	alt: string
 	status?: Colors
 }
-const Avatar: React.FC<AvatarProps> = React.memo(
-	({ image, size, className, status, circle, alt, ratio }) => {
-		const baseClass = 'avatar'
-		const baseStatusClass = 'avatar-status'
-		const classSize = `${baseClass}-${size}`
-		const classStatusSize = `avatar-${size}-status`
-		const classCircle = `${baseClass}-circle`
-		const classStatusColor = `${baseStatusClass}-${status}`
-		const classRatio = `${baseClass}-${ratio}`
-		const styles = useClass({
-			defaultClass: baseClass,
-			optionalClass: {
-				[classSize]: size,
-				[classCircle]: circle,
-				[classRatio]: ratio
-			},
-			otherClass: className
-		})
+const Avatar: React.FC<AvatarProps> = React.memo(props => {
+	const { image, size, className, status, circle, alt, ratio, children, ...attr } = props
 
-		const statusStyles = useClass({
-			defaultClass: baseStatusClass,
-			optionalClass: {
-				[classStatusSize]: status,
-				[classStatusColor]: status
-			}
-		})
+	const baseClass = 'avatar'
+	const baseStatusClass = 'avatar-status'
+	const classSize = `${baseClass}-${size}`
+	const classStatusSize = `avatar-${size}-status`
+	const classCircle = `${baseClass}-circle`
+	const classStatusColor = `${baseStatusClass}-${status}`
+	const classRatio = `${baseClass}-${ratio}`
 
-		return (
-			<span className={styles}>
-				<LazyLoadImage effect="blur" src={image} className="avatar-img" alt={alt} />
-				{status && <span className={statusStyles}></span>}
-			</span>
-		)
-	}
-)
+	const computedClassName = useClassName({
+		defaultClass: baseClass,
+		optionalClass: {
+			[classSize]: size,
+			[classCircle]: circle,
+			[classRatio]: ratio
+		},
+		appendClassName: className
+	})
+
+	const statusComputedClassName = useClassName({
+		defaultClass: baseStatusClass,
+		optionalClass: {
+			[classStatusSize]: status,
+			[classStatusColor]: status
+		}
+	})
+
+	return (
+		<span className={computedClassName} {...attr}>
+			<LazyLoadImage effect="blur" src={image} className="avatar-img" alt={alt} />
+			{status && <span className={statusComputedClassName}></span>}
+		</span>
+	)
+})
 export default Avatar

@@ -1,18 +1,20 @@
 import Button from 'app/elements/button'
 import ROUTES from 'core/router/routes'
+import { BaseComponent } from 'lib/types/component'
 import React, { useState } from 'react'
 import Tooltip from '../tooltip'
 
-interface Props {
+interface VideoButtonToolsProps extends BaseComponent<HTMLDivElement> {
 	slug: string
 }
 
-const VideoButtonTools: React.FC<Props> = ({ slug }) => {
+const VideoButtonTools: React.FC<VideoButtonToolsProps> = props => {
+	const { slug, className, children, ...attr } = props
 	const [editIsHover, setEditIsHover] = useState<boolean>(false)
 	const [viewIsHover, setViewIsHover] = useState<boolean>(false)
 
 	return (
-		<React.Fragment>
+		<div className={className} {...attr}>
 			<span className="d-block text-cap mb-2"> دسترسی سریع</span>
 			<div className="d-flex">
 				<Button
@@ -53,7 +55,7 @@ const VideoButtonTools: React.FC<Props> = ({ slug }) => {
 					<i className="tio tio-open-in-new"></i>
 				</Button>
 			</div>
-		</React.Fragment>
+		</div>
 	)
 }
 

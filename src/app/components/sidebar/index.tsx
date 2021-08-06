@@ -3,72 +3,94 @@ import ROUTES from 'core/router/routes'
 
 import Avatar from 'app/elements/avatar'
 import { Card, CardBody, CardText, CardTitle } from 'app/elements/card'
-import {
+import NavbarVertical, {
+	NavbarItem,
 	NavbarLink,
-	NavbarSubtitle,
-	NavbarVertical
+	NavbarSubtitle
 } from 'app/components/navbar-vertical'
 import { useUserProfile } from 'store/user/hooks'
-import UserProfileLoader from '../content-loader/user-profile'
+import UserProfileLoader from 'app/components/skeleton-loader/user-profile'
+import { BaseComponent } from 'lib/types/component'
+import useClassName from 'lib/hooks/use-class'
 import './styles.scss'
 
-const Sidebar: React.FC = () => {
+interface SidebarProps extends BaseComponent<HTMLDivElement> {}
+
+const Sidebar: React.FC<SidebarProps> = props => {
+	const { className, children, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'sidebar',
+		optionalClass: className
+	})
+
 	const { data: profile, loading } = useUserProfile()
+
 	return (
-		<React.Fragment>
-			<aside className="sidebar">
-				<Card className="mb-3">
-					<CardBody className="px-0">
-						<div className="d-block  text-center mb-3">
-							{profile && !loading ? (
-								<React.Fragment>
-									<Avatar
-										image={profile.avatar}
-										alt={profile.name}
-										size="xxl"
-										circle
-										className="mb-2"
-									/>
-									<CardTitle>{profile.name}</CardTitle>
-									<CardText className="font-size-1">{profile.email}</CardText>
-								</React.Fragment>
-							) : (
-								<UserProfileLoader />
-							)}
-						</div>
-						<NavbarVertical>
-							<NavbarSubtitle label="حساب کاربری" />
-							<NavbarLink label="داشتبورد" icon="tio-dashboard-vs" slug="/dashboard" />
+		<aside className={computedClassName} {...attr}>
+			<Card className="mb-3">
+				<CardBody className="px-0">
+					<div className="d-block  text-center mb-3">
+						{profile && !loading ? (
+							<React.Fragment>
+								<Avatar
+									image={profile.avatar}
+									alt={profile.name}
+									size="xxl"
+									circle
+									className="mb-2"
+								/>
+								<CardTitle>{profile.name}</CardTitle>
+								<CardText className="font-size-1">{profile.email}</CardText>
+							</React.Fragment>
+						) : (
+							<UserProfileLoader />
+						)}
+					</div>
+					<NavbarVertical>
+						<NavbarItem>
+							<NavbarSubtitle>حساب کاربری</NavbarSubtitle>
+						</NavbarItem>
+						<NavbarItem>
+							<NavbarLink icon="tio-dashboard-vs" slug="/dashboard">
+								داشتبورد
+							</NavbarLink>
+						</NavbarItem>
+						<NavbarItem>
 							<NavbarLink
-								label="ویدئوی جدید"
 								icon="tio-share-screen"
 								slug={ROUTES.DASHBOARD.ADD_VIDEO().link}
-							/>
+							>
+								ویدئوی جدید
+							</NavbarLink>
+						</NavbarItem>
+						<NavbarItem>
+							<NavbarLink icon="tio-video-gallery" slug={ROUTES.DASHBOARD.VIDEOS().link}>
+								ویدئوهای من
+							</NavbarLink>
+						</NavbarItem>
+						<NavbarItem>
+							<NavbarLink icon="tio-comment-text" slug={ROUTES.DASHBOARD.COMMENTS().link}>
+								دیدگاه
+							</NavbarLink>
+						</NavbarItem>
+						<NavbarItem>
+							<NavbarLink icon="tio-subscribe" slug={ROUTES.DASHBOARD.FOLLOWERS().link}>
+								کانال‌های دنبال شده
+							</NavbarLink>
+						</NavbarItem>
+						<NavbarItem>
 							<NavbarLink
-								label="ویدئوهای من"
-								icon="tio-video-gallery"
-								slug={ROUTES.DASHBOARD.VIDEOS().link}
-							/>
-							<NavbarLink
-								label="دیدگاه"
-								icon="tio-comment-text"
-								slug={ROUTES.DASHBOARD.COMMENTS().link}
-							/>
-							<NavbarLink
-								label="کانال‌های دنبال شده"
-								icon="tio-subscribe"
-								slug={ROUTES.DASHBOARD.FOLLOWERS().link}
-							/>
-							<NavbarLink
-								label="تنظیمات"
 								icon="tio-settings-outlined"
 								slug={ROUTES.DASHBOARD.SETTINGS().link}
-							/>
-						</NavbarVertical>
-					</CardBody>
-				</Card>
-			</aside>
-		</React.Fragment>
+							>
+								تنظیمات
+							</NavbarLink>
+						</NavbarItem>
+					</NavbarVertical>
+				</CardBody>
+			</Card>
+		</aside>
 	)
 }
 

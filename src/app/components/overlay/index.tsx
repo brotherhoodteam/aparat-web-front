@@ -1,10 +1,21 @@
+import useClassName from 'lib/hooks/use-class'
+import { BaseComponent } from 'lib/types/component'
 import { CSSTransition } from 'react-transition-group'
 import { useAppOverlay } from 'store/app/hooks'
 
 import './styles.scss'
 
-const Overlay = () => {
+interface OverlayProps extends BaseComponent<HTMLDivElement> {}
+const Overlay: React.FC<OverlayProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'overlay',
+		appendClassName: className
+	})
+
 	const isOpenOverlay = useAppOverlay()
+
 	return (
 		<CSSTransition
 			timeout={200}
@@ -19,7 +30,7 @@ const Overlay = () => {
 			}}
 			unmountOnExit
 		>
-			<div className="overlay" />
+			<div className={computedClassName} {...attr} />
 		</CSSTransition>
 	)
 }

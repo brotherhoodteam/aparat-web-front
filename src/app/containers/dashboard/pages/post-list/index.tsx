@@ -8,7 +8,7 @@ import { Card, CardBody, CardFooter, CardHeader, CardTitle } from 'app/elements/
 import PanelLayout from 'app/layouts/panel'
 import Pagination from 'app/components/pagination'
 import { fetchVideoListRequest, fetchVideoListReset } from 'store/post/slice'
-import { VideoLoader } from 'app/components/content-loader'
+import PostThumbnailLoader from 'app/components/skeleton-loader/post-thumbnail'
 import NoData from 'app/components/no-data'
 import Button from 'app/elements/button'
 import ROUTES from 'core/router/routes'
@@ -95,7 +95,10 @@ const DashboardPostList: React.FC<Props> = () => {
 						{loading && (
 							<div className="row">
 								<div className="col-12">
-									<VideoLoader length={perPage ? perPage : 10} size="col-12 col-md-6" />
+									<PostThumbnailLoader
+										length={perPage ? perPage : 10}
+										size="col-12 col-md-6"
+									/>
 								</div>
 							</div>
 						)}

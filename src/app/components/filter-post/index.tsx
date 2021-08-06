@@ -1,3 +1,5 @@
+import useClassName from 'lib/hooks/use-class'
+import { BaseComponent } from 'lib/types/component'
 import Select, { components } from 'react-select'
 import './styles.scss'
 
@@ -5,7 +7,7 @@ interface Options {
 	label: string
 	value: string
 }
-interface Props {
+interface FilterPostProps extends BaseComponent<HTMLDivElement> {
 	onChange: (value: any) => void
 	options: Array<Options>
 }
@@ -18,9 +20,16 @@ const NoOptionsMessage = (props: any, other: any) => {
 	)
 }
 
-const FilterVideos: React.FC<Props> = ({ onChange, options }) => {
+const FilterPost: React.FC<FilterPostProps> = props => {
+	const { children, className, onChange, options, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'filter',
+		appendClassName: className
+	})
+
 	return (
-		<div className="filter">
+		<div className={computedClassName} {...attr}>
 			<div className="filter-container">
 				<div className="filter-item">
 					<Select
@@ -41,4 +50,4 @@ const FilterVideos: React.FC<Props> = ({ onChange, options }) => {
 	)
 }
 
-export default FilterVideos
+export default FilterPost

@@ -1,18 +1,16 @@
+import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+interface PauseIconProps extends BaseComponent<HTMLOrSVGElement> {}
 
-const PauseIcon: React.FC<Props> = props => {
-	const { style } = props
+const PauseIcon: React.FC<PauseIconProps> = props => {
+	const { children, ...attr } = props
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 224.075 224.075"
 			fill="currentColor"
-			className="position-absolute-center"
-			style={style}
+			{...attr}
 		>
 			<g transform="translate(0 -562.36)">
 				<path

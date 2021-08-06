@@ -1,9 +1,9 @@
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+import { BaseComponent } from 'lib/types/component'
 
-const MinimizeIcon: React.FC<Props> = props => {
-	const { style } = props
+interface MinimizeIconProps extends BaseComponent<HTMLOrSVGElement> {}
+
+const MinimizeIcon: React.FC<MinimizeIconProps> = props => {
+	const { children, ...attr } = props
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +11,7 @@ const MinimizeIcon: React.FC<Props> = props => {
 			y="0px"
 			viewBox="0 0 469.333 469.333"
 			fill="currentColor"
+			{...attr}
 		>
 			<path
 				d="M160,0h-21.333C132.771,0,128,4.771,128,10.667V128H10.667C4.771,128,0,132.771,0,138.667V160

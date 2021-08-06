@@ -1,5 +1,5 @@
 import React from 'react'
-import useClass from 'lib/hooks/use-class'
+import useClassName from 'lib/hooks/use-class'
 import { Size } from 'lib/types/component'
 import './index'
 
@@ -8,7 +8,7 @@ interface LogoProp {
 }
 
 const Logo: React.FC<LogoProp> = React.memo(() => {
-	const styles = useClass({
+	const styles = useClassName({
 		defaultClass: 'logo',
 		optionalClass: {}
 	})

@@ -1,11 +1,10 @@
+import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+interface PauseIconProps extends BaseComponent<HTMLOrSVGElement> {}
 
-const PauseIcon: React.FC<Props> = props => {
-	const { style } = props
+const PauseIcon: React.FC<PauseIconProps> = props => {
+	const { children, ...attr } = props
 
 	const styles = {
 		st0: { fill: '#4285F4' },
@@ -19,8 +18,8 @@ const PauseIcon: React.FC<Props> = props => {
 			x="0px"
 			y="0px"
 			viewBox="0 0 156.8 160"
-			style={style}
 			xmlSpace="preserve"
+			{...attr}
 		>
 			<path
 				style={styles.st0}

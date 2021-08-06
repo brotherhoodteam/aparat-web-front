@@ -26,7 +26,7 @@ import { useTagList } from 'store/tags/hooks'
 import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NoData from 'app/components/no-data'
-import { EditVideoLoader } from 'app/components/content-loader'
+import EditPostLoader from 'app/components/skeleton-loader/edit-post'
 import { Tag } from 'lib/types/tag'
 import { useDraftPost, useUploadBanner } from 'store/post/hooks'
 
@@ -157,7 +157,7 @@ const DashboardPostEdit: React.FC<Props> = () => {
 					{/*Finish Render Errors */}
 
 					{/*Start Render Loading */}
-					{videoLoading && <EditVideoLoader />}
+					{videoLoading && <EditPostLoader />}
 					{/*Finish Content Loading */}
 
 					{/*Start Render Content */}

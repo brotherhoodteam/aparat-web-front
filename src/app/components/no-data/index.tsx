@@ -1,20 +1,21 @@
 import SorryImage from 'static/images/sorry.svg'
-import useClass from 'lib/hooks/use-class'
-import { ClassName } from 'lib/types/component'
+import useClassName from 'lib/hooks/use-class'
+import { BaseComponent } from 'lib/types/component'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import './styles.scss'
 
-interface Props {
-	className?: ClassName
-}
+interface NoDataProps extends BaseComponent<HTMLDivElement> {}
 
-const NoData: React.FC<Props> = ({ children, className }) => {
-	const styles = useClass({
+const NoData: React.FC<NoDataProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
 		defaultClass: 'no-data',
-		otherClass: className
+		appendClassName: className
 	})
+
 	return (
-		<div className={styles}>
+		<div className={computedClassName} {...attr}>
 			<div className="no-data-img mb-3">
 				<LazyLoadImage effect="blur" src={SorryImage} alt="no data" />
 			</div>

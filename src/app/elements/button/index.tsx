@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Location, LocationDescriptor } from 'history'
 
 import Spinner from 'app/elements/spinner'
-import useClass from 'lib/hooks/use-class'
+import useClassName from 'lib/hooks/use-class'
 import { ClassName, Colors, Size, Variants } from 'lib/types/component'
 
 import './styles.scss'
@@ -31,8 +31,8 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = React.memo(
-	React.memo(
-		({
+	React.memo(props => {
+		const {
 			type,
 			variant,
 			color,
@@ -51,91 +51,70 @@ const Button: React.FC<ButtonProps> = React.memo(
 			onClick,
 			onMouseEnter,
 			onMouseLeave,
-			...props
-		}) => {
-			const baseClass = 'btn'
-			const baseStatusClass = 'btn-status'
-			const variantAndColor = `${baseClass}${
-				variant === 'solid' ? '' : '-' + variant
-			}-${color}`
-			const defaultVariantAndColor = `${baseClass}-${color}`
-			const btnSize = `${baseClass}-${size}`
-			const btnStatusSize = `${baseStatusClass}-${statusSize}`
-			const btnBlock = `${baseClass}-block`
-			const btnType = type ? type : 'button'
-			const btnRounded = `${baseClass}-circle`
-			const btnIcon = `${baseClass}-icon`
-			const btnStatus = `${baseStatusClass}-${status}`
-			const btnLink = `${baseClass}-link`
-			const styles = useClass({
-				defaultClass: baseClass,
-				optionalClass: {
-					[defaultVariantAndColor]: !variant && color,
-					[variantAndColor]: variant && color,
-					[btnSize]: size,
-					[btnBlock]: block,
-					[btnRounded]: circle,
-					[btnIcon]: icon,
-					[btnLink]: to
-				},
-				otherClass: classNames
-			})
+			...attr
+		} = props
+		const baseClass = 'btn'
+		const baseStatusClass = 'btn-status'
+		const variantAndColor = `${baseClass}${
+			variant === 'solid' ? '' : '-' + variant
+		}-${color}`
+		const defaultVariantAndColor = `${baseClass}-${color}`
+		const btnSize = `${baseClass}-${size}`
+		const btnStatusSize = `${baseStatusClass}-${statusSize}`
+		const btnBlock = `${baseClass}-block`
+		const btnType = type ? type : 'button'
+		const btnRounded = `${baseClass}-circle`
+		const btnIcon = `${baseClass}-icon`
+		const btnStatus = `${baseStatusClass}-${status}`
+		const btnLink = `${baseClass}-link`
 
-			const statusStyle = useClass({
-				defaultClass: 'btn-status',
-				optionalClass: {
-					[btnStatus]: status,
-					[btnStatusSize]: status && statusSize
-				}
-			})
-			const defaultLoaderText = 'لطفا صبر کنید'
+		const computedClassName = useClassName({
+			defaultClass: baseClass,
+			optionalClass: {
+				[defaultVariantAndColor]: !variant && color,
+				[variantAndColor]: variant && color,
+				[btnSize]: size,
+				[btnBlock]: block,
+				[btnRounded]: circle,
+				[btnIcon]: icon,
+				[btnLink]: to
+			},
+			appendClassName: classNames
+		})
 
-			const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-				if (disanled || loader) return
-				onClick && onClick(e)
+		const statusStyle = useClassName({
+			defaultClass: 'btn-status',
+			optionalClass: {
+				[btnStatus]: status,
+				[btnStatusSize]: status && statusSize
 			}
+		})
+		const defaultLoaderText = 'لطفا صبر کنید'
 
-			const handleMouseEnter = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-				if (disanled || loader) return
-				onMouseEnter && onMouseEnter(e)
-			}
+		const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+			if (disanled || loader) return
+			onClick && onClick(e)
+		}
 
-			const handleMouseLeave = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-				if (disanled || loader) return
-				onMouseLeave && onMouseLeave(e)
-			}
+		const handleMouseEnter = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+			if (disanled || loader) return
+			onMouseEnter && onMouseEnter(e)
+		}
 
-			if (to)
-				return (
-					<Link
-						to={to}
-						onClick={handleClick}
-						onMouseEnter={handleMouseEnter}
-						onMouseLeave={handleMouseLeave}
-						className={styles}
-						{...props}
-					>
-						{loader ? (
-							<Fragment>
-								<Spinner variants="border" size="sm" />
-								{loaderText ? loaderText : defaultLoaderText}
-							</Fragment>
-						) : (
-							<Fragment>{children}</Fragment>
-						)}
-						{status && <span className={statusStyle}></span>}
-					</Link>
-				)
+		const handleMouseLeave = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+			if (disanled || loader) return
+			onMouseLeave && onMouseLeave(e)
+		}
 
+		if (to)
 			return (
-				<button
-					type={btnType}
+				<Link
+					to={to}
 					onClick={handleClick}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
-					className={styles}
-					{...props}
-					disabled={loader || disanled}
+					className={computedClassName}
+					{...attr}
 				>
 					{loader ? (
 						<Fragment>
@@ -146,9 +125,30 @@ const Button: React.FC<ButtonProps> = React.memo(
 						<Fragment>{children}</Fragment>
 					)}
 					{status && <span className={statusStyle}></span>}
-				</button>
+				</Link>
 			)
-		}
-	)
+
+		return (
+			<button
+				type={btnType}
+				onClick={handleClick}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}
+				className={computedClassName}
+				{...attr}
+				disabled={loader || disanled}
+			>
+				{loader ? (
+					<Fragment>
+						<Spinner variants="border" size="sm" />
+						{loaderText ? loaderText : defaultLoaderText}
+					</Fragment>
+				) : (
+					<Fragment>{children}</Fragment>
+				)}
+				{status && <span className={statusStyle}></span>}
+			</button>
+		)
+	})
 )
 export default Button

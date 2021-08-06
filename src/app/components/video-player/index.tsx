@@ -1,19 +1,25 @@
 import { useRef, useState } from 'react'
 import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
-import { ClassName } from 'lib/types/component'
+import { BaseComponent, ClassName } from 'lib/types/component'
 import PlayerController from './player-controller'
 import BaseReactPlayer from 'react-player/base'
 import './styles.scss'
+import useClassName from 'lib/hooks/use-class'
 
-interface Props {
-	className?: ClassName
+interface VideoPlayerProps extends BaseComponent<HTMLDivElement> {
 	banner?: string
 	url: string
 	title: string
 }
-const VideoPlayer: React.FC<Props> = props => {
-	const { title, url } = props
+const VideoPlayer: React.FC<VideoPlayerProps> = props => {
+	const { title, url, className, children, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'player',
+		appendClassName: className
+	})
+
 	const [state, setState] = useState({
 		playing: false,
 		muted: false,
@@ -127,7 +133,7 @@ const VideoPlayer: React.FC<Props> = props => {
 	}
 
 	return (
-		<div className="player">
+		<div className={computedClassName} {...attr}>
 			<div className="acsept-16-9">
 				<div className="player-container" onMouseMove={handleMouseMove}>
 					{/* VIDEO PLAYER */}

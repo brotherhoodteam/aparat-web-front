@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
-import { Tabs, TabsBody, TabsContent, TabsItem, TabsList } from 'app/components/tabs'
+import { Tabs, TabsPanel, TabsContent, TabsItem, TabsList } from 'app/components/tabs'
 import { SelectBox, Input, TextArea, Switch } from 'app/elements/form'
 import PanelLayout from 'app/layouts/panel'
 
@@ -254,7 +254,7 @@ const DashboardPostPublish: React.FC = () => {
 													<TabsItem id="1" title="مشخصات ویدئو" />
 													<TabsItem id="2" title="تنظیمات پیشرفته" />
 												</TabsList>
-												<TabsBody>
+												<TabsPanel>
 													<TabsContent id="1">
 														<div>
 															<div className="row">
@@ -346,7 +346,7 @@ const DashboardPostPublish: React.FC = () => {
 															</div>
 														</div>
 													</TabsContent>
-												</TabsBody>
+												</TabsPanel>
 											</Tabs>
 											{/* END VIDEO INFORMATION */}
 										</React.Fragment>

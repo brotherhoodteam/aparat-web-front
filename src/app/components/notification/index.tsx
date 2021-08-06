@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { CSSProperties, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
 import { StatusState } from 'store/status/types'
 import { selectStatus } from 'store/status/selector'
 import { clearStatusAction } from 'store/status/slice'
+import 'react-toastify/dist/ReactToastify.css'
 
-const Notification: React.FC = () => {
+interface NotificationProps {
+	className?: string
+	style?: CSSProperties
+}
+
+const Notification: React.FC<NotificationProps> = props => {
+	const { children, className, ...attr } = props
 	const dispatch = useDispatch()
 	const statusState = useSelector(selectStatus)
 
@@ -59,6 +64,8 @@ const Notification: React.FC = () => {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
+				className={className}
+				{...attr}
 			/>
 		</React.Fragment>
 	)

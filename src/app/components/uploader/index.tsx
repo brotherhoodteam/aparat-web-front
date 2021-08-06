@@ -3,16 +3,16 @@ import { useField } from 'formik'
 import { FileRejection, useDropzone } from 'react-dropzone'
 
 import Progress from 'app/elements/progress'
-import { ClassName } from 'lib/types/component'
+import { BaseComponent } from 'lib/types/component'
 import { Error } from 'lib/types/exception'
 
 import UploadImage from 'static/images/upload.svg'
-import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import './style.scss'
+import useClassName from 'lib/hooks/use-class'
 
-interface Props {
+interface UploaderProps extends BaseComponent<HTMLDivElement> {
 	name: string
-	className?: ClassName
 	uploadValue: string | null
 	uploadProgress?: number
 	uploadError: Error | null
@@ -30,25 +30,35 @@ interface UploadablePreview {
 }
 // todo باید اسم فایل درصورت طولانی بودن خلاصه شود
 
-const Uploader: React.FC<Props> = ({
-	name,
-	className,
-	uploadValue,
-	uploadProgress,
-	uploadError,
-	onDropFiles,
-	maxSize,
-	accept,
-	children
-}) => {
+const Uploader: React.FC<UploaderProps> = props => {
+	const {
+		name,
+		className,
+		uploadValue,
+		uploadProgress,
+		uploadError,
+		onDropFiles,
+		maxSize,
+		accept,
+		children,
+		...attr
+	} = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'uploader',
+		appendClassName: className
+	})
+
 	const [file, setFile] = useState<SelectedFile>({
 		type: undefined,
 		name: '',
 		size: ''
 	})
+
 	const [preview, setPreview] = useState<UploadablePreview>({
 		url: undefined
 	})
+
 	const [_, meta, helper] = useField(name)
 
 	useEffect(() => {
@@ -96,7 +106,7 @@ const Uploader: React.FC<Props> = ({
 	}
 
 	return (
-		<div className={`uploader ${className ? className : ''}`}>
+		<div className={computedClassName} {...attr}>
 			<div className="uploader-container">
 				{/* After Select File */}
 				<div {...getRootProps({ className: 'uploader-body' })}>

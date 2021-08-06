@@ -2,37 +2,51 @@ import { createContext, MouseEvent, useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
-import useClass from 'lib/hooks/use-class'
+import useClassName from 'lib/hooks/use-class'
 import useClickOutside from 'lib/hooks/use-click-outside'
 import { Location, LocationDescriptor } from 'history'
+import { BaseComponent } from 'lib/types/component'
 import './styles.scss'
 
-interface DropdownProps {
+// TYPES
+interface DropdownProps extends BaseComponent<HTMLDivElement> {
 	direction?: 'right' | 'left'
 }
-interface DropdownButtonPorps {}
-interface DropdownItemPorps {
+interface DropdownButtonProps extends BaseComponent<HTMLDivElement> {}
+interface DropdownItemProps extends BaseComponent<HTMLAnchorElement> {
 	to?:
 		| LocationDescriptor<unknown>
 		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
-	onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
 }
-interface DropdownMenuPorps {}
+// interface DropdownItemProps extends BaseComponent<HTMLAnchorElement> {
+// 	to?:
+// 		| LocationDescriptor<unknown>
+// 		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
+// 	onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
+// }
+interface DropdownMenuProps extends BaseComponent<HTMLDivElement> {}
+interface DropdownHeaderProps extends BaseComponent<HTMLDivElement> {}
+interface DropdownDividerProps extends BaseComponent<HTMLDivElement> {}
 
+// CONTEXT
 const DropdownStateContext = createContext<any>(null)
 const DropdownDispatchContext = createContext<any>(null)
 
-const Dropdown: React.FC<DropdownProps> = ({ children, direction }) => {
+const Dropdown: React.FC<DropdownProps> = props => {
+	const { children, direction, className, ...attr } = props
+
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const dropDwonRef = useRef<HTMLDivElement>(null)
 	const directionClass = `dropdown-${direction}`
 	const directionDefaultClass = 'dropdown-left'
-	const styles = useClass({
+
+	const computedClassName = useClassName({
 		defaultClass: 'dropdown',
 		optionalClass: {
 			[directionClass]: direction,
 			[directionDefaultClass]: !direction
-		}
+		},
+		appendClassName: className
 	})
 	const callback = () => {
 		setIsOpen(false)
@@ -42,7 +56,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children, direction }) => {
 	return (
 		<DropdownStateContext.Provider value={isOpen}>
 			<DropdownDispatchContext.Provider value={setIsOpen}>
-				<div ref={dropDwonRef} className={styles}>
+				<div ref={dropDwonRef} className={computedClassName} {...attr}>
 					{children}
 				</div>
 			</DropdownDispatchContext.Provider>
@@ -50,21 +64,39 @@ const Dropdown: React.FC<DropdownProps> = ({ children, direction }) => {
 	)
 }
 
-const DropdownButton: React.FC<DropdownButtonPorps> = ({ children }) => {
+const DropdownButton: React.FC<DropdownButtonProps> = props => {
+	const { children, className, ...attr } = props
+
 	const { setIsOpen } = useDropdown()
+
+	const computedClassName = useClassName({
+		defaultClass: 'dropdown-button',
+		appendClassName: className
+	})
+
 	return (
 		<div
-			className="dropdown-button"
+			className={computedClassName}
 			onClick={() => {
 				setIsOpen((prev: boolean) => !prev)
 			}}
+			{...attr}
 		>
 			{children}
 		</div>
 	)
 }
-const DropdownMenu: React.FC<DropdownMenuPorps> = ({ children }) => {
+
+const DropdownMenu: React.FC<DropdownMenuProps> = props => {
+	const { children, className, ...attr } = props
+
 	const { isOpen } = useDropdown()
+
+	const computedClassName = useClassName({
+		defaultClass: 'dropdown-menu',
+		appendClassName: className
+	})
+
 	return (
 		<CSSTransition
 			in={isOpen}
@@ -78,35 +110,69 @@ const DropdownMenu: React.FC<DropdownMenuPorps> = ({ children }) => {
 			}}
 			unmountOnExit
 		>
-			<div className="dropdown-menu">{children}</div>
+			<div className={computedClassName} {...attr}>
+				{children}
+			</div>
 		</CSSTransition>
 	)
 }
 
-const DropdownHeader: React.FC = ({ children }) => {
-	return <div className="dropdown-header">{children}</div>
+const DropdownHeader: React.FC<DropdownHeaderProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'dropdown-header',
+		appendClassName: className
+	})
+
+	return (
+		<div className={computedClassName} {...attr}>
+			{children}
+		</div>
+	)
 }
-const DropdownItem: React.FC<DropdownItemPorps> = ({ children, onClick, to }) => {
+
+const DropdownItem: React.FC<DropdownItemProps> = props => {
+	const { children, onClick, to, className, ...attr } = props
+
 	const { setIsOpen } = useDropdown()
-	return to ? (
+
+	const computedClassName = useClassName({
+		defaultClass: 'dropdown-item',
+		appendClassName: className
+	})
+
+	return (
 		<Link
-			to={to}
-			className="dropdown-item"
-			onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-				setIsOpen((prev: boolean) => !prev)
+			to={to ? to : '#'}
+			className={computedClassName}
+			onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+				if (to) {
+					setIsOpen((prev: boolean) => !prev)
+				}
+
 				onClick && onClick(e)
 			}}
+			{...attr}
 		>
 			{children}
 		</Link>
-	) : (
-		<span className="dropdown-item" onClick={onClick}>
-			{children}
-		</span>
 	)
 }
-const DropdownDivider: React.FC = ({ children }) => {
-	return <div className="dropdown-divider">{children}</div>
+
+const DropdownDivider: React.FC<DropdownDividerProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'dropdown-divider',
+		appendClassName: className
+	})
+
+	return (
+		<div className={computedClassName} {...attr}>
+			{children}
+		</div>
+	)
 }
 
 const useDropdown = () => {

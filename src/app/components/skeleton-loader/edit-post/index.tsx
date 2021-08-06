@@ -1,9 +1,14 @@
+import { BaseComponent } from 'lib/types/component'
 import ContentLoader from 'react-content-loader'
+import SkeletonLoader from '..'
 
-interface Props {}
-const EditVideoLoader: React.FC<Props> = ({}) => {
+interface EditPostLoaderProps extends BaseComponent<HTMLDivElement> {}
+
+const EditPostLoader: React.FC<EditPostLoaderProps> = props => {
+	const { children, ...attr } = props
+
 	return (
-		<div className="content-loader">
+		<SkeletonLoader {...attr}>
 			<div className="row">
 				<div className="col-12 col-md-7 mb-5 mb-md-0">
 					<ContentLoader
@@ -33,7 +38,7 @@ const EditVideoLoader: React.FC<Props> = ({}) => {
 					</ContentLoader>
 				</div>
 			</div>
-		</div>
+		</SkeletonLoader>
 	)
 }
-export default EditVideoLoader
+export default EditPostLoader

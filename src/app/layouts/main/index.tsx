@@ -1,9 +1,9 @@
-import useClass from 'lib/hooks/use-class'
+import useClassName from 'lib/hooks/use-class'
 import { useAppDrawer } from 'store/app/hooks'
 
 const MainLayout: React.FC = ({ children }) => {
 	const appDrawer = useAppDrawer()
-	const styles = useClass({
+	const styles = useClassName({
 		defaultClass: 'main',
 		optionalClass: {
 			'overflow-y-hidden': appDrawer

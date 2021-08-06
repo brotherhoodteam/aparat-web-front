@@ -1,18 +1,16 @@
+import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+interface VolumeDownIconProps extends BaseComponent<HTMLOrSVGElement> {}
 
-const VolumeDownIcon: React.FC<Props> = props => {
-	const { style } = props
+const VolumeDownIcon: React.FC<VolumeDownIconProps> = props => {
+	const { children, ...attr } = props
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 224.005 224.005"
 			fill="currentColor"
-			className="position-absolute-center"
-			style={style}
+			{...attr}
 		>
 			<path
 				d="M185.302,0c-2.1,0-4.2,0.5-5.8,1.601l-95.1,47.219h-45.7c-7.9,0-14.2,6.303-14.2,14.206v98.139

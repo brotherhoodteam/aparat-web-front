@@ -1,20 +1,12 @@
+import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface Props {
-	style?: React.CSSProperties | undefined
-}
+interface VolumeUpIconProps extends BaseComponent<HTMLOrSVGElement> {}
 
-const VolumeUpIcon: React.FC<Props> = props => {
-	const { style } = props
+const VolumeUpIcon: React.FC<VolumeUpIconProps> = props => {
+	const { children, ...attr } = props
 	return (
-		<svg
-			viewBox="0 0 224.001 224.001"
-			x="0px"
-			y="0px"
-			fill="currentColor"
-			className="position-absolute-center"
-			style={style}
-		>
+		<svg viewBox="0 0 224.001 224.001" x="0px" y="0px" fill="currentColor" {...attr}>
 			<g transform="translate(0 -562.36)">
 				<path
 					d="M160.6,562.403c-2.1,0-4.2,0.5-5.8,1.6l-95,47.2H14.2c-7.9,0-14.2,6.3-14.2,14.2v98.1c0,7.3,6.3,13.6,14.2,13.6h45.6

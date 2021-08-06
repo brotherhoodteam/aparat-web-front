@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { ErrorMessage, useField } from 'formik'
 import Select, {
 	ActionMeta,
@@ -7,12 +7,13 @@ import Select, {
 	OptionTypeBase
 } from 'react-select'
 
-import useClass from 'lib/hooks/use-class'
+import useClassName from 'lib/hooks/use-class'
 import { ClassName, Size } from 'lib/types/component'
 
-import './styles.scss'
 import Button from 'app/elements/button'
 import Tooltip from 'app/components/tooltip'
+import TextArea from './text-area'
+import './styles.scss'
 
 interface InputProps {
 	id?: string
@@ -38,13 +39,6 @@ interface SelectBox {
 	isLoading?: boolean
 	loadingMessage?: string
 }
-interface TextAreaProps {
-	id?: string
-	name: string
-	label: string
-	placeholder?: string
-	className?: ClassName
-}
 
 const Input: React.FC<InputProps> = React.memo(
 	({ name, id, label, type, placeholder, className, size }) => {
@@ -57,13 +51,13 @@ const Input: React.FC<InputProps> = React.memo(
 		// create default size
 		const inputSize = useMemo(() => `form-control-${size}`, [])
 		// calc classNames
-		const styles = useClass({
+		const styles = useClassName({
 			defaultClass: 'form-control',
 			optionalClass: {
 				[inputSize]: size,
 				'is-invalid': meta.error && meta.touched
 			},
-			otherClass: className
+			appendClassName: className
 		})
 
 		return (
@@ -96,46 +90,6 @@ const Input: React.FC<InputProps> = React.memo(
 	}
 )
 
-const TextArea: React.FC<TextAreaProps> = React.memo(
-	({ name, id, label, placeholder, className }) => {
-		// setting textarea
-		const [field, meta] = useField(name)
-		// create default id
-		const htmlId = id ? id : `${name}-id`
-		// calc classnames
-		const styles = useClass({
-			defaultClass: 'form-control',
-			optionalClass: {
-				'is-invalid': meta.error && meta.touched
-			},
-			otherClass: className
-		})
-
-		return (
-			<div className="form-group text-right">
-				{/* START LABEL */}
-				{label && (
-					<label htmlFor={htmlId} className="input-label">
-						{label}
-					</label>
-				)}
-				{/* END LABEL */}
-
-				<textarea
-					rows={4}
-					id={htmlId}
-					placeholder={placeholder}
-					className={styles}
-					{...field}
-				></textarea>
-				<div className="form-error">
-					<ErrorMessage name={name} className="form-error-message" component="div" />
-				</div>
-			</div>
-		)
-	}
-)
-
 const NoOptionsMessage = (props: any, other: any) => {
 	return (
 		<components.NoOptionsMessage {...props}>
@@ -162,12 +116,12 @@ const SelectBox: React.FC<SelectBox> = React.memo(
 		const [field, meta, helper] = useField(name)
 		const htmlId = id ? id : `${name}-id`
 		const baseClass = 'select-box'
-		const styles = useClass({
+		const styles = useClassName({
 			defaultClass: baseClass,
 			optionalClass: {
 				'is-invalid': meta.touched && meta.error
 			},
-			otherClass: className
+			appendClassName: className
 		})
 		const handleLoading = () => (loadingMessage ? loadingMessage : null)
 
@@ -258,12 +212,12 @@ interface SwitchProps {
 const Switch: React.FC<SwitchProps> = ({ name, className }) => {
 	const [field, meta, helper] = useField(name)
 	const ref = useRef<HTMLInputElement>(null)
-	const styles = useClass({
+	const styles = useClassName({
 		defaultClass: 'toggle-switch',
 		optionalClass: {
 			'is-invalid': meta.error && meta.touched
 		},
-		otherClass: className
+		appendClassName: className
 	})
 
 	const handleChange = () => {
@@ -298,6 +252,7 @@ interface CopyInputProps {
 	orginalText: string
 	successText: string
 }
+
 const CopyInput: React.FC<CopyInputProps> = React.memo(
 	({ value, label, name, orginalText, successText }) => {
 		const inputRef = useRef<HTMLInputElement>(null)
@@ -381,6 +336,7 @@ const CopyInput: React.FC<CopyInputProps> = React.memo(
 		)
 	}
 )
+
 CopyInput.defaultProps = {
 	orginalText: 'Copy to clipboard',
 	successText: 'Copied!'

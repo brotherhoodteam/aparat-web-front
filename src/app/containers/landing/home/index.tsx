@@ -1,4 +1,4 @@
-import { VideoLoader } from 'app/components/content-loader'
+import PostThumbnailLoader from 'app/components/skeleton-loader/post-thumbnail'
 import NoData from 'app/components/no-data'
 import Pagination from 'app/components/pagination'
 import PostThumbnailItem from 'app/components/post-thumbnail-item'
@@ -84,7 +84,7 @@ const HomeContainer: React.FC = () => {
 							<div className="col-12">
 								{/*Start Render Loading */}
 								{loading && (
-									<VideoLoader
+									<PostThumbnailLoader
 										length={params.perPage ? params.perPage : 10}
 										size="col-12 col-md-6 col-xl-3"
 									/>

@@ -8,13 +8,17 @@ import * as yup from 'yup'
 
 import Button from 'app/elements/button'
 import { Input } from 'app/elements/form'
+import { BaseComponent } from 'lib/types/component'
 
-interface SignInForm {
+interface SignInFormData {
 	username: string
 	password: string
 }
+interface SignInFormProps extends BaseComponent<HTMLDivElement> {}
 
-const SignInForm: React.FC = () => {
+const SignInForm: React.FC<SignInFormProps> = props => {
+	const { children, ...attr } = props
+
 	const dispatch = useTypedDispatch()
 	const { loading } = useSelector(selectSignIn)
 
@@ -30,27 +34,29 @@ const SignInForm: React.FC = () => {
 			username: 'admin@aparat.me',
 			password: '123456'
 		},
-		onSubmit: (user: SignInForm) => {
+		onSubmit: (user: SignInFormData) => {
 			dispatch(signInRequest({ passport: user }))
 		},
 		validationSchema
 	}
 
 	return (
-		<Formik {...form}>
-			<Form>
-				<Input name="username" label="نام کاربری" placeholder="arash" />
-				<Input
-					type="password"
-					name="password"
-					label="پسورد"
-					placeholder="حداقل 8 کارکتر وارد نمایید"
-				/>
-				<Button type="submit" color="primary" size="lg" loader={loading} block>
-					ورود
-				</Button>
-			</Form>
-		</Formik>
+		<div {...attr}>
+			<Formik {...form}>
+				<Form>
+					<Input name="username" label="نام کاربری" placeholder="arash" />
+					<Input
+						type="password"
+						name="password"
+						label="پسورد"
+						placeholder="حداقل 8 کارکتر وارد نمایید"
+					/>
+					<Button type="submit" color="primary" size="lg" loader={loading} block>
+						ورود
+					</Button>
+				</Form>
+			</Formik>
+		</div>
 	)
 }
 

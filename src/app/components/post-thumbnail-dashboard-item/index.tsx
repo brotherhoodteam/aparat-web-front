@@ -3,27 +3,34 @@ import { useDispatch } from 'react-redux'
 import ROUTES from 'core/router/routes'
 import { useCategories } from 'store/categories/hooks'
 import { disableAppOverlay, enableAppOverlay } from 'store/app/slice'
-
 import { deleteVideoRequest } from 'store/post/slice'
 import Avatar from 'app/elements/avatar'
-
 import Button from 'app/elements/button'
 import { Card, CardBody, CardImgTop } from 'app/elements/card'
 import Modal from 'app/components/modal'
-import './styles.scss'
 import { Video } from 'lib/types/video'
 import { useDeletedPost } from 'store/post/hooks'
+import { BaseComponent } from 'lib/types/component'
+import useClassName from 'lib/hooks/use-class'
+import './styles.scss'
 
-interface Props {
+interface PostThumbnailDhashboardItemProps extends BaseComponent<HTMLDivElement> {
 	video: Video
 }
 
-const PostThumbnailDhashboardItem: React.FC<Props> = ({ video }) => {
+const PostThumbnailDhashboardItem: React.FC<PostThumbnailDhashboardItemProps> = props => {
+	const { className, children, video, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'h100',
+		appendClassName: className
+	})
+
+	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+
 	const dispatch = useDispatch()
 	const { done: deleteVideoDone, loading: deleteVideoLoading } = useDeletedPost()
 	const { data: categories } = useCategories()
-
-	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
 	const category = useMemo(
 		() => categories.find(item => item.id === video.category_id),
@@ -53,7 +60,7 @@ const PostThumbnailDhashboardItem: React.FC<Props> = ({ video }) => {
 	}, [deleteVideoDone])
 
 	return (
-		<Card className="h-100" bordered>
+		<Card bordered className={computedClassName} {...attr}>
 			<CardImgTop img={video.banner_link}>
 				{/* Video Status */}
 				{/* <div className="position-absolute top-0 left-0 mt-3 me-3">

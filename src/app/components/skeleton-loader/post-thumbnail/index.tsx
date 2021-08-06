@@ -1,12 +1,16 @@
+import { BaseComponent } from 'lib/types/component'
 import ContentLoader from 'react-content-loader'
+import SkeletonLoader from '..'
 
-interface Props {
+interface PostThumbnailLoaderProps extends BaseComponent<HTMLDivElement> {
 	length: number
 	size: string
 }
-const videoLoader: React.FC<Props> = ({ length, size }) => {
+const PostThumbnailLoader: React.FC<PostThumbnailLoaderProps> = props => {
+	const { children, length, size, ...attr } = props
+
 	return (
-		<div className="content-loader">
+		<SkeletonLoader {...attr}>
 			<div className="row">
 				{Array(length)
 					.fill('')
@@ -26,7 +30,7 @@ const videoLoader: React.FC<Props> = ({ length, size }) => {
 						</div>
 					))}
 			</div>
-		</div>
+		</SkeletonLoader>
 	)
 }
-export default videoLoader
+export default PostThumbnailLoader

@@ -108,9 +108,11 @@ const PlayerController = forwardRef<HTMLDivElement, Props>((props, ref) => {
 						>
 							<VolumeUpIcon
 								style={{ opacity: !muted ? 1 : 0, transition: 'opacity 100ms' }}
+								className="position-absolute-center"
 							/>
 							<VolumeDownIcon
 								style={{ opacity: muted ? 1 : 0, transition: 'opacity 100ms' }}
+								className="position-absolute-center"
 							/>
 						</div>
 						{/* END MUTED */}
@@ -125,9 +127,11 @@ const PlayerController = forwardRef<HTMLDivElement, Props>((props, ref) => {
 						>
 							<PlayIcon
 								style={{ opacity: !playing ? 1 : 0, transition: 'opacity 100ms' }}
+								className="position-absolute-center"
 							/>
 							<PauseIcon
 								style={{ opacity: playing ? 1 : 0, transition: 'opacity 100ms' }}
+								className="position-absolute-center"
 							/>
 						</div>
 						<div className="video-player-control-icon" onClick={onRewind}>

@@ -1,32 +1,40 @@
-import useClass from 'lib/hooks/use-class'
-import { ClassName } from 'lib/types/component'
+import useClassName from 'lib/hooks/use-class'
+import { BaseComponent, ClassName } from 'lib/types/component'
 import './styles.scss'
 
-interface Props {
+interface MediaProps extends BaseComponent<HTMLDivElement> {
 	className?: ClassName
 }
-interface MediaBodyProps {}
+interface MediaBodyProps extends BaseComponent<HTMLDivElement> {}
 
-const Media: React.FC<Props> = ({ children, className }) => {
-	const styles = useClass({
+const Media: React.FC<MediaProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
 		defaultClass: 'media',
 		optionalClass: className
 	})
-	return <div className={styles}>{children}</div>
+
+	return (
+		<div className={computedClassName} {...attr}>
+			{children}
+		</div>
+	)
 }
 
-const MediaBody: React.FC<MediaBodyProps> = ({ children }) => {
-	return <div className="media-body">{children}</div>
+const MediaBody: React.FC<MediaBodyProps> = props => {
+	const { children, className, ...attr } = props
+
+	const computedClassName = useClassName({
+		defaultClass: 'media-body',
+		optionalClass: className
+	})
+
+	return (
+		<div className={computedClassName} {...attr}>
+			{children}
+		</div>
+	)
 }
 export { MediaBody }
 export default Media
-
-{
-	/* <div className="media align-items-center">
-<Avatar image={image} alt={alt} size="sm" circle className="me-2" />
-<div className="media-body">
-	<span className="media-title h5">{title}</span>
-	<span className="media-text">{desc}</span>
-</div>
-</div> */
-}
