@@ -1,14 +1,15 @@
 import { Helmet } from 'react-helmet'
 import './styles.scss'
-interface PanelLayout {
-	title?: string
-}
-interface PanelHeader {
-	title?: string
-}
-interface PanelTitle {}
 
-const PanelLayout: React.FC<PanelLayout> = ({ children, title }) => {
+interface PanelLayoutProps {
+	title?: string
+}
+interface PanelHeaderProps {
+	title?: string
+}
+interface PanelTitleProps {}
+
+const PanelLayout: React.FC<PanelLayoutProps> = ({ children, title }) => {
 	return (
 		<div className="panel">
 			{title && (
@@ -22,11 +23,11 @@ const PanelLayout: React.FC<PanelLayout> = ({ children, title }) => {
 	)
 }
 
-const PanelHeader: React.FC<PanelHeader> = ({ children }) => {
+const PanelHeader: React.FC<PanelHeaderProps> = ({ children }) => {
 	return <div className="panel-header">{children}</div>
 }
 
-const PanelTitle: React.FC<PanelTitle> = ({ children }) => {
+const PanelTitle: React.FC<PanelTitleProps> = ({ children }) => {
 	return <h1 className="panel-title">{children}</h1>
 }
 

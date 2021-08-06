@@ -4,7 +4,7 @@ import { BaseComponent } from 'lib/types/component'
 
 interface GuestNavProps extends BaseComponent<HTMLUListElement> {}
 
-const GuestNavbar: React.FC<GuestNavProps> = props => {
+const Menu: React.FC<GuestNavProps> = props => {
 	const { children, className, ...attr } = props
 
 	const computedClassName = useClassName({
@@ -23,4 +23,4 @@ const GuestNavbar: React.FC<GuestNavProps> = props => {
 	)
 }
 
-export default GuestNavbar
+export default Menu

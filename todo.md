@@ -22,10 +22,11 @@
 
 
 <!-- Daily Tasks -->
-- [] Refactor Interface Components 
+- [x] Refactor Interface Components 
 - [] Refactor subComponents 
 - [] Refactor constat name in component
 - [] add custom field on BaseClassName
+- [] component redesign
 
 - [x] Refactor Global interface
 - [x] Refactor Icons

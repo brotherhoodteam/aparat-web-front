@@ -11,6 +11,7 @@ interface SpinnerProps extends BaseComponent<HTMLSpanElement> {
 
 const Spinner: React.FC<SpinnerProps> = React.memo(props => {
 	const { variants, size, className, children, ...attr } = props
+
 	const baseClass = 'spinner'
 	const variantsClass = `${baseClass}-${variants}`
 	const sizeClass = `${baseClass}-${variants}-${size}`

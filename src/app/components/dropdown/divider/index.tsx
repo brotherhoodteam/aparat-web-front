@@ -1,16 +1,14 @@
 import useClassName from 'lib/hooks/use-class'
 import { BaseComponent } from 'lib/types/component'
-import MediaBody from './media-body'
-import './styles.scss'
 
-interface MediaProps extends BaseComponent<HTMLDivElement> {}
+interface DropdownDividerProps extends BaseComponent<HTMLDivElement> {}
 
-const Media: React.FC<MediaProps> = props => {
+const DropdownDivider: React.FC<DropdownDividerProps> = props => {
 	const { children, className, ...attr } = props
 
 	const computedClassName = useClassName({
-		defaultClass: 'media',
-		optionalClass: className
+		defaultClass: 'dropdown-divider',
+		appendClassName: className
 	})
 
 	return (
@@ -20,5 +18,4 @@ const Media: React.FC<MediaProps> = props => {
 	)
 }
 
-export { MediaBody }
-export default Media
+export default DropdownDivider

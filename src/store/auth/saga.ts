@@ -1,12 +1,18 @@
 import { all, call, put, takeLatest } from '@redux-saga/core/effects'
 import api from 'core/api'
-import { logoutSuccess, signInFailure, signInReset, signInSuccess } from './slice'
+import {
+	logoutSuccess,
+	signInFailure,
+	signInReset,
+	signInSuccess,
+	logoutRequest,
+	signInRequest
+} from './slice'
 import { SignInRequest, SignInResponsePayload } from './interface'
 // ! setAuth bayad check shavad
 import { setAuth } from 'core/http/util'
 import { appError } from 'store/app/saga'
 import { showStatusAction } from 'store/status/slice'
-import { logoutRequest, signInRequest } from './slice'
 
 export function* signInHandler({ payload: { passport } }: SignInRequest) {
 	try {

@@ -12,7 +12,7 @@ import {
 } from 'store/post/slice'
 import { useCategories } from 'store/categories/hooks'
 
-import { Input, SelectBox, TextArea, Switch, CopyInput } from 'app/elements/form'
+import { Input, SelectBox, Textarea, Switch, CopyText } from 'app/elements/form'
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import PanelLayout from 'app/layouts/panel'
 import Uploader from 'app/components/uploader'
@@ -185,7 +185,7 @@ const DashboardPostEdit: React.FC<Props> = () => {
 												isClearable
 												isSearchable
 											/>
-											<TextArea
+											<Textarea
 												name="info"
 												id="desc"
 												label="توضیحات"
@@ -253,7 +253,7 @@ const DashboardPostEdit: React.FC<Props> = () => {
 												</small>
 											</Uploader>
 											<div className="mb-3">
-												<CopyInput
+												<CopyText
 													value={fetchVideoUrl(video.slug)}
 													name="address"
 													label="آدرس ویدئو"

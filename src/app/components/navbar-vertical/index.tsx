@@ -1,10 +1,10 @@
 import useClassName from 'lib/hooks/use-class'
 import { BaseComponent } from 'lib/types/component'
-import NavbarButton from './navbar-button'
-import NavbarDivider from './navbar-divider'
-import NavbarItem from './navbar-item'
-import NavbarLink from './navbar-link'
-import NavbarSubtitle from './navbar-subtitle'
+import NavbarButton from './button'
+import NavbarDivider from './divider'
+import NavbarItem from './item'
+import NavbarLink from './link'
+import NavbarSubtitle from './subtitle'
 import './styles.scss'
 
 interface NavbarVerticalProps extends BaseComponent<HTMLDivElement> {}

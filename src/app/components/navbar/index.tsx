@@ -10,8 +10,8 @@ import Logo from 'static/images/logo--color-black--without_text.svg'
 import LogoMini from 'static/images/icon--color-black.svg'
 import { BaseComponent } from 'lib/types/component'
 import useClassName from 'lib/hooks/use-class'
-import ProfileNavbar from './profile-navbar'
-import GuestNavbar from './guest-navbar'
+import ProfileMenu from './profile-menu'
+import Menu from './menu'
 import './styles.scss'
 
 interface NavbarProps extends BaseComponent<HTMLDivElement> {}
@@ -72,8 +72,8 @@ const Navbar: React.FC<NavbarProps> = props => {
 					<Search />
 				</div>
 				<div className="navbar-content-left">
-					{auth && <ProfileNavbar />}
-					{!auth && <GuestNavbar />}
+					{auth && <ProfileMenu />}
+					{!auth && <Menu />}
 				</div>
 			</div>
 		</div>

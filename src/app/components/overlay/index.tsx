@@ -6,6 +6,7 @@ import { useAppOverlay } from 'store/app/hooks'
 import './styles.scss'
 
 interface OverlayProps extends BaseComponent<HTMLDivElement> {}
+
 const Overlay: React.FC<OverlayProps> = props => {
 	const { children, className, ...attr } = props
 

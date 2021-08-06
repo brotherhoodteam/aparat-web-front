@@ -8,8 +8,8 @@ import { Error } from 'lib/types/exception'
 
 import UploadImage from 'static/images/upload.svg'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import './style.scss'
 import useClassName from 'lib/hooks/use-class'
+import './style.scss'
 
 interface UploaderProps extends BaseComponent<HTMLDivElement> {
 	name: string

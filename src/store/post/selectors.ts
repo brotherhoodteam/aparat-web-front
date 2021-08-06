@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
 import { State } from 'core/redux/interface'
-import { useSelector } from 'react-redux'
 
 // SELECTORS
 export const selectPostStore = (state: State) => state.post

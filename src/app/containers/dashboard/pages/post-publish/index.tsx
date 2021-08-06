@@ -5,7 +5,7 @@ import * as yup from 'yup'
 
 import { Card, CardBody, CardHeader, CardTitle } from 'app/elements/card'
 import { Tabs, TabsPanel, TabsContent, TabsItem, TabsList } from 'app/components/tabs'
-import { SelectBox, Input, TextArea, Switch } from 'app/elements/form'
+import { SelectBox, Input, Textarea, Switch } from 'app/elements/form'
 import PanelLayout from 'app/layouts/panel'
 
 import {
@@ -280,7 +280,7 @@ const DashboardPostPublish: React.FC = () => {
 																	/>
 																</div>
 																<div className="col-12">
-																	<TextArea
+																	<Textarea
 																		name="info"
 																		id="desc"
 																		label="توضیحات"

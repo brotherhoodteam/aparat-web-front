@@ -1,7 +1,7 @@
 import { BaseComponent } from 'lib/types/component'
 import { useEffect, useState } from 'react'
-import PaginationArrow from './pagination-arrow'
-import PaginationItem from './pagination-item'
+import PaginationArrow from './arrow'
+import PaginationItem from './item'
 import './style.scss'
 
 interface PaginationProps extends BaseComponent<HTMLElement> {

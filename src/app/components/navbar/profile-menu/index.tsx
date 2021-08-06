@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
-import {
-	Dropdown,
+import Dropdown, {
 	DropdownButton,
 	DropdownDivider,
 	DropdownHeader,
@@ -21,7 +20,7 @@ import useClassName from 'lib/hooks/use-class'
 
 interface ProfileNavbarProps extends BaseComponent<HTMLUListElement> {}
 
-const ProfileNavbar: React.FC<ProfileNavbarProps> = props => {
+const ProfileMenu: React.FC<ProfileNavbarProps> = props => {
 	const { children, className, ...attr } = props
 
 	const computedClassName = useClassName({
@@ -149,4 +148,4 @@ const ProfileNavbar: React.FC<ProfileNavbarProps> = props => {
 		</ul>
 	)
 }
-export default ProfileNavbar
+export default ProfileMenu

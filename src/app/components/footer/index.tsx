@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = props => {
 				<div className="row">
 					<div className="col-12 text-center">
 						<span className="text-muted">
-							تمامی حقوق این وبسایت متعلق به صاحب سایت میباشد{' '}
+							تمامی حقوق این وبسایت متعلق به صاحب سایت میباشد
 						</span>
 					</div>
 				</div>

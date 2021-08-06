@@ -3,14 +3,14 @@ import useClassName from 'lib/hooks/use-class'
 import { BaseComponent } from 'lib/types/component'
 import React from 'react'
 
-interface TextAreaProps extends BaseComponent<HTMLTextAreaElement> {
+interface TextareaProps extends BaseComponent<HTMLTextAreaElement> {
 	id?: string
 	name: string
 	label: string
 	placeholder?: string
 }
 
-const TextArea: React.FC<TextAreaProps> = React.memo(props => {
+const Textarea: React.FC<TextareaProps> = React.memo(props => {
 	const { name, id, label, placeholder, children, className, ...attr } = props
 
 	// setting textarea
@@ -51,4 +51,4 @@ const TextArea: React.FC<TextAreaProps> = React.memo(props => {
 	)
 })
 
-export default TextArea
+export default Textarea

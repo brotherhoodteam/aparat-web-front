@@ -2,12 +2,12 @@ import React from 'react'
 import useClassName from 'lib/hooks/use-class'
 import { BaseComponent, Size } from 'lib/types/component'
 
-import CardHeader from './card-header'
-import CardImgTop from './card-img-top'
-import CardBody from './card-body'
-import CardTitle from './card-title'
-import CardText from './card-text'
-import CardFooter from './card-footer'
+import CardHeader from './header'
+import CardImgTop from './img-top'
+import CardBody from './body'
+import CardTitle from './title'
+import CardText from './text'
+import CardFooter from './footer'
 import './styles.scss'
 
 interface CardPorps extends BaseComponent<HTMLDivElement> {

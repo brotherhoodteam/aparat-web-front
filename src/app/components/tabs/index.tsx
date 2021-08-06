@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState } from 'react'
 import useClassName from 'lib/hooks/use-class'
 import { BaseComponent, ClassName } from 'lib/types/component'
 
-import TabsList from './tabs-liat'
-import TabsItem from './tabs-item'
-import TabsPanel from './tabs-panel'
-import TabsContent from './tabs-contents'
+import TabsList from './liat'
+import TabsItem from './item'
+import TabsPanel from './panel'
+import TabsContent from './contents'
 import './styles.scss'
 
 interface TabsProps extends BaseComponent<HTMLDivElement> {

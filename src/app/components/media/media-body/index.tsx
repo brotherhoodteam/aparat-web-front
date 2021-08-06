@@ -1,15 +1,13 @@
 import useClassName from 'lib/hooks/use-class'
 import { BaseComponent } from 'lib/types/component'
-import MediaBody from './media-body'
-import './styles.scss'
 
-interface MediaProps extends BaseComponent<HTMLDivElement> {}
+interface MediaBodyProps extends BaseComponent<HTMLDivElement> {}
 
-const Media: React.FC<MediaProps> = props => {
+const MediaBody: React.FC<MediaBodyProps> = props => {
 	const { children, className, ...attr } = props
 
 	const computedClassName = useClassName({
-		defaultClass: 'media',
+		defaultClass: 'media-body',
 		optionalClass: className
 	})
 
@@ -19,6 +17,4 @@ const Media: React.FC<MediaProps> = props => {
 		</div>
 	)
 }
-
-export { MediaBody }
-export default Media
+export default MediaBody
