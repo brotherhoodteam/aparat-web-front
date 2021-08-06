@@ -12,16 +12,19 @@ interface TextareaProps extends BaseComponent<HTMLTextAreaElement> {
 
 const Textarea: React.FC<TextareaProps> = React.memo(props => {
 	const { name, id, label, placeholder, children, className, ...attr } = props
-
-	// setting textarea
 	const [field, meta] = useField(name)
-	// create default id
-	const htmlId = id ? id : `${name}-id`
-	// calc classnames
+	const options = {
+		className: 'form-control',
+		id: id ? id : `${name}-id`,
+		error: {
+			className: 'is-invalid'
+		}
+	}
+
 	const computedClassName = useClassName({
-		defaultClass: 'form-control',
+		defaultClass: options.className,
 		optionalClass: {
-			'is-invalid': meta.error && meta.touched
+			[options.error.className]: meta.error && meta.touched
 		},
 		appendClassName: className
 	})
@@ -30,7 +33,7 @@ const Textarea: React.FC<TextareaProps> = React.memo(props => {
 		<div className="form-group text-right">
 			{/* START LABEL */}
 			{label && (
-				<label htmlFor={htmlId} className="input-label">
+				<label htmlFor={options.id} className="input-label">
 					{label}
 				</label>
 			)}
@@ -38,7 +41,7 @@ const Textarea: React.FC<TextareaProps> = React.memo(props => {
 
 			<textarea
 				rows={4}
-				id={htmlId}
+				id={options.id}
 				placeholder={placeholder}
 				className={computedClassName}
 				{...field}

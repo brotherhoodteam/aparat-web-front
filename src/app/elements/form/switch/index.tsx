@@ -10,10 +10,17 @@ interface SwitchProps {
 const Switch: React.FC<SwitchProps> = ({ name, className }) => {
 	const [field, meta, helper] = useField(name)
 	const ref = useRef<HTMLInputElement>(null)
+	const options = {
+		className: 'form-control',
+		error: {
+			className: 'is-invalid'
+		}
+	}
+
 	const styles = useClassName({
-		defaultClass: 'toggle-switch',
+		defaultClass: options.className,
 		optionalClass: {
-			'is-invalid': meta.error && meta.touched
+			[options.error.className]: meta.error && meta.touched
 		},
 		appendClassName: className
 	})

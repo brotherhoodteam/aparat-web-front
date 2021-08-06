@@ -17,8 +17,7 @@ interface SignInFormData {
 interface SignInFormProps extends BaseComponent<HTMLDivElement> {}
 
 const SignInForm: React.FC<SignInFormProps> = props => {
-	const { children, ...attr } = props
-
+	const { children, className, ...attr } = props
 	const dispatch = useTypedDispatch()
 	const { loading } = useSelector(selectSignIn)
 
@@ -41,7 +40,7 @@ const SignInForm: React.FC<SignInFormProps> = props => {
 	}
 
 	return (
-		<div {...attr}>
+		<div {...attr} className={className}>
 			<Formik {...form}>
 				<Form>
 					<Input name="username" label="نام کاربری" placeholder="arash" />

@@ -18,13 +18,12 @@ interface SidebarProps extends BaseComponent<HTMLDivElement> {}
 
 const Sidebar: React.FC<SidebarProps> = props => {
 	const { className, children, ...attr } = props
+	const { data: profile, loading } = useUserProfile()
 
 	const computedClassName = useClassName({
 		defaultClass: 'sidebar',
 		optionalClass: className
 	})
-
-	const { data: profile, loading } = useUserProfile()
 
 	return (
 		<aside className={computedClassName} {...attr}>

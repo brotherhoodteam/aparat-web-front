@@ -13,7 +13,6 @@ interface DropdownItemProps extends BaseComponent<HTMLAnchorElement> {
 
 const DropdownItem: React.FC<DropdownItemProps> = props => {
 	const { children, onClick, to, className, ...attr } = props
-
 	const { setIsOpen } = useDropdown()
 
 	const computedClassName = useClassName({

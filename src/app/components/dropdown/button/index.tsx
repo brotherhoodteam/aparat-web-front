@@ -6,7 +6,6 @@ interface DropdownButtonProps extends BaseComponent<HTMLDivElement> {}
 
 const DropdownButton: React.FC<DropdownButtonProps> = props => {
 	const { children, className, ...attr } = props
-
 	const { setIsOpen } = useDropdown()
 
 	const computedClassName = useClassName({

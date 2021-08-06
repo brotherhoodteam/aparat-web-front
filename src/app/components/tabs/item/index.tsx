@@ -9,7 +9,6 @@ interface TabsItemProps extends BaseComponent<HTMLLIElement> {
 
 const TabsItem: React.FC<TabsItemProps> = props => {
 	const { className, id, title, children, ...attr } = props
-
 	const { activeTab, setActiveTab } = useTabs()
 
 	const computedClassName = useClassName({

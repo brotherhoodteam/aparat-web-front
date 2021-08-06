@@ -18,12 +18,13 @@ const TabsDispatchContext = createContext<any>(null)
 
 const Tabs: React.FC<TabsProps> = React.memo(props => {
 	const { active, className, children, ...attr } = props
-
 	const [actionTab, setActionTab] = useState<string>(active || '1')
+
 	const computedClassName = useClassName({
 		defaultClass: 'tabs',
 		appendClassName: className
 	})
+
 	return (
 		<TabsStateContext.Provider value={actionTab}>
 			<TabsDispatchContext.Provider value={setActionTab}>

@@ -20,13 +20,12 @@ interface PostThumbnailDhashboardItemProps extends BaseComponent<HTMLDivElement>
 
 const PostThumbnailDhashboardItem: React.FC<PostThumbnailDhashboardItemProps> = props => {
 	const { className, children, video, ...attr } = props
+	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
 	const computedClassName = useClassName({
 		defaultClass: 'h100',
 		appendClassName: className
 	})
-
-	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
 	const dispatch = useDispatch()
 	const { done: deleteVideoDone, loading: deleteVideoLoading } = useDeletedPost()

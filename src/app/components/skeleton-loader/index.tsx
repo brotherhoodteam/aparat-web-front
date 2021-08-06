@@ -1,4 +1,3 @@
-import useClassName from 'lib/hooks/use-class'
 import { BaseComponent } from 'lib/types/component'
 import AvatarLoader from './avatar'
 import AvatarWithTextLoader from './avatar-with-text'
@@ -12,12 +11,8 @@ interface SkeletonLoaderProps extends BaseComponent<HTMLDivElement> {}
 const SkeletonLoader: React.FC<SkeletonLoaderProps> = props => {
 	const { children, className, ...attr } = props
 
-	const cumputedClassName = useClassName({
-		appendClassName: className
-	})
-
 	return (
-		<div className={cumputedClassName} {...attr}>
+		<div className={className} {...attr}>
 			{children}
 		</div>
 	)

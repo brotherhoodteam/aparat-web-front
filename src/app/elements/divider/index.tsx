@@ -7,10 +7,9 @@ interface DividerProps extends BaseComponent<HTMLDivElement> {}
 
 const Divider: React.FC<DividerProps> = React.memo(props => {
 	const { children, className, ...attr } = props
-	const baseClass = 'divider'
 
 	const computedClassName = useClassName({
-		defaultClass: baseClass,
+		defaultClass: 'divider',
 		appendClassName: className
 	})
 

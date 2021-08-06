@@ -7,7 +7,6 @@ interface DropdownMenuProps extends BaseComponent<HTMLDivElement> {}
 
 const DropdownMenu: React.FC<DropdownMenuProps> = props => {
 	const { children, className, ...attr } = props
-
 	const { isOpen } = useDropdown()
 
 	const computedClassName = useClassName({

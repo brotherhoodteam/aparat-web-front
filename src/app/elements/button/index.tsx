@@ -1,7 +1,6 @@
-import React, { Fragment, MouseEvent, MouseEventHandler } from 'react'
+import React, { Fragment, MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { Location, LocationDescriptor } from 'history'
-
 import Spinner from 'app/elements/spinner'
 import useClassName from 'lib/hooks/use-class'
 import { ClassName, Colors, Size, Variants } from 'lib/types/component'
@@ -53,31 +52,39 @@ const Button: React.FC<ButtonProps> = React.memo(
 			onMouseLeave,
 			...attr
 		} = props
-		const baseClass = 'btn'
-		const baseStatusClass = 'btn-status'
-		const variantAndColor = `${baseClass}${
-			variant === 'solid' ? '' : '-' + variant
-		}-${color}`
-		const defaultVariantAndColor = `${baseClass}-${color}`
-		const btnSize = `${baseClass}-${size}`
-		const btnStatusSize = `${baseStatusClass}-${statusSize}`
-		const btnBlock = `${baseClass}-block`
-		const btnType = type ? type : 'button'
-		const btnRounded = `${baseClass}-circle`
-		const btnIcon = `${baseClass}-icon`
-		const btnStatus = `${baseStatusClass}-${status}`
-		const btnLink = `${baseClass}-link`
+
+		const options = {
+			className: 'btn',
+			type: type ? type : 'button',
+			block: `btn-block`,
+			size: `btn-${size}`,
+			rounded: `btn-circle`,
+			icon: `btn-icon`,
+			link: 'btn-link',
+			variantAndColor: {
+				default: `btn-${color}`,
+				color: `btn${variant === 'solid' ? '' : '-' + variant}-${color}`
+			},
+			status: {
+				className: 'btn-status',
+				size: `btn-status-${statusSize}`,
+				color: `btn-status-${status}`
+			},
+			loaderText: {
+				default: 'لطفا صبر کنید'
+			}
+		}
 
 		const computedClassName = useClassName({
-			defaultClass: baseClass,
+			defaultClass: options.className,
 			optionalClass: {
-				[defaultVariantAndColor]: !variant && color,
-				[variantAndColor]: variant && color,
-				[btnSize]: size,
-				[btnBlock]: block,
-				[btnRounded]: circle,
-				[btnIcon]: icon,
-				[btnLink]: to
+				[options.variantAndColor.default]: !variant && color,
+				[options.variantAndColor.color]: variant && color,
+				[options.size]: size,
+				[options.block]: block,
+				[options.rounded]: circle,
+				[options.icon]: icon,
+				[options.link]: to
 			},
 			appendClassName: classNames
 		})
@@ -85,11 +92,10 @@ const Button: React.FC<ButtonProps> = React.memo(
 		const statusStyle = useClassName({
 			defaultClass: 'btn-status',
 			optionalClass: {
-				[btnStatus]: status,
-				[btnStatusSize]: status && statusSize
+				[options.status.color]: status,
+				[options.status.size]: statusSize
 			}
 		})
-		const defaultLoaderText = 'لطفا صبر کنید'
 
 		const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
 			if (disanled || loader) return
@@ -119,7 +125,7 @@ const Button: React.FC<ButtonProps> = React.memo(
 					{loader ? (
 						<Fragment>
 							<Spinner variants="border" size="sm" />
-							{loaderText ? loaderText : defaultLoaderText}
+							{loaderText ? loaderText : options.loaderText.default}
 						</Fragment>
 					) : (
 						<Fragment>{children}</Fragment>
@@ -130,18 +136,18 @@ const Button: React.FC<ButtonProps> = React.memo(
 
 		return (
 			<button
-				type={btnType}
+				type={options.type}
 				onClick={handleClick}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				className={computedClassName}
-				{...attr}
 				disabled={loader || disanled}
+				{...attr}
 			>
 				{loader ? (
 					<Fragment>
 						<Spinner variants="border" size="sm" />
-						{loaderText ? loaderText : defaultLoaderText}
+						{loaderText ? loaderText : options.loaderText.default}
 					</Fragment>
 				) : (
 					<Fragment>{children}</Fragment>

@@ -1,5 +1,4 @@
 import { createContext, useContext, useRef, useState } from 'react'
-
 import { BaseComponent } from 'lib/types/component'
 import useClassName from 'lib/hooks/use-class'
 import useClickOutside from 'lib/hooks/use-click-outside'
@@ -21,17 +20,22 @@ const DropdownDispatchContext = createContext<any>(null)
 
 const Dropdown: React.FC<DropdownProps> = props => {
 	const { children, direction, className, ...attr } = props
-
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const dropDwonRef = useRef<HTMLDivElement>(null)
-	const directionClass = `dropdown-${direction}`
-	const directionDefaultClass = 'dropdown-left'
+
+	const options = {
+		className: 'dropdown',
+		dir: {
+			default: 'dropdown-left',
+			className: `dropdown-${direction}`
+		}
+	}
 
 	const computedClassName = useClassName({
-		defaultClass: 'dropdown',
+		defaultClass: options.className,
 		optionalClass: {
-			[directionClass]: direction,
-			[directionDefaultClass]: !direction
+			[options.dir.className]: direction,
+			[options.dir.default]: !direction
 		},
 		appendClassName: className
 	})

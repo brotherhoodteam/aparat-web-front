@@ -18,15 +18,18 @@ interface CardPorps extends BaseComponent<HTMLDivElement> {
 const Card: React.FC<CardPorps> = React.memo(props => {
 	const { children, className, size, bordered, ...attr } = props
 
-	const baseClass = 'card'
-	const cardSize = `${baseClass}-${size}`
+	const options = {
+		className: 'card',
+		size: `card-${size}`,
+		bordered: 'card-bordered'
+	}
 
 	const computedClassName = useClassName({
 		defaultClass: 'card',
 		appendClassName: className,
 		optionalClass: {
-			[cardSize]: size,
-			['bordered']: bordered
+			[options.size]: size,
+			[options.bordered]: bordered
 		}
 	})
 

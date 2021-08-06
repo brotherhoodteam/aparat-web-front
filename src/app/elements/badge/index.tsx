@@ -10,14 +10,18 @@ interface BadgeProps extends BaseComponent<HTMLDivElement> {
 const Badge: React.FC<BadgeProps> = props => {
 	const { children, className, color, pill, ...attr } = props
 
-	const badgeColor = `badge-${color}`
+	const options = {
+		className: 'badge',
+		bg: `badge-${color}`,
+		pill: 'badge-pill'
+	}
 
 	const computedClassName = useClassName({
-		defaultClass: 'badge',
+		defaultClass: options.className,
 		appendClassName: className,
 		optionalClass: {
-			[badgeColor]: color,
-			['badge-pill']: pill
+			[options.bg]: color,
+			[options.pill]: pill
 		}
 	})
 

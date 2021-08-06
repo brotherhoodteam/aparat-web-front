@@ -1,17 +1,19 @@
 import React from 'react'
 import useClassName from 'lib/hooks/use-class'
-import { Size } from 'lib/types/component'
+import { BaseComponent, Size } from 'lib/types/component'
 import './index'
 
-interface LogoProp {
+interface LogoProp extends BaseComponent<HTMLDivElement> {
 	size: Size
 }
 
-const Logo: React.FC<LogoProp> = React.memo(() => {
-	const styles = useClassName({
+const Logo: React.FC<LogoProp> = React.memo(props => {
+	const { children, className, ...attr } = props
+	const computedClassName = useClassName({
 		defaultClass: 'logo',
-		optionalClass: {}
+		appendClassName: className
 	})
-	return <div className={styles}>ee</div>
+
+	return <div className={computedClassName} {...attr}></div>
 })
 export default Logo

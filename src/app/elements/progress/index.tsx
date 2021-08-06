@@ -10,12 +10,16 @@ interface ProgressProps extends BaseComponent<HTMLDivElement> {
 
 const Progress: React.FC<ProgressProps> = props => {
 	const { children, className, precent, isCompleted, isFailed, ...attr } = props
-
+	const options = {
+		className: 'progress-bar',
+		danger: 'bg-danger',
+		success: 'bg-success'
+	}
 	const computedClassName = useClassName({
-		defaultClass: 'progress-bar',
+		defaultClass: options.className,
 		optionalClass: {
-			'bg-success': isCompleted,
-			'bg-danger': isFailed
+			[options.success]: isCompleted,
+			[options.danger]: isFailed
 		},
 		appendClassName: className
 	})

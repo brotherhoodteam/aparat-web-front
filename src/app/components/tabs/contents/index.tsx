@@ -9,8 +9,8 @@ interface TabsContentProps extends BaseComponent<HTMLDivElement> {
 
 const TabsContent: React.FC<TabsContentProps> = props => {
 	const { id, className, children, ...attr } = props
-
 	const { activeTab } = useTabs()
+
 	const styles = useClassName({
 		defaultClass: 'tabs-content',
 		appendClassName: className

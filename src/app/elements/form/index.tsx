@@ -20,20 +20,23 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = React.memo(props => {
 	const { name, id, label, type, placeholder, className, size } = props
-	// input settings
 	const [field, meta] = useField(name)
-	// create default id
-	const htmlId = useMemo(() => (id ? id : `${name}-id`), [])
-	// create default type
-	const inputType = useMemo(() => (type ? type : 'text'), [])
-	// create default size
-	const inputSize = useMemo(() => `form-control-${size}`, [])
+	const options = {
+		id: id ? id : `${name}-id`,
+		type: type ? type : 'text',
+		className: 'form-control',
+		size: `form-control-${size}`,
+		error: {
+			className: 'is-invalid'
+		}
+	}
+
 	// calc classNames
 	const styles = useClassName({
-		defaultClass: 'form-control',
+		defaultClass: options.className,
 		optionalClass: {
-			[inputSize]: size,
-			'is-invalid': meta.error && meta.touched
+			[options.size]: size,
+			[options.error.className]: meta.error && meta.touched
 		},
 		appendClassName: className
 	})
@@ -42,7 +45,7 @@ const Input: React.FC<InputProps> = React.memo(props => {
 		<div className="form-group text-right">
 			{/* START LABEL */}
 			{label && (
-				<label htmlFor={htmlId} className="input-label">
+				<label htmlFor={options.id} className="input-label">
 					{label}
 				</label>
 			)}
@@ -50,11 +53,11 @@ const Input: React.FC<InputProps> = React.memo(props => {
 
 			{/* START INPUT FIELD */}
 			<input
-				type={inputType}
+				type={options.type}
 				className={styles}
 				placeholder={placeholder}
-				{...field}
 				autoComplete="off"
+				{...field}
 			/>
 			{/* END INPUT FIELD */}
 

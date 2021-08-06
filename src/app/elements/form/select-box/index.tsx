@@ -47,14 +47,19 @@ const SelectBox: React.FC<SelectBoxProps> = React.memo(props => {
 		isLoading,
 		loadingMessage
 	} = props
-
 	const [field, meta, helper] = useField(name)
-	const htmlId = id ? id : `${name}-id`
-	const baseClass = 'select-box'
+	const optionsComponent = {
+		className: 'select-box',
+		id: id ? id : `${name}-id`,
+		error: {
+			className: 'is-invalid'
+		}
+	}
+
 	const styles = useClassName({
-		defaultClass: baseClass,
+		defaultClass: optionsComponent.className,
 		optionalClass: {
-			'is-invalid': meta.touched && meta.error
+			[optionsComponent.error.className]: meta.touched && meta.error
 		},
 		appendClassName: className
 	})
@@ -71,14 +76,14 @@ const SelectBox: React.FC<SelectBoxProps> = React.memo(props => {
 		<div className="form-group text-right">
 			{/* START LABEL */}
 			{label && (
-				<label htmlFor={htmlId} className="input-label">
+				<label htmlFor={optionsComponent.id} className="input-label">
 					{label}
 				</label>
 			)}
 			{/* END LABEL */}
 
 			<Select
-				id={htmlId}
+				id={optionsComponent.id}
 				className={styles}
 				classNamePrefix={'select-box'}
 				defaultValue={field.value}

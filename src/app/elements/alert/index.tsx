@@ -14,13 +14,18 @@ interface AlertProps extends BaseComponent<HTMLDivElement> {
 const Alert: React.FC<AlertProps> = React.memo(props => {
 	const { message, color, show, animated, className, children, ...attr } = props
 
-	const colorAlert = `alert-${color}`
+	const options = {
+		bg: {
+			default: 'alert-primary',
+			color: `alert-${color}`
+		}
+	}
 
 	const computedClassName = useClassName({
 		defaultClass: 'alert',
 		optionalClass: {
-			[colorAlert]: color,
-			'alert-primary': !color
+			[options.bg.color]: color,
+			[options.bg.default]: !color
 		},
 		appendClassName: className
 	})

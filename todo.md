@@ -12,6 +12,7 @@
 - [] Loading
 - [] Spinner
 - [] Refactor component
+- [] Scroll top when chaned route
 
 <!-- BUGS -->
 - [] Get Video --> User 
@@ -22,16 +23,18 @@
 
 
 <!-- Daily Tasks -->
-- [x] Refactor Interface Components 
-- [] Refactor subComponents 
-- [] Refactor constat name in component
-- [] add custom field on BaseClassName
-- [] component redesign
-
 - [x] Refactor Global interface
 - [x] Refactor Icons
 - [x] Refactor page's name
 - [x] Merge College Features to Main branch
+- [x] Refactor Interface Components 
+- [x] Refactor subComponents 
+- [] add option in component
+- [] add custom field on BaseClassName
+- [] Redesign Component Folders
+- [] Redesign Component Logic
 - [] Error handleing
 - [] Skeleton from page 
 - [] Implelemete Follower Page
+- [] Form field refactor!
+- [] Variants!!!!

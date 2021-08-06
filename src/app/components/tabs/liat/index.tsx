@@ -5,6 +5,7 @@ interface TabsListProps extends BaseComponent<HTMLUListElement> {}
 
 const TabsList: React.FC<TabsListProps> = props => {
 	const { className, children, ...attr } = props
+
 	const computedClassName = useClassName({
 		defaultClass: 'tabs-list',
 		appendClassName: className

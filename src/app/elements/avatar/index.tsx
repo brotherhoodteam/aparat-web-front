@@ -15,29 +15,33 @@ interface AvatarProps extends BaseComponent<HTMLDivElement> {
 const Avatar: React.FC<AvatarProps> = React.memo(props => {
 	const { image, size, className, status, circle, alt, ratio, children, ...attr } = props
 
-	const baseClass = 'avatar'
-	const baseStatusClass = 'avatar-status'
-	const classSize = `${baseClass}-${size}`
-	const classStatusSize = `avatar-${size}-status`
-	const classCircle = `${baseClass}-circle`
-	const classStatusColor = `${baseStatusClass}-${status}`
-	const classRatio = `${baseClass}-${ratio}`
+	const options = {
+		className: 'avatar',
+		size: `avatar-${size}`,
+		circle: `avatar-circle`,
+		ratio: `avatar-${ratio}`,
+		status: {
+			className: 'avatar-status',
+			size: `avatar-${size}-status`,
+			color: `avatar-status-${status}`
+		}
+	}
 
 	const computedClassName = useClassName({
-		defaultClass: baseClass,
+		defaultClass: options.className,
 		optionalClass: {
-			[classSize]: size,
-			[classCircle]: circle,
-			[classRatio]: ratio
+			[options.size]: size,
+			[options.circle]: circle,
+			[options.ratio]: ratio
 		},
 		appendClassName: className
 	})
 
 	const statusComputedClassName = useClassName({
-		defaultClass: baseStatusClass,
+		defaultClass: options.status.className,
 		optionalClass: {
-			[classStatusSize]: status,
-			[classStatusColor]: status
+			[options.status.size]: status,
+			[options.status.color]: status
 		}
 	})
 
