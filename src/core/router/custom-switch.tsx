@@ -1,4 +1,4 @@
-import TopBarProgress from 'app/components/top-bar-progress'
+import TopBarProgress from 'components/custom/top-bar-progress'
 import React, { useState } from 'react'
 import { Switch, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'

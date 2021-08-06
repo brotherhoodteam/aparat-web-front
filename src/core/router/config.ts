@@ -3,19 +3,17 @@ import { RouterType } from './interface'
 import { ACCESS } from './constant'
 import ROUTES from './routes'
 
-const HomeContainer = lazy(() => import('app/containers/landing/home'))
-const SignInContainer = lazy(() => import('app/containers/auth/sign-in'))
-const NotFoundContainer = lazy(() => import('app/containers/specialty/error-404'))
-const SinglePostContainer = lazy(() => import('app/containers/post/single-post'))
-const DashboardContainer = lazy(() => import('app/containers/dashboard'))
-const DashboardOverview = lazy(() => import('app/containers/dashboard/pages/overview'))
-const DashboardVideoPublish = lazy(
-	() => import('app/containers/dashboard/pages/post-publish')
-)
-const DashboardPostList = lazy(() => import('app/containers/dashboard/pages/post-list'))
-const DashboardPostInfo = lazy(() => import('app/containers/dashboard/pages/post-info'))
-const DashboardPostEdit = lazy(() => import('app/containers/dashboard/pages/post-edit'))
-const DashboardSettings = lazy(() => import('app/containers/dashboard/pages/settings'))
+const HomeContainer = lazy(() => import('app/pages/home'))
+const SignInContainer = lazy(() => import('app/auth/sign-in'))
+const NotFoundContainer = lazy(() => import('app/specialty/error-404'))
+const SinglePostContainer = lazy(() => import('app/pages/single-post'))
+const DashboardContainer = lazy(() => import('app/dashboard'))
+const DashboardOverview = lazy(() => import('app/dashboard/pages/overview'))
+const DashboardVideoPublish = lazy(() => import('app/dashboard/pages/post-publish'))
+const DashboardPostList = lazy(() => import('app/dashboard/pages/post-list'))
+const DashboardPostInfo = lazy(() => import('app/dashboard/pages/post-info'))
+const DashboardPostEdit = lazy(() => import('app/dashboard/pages/post-edit'))
+const DashboardSettings = lazy(() => import('app/dashboard/pages/settings'))
 
 const router: RouterType = [
 	{

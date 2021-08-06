@@ -13,6 +13,10 @@
 - [] Spinner
 - [] Refactor component
 - [] Scroll top when chaned route
+- [] add custom field on BaseClassName
+- [] Redesign Component Logic
+- [] Error handleing
+- [] Skeleton from page 
 
 <!-- BUGS -->
 - [] Get Video --> User 
@@ -29,12 +33,8 @@
 - [x] Merge College Features to Main branch
 - [x] Refactor Interface Components 
 - [x] Refactor subComponents 
-- [] add option in component
-- [] add custom field on BaseClassName
+- [x] add option in component
 - [] Redesign Component Folders
-- [] Redesign Component Logic
-- [] Error handleing
-- [] Skeleton from page 
 - [] Implelemete Follower Page
 - [] Form field refactor!
 - [] Variants!!!!
