@@ -34,7 +34,9 @@
 - [x] Refactor Interface Components 
 - [x] Refactor subComponents 
 - [x] add option in component
-- [] Redesign Component Folders
+- [x] Redesign Component Folders
+- [] create custom compoents
+- [] ngProgressive
 - [] Implelemete Follower Page
 - [] Form field refactor!
 - [] Variants!!!!
