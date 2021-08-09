@@ -24,6 +24,22 @@ const api = {
 				url
 			}
 			return request(config)
+		},
+		fetchFollowerUsers: () => {
+			const { method, url } = API_END_POINT.USERS.FETCH_FOLLOWER_USERS()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
+		},
+		fetchFollowingUsers: () => {
+			const { method, url } = API_END_POINT.USERS.FETCH_FOLLOWING_USERS()
+			const config: AxiosRequestConfig = {
+				method,
+				url
+			}
+			return request(config)
 		}
 	},
 	auth: {
@@ -194,7 +210,8 @@ const api = {
 			}
 			return request(config)
 		}
-	}
+	},
+	channels: {}
 }
 
 export default api

@@ -46,17 +46,21 @@ const ROUTES = {
 			path: `/${BASE_URL.DASHBOARD}/comments`,
 			link: `/${BASE_URL.DASHBOARD}/comments`
 		}),
+		CHANNELS: () => ({
+			path: `/${BASE_URL.DASHBOARD}/channels`,
+			link: `/${BASE_URL.DASHBOARD}/channels`
+		}),
 		FOLLOWERS: () => ({
-			path: `/${BASE_URL.DASHBOARD}/followers`,
-			link: `/${BASE_URL.DASHBOARD}/followers`
+			path: `/${BASE_URL.DASHBOARD}/channels/followers`,
+			link: `/${BASE_URL.DASHBOARD}/channels/followers`
+		}),
+		FOLLOWING: () => ({
+			path: `/${BASE_URL.DASHBOARD}/channels/following`,
+			link: `/${BASE_URL.DASHBOARD}/channels/following`
 		}),
 		PROFILE: (slug?: string) => ({
 			path: `/${BASE_URL.DASHBOARD}/profile`,
 			link: `/${BASE_URL.DASHBOARD}/profile/${slug}`
-		}),
-		CHANNELS: () => ({
-			path: `/${BASE_URL.DASHBOARD}/channels`,
-			link: `/${BASE_URL.DASHBOARD}/channels`
 		})
 	},
 	AUTH: {

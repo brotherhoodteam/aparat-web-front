@@ -13,6 +13,7 @@ import { logoutRequest } from 'store/auth/slice'
 import accountBg from 'static/images/abstract-shapes-20.svg'
 import './styles.scss'
 import { Route } from 'react-router-dom'
+import { Suspense } from 'react'
 
 interface DashboardProps {
 	routes: Array<RouteType>
@@ -54,33 +55,35 @@ const DashboardContainer: React.FC<DashboardProps> = ({ routes }) => {
 						<Sidebar />
 					</div>
 					<div className="col-12 col-lg-9">
-						<Switch>
-							{routes?.map(
-								({
-									exact,
-									path,
-									routes,
-									name,
-									component: Component,
-									access
-								}: RouteType) => {
-									return (
-										<Route
-											exact={exact}
-											key={name}
-											path={path}
-											render={props => {
-												const { status, redirect } = routerAccess(access)
-												if (status) {
-													return <Component routes={routes} {...props} />
-												}
-												return <Redirect to={redirect} />
-											}}
-										/>
-									)
-								}
-							)}
-						</Switch>
+						<Suspense fallback={<div>nested</div>}>
+							<Switch>
+								{routes?.map(
+									({
+										exact,
+										path,
+										routes,
+										name,
+										component: Component,
+										access
+									}: RouteType) => {
+										return (
+											<Route
+												exact={exact}
+												key={name}
+												path={path}
+												render={props => {
+													const { status, redirect } = routerAccess(access)
+													if (status) {
+														return <Component routes={routes} {...props} />
+													}
+													return <Redirect to={redirect} />
+												}}
+											/>
+										)
+									}
+								)}
+							</Switch>
+						</Suspense>
 					</div>
 				</div>
 			</div>

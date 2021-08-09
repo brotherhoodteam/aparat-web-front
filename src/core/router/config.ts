@@ -13,6 +13,9 @@ const DashboardVideoPublish = lazy(() => import('app/dashboard/pages/post-publis
 const DashboardPostList = lazy(() => import('app/dashboard/pages/post-list'))
 const DashboardPostInfo = lazy(() => import('app/dashboard/pages/post-info'))
 const DashboardPostEdit = lazy(() => import('app/dashboard/pages/post-edit'))
+const DashboardChannels = lazy(() => import('app/dashboard/pages/channels'))
+const DashboardFollowing = lazy(() => import('app/dashboard/pages/following'))
+const DashboardFollowers = lazy(() => import('app/dashboard/pages/followers'))
 const DashboardSettings = lazy(() => import('app/dashboard/pages/settings'))
 
 const router: RouterType = [
@@ -86,6 +89,29 @@ const router: RouterType = [
 				exact: true,
 				access: ACCESS.PROTECTED,
 				component: DashboardSettings
+			},
+			{
+				name: 'channels',
+				path: ROUTES.DASHBOARD.CHANNELS().path,
+				exact: false,
+				access: ACCESS.PROTECTED,
+				component: DashboardChannels,
+				routes: [
+					{
+						name: 'followers',
+						path: ROUTES.DASHBOARD.FOLLOWERS().path,
+						access: ACCESS.PROTECTED,
+						exact: true,
+						component: DashboardFollowers
+					},
+					{
+						name: 'following',
+						path: ROUTES.DASHBOARD.FOLLOWING().path,
+						access: ACCESS.PROTECTED,
+						exact: true,
+						component: DashboardFollowing
+					}
+				]
 			},
 			{
 				name: 'notfound',

@@ -9,10 +9,11 @@ interface NavbarLinkProps extends BaseComponent<HTMLAnchorElement> {
 	slug:
 		| LocationDescriptor<unknown>
 		| ((location: Location<unknown>) => LocationDescriptor<unknown>)
+	exact?: boolean
 }
 
 const NavbarLink: React.FC<NavbarLinkProps> = props => {
-	const { children, className, icon, slug, ...attr } = props
+	const { children, className, icon, slug, exact, ...attr } = props
 
 	const computedClassName = useClassName({
 		defaultClass: 'navbar-link',
@@ -22,7 +23,7 @@ const NavbarLink: React.FC<NavbarLinkProps> = props => {
 	return (
 		<NavLink
 			to={slug}
-			exact
+			exact={exact}
 			activeClassName="active"
 			className={computedClassName}
 			{...attr}

@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from '@redux-saga/core/effects'
-import api from 'core/api'
+import api from 'core/api/config'
 import {
 	logoutSuccess,
 	signInFailure,
@@ -14,7 +14,7 @@ import { setAuth } from 'core/http/util'
 import { appError } from 'store/app/saga'
 import { showStatusAction } from 'store/status/slice'
 
-export function* signInHandler({ payload: { passport } }: SignInRequest) {
+export function* signIn({ payload: { passport } }: SignInRequest) {
 	try {
 		const { data }: SignInResponsePayload = yield call(api.auth.login, passport)
 		yield call(setAuth, data)
@@ -32,15 +32,15 @@ export function* clearExpireCredentialhandler() {
 		yield put(signInReset())
 	}
 }
-export function* logoutHandler() {
+export function* logout() {
 	yield call(clearExpireCredentialhandler)
 	yield put(logoutSuccess())
 	yield put(showStatusAction({ message: 'با موفقیت خارج شدید', status: 'success' }))
 }
 
 function* authWatcher() {
-	yield takeLatest(signInRequest, signInHandler)
-	yield takeLatest(logoutRequest, logoutHandler)
+	yield takeLatest(signInRequest, signIn)
+	yield takeLatest(logoutRequest, logout)
 }
 function* userSaga() {
 	yield all([call(authWatcher)])

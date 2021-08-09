@@ -40,16 +40,16 @@ const Avatar: React.FC<AvatarProps> = React.memo(props => {
 	const statusComputedClassName = useClassName({
 		defaultClass: options.status.className,
 		optionalClass: {
-			[options.status.size]: status,
+			[options.status.size]: size,
 			[options.status.color]: status
 		}
 	})
 
 	return (
-		<span className={computedClassName} {...attr}>
+		<div className={computedClassName} {...attr}>
 			<LazyLoadImage effect="blur" src={image} className="avatar-img" alt={alt} />
 			{status && <span className={statusComputedClassName}></span>}
-		</span>
+		</div>
 	)
 })
 export default Avatar

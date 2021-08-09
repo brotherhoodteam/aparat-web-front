@@ -1,5 +1,4 @@
 import { useNProgress } from '@tanem/react-nprogress'
-import Spinner from './spinner'
 import Bar from './bar'
 import Container from './container'
 
@@ -8,7 +7,9 @@ interface Props {
 }
 const TopBarProgress: React.FC<Props> = ({ isAnimating }) => {
 	const { isFinished, progress, animationDuration } = useNProgress({
-		isAnimating
+		isAnimating,
+		animationDuration: 1000,
+		incrementDuration: 1000
 	})
 
 	return (

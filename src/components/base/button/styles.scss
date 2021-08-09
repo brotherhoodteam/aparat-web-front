@@ -504,3 +504,18 @@ button:not(:disabled) {
 // .btn.btn-link {
 // 	padding: 0 !important;
 // }
+
+
+.btn-outline-primary {
+    color: #377dff;
+    border-color: #377dff;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #377dff;
+    border-color: #377dff;
+}
+.btn-outline-primary.focus, .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgb(55 125 255 / 50%);
+}

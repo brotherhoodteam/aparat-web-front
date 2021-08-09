@@ -13,6 +13,14 @@ export const API_END_POINT = {
 		FETCH_USER_LIST: (): EndPoint => ({
 			url: '/user',
 			method: 'get'
+		}),
+		FETCH_FOLLOWER_USERS: (): EndPoint => ({
+			url: '/user/followers',
+			method: 'get'
+		}),
+		FETCH_FOLLOWING_USERS: (): EndPoint => ({
+			url: '/user/followings',
+			method: 'get'
 		})
 	},
 	AUTH: {

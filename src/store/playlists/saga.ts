@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from '@redux-saga/core/effects'
 
-import api from 'core/api'
+import api from 'core/api/config'
 import {
 	CreatePlaylistRequest,
 	CreatePlaylistResponsePayload,
@@ -18,7 +18,7 @@ import { showStatusAction } from 'store/status/slice'
 import { appError } from 'store/app/saga'
 import { all } from 'redux-saga/effects'
 
-export function* fetchPlaylistListHandler() {
+export function* fetchPlaylistList() {
 	try {
 		const { data }: FetchPlaylistListResponsePayload = yield call(api.playlists.get)
 		yield put(fetchPlaylistListSuccess({ playlistList: data }))
@@ -27,7 +27,7 @@ export function* fetchPlaylistListHandler() {
 	}
 }
 
-export function* createPlaylistHandler({ payload: { playlist } }: CreatePlaylistRequest) {
+export function* createPlaylist({ payload: { playlist } }: CreatePlaylistRequest) {
 	try {
 		const { data }: CreatePlaylistResponsePayload = yield call(
 			api.playlists.set,
@@ -43,8 +43,8 @@ export function* createPlaylistHandler({ payload: { playlist } }: CreatePlaylist
 }
 
 export function* playlistsWatcher() {
-	yield takeLatest(fetchPlaylistListRequest, fetchPlaylistListHandler)
-	yield takeLatest(createPlaylistRequest, createPlaylistHandler)
+	yield takeLatest(fetchPlaylistListRequest, fetchPlaylistList)
+	yield takeLatest(createPlaylistRequest, createPlaylist)
 }
 
 function* playlistSaga() {

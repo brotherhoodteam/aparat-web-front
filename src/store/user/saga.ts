@@ -1,4 +1,4 @@
-import api from 'core/api'
+import api from 'core/api/config'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { appError } from 'store/app/saga'
 import {
@@ -15,7 +15,7 @@ import {
 	fetchUserProfileSuccess
 } from './slice'
 
-export function* fetchUserProfilehandler() {
+export function* fetchUserProfile() {
 	try {
 		const { data }: FetchUserProfileResponsePayload = yield call(api.user.fetchProfile)
 		yield put(fetchUserProfileSuccess({ data }))
@@ -23,7 +23,7 @@ export function* fetchUserProfilehandler() {
 		yield call(appError, err, fetchUserProfileFailur, true)
 	}
 }
-export function* fetchUserListhandler({ payload }: FetchUserListRequest) {
+export function* fetchUserList({ payload }: FetchUserListRequest) {
 	try {
 		const { data }: FetchUserListResponsePayload = yield call(
 			api.user.fetchUserList,
@@ -31,14 +31,30 @@ export function* fetchUserListhandler({ payload }: FetchUserListRequest) {
 			payload?.per_page
 		)
 		yield put(fetchUserListSuccess({ data }))
-	} catch (err) {
-		yield call(appError, err, fetchUserListFailur, true)
+	} catch (error) {
+		yield call(appError, error, fetchUserListFailur, true)
+	}
+}
+
+export function* fetchFollowerUsers() {
+	try {
+		const { data } = yield call(api.user.fetchFollowerUsers)
+	} catch (error) {
+		yield call(appError, error, fetchUserListFailur, true)
+	}
+}
+
+export function* fetchFollowingUsers() {
+	try {
+		const { data } = yield call(api.user.fetchFollowingUsers)
+	} catch (error) {
+		yield call(appError, error, fetchUserListFailur, true)
 	}
 }
 
 function* usersWatchers() {
-	yield takeLatest(fetchUserProfileRequest, fetchUserProfilehandler)
-	yield takeLatest(fetchUserListRequest, fetchUserListhandler)
+	yield takeLatest(fetchUserProfileRequest, fetchUserProfile)
+	yield takeLatest(fetchUserListRequest, fetchUserList)
 }
 
 function* usersSaga() {

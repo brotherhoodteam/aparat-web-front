@@ -2,7 +2,7 @@ import { all, call, fork, put, take, takeLatest } from '@redux-saga/core/effects
 import { EventChannel, eventChannel } from '@redux-saga/core'
 import { select } from 'redux-saga/effects'
 import { selectPostList } from './selectors'
-import api from 'core/api'
+import api from 'core/api/config'
 
 import {
 	uploadVideoSuccess,
@@ -106,7 +106,7 @@ const createAsyncUploadBanner = (file: File) => {
 	return [promise, chan]
 }
 
-function* onProgressVideoHanlder(chan: any) {
+function* onProgressVideo(chan: any) {
 	while (true) {
 		const data: VideoData = yield take(chan)
 		if (data.state === 'proccess') {
@@ -123,7 +123,7 @@ function* onProgressVideoHanlder(chan: any) {
 	}
 }
 
-function* onProgressBannerHanlder(chan: any) {
+function* onProgressBanner(chan: any) {
 	while (true) {
 		const data: UploadBannerRequestPayload = yield take(chan)
 		if (data.state === 'proccess') {
@@ -140,27 +140,27 @@ function* onProgressBannerHanlder(chan: any) {
 	}
 }
 
-export function* uploadVideoHanlder({ payload: { video } }: UploadVideoRequest) {
+export function* uploadVideo({ payload: { video } }: UploadVideoRequest) {
 	try {
 		const [promise, chan] = createAsyncUploadVideo(video)
-		yield fork(onProgressVideoHanlder, chan)
+		yield fork(onProgressVideo, chan)
 		yield call(identity, promise)
 	} catch (error) {
 		yield call(appError, error, uploadVideoFailure, true)
 	}
 }
 
-export function* uploadBannerHanlder({ payload: { banner } }: UploadBannerRequest) {
+export function* uploadBanner({ payload: { banner } }: UploadBannerRequest) {
 	try {
 		const [promise, chan] = createAsyncUploadBanner(banner)
-		yield fork(onProgressBannerHanlder, chan)
+		yield fork(onProgressBanner, chan)
 		yield call(identity, promise)
 	} catch (error) {
 		yield call(appError, error, uploadBannerFailure, true)
 	}
 }
 
-export function* createPostHanlder({ payload: { video } }: CreatePostRequest) {
+export function* createPost({ payload: { video } }: CreatePostRequest) {
 	try {
 		const { data }: CreatePostResponsePayload = yield call(api.video.publish, video)
 		yield put(createPostSuccess({ data }))
@@ -173,7 +173,7 @@ export function* createPostHanlder({ payload: { video } }: CreatePostRequest) {
 	}
 }
 
-export function* fetchVideoListHanlder({ payload }: FetchPostListRequest) {
+export function* fetchVideoList({ payload }: FetchPostListRequest) {
 	try {
 		const { data }: FetchPostListResponsePayload = yield call(
 			api.video.getList,
@@ -186,7 +186,7 @@ export function* fetchVideoListHanlder({ payload }: FetchPostListRequest) {
 	}
 }
 
-export function* fetchVideoStatisticsHanlder({ payload }: FetchPostStatisticsRequest) {
+export function* fetchVideoStatistics({ payload }: FetchPostStatisticsRequest) {
 	try {
 		const { data }: FetchPostStatisticsResponsePayload = yield call(
 			api.video.statistics,
@@ -203,7 +203,7 @@ export function* fetchVideoStatisticsHanlder({ payload }: FetchPostStatisticsReq
 	}
 }
 
-export function* deleteVideoHanlder({ payload: { slug } }: DeletePostRequest) {
+export function* deleteVideo({ payload: { slug } }: DeletePostRequest) {
 	try {
 		const { data }: DeletePostResponsePayload = yield call(api.video.delete, slug)
 		yield put(deleteVideoSuccess(data))
@@ -218,7 +218,7 @@ export function* deleteVideoHanlder({ payload: { slug } }: DeletePostRequest) {
 	}
 }
 
-export function* fetchVideoHanlder({ payload: { slug } }: FetchPostRequest) {
+export function* fetchVideo({ payload: { slug } }: FetchPostRequest) {
 	try {
 		const { data }: FetchPostResponsePayload = yield call(api.video.get, slug)
 		yield put(fetchVideoSuccess({ data }))
@@ -227,7 +227,7 @@ export function* fetchVideoHanlder({ payload: { slug } }: FetchPostRequest) {
 	}
 }
 
-export function* updatePostHanlder({ payload: { slug, video } }: UpdateVideoRequest) {
+export function* updatePost({ payload: { slug, video } }: UpdateVideoRequest) {
 	try {
 		const { data }: FetchPostResponsePayload = yield call(api.video.update, slug, video)
 		yield put(updatePostSuccess({ video: data }))
@@ -240,14 +240,14 @@ export function* updatePostHanlder({ payload: { slug, video } }: UpdateVideoRequ
 }
 
 function* postWatcher() {
-	yield takeLatest(uploadBannerRequest, uploadBannerHanlder)
-	yield takeLatest(uploadVideoRequest, uploadVideoHanlder)
-	yield takeLatest(createPostRequest, createPostHanlder)
-	yield takeLatest(fetchVideoListRequest, fetchVideoListHanlder)
-	yield takeLatest(fetchVideoStatisticsRequest, fetchVideoStatisticsHanlder)
-	yield takeLatest(fetchVideoRequest, fetchVideoHanlder)
-	yield takeLatest(deleteVideoRequest, deleteVideoHanlder)
-	yield takeLatest(updatePostRequest, updatePostHanlder)
+	yield takeLatest(uploadBannerRequest, uploadBanner)
+	yield takeLatest(uploadVideoRequest, uploadVideo)
+	yield takeLatest(createPostRequest, createPost)
+	yield takeLatest(fetchVideoListRequest, fetchVideoList)
+	yield takeLatest(fetchVideoStatisticsRequest, fetchVideoStatistics)
+	yield takeLatest(fetchVideoRequest, fetchVideo)
+	yield takeLatest(deleteVideoRequest, deleteVideo)
+	yield takeLatest(updatePostRequest, updatePost)
 }
 
 function* postSaga() {

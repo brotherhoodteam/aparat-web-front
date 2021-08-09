@@ -7,11 +7,11 @@
 body {
 	margin: 0;
 	font-family: iranyekan, 'Open Sans', sans-serif;
-	font-size: .85rem;
+	font-size: 0.85rem;
 	font-weight: 400;
 	line-height: 1.6;
 	color: #677788;
-		background-color: #fff;
+	background-color: #fff;
 }
 article,
 aside,
@@ -48,7 +48,7 @@ a {
 	text-decoration: none;
 	background-color: transparent;
 	&:hover {
-		color: #0052ea;
+		color: #0052ea!important;
 		text-decoration: none;
 	}
 }

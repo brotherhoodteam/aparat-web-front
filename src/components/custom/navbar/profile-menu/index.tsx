@@ -127,8 +127,8 @@ const ProfileMenu: React.FC<ProfileNavbarProps> = props => {
 							</span>
 						</DropdownItem>
 						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.CHANNELS().link }}>
-							<span className="text-truncate" title="کانال‌های دنبال شده">
-								کانال‌های دنبال شده
+							<span className="text-truncate" title="کانال‌‌ها">
+								کانال‌‌ها
 							</span>
 						</DropdownItem>
 						<DropdownItem to={{ pathname: ROUTES.DASHBOARD.SETTINGS().link }}>

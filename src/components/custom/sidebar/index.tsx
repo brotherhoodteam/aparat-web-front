@@ -51,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = props => {
 							<NavbarSubtitle>حساب کاربری</NavbarSubtitle>
 						</NavbarItem>
 						<NavbarItem>
-							<NavbarLink icon="tio-dashboard-vs" slug="/dashboard">
+							<NavbarLink exact icon="tio-dashboard-vs" slug="/dashboard">
 								داشتبورد
 							</NavbarLink>
 						</NavbarItem>
@@ -74,8 +74,8 @@ const Sidebar: React.FC<SidebarProps> = props => {
 							</NavbarLink>
 						</NavbarItem>
 						<NavbarItem>
-							<NavbarLink icon="tio-subscribe" slug={ROUTES.DASHBOARD.FOLLOWERS().link}>
-								کانال‌های دنبال شده
+							<NavbarLink icon="tio-subscribe" slug={ROUTES.DASHBOARD.CHANNELS().link}>
+								کانال‌‌ها
 							</NavbarLink>
 						</NavbarItem>
 						<NavbarItem>

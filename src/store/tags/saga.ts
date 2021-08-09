@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from '@redux-saga/core/effects'
-import api from 'core/api'
+import api from 'core/api/config'
 import { appError } from 'store/app/saga'
 import { showStatusAction } from 'store/status/slice'
 import {
@@ -16,7 +16,7 @@ import {
 	createTagRequest
 } from './slice'
 
-export function* fetchTagListHandler() {
+export function* fetchTagList() {
 	try {
 		const { data }: FetchTagListResponsePayload = yield call(api.tags.get)
 		yield put(fetchTagListSuccess({ tags: data }))
@@ -25,7 +25,7 @@ export function* fetchTagListHandler() {
 	}
 }
 
-export function* createTagHandler({ payload: { tag } }: CreateTagRequest) {
+export function* createTag({ payload: { tag } }: CreateTagRequest) {
 	try {
 		const { data }: CreateTagResponsePayload = yield call(api.tags.set, tag)
 		yield put(createTagSuccess({ data }))
@@ -38,8 +38,8 @@ export function* createTagHandler({ payload: { tag } }: CreateTagRequest) {
 }
 
 function* tagsWatcher() {
-	yield takeLatest(fetchTagListRequest, fetchTagListHandler)
-	yield takeLatest(createTagRequest, createTagHandler)
+	yield takeLatest(fetchTagListRequest, fetchTagList)
+	yield takeLatest(createTagRequest, createTag)
 }
 
 function* tagsSaga() {

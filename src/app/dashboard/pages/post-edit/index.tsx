@@ -1,9 +1,8 @@
 import { useMemo, useEffect } from 'react'
 import { Form, Formik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import * as yup from 'yup'
-
 import useTypedDispatch from 'lib/hooks/use-typed-dispatch'
 import {
 	fetchVideoRequest,
@@ -23,12 +22,12 @@ import ROUTES from 'core/router/routes'
 import { imageResolver } from 'lib/utils'
 import { useTagList } from 'store/tags/hooks'
 
-import './style.scss'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NoData from 'components/custom/no-data'
 import EditPostLoader from 'components/custom/skeleton/edit-post'
 import { Tag } from 'lib/types/tag'
 import { useDraftPost, useUploadBanner } from 'store/post/hooks'
+import './style.scss'
 
 interface Props {}
 const DashboardPostEdit: React.FC<Props> = () => {

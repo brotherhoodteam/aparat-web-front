@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from '@redux-saga/core/effects'
-import api from 'core/api'
+import api from 'core/api/config'
 import {
 	CreateCategoryRequest,
 	CreateCategoryResponsePayload,
@@ -17,7 +17,7 @@ import { showStatusAction } from 'store/status/slice'
 
 import { appError } from 'store/app/saga'
 
-export function* fetchCategoryListHandler() {
+export function* fetchCategoryList() {
 	try {
 		const { data }: FetchCategoryListResponsePayload = yield call(api.categories.get)
 		yield put(fetchCategoryListSuccess({ data }))
@@ -26,7 +26,7 @@ export function* fetchCategoryListHandler() {
 	}
 }
 
-export function* createCategoryHandler({ payload: { category } }: CreateCategoryRequest) {
+export function* createCategory({ payload: { category } }: CreateCategoryRequest) {
 	try {
 		const { data }: CreateCategoryResponsePayload = yield call(
 			api.categories.set,
@@ -42,8 +42,8 @@ export function* createCategoryHandler({ payload: { category } }: CreateCategory
 }
 
 function* categoriesWatcher() {
-	yield takeLatest(fetchCategoryListRequest, fetchCategoryListHandler)
-	yield takeLatest(createCategoryRequest, createCategoryHandler)
+	yield takeLatest(fetchCategoryListRequest, fetchCategoryList)
+	yield takeLatest(createCategoryRequest, createCategory)
 }
 
 export default function* catgoriesSaga() {
